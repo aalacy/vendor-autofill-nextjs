@@ -1,0 +1,17 @@
+.MuiDataGrid-main > div:last-child {
+  display: none;
+}
+
+.MuiDateRangeCalendar-root > div:first-child {
+  display: none;
+}
+
+/* .MuiDataGrid-sortIcon {
+  fill: white;
+  color: white;
+}
+
+.MuiDataGrid-menuIcon .MuiSvgIcon-root {
+  fill: white;
+  color: white;
+} */
