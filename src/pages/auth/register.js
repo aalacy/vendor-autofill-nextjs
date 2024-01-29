@@ -52,7 +52,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Register | Devias Kit
+          Register | Prodbot
         </title>
       </Head>
       <Box
