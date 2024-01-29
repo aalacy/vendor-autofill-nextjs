@@ -71,13 +71,13 @@ export const SideNav = (props) => {
                 color="inherit"
                 variant="subtitle1"
               >
-                Devias
+                Prodbot
               </Typography>
               <Typography
                 color="neutral.400"
                 variant="body2"
               >
-                Production
+                Coordinating Assistant
               </Typography>
             </div>
             <SvgIcon
