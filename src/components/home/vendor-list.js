@@ -31,8 +31,7 @@ const DetailPanelContent = ({ row }) => {
   );
 };
 
-export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
-  const [vendors, setVendors] = useState();
+export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, setVendors }) => {
   const [loading, setLoading] = useState(false);
   const [paginationModel, setPaginationModel] = useState(initialPage);
   const [filterModel, setFilterModel] = useState([]);

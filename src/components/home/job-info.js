@@ -89,7 +89,7 @@ export const JobInfo = ({ open, setOpen, data, setData }) => {
         Jon Info
       </Typography>
 
-      <ClientDataGrid data={data} columns={JobInfoColumns()} />
+      <ClientDataGrid data={data} columns={JobInfoColumns(data?.length > 0 ? data[0] : {})} />
     </>
   );
 };

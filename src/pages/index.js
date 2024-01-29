@@ -12,6 +12,7 @@ const Page = () => {
   const [open, setOpen] = useState(false);
   const [jobData, setJobData] = useState([]);
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
+  const [vendors, setVendors] = useState();
 
   return (
     <>
@@ -28,8 +29,10 @@ const Page = () => {
         <Container maxWidth="xl">
           <Card>
             <CardContent>
-              <HeaderForm setOpen={setOpen} jobData={jobData} rowSelectionModel={rowSelectionModel} />
+              <HeaderForm vendors={vendors} setOpen={setOpen} jobData={jobData} rowSelectionModel={rowSelectionModel} setRowSelectionModel={setRowSelectionModel}/>
               <VendorList
+                vendors={vendors}
+                setVendors={setVendors}
                 rowSelectionModel={rowSelectionModel}
                 setRowSelectionModel={setRowSelectionModel}
               />

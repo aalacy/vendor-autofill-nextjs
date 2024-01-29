@@ -1,18 +1,35 @@
-import { Box, Button, TextField, Typography, InputAdornment } from "@mui/material";
+import { Box, Button, TextField, Typography, InputAdornment, CircularProgress } from "@mui/material";
 import { Email as EmailIcon } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useState } from "react";
 
 import { VendorService } from "src/services";
+import { ThankYou } from "../thank-you";
 
-export const HeaderForm = ({ rowSelectionModel, jobData, setOpen}) => {
+export const HeaderForm = ({ rowSelectionModel, setRowSelectionModel, jobData, setOpen, vendors }) => {
+  const [openThankyou, setOpenThankyou] = useState(false);
+  const [loading ,setLoading] = useState(false);
+
+  const onCloseThankyou = () => setOpenThankyou(false);
+
   const onSubmit = async (values) => {
+    if (rowSelectionModel.length < 1) {
+      return toast.error("Please select the vendors.");
+    }
+    if (jobData.length < 1) {
+      return toast.error("Please upload job data.");
+    }
     try {
+      setLoading(true);
       const ids = vendors.items.map((d) => d.id).filter((id) => rowSelectionModel.includes(id));
-      await VendorService.generatePDF(ids, values.email, jobData);
+      await VendorService.generatePDF(ids, values.email, jobData[0]);
+      setOpenThankyou(true);
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,13 +42,20 @@ export const HeaderForm = ({ rowSelectionModel, jobData, setOpen}) => {
   });
 
   const formik = useFormik({
+    enableReinitialize: true,
     onSubmit,
     initialValues,
     validationSchema: checkoutSchema,
   });
 
+  const clearForm = () => {
+    formik.resetForm();
+    setRowSelectionModel([])
+  }
+
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <>
+      <form onSubmit={formik.handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -73,11 +97,19 @@ export const HeaderForm = ({ rowSelectionModel, jobData, setOpen}) => {
               ),
             }}
           />
-          <Button type="submit" variant="contained">
+          <Button disabled={loading} startIcon={ loading ? <CircularProgress size={20}/> : null} type="submit" variant="contained">
             Generate
           </Button>
         </Box>
       </Box>
     </form>
+
+    <ThankYou
+      open={openThankyou}
+      onClose={onCloseThankyou}
+      email={formik.values?.email}
+      clearForm={clearForm}
+    />
+    </>
   );
 };

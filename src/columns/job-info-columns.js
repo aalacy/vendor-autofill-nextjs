@@ -1,12 +1,16 @@
 
-export const JobInfoColumns = () => {
-    return [
-      {
-        field: "name",
-        headerName: "Name",
-        type: "string",
-        resizable: true,
-        width: 200
-      },
-    ]
+export const JobInfoColumns = (jobData) => {
+  const columns = [];
+
+  for (const key of Object.keys(jobData)) {
+    columns.push({
+      field: key,
+      headerName: key,
+      type: "string",
+      resizable: true,
+      width: 200
+    })
+  }
+  
+  return columns
 }
