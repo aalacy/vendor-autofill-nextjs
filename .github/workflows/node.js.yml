@@ -1,0 +1,39 @@
+name: Deploying
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "Kill all the running PM2 actions"
+
+            echo "Jump to app folder"
+            cd /home/ubuntu/vendor-autofill-nextjs
+
+            echo "Update app from Git"
+            git pull origin main
+
+            echo "Install app dependencies"
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            yarn install
+
+            echo "Build your app"
+            yarn build
+
+            echo "Run new PM2 action"
+            source ~/.profile
+            pm2 reload 0
