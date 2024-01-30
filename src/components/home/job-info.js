@@ -6,6 +6,7 @@ import { Modal } from "../modal";
 import { ClientDataGrid } from "../client-datagrid";
 import { JobInfoColumns } from "src/columns";
 import { csvUploadStyles } from "src/utils/constants";
+import { refineCSVData } from "src/utils";
 
 const DEFAULT_REMOVE_HOVER_COLOR = "#A01919";
 const REMOVE_HOVER_COLOR_LIGHT = lightenDarkenColor(DEFAULT_REMOVE_HOVER_COLOR, 40);
@@ -24,7 +25,7 @@ export const JobInfo = ({ open, setOpen, data, setData }) => {
         <CSVReader
           config={{ header: true }}
           onUploadAccepted={(results) => {
-            setData(results.data);
+            setData(refineCSVData(results.data));
             setZoneHover(false);
             onClose();
           }}

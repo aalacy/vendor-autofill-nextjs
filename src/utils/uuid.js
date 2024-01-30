@@ -16,3 +16,8 @@ export const bytesToSize = (bytes, decimals = 2) => {
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
   };
   
+export const refineCSVData = (data) => {
+  if (data.length < 1) return data
+  if (!data[0].id) return data.map((item, index) => ({id: index, ...item}))
+  return data
+}

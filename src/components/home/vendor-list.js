@@ -23,6 +23,12 @@ const DetailPanelContent = ({ row }) => {
               <Typography variant="body1">
                 <b>Address:</b>&nbsp;{row.address}
               </Typography>
+              <Typography variant="body1">
+                <b>Website:</b>&nbsp;{row.website}
+              </Typography>
+              <Typography variant="body1">
+                <b>Hours:</b>&nbsp;{row.hours}
+              </Typography>
             </Grid>
           </Grid>
         </Stack>
