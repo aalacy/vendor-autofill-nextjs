@@ -1,4 +1,4 @@
-import { Typography, Stack, Paper, Grid } from "@mui/material";
+import { Typography, Stack, Paper, Grid, Box } from "@mui/material";
 import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
@@ -10,10 +10,10 @@ import { initialPage, updateList } from "src/utils";
 const DetailPanelContent = ({ row }) => {
   return (
     <Stack sx={{ py: 1, height: "100%", boxSizing: "border-box" }} direction="column">
-      <Paper sx={{ flex: 1, mx: "auto", width: "90%", p: 1 }}>
-        <Stack direction="column" spacing={1} sx={{ height: 1 }}>
+      <Paper sx={{ flex: 1, flexWrap: "wrap", mx: "auto", width: "90%", p: 1 }}>
+        <Stack direction="column" flexWrap="wrap" spacing={1} sx={{ height: 1 }}>
           <Grid container>
-            <Grid item md={6}>
+            <Grid item md={6} sm={12}>
               <Typography variant="h6" color="textSecondary" mb={2}>
                 Vendor Information
               </Typography>
@@ -26,8 +26,12 @@ const DetailPanelContent = ({ row }) => {
               <Typography variant="body1">
                 <b>Website:</b>&nbsp;{row.website}
               </Typography>
+              
+            </Grid>
+            <Grid item md={6}  sm={12}>
               <Typography variant="body1">
-                <b>Hours:</b>&nbsp;<pre>{row.hours}</pre>
+                <b>Hours:</b>
+                <Box ml={3}><pre>{row.hours}</pre></Box>
               </Typography>
             </Grid>
           </Grid>
@@ -49,6 +53,7 @@ export const VendorList = ({
   const [paginationModel, setPaginationModel] = useState(initialPage);
   const [filterModel, setFilterModel] = useState([]);
   const [rowCountState, setRowCountState] = useState(0);
+  const [logicOperator, setLogicOperator] = useState("");
 
   const getDetailPanelContent = useCallback(({ row }) => <DetailPanelContent row={row} />, []);
   const getDetailPanelHeight = useCallback(() => 200, []);
@@ -56,7 +61,7 @@ export const VendorList = ({
   const getData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await VendorService.all();
+      const { data } = await VendorService.all(paginationModel, filterModel, logicOperator);
       setVendors(data.result);
       setRowCountState(data.result.total_count);
     } catch (error) {
@@ -64,11 +69,11 @@ export const VendorList = ({
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [paginationModel, filterModel, logicOperator]);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [paginationModel, filterModel, logicOperator]);
 
   const handleCellValueChange = (params) => {
     const newRow = {
@@ -98,6 +103,7 @@ export const VendorList = ({
         rowThreshold={0}
         getDetailPanelHeight={getDetailPanelHeight}
         getDetailPanelContent={getDetailPanelContent}
+        setLogicOperator={setLogicOperator}
       />
     </>
   );
