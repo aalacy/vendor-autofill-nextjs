@@ -1,6 +1,26 @@
 import { Switch } from "@mui/material"
+import { useGridApiContext} from "@mui/x-data-grid-pro"
 
-export const VendorsColumns = () => {
+const EditSwitchCell = (params) => {
+  const { id, value, field, handleCellValueChange } = params;
+  const apiRef = useGridApiContext();
+
+  return (
+    <Switch
+      key={id}
+      defaultValue={value}
+      onChange={(event) =>
+        {
+          const props = { id, field, value: event.target.checked };
+          handleCellValueChange && handleCellValueChange(props)
+          apiRef.current.setEditCellValue({...props, debounceMs: 200})
+        }
+      }
+    />
+  );
+}
+
+export const VendorsColumns = ({ handleCellValueChange }) => {
     return [
       {
         field: "name",
@@ -21,13 +41,14 @@ export const VendorsColumns = () => {
         field: "credit_auth",
         headerName: "Credit Auth",
         resizable: true,
-        renderCell: (params) => (<Switch defaultChecked />)
+        renderCell: (params) => <EditSwitchCell  {...params} field="credit_auth" handleCellValueChange={handleCellValueChange}/>
       },
       {
         field: "rental_agreement",
         headerName: "Rental Agreement",
         resizable: true,
-        renderCell: (params) => (<Switch defaultChecked />)
+        width: 300,
+        renderCell: (params) => <EditSwitchCell  {...params} field="rental_agreement" handleCellValueChange={handleCellValueChange}/>
       },
     ]
 }

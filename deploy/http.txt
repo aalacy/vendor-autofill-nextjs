@@ -17,3 +17,5 @@ server {
             proxy_cache_bypass $http_upgrade;
     }
 }
+
+pm2 start npm --name "frontend" -- start

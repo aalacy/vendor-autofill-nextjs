@@ -27,7 +27,7 @@ export const EDataGrid = (props) => {
     setLogicOperator,
     rowThreshold,
     getDetailPanelHeight,
-    getDetailPanelContent
+    getDetailPanelContent,
   } = props;
 
   const computeMutation = (newRow, oldRow) => {

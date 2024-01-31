@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { VendorService } from "src/services";
 import { EDataGrid } from "src/components/e-datagrid";
 import { VendorsColumns } from "src/columns";
-import { initialPage } from "src/utils";
+import { initialPage, updateList } from "src/utils";
 
 const DetailPanelContent = ({ row }) => {
   return (
@@ -27,7 +27,7 @@ const DetailPanelContent = ({ row }) => {
                 <b>Website:</b>&nbsp;{row.website}
               </Typography>
               <Typography variant="body1">
-                <b>Hours:</b>&nbsp;{row.hours}
+                <b>Hours:</b>&nbsp;<pre>{row.hours}</pre>
               </Typography>
             </Grid>
           </Grid>
@@ -37,7 +37,14 @@ const DetailPanelContent = ({ row }) => {
   );
 };
 
-export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, setVendors }) => {
+export const VendorList = ({
+  setRowSelectionModel,
+  rowSelectionModel,
+  vendors,
+  setVendors,
+  selectedData,
+  setSelectedData,
+}) => {
   const [loading, setLoading] = useState(false);
   const [paginationModel, setPaginationModel] = useState(initialPage);
   const [filterModel, setFilterModel] = useState([]);
@@ -63,6 +70,14 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
     getData();
   }, []);
 
+  const handleCellValueChange = (params) => {
+    const newRow = {
+      id: params.id,
+      [params.field]: params.value
+    }
+    setSelectedData(updateList(selectedData, newRow))
+  };
+
   return (
     <>
       <Typography variant="h6" mb={2}>
@@ -71,7 +86,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
       <EDataGrid
         loading={loading}
         data={vendors?.items}
-        columns={VendorsColumns()}
+        columns={VendorsColumns({handleCellValueChange})}
         paginationModel={paginationModel}
         setPaginationModel={setPaginationModel}
         rowCountState={rowCountState}

@@ -1,4 +1,11 @@
-import { Box, Button, TextField, Typography, InputAdornment, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  InputAdornment,
+  CircularProgress,
+} from "@mui/material";
 import { Email as EmailIcon } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
@@ -8,9 +15,15 @@ import { useState } from "react";
 import { VendorService } from "src/services";
 import { ThankYou } from "../thank-you";
 
-export const HeaderForm = ({ rowSelectionModel, setRowSelectionModel, jobData, setOpen, vendors }) => {
+export const HeaderForm = ({
+  rowSelectionModel,
+  setRowSelectionModel,
+  jobData,
+  setOpen,
+  selectedData,
+}) => {
   const [openThankyou, setOpenThankyou] = useState(false);
-  const [loading ,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onCloseThankyou = () => setOpenThankyou(false);
 
@@ -23,8 +36,8 @@ export const HeaderForm = ({ rowSelectionModel, setRowSelectionModel, jobData, s
     }
     try {
       setLoading(true);
-      const ids = vendors.items.map((d) => d.id).filter((id) => rowSelectionModel.includes(id));
-      await VendorService.generatePDF(ids, values.email, jobData[0]);
+      const data = selectedData.filter(d => rowSelectionModel.includes(d.id));
+      await VendorService.generatePDF(data, values.email, jobData[0]);
       setOpenThankyou(true);
     } catch (error) {
       toast.error(error.message);
@@ -50,66 +63,71 @@ export const HeaderForm = ({ rowSelectionModel, setRowSelectionModel, jobData, s
 
   const clearForm = () => {
     formik.resetForm();
-    setRowSelectionModel([])
-  }
+    setRowSelectionModel([]);
+  };
 
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          gap: 2,
-          mb: 3,
-        }}
-      >
-        <Typography variant="h5">Auto Form</Typography>
         <Box
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            alignItems: "flex-start",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
             gap: 2,
+            mb: 3,
           }}
         >
-          <Button onClick={() => setOpen(true)} variant="contained">
-            Browse Job Info
-          </Button>
-          <TextField
-            type="text"
-            size="small"
-            label="Email Address"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            name="email"
-            error={!!formik.touched.email && !!formik.errors.email}
-            helperText={formik.touched.email && formik.errors.email}
-            sx={{ gridColumn: "span 2" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailIcon />
-                </InputAdornment>
-              ),
+          <Typography variant="h5">Auto Form</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "flex-start",
+              justifyContent: "space-around",
+              gap: 2,
             }}
-          />
-          <Button disabled={loading} startIcon={ loading ? <CircularProgress size={20}/> : null} type="submit" variant="contained">
-            Generate
-          </Button>
+          >
+            <Button onClick={() => setOpen(true)} variant="contained">
+              Browse Job Info
+            </Button>
+            <TextField
+              type="text"
+              size="small"
+              label="Email Address"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              name="email"
+              error={!!formik.touched.email && !!formik.errors.email}
+              helperText={formik.touched.email && formik.errors.email}
+              sx={{ gridColumn: "span 2" }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EmailIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              disabled={loading}
+              startIcon={loading ? <CircularProgress size={20} /> : null}
+              type="submit"
+              variant="contained"
+            >
+              Generate
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </form>
+      </form>
 
-    <ThankYou
-      open={openThankyou}
-      onClose={onCloseThankyou}
-      email={formik.values?.email}
-      clearForm={clearForm}
-    />
+      <ThankYou
+        open={openThankyou}
+        onClose={onCloseThankyou}
+        email={formik.values?.email}
+        clearForm={clearForm}
+      />
     </>
   );
 };

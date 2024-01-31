@@ -13,6 +13,7 @@ const Page = () => {
   const [jobData, setJobData] = useState([]);
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const [vendors, setVendors] = useState();
+  const [selectedData, setSelectedData] = useState([]);
 
   return (
     <>
@@ -29,12 +30,20 @@ const Page = () => {
         <Container maxWidth="xl">
           <Card>
             <CardContent>
-              <HeaderForm vendors={vendors} setOpen={setOpen} jobData={jobData} rowSelectionModel={rowSelectionModel} setRowSelectionModel={setRowSelectionModel}/>
+              <HeaderForm
+                setOpen={setOpen}
+                jobData={jobData}
+                rowSelectionModel={rowSelectionModel}
+                setRowSelectionModel={setRowSelectionModel}
+                selectedData={selectedData}
+              />
               <VendorList
                 vendors={vendors}
                 setVendors={setVendors}
                 rowSelectionModel={rowSelectionModel}
                 setRowSelectionModel={setRowSelectionModel}
+                selectedData={selectedData}
+                setSelectedData={setSelectedData}
               />
               <Divider sx={{ my: 3 }} />
               <JobInfo data={jobData} setData={setJobData} open={open} setOpen={setOpen} />

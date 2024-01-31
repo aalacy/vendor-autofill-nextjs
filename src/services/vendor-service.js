@@ -6,9 +6,9 @@ export class VendorService {
         return http.get('/vendors');
     }
 
-    static generatePDF(ids, email, jobData) {
+    static generatePDF(data, email, jobData) {
         return http.post('/vendors/generate_pdf', {
-            ids,
+            data,
             email,
             jobData
         })
