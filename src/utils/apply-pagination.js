@@ -12,12 +12,10 @@ export const updateList = (existingList, newObject) => {
 
   if (index !== -1) {
     // Update existing object
-    existingList[index] = newObject;
-    console.log('List updated:', existingList);
+    existingList[index] = {...existingList[index], ...newObject};
   } else {
     // Add new object if ID doesn't exist
     existingList.push(newObject);
-    console.log('Object added:', newObject);
   }
   return existingList
 }
