@@ -6,7 +6,7 @@ server {
     # Add index.php to the list if you are using PHP
     index index.html index.htm index.nginx-debian.html;
 
-    server_name 13.56.20.7;
+    server_name 18.144.6.106;
 
     location / {
             proxy_pass http://localhost:3000;
