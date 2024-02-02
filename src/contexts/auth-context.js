@@ -6,13 +6,15 @@ import { useRouter } from 'next/router';
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
   SIGN_IN: 'SIGN_IN',
-  SIGN_OUT: 'SIGN_OUT'
+  SIGN_OUT: 'SIGN_OUT',
+  CONFIRM: 'CONFIRM'
 };
 
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
-  user: null
+  user: null,
+  confirmMessage: null
 };
 
 const handlers = {
@@ -50,7 +52,15 @@ const handlers = {
       isAuthenticated: false,
       user: null
     };
-  }
+  },
+  [HANDLERS.CONFIRM]: (state, action) => {
+    const confirmMessage = action.payload;
+
+    return {
+      ...state,
+      confirmMessage
+    };
+  },
 };
 
 const reducer = (state, action) => (
@@ -125,6 +135,13 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const setUser = (user) => {
+    dispatch({
+      type: HANDLERS.SIGN_IN,
+      payload: user
+    });
+  };
+
   const signIn = async (email, password) => {
     const { data } = await AuthService.login(email, password);
     const { result: { access_token, user } } = data;
@@ -155,6 +172,21 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const showConfirmDlg = (confirmMessage) => {
+    dispatch({
+      type: HANDLERS.CONFIRM,
+      payload: confirmMessage
+    });
+  }
+
+  const hideConfirm = async () => {
+    dispatch({
+      type: HANDLERS.CONFIRM,
+      payload: { open: false },
+    });
+  };
+
+
   return (
     <AuthContext.Provider
       value={{
@@ -162,7 +194,10 @@ export const AuthProvider = (props) => {
         skip,
         signIn,
         signUp,
-        signOut
+        signOut,
+        setUser,
+        showConfirmDlg,
+        hideConfirm
       }}
     >
       {children}

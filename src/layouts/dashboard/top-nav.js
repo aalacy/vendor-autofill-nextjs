@@ -44,17 +44,46 @@ export const TopNav = (props) => {
           p: 3
         }}
       >
-        <Avatar
+        <Stack
+          alignItems="center"
+          direction="row"
+          justifyContent="space-between"
+          spacing={2}
+          sx={{
+            minHeight: TOP_NAV_HEIGHT,
+            px: 2
+          }}
+        >
+          <Stack
+            alignItems="center"
+            direction="row"
+            spacing={2}
+          >
+            {!lgUp && (
+              <IconButton onClick={onNavOpen}>
+                <SvgIcon fontSize="small">
+                  <Bars3Icon />
+                </SvgIcon>
+              </IconButton>
+            )}
+          </Stack>
+          <Stack
+            alignItems="center"
+            direction="row"
+            spacing={2}
+          >
+            <Avatar
               onClick={accountPopover.handleOpen}
               ref={accountPopover.anchorRef}
               sx={{
                 cursor: 'pointer',
                 height: 40,
-                width: 40,
-                ml: 'auto'
+                width: 40
               }}
               src="/assets/avatars/avatar-anika-visser.png"
             />
+          </Stack>
+        </Stack>
       </Box>
       <AccountPopover
         anchorEl={accountPopover.anchorRef.current}

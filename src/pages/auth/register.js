@@ -31,10 +31,14 @@ const Page = () => {
         .string()
         .max(255)
         .required('Name is required'),
-      password: Yup
-        .string()
+      password: Yup.string()
+        .min(8)
         .max(255)
-        .required('Password is required')
+        .required("Password is required")
+        .matches(
+          /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+          "Must Contain 8 Characters, One Number and One Special Case Character"
+        )
     }),
     onSubmit: async (values, helpers) => {
       try {

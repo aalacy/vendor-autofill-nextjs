@@ -1,5 +1,4 @@
 import http from "./http";
-import { uuid } from "../utils";
 
 export class AuthService {
   static me() {

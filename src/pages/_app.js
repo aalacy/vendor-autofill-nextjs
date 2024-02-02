@@ -13,6 +13,7 @@ import { createEmotionCache } from 'src/utils/create-emotion-cache';
 
 import 'simplebar-react/dist/simplebar.min.css';
 import "../theme/global.css";
+import ConfirmDialog from 'src/components/confirm';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -47,7 +48,12 @@ const App = (props) => {
               {
                 (auth) => auth.isLoading
                   ? <SplashScreen />
-                  : getLayout(<Component {...pageProps} />)
+                  : getLayout(<>
+                    <Component {...pageProps} />
+                    {auth.confirmMessage?.open && (
+                      <ConfirmDialog {...auth.confirmMessage} />
+                    )}
+                  </>)
               }
             </AuthConsumer>
           </ThemeProvider>
