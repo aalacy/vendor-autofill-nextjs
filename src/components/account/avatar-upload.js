@@ -43,6 +43,7 @@ export const AvatarUpload = () => {
     if (!files || files?.length < 1) return;
     setFiles([]);
     setLoading(true);
+    onClose()
     try {
       const { data } = await UserService.uploadAvatar(files[0], uploadedFile);
       toast.success("Successfully uploaded.");
@@ -72,6 +73,7 @@ export const AvatarUpload = () => {
                 height: 85,
                 width: 85,
                 mb: 4,
+                border: '0.1px solid lightgray'
               }}
             >
               <UserCircleIcon fontSize="small" />
