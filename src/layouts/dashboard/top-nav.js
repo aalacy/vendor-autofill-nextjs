@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
 import {
   Avatar,
+  Box,
   IconButton,
   Stack,
   SvgIcon,
