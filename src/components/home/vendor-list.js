@@ -18,6 +18,9 @@ const DetailPanelContent = ({ row }) => {
                 Vendor Information
               </Typography>
               <Typography variant="body1">
+                <b>Email:</b>&nbsp;{row.email}
+              </Typography>
+              <Typography variant="body1">
                 <b>Phone:</b>&nbsp;{row.phone}
               </Typography>
               <Typography variant="body1">
@@ -26,7 +29,9 @@ const DetailPanelContent = ({ row }) => {
               <Typography variant="body1">
                 <b>Website:</b>&nbsp;{row.website}
               </Typography>
-              
+              <Typography variant="body1">
+                <b>Category:</b>&nbsp;{row.category}
+              </Typography>
             </Grid>
             <Grid item md={6}  sm={12}>
               <Typography variant="body1">

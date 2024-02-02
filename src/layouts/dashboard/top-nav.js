@@ -1,48 +1,40 @@
-import PropTypes from 'prop-types';
-import Bars3Icon from '@heroicons/react/24/solid/Bars3Icon';
-import {
-  Avatar,
-  Box,
-  IconButton,
-  Stack,
-  SvgIcon,
-  useMediaQuery,
-  Badge
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { alpha } from '@mui/material/styles';
-import { usePopover } from 'src/hooks/use-popover';
-import { AccountPopover } from './account-popover';
-import { useAuth } from 'src/hooks/use-auth';
+import PropTypes from "prop-types";
+import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
+import { Avatar, Box, IconButton, Stack, SvgIcon, useMediaQuery, Badge } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { alpha } from "@mui/material/styles";
+import { usePopover } from "src/hooks/use-popover";
+import { AccountPopover } from "./account-popover";
+import { useAuth } from "src/hooks/use-auth";
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    backgroundColor: '#44b700',
-    color: '#44b700',
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
 
-    '&::after': {
-      position: 'absolute',
+    "&::after": {
+      position: "absolute",
       top: 0,
       left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: 'ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
       content: '""',
     },
   },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
       opacity: 1,
     },
-    '100%': {
-      transform: 'scale(2.4)',
+    "100%": {
+      transform: "scale(2.4)",
       opacity: 0,
     },
   },
@@ -50,28 +42,28 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export const TopNav = (props) => {
   const { onNavOpen } = props;
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   const accountPopover = usePopover();
 
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   return (
     <>
       <Box
         component="header"
         sx={{
-          backdropFilter: 'blur(6px)',
+          backdropFilter: "blur(6px)",
           backgroundColor: (theme) => alpha(theme.palette.background.default, 0.8),
-          position: 'sticky',
+          position: "sticky",
           left: {
-            lg: `${SIDE_NAV_WIDTH}px`
+            lg: `${SIDE_NAV_WIDTH}px`,
           },
           top: 0,
           width: {
-            lg: `calc(100% - ${SIDE_NAV_WIDTH}px)`
+            lg: `calc(100% - ${SIDE_NAV_WIDTH}px)`,
           },
           zIndex: (theme) => theme.zIndex.appBar,
-          p: 3
+          p: 3,
         }}
       >
         <Stack
@@ -81,14 +73,10 @@ export const TopNav = (props) => {
           spacing={2}
           sx={{
             minHeight: TOP_NAV_HEIGHT,
-            px: 2
+            px: 2,
           }}
         >
-          <Stack
-            alignItems="center"
-            direction="row"
-            spacing={2}
-          >
+          <Stack alignItems="center" direction="row" spacing={2}>
             {!lgUp && (
               <IconButton onClick={onNavOpen}>
                 <SvgIcon fontSize="small">
@@ -97,27 +85,23 @@ export const TopNav = (props) => {
               </IconButton>
             )}
           </Stack>
-          <Stack
-            alignItems="center"
-            direction="row"
-            spacing={2}
-          >
+          <Stack alignItems="center" direction="row" spacing={2}>
             <StyledBadge
-        overlap="circular"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        variant="dot"
-      >
-            <Avatar
-              onClick={accountPopover.handleOpen}
-              ref={accountPopover.anchorRef}
-              sx={{
-                cursor: 'pointer',
-                height: 40,
-                width: 40,
-                border: '0.1px solid lightgray'
-              }}
-              src={user?.avatar || "/assets/avatars/avatar-anika-visser.png"}
-            />
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                onClick={accountPopover.handleOpen}
+                ref={accountPopover.anchorRef}
+                sx={{
+                  cursor: "pointer",
+                  height: 40,
+                  width: 40,
+                  border: "0.1px solid lightgray",
+                }}
+                src={user?.avatar || "/assets/avatars/avatar-anika-visser.png"}
+              />
             </StyledBadge>
           </Stack>
         </Stack>
@@ -132,5 +116,5 @@ export const TopNav = (props) => {
 };
 
 TopNav.propTypes = {
-  onNavOpen: PropTypes.func
+  onNavOpen: PropTypes.func,
 };

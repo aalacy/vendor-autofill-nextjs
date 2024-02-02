@@ -30,13 +30,13 @@ export const VendorsColumns = ({ handleCellValueChange }) => {
         width: 200
       },
       
-      {
-        field: "email",
-        headerName: "Email",
-        type: "string",
-        resizable: true,
-        width: 200
-      },
+      // {
+      //   field: "email",
+      //   headerName: "Email",
+      //   type: "string",
+      //   resizable: true,
+      //   width: 200
+      // },
       {
         field: "credit_auth",
         headerName: "Credit Auth",
