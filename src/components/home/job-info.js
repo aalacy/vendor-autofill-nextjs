@@ -87,7 +87,7 @@ export const JobInfo = ({ open, setOpen, data, setData }) => {
       </Modal>
 
       <Typography variant="h6" mb={2}>
-        Jon Info
+        Job Info
       </Typography>
 
       <ClientDataGrid data={data} columns={JobInfoColumns(data?.length > 0 ? data[0] : {})} />

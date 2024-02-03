@@ -8,7 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { X as CloseIcon } from "@mui/icons-material";
+import { Close as CloseIcon } from "@mui/icons-material";
 
 export const Modal = (props) => {
   const { open, title, subTitle, onClose, size, children } = props;

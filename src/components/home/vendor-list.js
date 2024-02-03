@@ -6,6 +6,7 @@ import { VendorService } from "src/services";
 import { EDataGrid } from "src/components/e-datagrid";
 import { VendorsColumns } from "src/columns";
 import { initialPage, updateList } from "src/utils";
+import { ClientDataGrid } from "../client-datagrid";
 
 const DetailPanelContent = ({ row }) => {
   return (
@@ -61,7 +62,6 @@ export const VendorList = ({
   const [logicOperator, setLogicOperator] = useState("");
 
   const getDetailPanelContent = useCallback(({ row }) => <DetailPanelContent row={row} />, []);
-  const getDetailPanelHeight = useCallback(() => 200, []);
 
   const getData = useCallback(async () => {
     try {
@@ -93,23 +93,29 @@ export const VendorList = ({
       <Typography variant="h6" mb={2}>
         Vendors
       </Typography>
-      <EDataGrid
-        loading={loading}
-        data={vendors?.items}
-        columns={VendorsColumns({handleCellValueChange})}
-        paginationModel={paginationModel}
-        setPaginationModel={setPaginationModel}
-        rowCountState={rowCountState}
-        setRowCountState={setRowCountState}
-        filterModel={filterModel}
-        setFilterModel={setFilterModel}
-        rowSelectionModel={rowSelectionModel}
-        setRowSelectionModel={setRowSelectionModel}
-        rowThreshold={0}
-        getDetailPanelHeight={getDetailPanelHeight}
-        getDetailPanelContent={getDetailPanelContent}
-        setLogicOperator={setLogicOperator}
-      />
+      <div style={{ height: 400, width: '100%' }}>
+        {/* <EDataGrid
+          loading={loading}
+          data={vendors?.items}
+          columns={VendorsColumns({handleCellValueChange})}
+          paginationModel={paginationModel}
+          setPaginationModel={setPaginationModel}
+          rowCountState={rowCountState}
+          setRowCountState={setRowCountState}
+          filterModel={filterModel}
+          setFilterModel={setFilterModel}
+          rowSelectionModel={rowSelectionModel}
+          setRowSelectionModel={setRowSelectionModel}
+          rowThreshold={0}
+          getDetailPanelContent={getDetailPanelContent}
+          setLogicOperator={setLogicOperator}
+        /> */}
+        <ClientDataGrid
+          data={vendors?.items || []}
+          columns={VendorsColumns({handleCellValueChange})}
+          getDetailPanelContent={getDetailPanelContent}
+        />
+      </div>
     </>
   );
 };

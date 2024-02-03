@@ -1,11 +1,29 @@
 import { useCallback, useEffect } from "react";
 import {
   DataGridPro,
+  GridColumnMenuContainer,
+  GridColumnMenuFilterItem,
+  GridColumnMenuSortItem,
 } from "@mui/x-data-grid-pro";
 import { toast } from "react-hot-toast";
 
 import { TableSkeleton } from "./table-skeleton";
 import CustomNoRowsOverlay from "./custom-no-rows";
+
+export function CustomColumnMenuComponent(props) {
+  const { hideMenu, colDef,  ...other } = props;
+
+    return (
+      <GridColumnMenuContainer
+        hideMenu={hideMenu}
+        colDef={colDef}
+        {...other}
+      >
+        <GridColumnMenuSortItem onClick={hideMenu} colDef={colDef} />
+        <GridColumnMenuFilterItem onClick={hideMenu} colDef={colDef} />
+      </GridColumnMenuContainer>
+    );
+    }
 
 export const EDataGrid = (props) => {
   const {
@@ -26,9 +44,10 @@ export const EDataGrid = (props) => {
     hideCheckbox,
     setLogicOperator,
     rowThreshold,
-    getDetailPanelHeight,
     getDetailPanelContent,
   } = props;
+
+  const getDetailPanelHeight = useCallback(() => 'auto', []);
 
   const computeMutation = (newRow, oldRow) => {
     let ret = null;
@@ -81,6 +100,8 @@ export const EDataGrid = (props) => {
       loading={loading}
       filterMode="server"
       onFilterModelChange={onFilterChange}
+      columnBuffer={2} 
+      columnThreshold={2}
       pagination
       pageSizeOptions={pageSizeOptions || [5]}
       paginationModel={paginationModel}
@@ -97,7 +118,11 @@ export const EDataGrid = (props) => {
         noRowsOverlay: CustomNoRowsOverlay,
         noResultsOverlay: CustomNoRowsOverlay,
         loadingOverlay: TableSkeleton,
+        columnMenu: CustomColumnMenuComponent,
       }}
+      getRowClassName={(params) =>
+        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+      }
       processRowUpdate={processRowUpdate}
       onProcessRowUpdateError={handleProcessRowUpdateError}
       sx={{
@@ -111,6 +136,12 @@ export const EDataGrid = (props) => {
         width: "100%",
         minHeight: 300,
         flex: 1,
+        boxShadow: 2,
+        border: 2,
+        borderColor: 'primary.light',
+        '& .MuiDataGrid-cell:hover': {
+          color: 'primary.main',
+        },
       }}
     />
   );
