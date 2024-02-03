@@ -13,7 +13,7 @@ const ReportRenderToolbar = () => {
 };
 
 export const ClientDataGrid = (props) => {
-  const { data, columns, hasPagination, getDetailPanelContent } = props;
+  const { loading, data, columns, hasPagination, getDetailPanelContent, rowSelectionModel, setRowSelectionModel } = props;
 
   const [detailPanelExpandedRowIds, setDetailPanelExpandedRowIds] = useState([]);
   
@@ -30,11 +30,11 @@ export const ClientDataGrid = (props) => {
   return (
     <DataGridPro
       checkboxSelection
-      pagination={hasPagination}
       disableColumnFilter
       disableColumnSelector
       disableDensitySelector
-      disableRowSelectionOnClick
+      loading={loading}
+      pagination={hasPagination}
       rows={data}
       initialState={{
         pagination: { paginationModel: { pageSize: 5 } },
@@ -44,6 +44,10 @@ export const ClientDataGrid = (props) => {
       getDetailPanelContent={getDetailPanelContent}
       detailPanelExpandedRowIds={detailPanelExpandedRowIds}
       onDetailPanelExpandedRowIdsChange={handleDetailPanelExpandedRowIdsChange}
+      onRowSelectionModelChange={(newRowSelectionModel) => {
+        setRowSelectionModel(newRowSelectionModel);
+      }}
+      rowSelectionModel={rowSelectionModel}
       rowThreshold={0} 
       columnBuffer={2} 
       columnThreshold={2}
@@ -58,6 +62,17 @@ export const ClientDataGrid = (props) => {
         toolbar: {
           showQuickFilter: true,
         },
+      }}
+      getRowClassName={(params) =>
+        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+      }
+      sx={{
+        boxShadow: 1,
+        borderColor: 'primary.light',
+        '& .MuiDataGrid-cell:hover': {
+          color: 'primary.main',
+        },
+        padding: 1
       }}
     />
   );

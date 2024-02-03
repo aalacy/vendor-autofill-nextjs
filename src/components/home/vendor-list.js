@@ -104,16 +104,19 @@ export const VendorList = ({
           setRowCountState={setRowCountState}
           filterModel={filterModel}
           setFilterModel={setFilterModel}
+          rowThreshold={0}
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
-          rowThreshold={0}
           getDetailPanelContent={getDetailPanelContent}
           setLogicOperator={setLogicOperator}
         /> */}
         <ClientDataGrid
+          loading={loading}
           data={vendors?.items || []}
           columns={VendorsColumns({handleCellValueChange})}
           getDetailPanelContent={getDetailPanelContent}
+          rowSelectionModel={rowSelectionModel}
+          setRowSelectionModel={setRowSelectionModel}
         />
       </div>
     </>
