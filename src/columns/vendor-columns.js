@@ -1,5 +1,7 @@
 import { Switch } from "@mui/material"
-import { useGridApiContext} from "@mui/x-data-grid-pro"
+import {
+  useGridApiContext,
+} from "@mui/x-data-grid-pro";
 
 const EditSwitchCell = (params) => {
   const { id, value, row, field, handleCellValueChange } = params;
@@ -11,6 +13,7 @@ const EditSwitchCell = (params) => {
       defaultValue={value}
       onChange={(event) =>
         {
+          event.defaultMuiPrevented = true;
           const props = { id: row.id, field, value: event.target.checked };
           handleCellValueChange && handleCellValueChange(props)
           apiRef.current.setEditCellValue({...props, debounceMs: 200})

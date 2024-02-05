@@ -2,13 +2,13 @@ import http from "./http";
 
 export class VendorService {
 
-    static all(paginationModel, filterModel, logicOperator) {
+    static all() {
         
         return http.post(`/vendors/all`, {
-            page: paginationModel.page+1,
-            take: paginationModel.pageSize,
-            filterModel,
-            logicOperator
+            page: 1,
+            take: -1,
+            filterModel: [],
+            logicOperator: ""
         });
     }
 

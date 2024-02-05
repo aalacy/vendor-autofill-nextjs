@@ -28,7 +28,7 @@ export const HeaderForm = ({
   const onCloseThankyou = () => setOpenThankyou(false);
 
   const onSubmit = async (values) => {
-    if (rowSelectionModel.length < 1) {
+    if (selectedData.length < 1) {
       return toast.error("Please select the vendors.");
     }
     if (jobData.length < 1) {
@@ -36,8 +36,7 @@ export const HeaderForm = ({
     }
     try {
       setLoading(true);
-      const data = selectedData.filter(d => rowSelectionModel.includes(d.id));
-      await VendorService.generatePDF(data, values.email, jobData[0]);
+      await VendorService.generatePDF(selectedData, values.email, jobData[0]);
       setOpenThankyou(true);
     } catch (error) {
       toast.error(error.message);

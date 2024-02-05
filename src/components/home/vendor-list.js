@@ -1,11 +1,12 @@
-import { Typography, Stack, Paper, Grid, Box } from "@mui/material";
+import { Typography, Stack, Paper, Grid, Box, IconButton, Tooltip } from "@mui/material";
+import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid-pro";
+import { Refresh as RefreshIcon } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
 import { VendorService } from "src/services";
-import { EDataGrid } from "src/components/e-datagrid";
 import { VendorsColumns } from "src/columns";
-import { initialPage, updateList } from "src/utils";
+import { updateList } from "src/utils";
 import { ClientDataGrid } from "../client-datagrid";
 
 const DetailPanelContent = ({ row }) => {
@@ -34,10 +35,10 @@ const DetailPanelContent = ({ row }) => {
                 <b>Category:</b>&nbsp;{row.category}
               </Typography>
             </Grid>
-            <Grid item md={6}  sm={12}>
+            <Grid item md={6} sm={12}>
               <Typography variant="body1">
                 <b>Hours:</b>
-                <Box ml={3}><pre>{row.hours}</pre></Box>
+                <pre>{row.hours}</pre>
               </Typography>
             </Grid>
           </Grid>
@@ -46,6 +47,16 @@ const DetailPanelContent = ({ row }) => {
     </Stack>
   );
 };
+
+const ReportRenderToolbar = () => {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarQuickFilter />
+    </GridToolbarContainer>
+  );
+};
+
+const Footer = () => <></>;
 
 export const VendorList = ({
   setRowSelectionModel,
@@ -56,67 +67,84 @@ export const VendorList = ({
   setSelectedData,
 }) => {
   const [loading, setLoading] = useState(false);
-  const [paginationModel, setPaginationModel] = useState(initialPage);
-  const [filterModel, setFilterModel] = useState([]);
-  const [rowCountState, setRowCountState] = useState(0);
-  const [logicOperator, setLogicOperator] = useState("");
+  const [pdfCount, setPDFCount] = useState(0);
 
   const getDetailPanelContent = useCallback(({ row }) => <DetailPanelContent row={row} />, []);
 
   const getData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await VendorService.all(paginationModel, filterModel, logicOperator);
+      const { data } = await VendorService.all();
       setVendors(data.result);
-      setRowCountState(data.result.total_count);
     } catch (error) {
       toast.error(error.message);
     } finally {
       setLoading(false);
     }
-  }, [paginationModel, filterModel, logicOperator]);
+  }, []);
 
   useEffect(() => {
     getData();
-  }, [paginationModel, filterModel, logicOperator]);
+  }, []);
+
+  const countPDFs = (selected) => {
+    let total = 0;
+    for (const { credit_auth, rental_agreement } of selected) {
+      if (credit_auth) total++;
+      if (rental_agreement) total++;
+    }
+
+    setPDFCount(total);
+  }
 
   const handleCellValueChange = (params) => {
     const newRow = {
       id: params.id,
-      [params.field]: params.value
-    }
-    setSelectedData(updateList(selectedData, newRow))
+      [params.field]: params.value,
+    };
+    const selected = updateList(selectedData, newRow)
+    setSelectedData(selected);
+    countPDFs(selected)
   };
+
+  const handleClear = () => {
+    setSelectedData([]);
+  };
+  
+  // Get the total number of pdfs
+  useEffect(() => {
+    
+  }, [selectedData])
 
   return (
     <>
-      <Typography variant="h6" mb={2}>
-        Vendors
-      </Typography>
-      <div style={{ height: 400, width: '100%' }}>
-        {/* <EDataGrid
-          loading={loading}
-          data={vendors?.items}
-          columns={VendorsColumns({handleCellValueChange})}
-          paginationModel={paginationModel}
-          setPaginationModel={setPaginationModel}
-          rowCountState={rowCountState}
-          setRowCountState={setRowCountState}
-          filterModel={filterModel}
-          setFilterModel={setFilterModel}
-          rowThreshold={0}
-          rowSelectionModel={rowSelectionModel}
-          setRowSelectionModel={setRowSelectionModel}
-          getDetailPanelContent={getDetailPanelContent}
-          setLogicOperator={setLogicOperator}
-        /> */}
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Typography variant="h6" mb={2}>
+          Vendors: &nbsp;(<small>{vendors?.items?.length}</small>)
+        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography>
+            {pdfCount} <b>PDFs</b>
+          </Typography>
+          {/* <Tooltip title="Clear">
+            <IconButton onClick={handleClear} color="primary" size="small">
+              <RefreshIcon />
+            </IconButton>
+          </Tooltip> */}
+        </Box>
+      </Box>
+      <div style={{ height: 400, width: "100%" }}>
         <ClientDataGrid
           loading={loading}
           data={vendors?.items || []}
-          columns={VendorsColumns({handleCellValueChange})}
+          columns={VendorsColumns({ handleCellValueChange })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
+          toolbar={ReportRenderToolbar}
+          slots={{
+            footer: Footer,
+          }}
         />
       </div>
     </>
