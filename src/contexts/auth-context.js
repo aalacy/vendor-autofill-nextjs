@@ -195,21 +195,10 @@ export const AuthProvider = (props) => {
   const fetchJob = async () => {
     let isJobFetched = false;
 
-    try {
-      isJobFetched = window.sessionStorage.getItem('jobFetched') === 'true';
-    } catch (err) {
-      console.error(err);
-    }
-
-    if (state.isAuthenticated && (!isJobFetched || !state.job)) {
+    if (!isJobFetched || !state.job) {
       const { data } = await JobService.mine();
       const { result } = data;
-      try {
-        window.sessionStorage.setItem('jobFetched', 'true');
-      } catch (err) {
-        console.error(err);
-      }
-  
+
       dispatch({
         type: HANDLERS.FETCH_JOB,
         payload: result
