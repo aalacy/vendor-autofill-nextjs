@@ -5,17 +5,22 @@ import { beautyDateTime, downloadMedia } from "src/utils";
 const PDFCell = ({ params, type, handleView }) => (
   <>
     <Tooltip title="View PDF">
-      <IconButton color="primary" onClick={() => handleView(params.value, params.row, type)}>
-        <ViewIcon />
-      </IconButton>
+      <span>
+        <IconButton disabled={!params.value} color="primary" onClick={() => handleView(params.value, params.row, type)}>
+          <ViewIcon />
+        </IconButton>
+      </span>
     </Tooltip>
     <Tooltip title="Download PDF">
-      <IconButton
-        color="secondary"
-        onClick={() => downloadMedia(params.row.vendor_name, params.row[type])}
-      >
-        <DownloadIcon />
-      </IconButton>
+      <span>
+        <IconButton
+          disabled={!params.value}
+          color="secondary"
+          onClick={() => downloadMedia(params.row.vendor_name, params.value)}
+        >
+          <DownloadIcon />
+        </IconButton>
+      </span>
     </Tooltip>
   </>
 );
