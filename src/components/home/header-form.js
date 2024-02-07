@@ -16,8 +16,7 @@ import { VendorService } from "src/services";
 import { ThankYou } from "../thank-you";
 
 export const HeaderForm = ({
-  rowSelectionModel,
-  setRowSelectionModel,
+  setSelectedData,
   jobData,
   setOpen,
   selectedData,
@@ -62,7 +61,7 @@ export const HeaderForm = ({
 
   const clearForm = () => {
     formik.resetForm();
-    setRowSelectionModel([]);
+    setSelectedData([]);
   };
 
   return (

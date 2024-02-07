@@ -36,6 +36,7 @@ const Page = () => {
                 rowSelectionModel={rowSelectionModel}
                 setRowSelectionModel={setRowSelectionModel}
                 selectedData={selectedData}
+                setSelectedData={setSelectedData}
               />
               <VendorList
                 vendors={vendors}

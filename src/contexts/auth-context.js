@@ -2,19 +2,23 @@ import { createContext, useContext, useEffect, useReducer, useRef } from 'react'
 import PropTypes from 'prop-types';
 import { AuthService } from 'src/services/auth-service';
 import { useRouter } from 'next/router';
+import { JobService } from 'src/services';
 
 const HANDLERS = {
   INITIALIZE: 'INITIALIZE',
   SIGN_IN: 'SIGN_IN',
   SIGN_OUT: 'SIGN_OUT',
-  CONFIRM: 'CONFIRM'
+  CONFIRM: 'CONFIRM',
+  FETCH_JOB: 'FETCH_JOB'
 };
 
 const initialState = {
   isAuthenticated: false,
   isLoading: true,
   user: null,
-  confirmMessage: null
+  confirmMessage: null,
+  isJobFetched: false,
+  job: null
 };
 
 const handlers = {
@@ -59,6 +63,15 @@ const handlers = {
     return {
       ...state,
       confirmMessage
+    };
+  },
+  [HANDLERS.FETCH_JOB]: (state, action) => {
+    const job = action.payload;
+
+    return {
+      ...state,
+      isJobFetched: true,
+      job
     };
   },
 };
@@ -107,13 +120,6 @@ export const AuthProvider = (props) => {
     }
   };
 
-  useEffect(
-    () => {
-      initialize();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
 
   const skip = () => {
     try {
@@ -186,6 +192,43 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const fetchJob = async () => {
+    let isJobFetched = false;
+
+    try {
+      isJobFetched = window.sessionStorage.getItem('jobFetched') === 'true';
+    } catch (err) {
+      console.error(err);
+    }
+
+    if (state.isAuthenticated && (!isJobFetched || !state.job)) {
+      const { data } = await JobService.mine();
+      const { result } = data;
+      try {
+        window.sessionStorage.setItem('jobFetched', 'true');
+      } catch (err) {
+        console.error(err);
+      }
+  
+      dispatch({
+        type: HANDLERS.FETCH_JOB,
+        payload: result
+      });
+    } else {
+      dispatch({
+        type: HANDLERS.FETCH_JOB,
+      });
+    }
+  };
+
+  useEffect(
+    () => {
+      initialize();
+      fetchJob();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return (
     <AuthContext.Provider
@@ -197,7 +240,8 @@ export const AuthProvider = (props) => {
         signOut,
         setUser,
         showConfirmDlg,
-        hideConfirm
+        hideConfirm,
+        fetchJob
       }}
     >
       {children}

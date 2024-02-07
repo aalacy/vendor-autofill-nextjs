@@ -19,4 +19,8 @@ export class VendorService {
             jobData
         })
     }
+
+    static readGSheet() {
+        return http.get('/vendors/read_g_sheet')
+    }
 }

@@ -113,7 +113,7 @@ export const VendorList = ({
   
   // Get the total number of pdfs
   useEffect(() => {
-    
+    countPDFs(selectedData)
   }, [selectedData])
 
   return (
@@ -126,11 +126,11 @@ export const VendorList = ({
           <Typography>
             {pdfCount} <b>PDFs</b>
           </Typography>
-          {/* <Tooltip title="Clear">
+          <Tooltip title="Clear">
             <IconButton onClick={handleClear} color="primary" size="small">
               <RefreshIcon />
             </IconButton>
-          </Tooltip> */}
+          </Tooltip>
         </Box>
       </Box>
       <div style={{ height: 400, width: "100%" }}>

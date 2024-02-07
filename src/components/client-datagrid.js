@@ -32,7 +32,7 @@ export const ClientDataGrid = (props) => {
       disableDensitySelector
       loading={loading}
       pagination={hasPagination}
-      rows={data}
+      rows={data || []}
       initialState={{
         pagination: { paginationModel: { pageSize: 5 } },
       }}

@@ -1,10 +1,13 @@
 import { Box, Card, CardHeader, CardContent, Container } from "@mui/material";
 import Head from "next/head";
-import { PdfViewer } from "src/components/pdf-viewer";
+import { useState } from "react";
+import { HistoryList } from "src/components/history/history-list";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 const ViewPDF = () => {
+    const [histories, setHistories] = useState();
+
   return (
     <>
       <Head>
@@ -18,9 +21,12 @@ const ViewPDF = () => {
       >
         <Container maxWidth="xl">
           <Card>
-            <CardHeader title="View PDF"></CardHeader>
+            <CardHeader title="Requested Vendors"></CardHeader>
             <CardContent>
-              <PdfViewer pdfUrl="/docs/MMI-API-Documentation-April-2023.pdf" />
+              <HistoryList 
+                histories={histories}
+                setHistories={setHistories}
+              />
             </CardContent>
           </Card>
         </Container>

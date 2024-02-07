@@ -1,3 +1,5 @@
 export * from "./auth-service"
 export * from "./vendor-service"
 export * from "./user-service"
+export * from "./history-service"
+export * from "./job-service"
