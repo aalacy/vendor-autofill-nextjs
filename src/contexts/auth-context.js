@@ -195,7 +195,7 @@ export const AuthProvider = (props) => {
   const fetchJob = async () => {
     let isJobFetched = false;
 
-    if (!isJobFetched || !state.job) {
+    if ((!isJobFetched || !state.job) && !pathname.includes('auth')){
       const { data } = await JobService.mine();
       const { result } = data;
 
