@@ -11,6 +11,7 @@ const $api = axios.create({
   signal: controller.signal,
   timeout: 1225000,
   baseURL: `${API_URL}`,
+  withCredentials: true
 });
 
 // axios.defaults.withCredentials = true;
