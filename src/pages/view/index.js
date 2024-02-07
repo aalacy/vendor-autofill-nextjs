@@ -21,7 +21,7 @@ const ViewPDF = () => {
       >
         <Container maxWidth="xl">
           <Card>
-            <CardHeader title="Requested Vendors"></CardHeader>
+            <CardHeader title="Job Files"></CardHeader>
             <CardContent>
               <HistoryList 
                 histories={histories}

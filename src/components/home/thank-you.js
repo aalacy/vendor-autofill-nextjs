@@ -1,6 +1,6 @@
 import { Typography, Button } from "@mui/material";
 
-import { Modal } from "./modal"
+import { Modal } from "../modal"
 
 export const ThankYou = ({ open, onClose, email, clearForm }) => {
     const onClick = () => {

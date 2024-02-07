@@ -5,12 +5,9 @@ import { useState } from "react";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { VendorList } from "src/components/home/vendor-list";
-import { JobInfo } from "src/components/home/job-info";
 import { HeaderForm } from "src/components/home/header-form";
 
 const Page = () => {
-  const [open, setOpen] = useState(false);
-  const [jobData, setJobData] = useState([]);
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const [vendors, setVendors] = useState();
   const [selectedData, setSelectedData] = useState([]);
@@ -18,7 +15,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Vendor Forms</title>
       </Head>
       <Box
         component="main"
@@ -31,8 +28,6 @@ const Page = () => {
           <Card>
             <CardContent>
               <HeaderForm
-                setOpen={setOpen}
-                jobData={jobData}
                 rowSelectionModel={rowSelectionModel}
                 setRowSelectionModel={setRowSelectionModel}
                 selectedData={selectedData}
@@ -47,7 +42,7 @@ const Page = () => {
                 setSelectedData={setSelectedData}
               />
               <Divider sx={{ my: 3 }} />
-              <JobInfo data={jobData} setData={setJobData} open={open} setOpen={setOpen} />
+              {/* <JobInfo data={jobData} setData={setJobData} open={open} setOpen={setOpen} /> */}
             </CardContent>
           </Card>
         </Container>

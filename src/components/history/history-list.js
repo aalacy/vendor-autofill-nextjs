@@ -16,7 +16,8 @@ export const HistoryList = ({ histories, setHistories }) => {
   const [logicOperator, setLogicOperator] = useState("");
   const [open, setOpen] = useState(false);
   const [pdfUrl, setUrl] = useState("");
-  const [vendor, setVendor] = useState();
+  const [vendor, setVendor] = useState("");
+  const [type, setType] = useState("");
 
   const getData = useCallback(async () => {
     try {
@@ -35,18 +36,15 @@ export const HistoryList = ({ histories, setHistories }) => {
     getData();
   }, [paginationModel, filterModel, logicOperator]);
 
-  const handleView = (url, item) => {
+  const handleView = (url, item, type) => {
     setUrl(url);
     setVendor(item);
-    console.log('item', item)
+    setType(type)
     setOpen(true);
   };
 
   return (
     <>
-      {/* <Typography variant="h6" mb={2}>
-        Histories
-      </Typography> */}
       <EDataGrid
         loading={loading}
         data={histories?.items}
@@ -61,7 +59,7 @@ export const HistoryList = ({ histories, setHistories }) => {
       />
 
       <Modal
-        title={`${vendor?.vendor?.name} - ${vendor?.type || ""}`}
+        title={`${vendor?.vendor?.name} - ${type || ""}`}
         open={open}
         onClose={() => setOpen(false)}
         size="md"

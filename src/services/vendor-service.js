@@ -12,11 +12,10 @@ export class VendorService {
         });
     }
 
-    static generatePDF(data, email, jobData) {
+    static generatePDF(data, email) {
         return http.post('/vendors/generate_pdf', {
             data,
             email,
-            jobData
         })
     }
 

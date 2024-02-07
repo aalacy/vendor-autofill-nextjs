@@ -13,16 +13,19 @@ import * as yup from "yup";
 import { useState } from "react";
 
 import { VendorService } from "src/services";
-import { ThankYou } from "../thank-you";
+import { ThankYou } from "./thank-you";
+import { useAuth } from "src/hooks/use-auth";
+import { AlertJob } from "./alert-job";
 
 export const HeaderForm = ({
   setSelectedData,
-  jobData,
-  setOpen,
   selectedData,
 }) => {
+  const { job } = useAuth();
+
   const [openThankyou, setOpenThankyou] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openJobAlert, setOpenJobAlert] = useState(false);
 
   const onCloseThankyou = () => setOpenThankyou(false);
 
@@ -30,12 +33,12 @@ export const HeaderForm = ({
     if (selectedData.length < 1) {
       return toast.error("Please select the vendors.");
     }
-    if (jobData.length < 1) {
-      return toast.error("Please upload job data.");
+    if (!job) {
+      return setOpenJobAlert(true);
     }
     try {
       setLoading(true);
-      await VendorService.generatePDF(selectedData, values.email, jobData[0]);
+      await VendorService.generatePDF(selectedData, values.email);
       setOpenThankyou(true);
     } catch (error) {
       toast.error(error.message);
@@ -76,7 +79,7 @@ export const HeaderForm = ({
             mb: 3,
           }}
         >
-          <Typography variant="h5">Auto Form</Typography>
+          <Typography variant="h5">Vendor Forms</Typography>
           <Box
             sx={{
               display: "flex",
@@ -86,9 +89,9 @@ export const HeaderForm = ({
               gap: 2,
             }}
           >
-            <Button onClick={() => setOpen(true)} variant="contained">
+            {/* <Button onClick={() => setOpen(true)} variant="contained">
               Browse Job Info
-            </Button>
+            </Button> */}
             <TextField
               type="text"
               size="small"
@@ -125,6 +128,11 @@ export const HeaderForm = ({
         onClose={onCloseThankyou}
         email={formik.values?.email}
         clearForm={clearForm}
+      />
+
+      <AlertJob
+        open={openJobAlert}
+        onClose={() => setOpenJobAlert(false)}
       />
     </>
   );

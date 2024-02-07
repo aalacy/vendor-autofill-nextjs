@@ -6,7 +6,7 @@ import { PictureAsPdf as PageviewIcon } from '@mui/icons-material';
 
 export const items = [
   {
-    title: 'Home',
+    title: 'Vendor Forms',
     path: '/',
     icon: (
       <SvgIcon fontSize="small">
@@ -15,16 +15,7 @@ export const items = [
     )
   },
   {
-    title: 'Project Settings',
-    path: '/project-settings',
-    icon: (
-      <SvgIcon fontSize="small">
-        <CogIcon />
-      </SvgIcon>
-    )
-  },
-  {
-    title: 'PDF View',
+    title: 'Job Files',
     path: '/view',
     icon: (
       <PageviewIcon />
@@ -36,6 +27,15 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Project Settings',
+    path: '/project-settings',
+    icon: (
+      <SvgIcon fontSize="small">
+        <CogIcon />
       </SvgIcon>
     )
   },
