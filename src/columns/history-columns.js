@@ -6,7 +6,11 @@ const PDFCell = ({ params, type, handleView }) => (
   <>
     <Tooltip title="View PDF">
       <span>
-        <IconButton disabled={!params.value} color="primary" onClick={() => handleView(params.value, params.row, type)}>
+        <IconButton
+          disabled={!params.value}
+          color="primary"
+          onClick={() => handleView(params.value, params.row, type)}
+        >
           <ViewIcon />
         </IconButton>
       </span>
@@ -36,20 +40,24 @@ export const HistoryColumns = ({ handleView }) => {
       valueGetter: (params) => params.row.vendor.name,
     },
     {
-      field: "CREDIT AUTH",
-      headerName: "CREDIT AUTH",
+      field: "credit_auth",
+      headerName: "Credit Auth",
       type: "string",
       resizable: true,
       width: 150,
-      renderCell: (params) => <PDFCell type="CREDIT AUTH" params={params} handleView={handleView} />,
+      renderCell: (params) => (
+        <PDFCell type="Credit Auth" params={params} handleView={handleView} />
+      ),
     },
     {
-      field: "RENTAL AGREEMENT",
-      headerName: "RENTAL AGREEMENT",
+      field: "rental_agreement",
+      headerName: "Rental Agreement",
       type: "string",
       resizable: true,
       width: 150,
-      renderCell: (params) => <PDFCell type="RENTAL AGREEMENT" params={params} handleView={handleView} />,
+      renderCell: (params) => (
+        <PDFCell type="Rental Agreement" params={params} handleView={handleView} />
+      ),
     },
     {
       field: "created_at",

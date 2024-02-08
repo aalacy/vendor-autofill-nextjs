@@ -1,5 +1,4 @@
 import Head from "next/head";
-
 import { Box, Container, Card, CardContent, Divider } from "@mui/material";
 import { useState } from "react";
 
@@ -42,7 +41,6 @@ const Page = () => {
                 setSelectedData={setSelectedData}
               />
               <Divider sx={{ my: 3 }} />
-              {/* <JobInfo data={jobData} setData={setJobData} open={open} setOpen={setOpen} /> */}
             </CardContent>
           </Card>
         </Container>
