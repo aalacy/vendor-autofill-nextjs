@@ -63,7 +63,7 @@ export const TopNav = (props) => {
             lg: `calc(100% - ${SIDE_NAV_WIDTH}px)`,
           },
           zIndex: (theme) => theme.zIndex.appBar,
-          p: 3,
+          p: 1,
         }}
       >
         <Stack

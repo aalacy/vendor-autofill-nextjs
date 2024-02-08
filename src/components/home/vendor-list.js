@@ -120,7 +120,7 @@ export const VendorList = ({
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Typography variant="h6" mb={2}>
-          Vendors: &nbsp;(<small>{vendors?.items?.length}</small>)
+          Vendors: &nbsp;(<small>{vendors?.items?.length || '-'}</small>)
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography>

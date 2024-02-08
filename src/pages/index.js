@@ -20,7 +20,6 @@ const Page = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          mb: 4,
         }}
       >
         <Container maxWidth="xl">
