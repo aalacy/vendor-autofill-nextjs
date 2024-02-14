@@ -10,7 +10,7 @@ export const GoogleCalendar = () => {
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, googleCalendarPlugin]}
         initialView="dayGridMonth"
-        googleCalendarApiKey="AIzaSyCGnmfC75mdEO0XCjYMuhJv5wxHyqgM31s"
+        googleCalendarApiKey=""
         events={{
           googleCalendarId: "aaronlacywhite387@gmail.com",
         }}

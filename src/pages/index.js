@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { VendorList } from "src/components/home/vendor-list";
 import { HeaderForm } from "src/components/home/header-form";
-import { ClientTable } from "src/components/client-table";
 
 const Page = () => {
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
