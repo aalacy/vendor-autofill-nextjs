@@ -18,26 +18,30 @@ export const JobDataTable = () => {
   }, [job]);
 
   return (
-    <Table stackable fixed>
-      <TableHeader>
-        <TableRow>
-          {Object.keys(job?.data).map((key) => (
-            <TableHeaderCell key={key}>{key}</TableHeaderCell>
-          ))}
-        </TableRow>
-      </TableHeader>
+    <div style={{ overflowX: "auto" }}>
+      <Table celled unstackable striped className="dnxTable">
+        <TableHeader>
+          <TableRow>
+            {Object.keys(job?.data).map((key) => (
+              <TableHeaderCell key={key}>{key}</TableHeaderCell>
+            ))}
+          </TableRow>
+        </TableHeader>
 
-      <TableBody>
-        <TableRow>
-          {
-            <>
-              {Object.keys(job?.data).map((key) => (
-                <TableCell key={key}>{job?.data[key]}</TableCell>
-              ))}
-            </>
-          }
-        </TableRow>
-      </TableBody>
-    </Table>
+        <TableBody>
+          <TableRow>
+            {
+              <>
+                {Object.keys(job?.data).map((key) => (
+                  <TableCell data-label={key} key={key}>
+                    {job?.data[key]}
+                  </TableCell>
+                ))}
+              </>
+            }
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
   );
 };
