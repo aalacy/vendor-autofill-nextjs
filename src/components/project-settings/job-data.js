@@ -18,7 +18,7 @@ export const JobDataTable = () => {
   }, [job]);
 
   return (
-    <Table stackable>
+    <Table stackable fixed>
       <TableHeader>
         <TableRow>
           {Object.keys(job?.data).map((key) => (
