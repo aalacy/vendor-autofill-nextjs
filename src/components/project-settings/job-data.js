@@ -1,7 +1,13 @@
 import { useEffect } from "react";
+import {
+  TableRow,
+  TableHeaderCell,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table,
+} from "semantic-ui-react";
 
-import { ClientDataGrid } from "../client-datagrid";
-import { JobInfoColumns } from "src/columns";
 import { useAuth } from "src/hooks/use-auth";
 
 export const JobDataTable = () => {
@@ -12,8 +18,26 @@ export const JobDataTable = () => {
   }, [job]);
 
   return (
-    <div style={{ height: 200, width: "100%" }}>
-      <ClientDataGrid data={[{ id: "1", ...job?.data }]} columns={JobInfoColumns(job?.data)} />
-    </div>
+    <Table stackable>
+      <TableHeader>
+        <TableRow>
+          {Object.keys(job?.data).map((key) => (
+            <TableHeaderCell key={key}>{key}</TableHeaderCell>
+          ))}
+        </TableRow>
+      </TableHeader>
+
+      <TableBody>
+        <TableRow>
+          {
+            <>
+              {Object.keys(job?.data).map((key) => (
+                <TableCell key={key}>{job?.data[key]}</TableCell>
+              ))}
+            </>
+          }
+        </TableRow>
+      </TableBody>
+    </Table>
   );
 };

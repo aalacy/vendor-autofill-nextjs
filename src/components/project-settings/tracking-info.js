@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ClientDataGrid } from "../client-datagrid";
 import { JobInfoColumns, TrackingColumns, VendorsColumns } from "src/columns";
 import { VendorService } from "src/services";
+import { ClientTable } from "../client-table";
 
 export const TrackingInfo = ({ data, setData }) => {
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,7 @@ export const TrackingInfo = ({ data, setData }) => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
+     
       <ClientDataGrid loading={loading} data={data || []} columns={TrackingColumns()} />
     </div>
   );

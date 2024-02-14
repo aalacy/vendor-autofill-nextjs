@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { styled } from '@mui/material/styles';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import { withAuthGuard } from 'src/hocs/with-auth-guard';
 import { SideNav } from './side-nav';
@@ -54,9 +55,11 @@ export const Layout = withAuthGuard((props) => {
         open={openNav}
       />
       <LayoutRoot>
+      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
         <LayoutContainer>
           {children}
         </LayoutContainer>
+        </GoogleOAuthProvider>
       </LayoutRoot>
     </>
   );

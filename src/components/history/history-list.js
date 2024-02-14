@@ -46,6 +46,7 @@ export const HistoryList = ({ histories, setHistories }) => {
   return (
     <>
       <EDataGrid
+        hideCheckbox
         loading={loading}
         data={histories?.items}
         columns={HistoryColumns({ handleView })}
