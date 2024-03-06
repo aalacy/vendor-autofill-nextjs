@@ -98,7 +98,7 @@ export const JobFormPage = () => {
   return (
     <>
       <Head>
-        <title>Project Settings</title>
+        <title>Job Form</title>
       </Head>
       <Box
         component="main"

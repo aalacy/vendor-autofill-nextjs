@@ -1,12 +1,5 @@
 import { useEffect } from "react";
-import {
-  TableRow,
-  TableHeaderCell,
-  TableHeader,
-  TableCell,
-  TableBody,
-  Table,
-} from "semantic-ui-react";
+import { List, ListItem, ListItemText } from "@mui/material";
 
 import { useAuth } from "src/hooks/use-auth";
 
@@ -17,31 +10,29 @@ export const JobDataTable = () => {
     if (!job) fetchJob();
   }, [job]);
 
-  return (
-    <div style={{ overflowX: "auto" }}>
-      <Table celled unstackable striped className="dnxTable">
-        <TableHeader>
-          <TableRow>
-            {Object.keys(job?.data).map((key) => (
-              <TableHeaderCell key={key}>{key}</TableHeaderCell>
-            ))}
-          </TableRow>
-        </TableHeader>
+  if (!job?.data) return <></>;
 
-        <TableBody>
-          <TableRow>
-            {
-              <>
-                {Object.keys(job?.data).map((key) => (
-                  <TableCell data-label={key} key={key}>
-                    {job?.data[key]}
-                  </TableCell>
-                ))}
-              </>
-            }
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+  return (
+    <List
+      sx={{
+        width: "100%",
+        bgcolor: "background.paper",
+        position: "relative",
+        overflow: "auto",
+        maxHeight: 300,
+      }}
+    >
+      {Object.keys(job?.data).map((key) => (
+        <>
+          {key !== "buyers" ? (
+            <ListItem key={`item-${key}`}>
+              <ListItemText primary={key} secondary={job?.data[key]} />
+            </ListItem>
+          ) : (
+            <></>
+          )}
+        </>
+      ))}
+    </List>
   );
 };

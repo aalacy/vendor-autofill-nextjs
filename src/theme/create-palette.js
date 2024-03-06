@@ -12,21 +12,18 @@ export function createPalette() {
       hover: alpha(neutral[900], 0.04),
       selected: alpha(neutral[900], 0.12)
     },
-    background: {
-      default: common.white,
-      paper: common.white
-    },
+
     divider: '#F2F4F7',
     error,
     info,
-    mode: 'light',
+    mode: 'dark',
     neutral,
     primary: indigo,
     success,
     text: {
-      primary: neutral[900],
+      primary: neutral[100],
       secondary: neutral[500],
-      disabled: alpha(neutral[900], 0.38)
+      disabled: alpha(neutral[100], 0.38)
     },
     warning
   };
