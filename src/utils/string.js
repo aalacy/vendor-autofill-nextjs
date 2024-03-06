@@ -22,3 +22,6 @@ export const downloadMedia = (fileName, output) => {
   // Remove element from DOM
   document.body.removeChild(anchor);
 };
+
+export const formatLocalNumber = (value) =>
+  value ? Number(value.toFixed(2)).toLocaleString("en-US") : "0";

@@ -4,11 +4,49 @@ import {
   GridColumnMenuContainer,
   GridColumnMenuFilterItem,
   GridColumnMenuSortItem,
+  gridClasses,
 } from "@mui/x-data-grid-pro";
+import { alpha, styled } from '@mui/material/styles';
 import { toast } from "react-hot-toast";
 
 import { TableSkeleton } from "./table-skeleton";
 import CustomNoRowsOverlay from "./custom-no-rows";
+import { useAuth } from "src/hooks/use-auth";
+
+const ODD_OPACITY = 0.2;
+
+const StripedDataGrid = styled(DataGridPro)(({ theme }) => ({
+  [`& .${gridClasses.row}.even`]: {
+    backgroundColor: theme.palette.grey[200],
+    '&:hover, &.Mui-hovered': {
+      backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
+      '@media (hover: none)': {
+        backgroundColor: 'transparent',
+      },
+    },
+    '&.Mui-selected': {
+      backgroundColor: alpha(
+        theme.palette.primary.main,
+        ODD_OPACITY + theme.palette.action.selectedOpacity,
+      ),
+      '&:hover, &.Mui-hovered': {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          ODD_OPACITY +
+            theme.palette.action.selectedOpacity +
+            theme.palette.action.hoverOpacity,
+        ),
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: alpha(
+            theme.palette.primary.main,
+            ODD_OPACITY + theme.palette.action.selectedOpacity,
+          ),
+        },
+      },
+    },
+  },
+}));
 
 export function CustomColumnMenuComponent(props) {
   const { hideMenu, colDef,  ...other } = props;
@@ -39,13 +77,18 @@ export const EDataGrid = (props) => {
     promiseArguments,
     setPromiseArguments,
     handleOk,
+    handleNo,
+    noConfirm,
     loading,
     hideHeader,
     hideCheckbox,
     setLogicOperator,
     rowThreshold,
     getDetailPanelContent,
+    enableClipboardCopy
   } = props;
+
+  const { showConfirmDlg } = useAuth()
 
   const getDetailPanelHeight = useCallback(() => 'auto', []);
 
@@ -59,7 +102,7 @@ export const EDataGrid = (props) => {
 
   const processRowUpdate = useCallback(
     (newRow, oldRow) =>
-      new Promise<GridRowModel>((resolve, reject) => {
+      new Promise((resolve, reject) => {
         const mutation = computeMutation(newRow, oldRow);
         if (mutation) {
           // Save the arguments to resolve or reject the promise later
@@ -81,13 +124,34 @@ export const EDataGrid = (props) => {
     setFilterModel(filterModel.items);
   }, []);
 
+  const handleCellClick = useCallback((params, event) => {
+    const { field, row } = params;
+    if (['department', 'id'].includes(field)) return;
+    let value = row[field];
+    if (field === "phone_email") {
+      value = `phone: ${row['phone']}, email: ${row['email']}`
+    } else if (field === "name_position") {
+      value = `name: ${row['first_name']} ${row['last_name']}, position: ${row['position']}`
+    }
+    if (value && enableClipboardCopy) {
+      navigator.clipboard.writeText(value);
+      toast.success(`Copied: ${value}`)
+    }
+  }, [])
+
   useEffect(() => {
     if (!promiseArguments) return;
-    handleOk();
+    if (noConfirm) handleOk();
+    else
+      showConfirmDlg({
+        open: true,
+        close: handleNo,
+        callback: handleOk,
+      });
   }, [promiseArguments]);
 
   return (
-    <DataGridPro
+    <StripedDataGrid
       checkboxSelection={!hideCheckbox}
       disableRowSelectionOnClick={!!!rowSelectionModel}
       autoHeight
@@ -110,6 +174,7 @@ export const EDataGrid = (props) => {
       onRowSelectionModelChange={(newRowSelectionModel) => {
         setRowSelectionModel(newRowSelectionModel);
       }}
+      onCellClick={handleCellClick}
       rowSelectionModel={rowSelectionModel}
       rowThreshold={rowThreshold}
       getDetailPanelHeight={getDetailPanelHeight}
@@ -136,12 +201,6 @@ export const EDataGrid = (props) => {
         width: "100%",
         minHeight: 300,
         flex: 1,
-        boxShadow: 2,
-        border: 2,
-        borderColor: 'primary.light',
-        '& .MuiDataGrid-cell:hover': {
-          color: 'primary.main',
-        },
       }}
     />
   );

@@ -1,72 +1,3 @@
-const vendors = [
-  "A1 Medical",
-  "Advanced Liquidators",
-  "Air Designs",
-  "Air Hollywood",
-  "Alley Cats",
-  "Amazon",
-  "Astek",
-  "Athletic Room",
-  "Auditorium Props",
-  "Avon",
-  "Bill Ferrell",
-  "Castex",
-  "Cinema Vehicles",
-  "Dangling Carrot",
-  "Dazian",
-  "Earl Hays Press",
-  "EC Props",
-  "Faux Library Studio Props",
-  "Form Décor",
-  "Galpin Studio Rentals",
-  "Gavrieli",
-  "Green Set, Inc.",
-  "Heaven or Las Vegas",
-  "Herc",
-  "History 4 Hire",
-  "Hollywood Cinema Arts, Inc. ",
-  "Hollywood Studio Gallery",
-  "Hollywood Trophy",
-  "Hot Bricks",
-  "Independent Studio Services",
-  "Jackson Shrub",
-  "JC Backings",
-  "LCW Props",
-  "Lennie Marvin Enterprises, Inc.",
-  "Lino City",
-  "Little Bohemia",
-  "Modernica Props",
-  "NEST Studio Rentals",
-  "Nights of Neon",
-  "Objects",
-  "Omega Cinema Props",
-  "Pacific Studios",
-  "Paramount Pictures (Sign Shop)",
-  "Pinacoteca Picture Props",
-  "Practical Props",
-  "Premiere Props",
-  "Prop Studios West",
-  "Pulp Art Surfaces",
-  "Quixote",
-  "RC Vintage",
-  "Recycled Movie Sets",
-  "Rose Brand",
-  "Schmidli",
-  "Set Life",
-  "Set Stuff",
-  "Spellman Desk Co",
-  "SPFX Unlimited",
-  "Target Props",
-  "Town and Country Event Rentals",
-  "Universal Studios",
-  "Vision Scenery",
-  "Vineland Nusery",
-  "Warner Bros",
-  "West Coast Backings",
-  "Zany Graphics",
-  "Z GALLERIE??",
-];
-
 const GREY = "#CCC";
 const GREY_LIGHT = "rgba(255, 255, 255, 0.4)";
 const GREY_DIM = "#686868";
@@ -134,3 +65,23 @@ export const csvUploadStyles = {
     width: 23,
   },
 };
+
+export const DepartmentType = [
+  "Construction",
+  "Props",
+  "Set Dec",
+  "Other"
+]
+
+export const ContractOptions = [
+  "8 hr Days",
+  "10 hr Days",
+  "12 hr Days"
+]
+
+export const ContractTypes = [
+  "cash", 
+  "po", 
+  "net 30", 
+  "credit card"
+]

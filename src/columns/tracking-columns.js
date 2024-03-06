@@ -1,12 +1,12 @@
 export const TrackingColumns = () => {
   return [
     {
-        field: "Vendor Name",
-        headerName: "Vendor Name",
-        type: "string",
-        resizable: true,
-        width: 200,
-      },
+      field: "Vendor Name",
+      headerName: "Vendor Name",
+      type: "string",
+      resizable: true,
+      width: 200,
+    },
     {
       field: "Address",
       headerName: "Address",
@@ -56,27 +56,27 @@ export const TrackingColumns = () => {
       resizable: true,
       width: 200,
     },
-    
-      {
-        field: "W9",
-        headerName: "W9",
-        type: "string",
-        resizable: true,
-        width: 200,
-      },
-      {
-        field: "Website",
-        headerName: "Website",
-        type: "string",
-        resizable: true,
-        width: 200,
-      },
-      {
-        field: "email",
-        headerName: "email",
-        type: "string",
-        resizable: true,
-        width: 200,
-      },
+
+    {
+      field: "W9",
+      headerName: "W9",
+      type: "string",
+      resizable: true,
+      width: 200,
+    },
+    {
+      field: "Website",
+      headerName: "Website",
+      type: "string",
+      resizable: true,
+      width: 200,
+    },
+    {
+      field: "email",
+      headerName: "email",
+      type: "string",
+      resizable: true,
+      width: 200,
+    },
   ];
 };

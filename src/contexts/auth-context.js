@@ -9,7 +9,8 @@ const HANDLERS = {
   SIGN_IN: 'SIGN_IN',
   SIGN_OUT: 'SIGN_OUT',
   CONFIRM: 'CONFIRM',
-  FETCH_JOB: 'FETCH_JOB'
+  FETCH_JOB: 'FETCH_JOB',
+  REFRESH: 'REFRESH'
 };
 
 const initialState = {
@@ -18,7 +19,8 @@ const initialState = {
   user: null,
   confirmMessage: null,
   isJobFetched: false,
-  job: null
+  job: null,
+  shouldRefresh: false
 };
 
 const handlers = {
@@ -72,6 +74,13 @@ const handlers = {
       ...state,
       isJobFetched: true,
       job
+    };
+  },
+  [HANDLERS.REFRESH]: (state, action) => {
+
+    return {
+      ...state,
+      shouldRefresh: !state.shouldRefresh
     };
   },
 };
@@ -168,8 +177,6 @@ export const AuthProvider = (props) => {
 
   const signUp = async ({...values}) => {
     const { data } = await AuthService.register(values);
-
-    console.log('data', data)
   };
 
   const signOut = () => {
@@ -210,6 +217,12 @@ export const AuthProvider = (props) => {
     }
   };
 
+  const refresh = async () => {
+    dispatch({
+      type: HANDLERS.REFRESH,
+    });
+  };
+
   useEffect(
     () => {
       initialize();
@@ -230,7 +243,8 @@ export const AuthProvider = (props) => {
         setUser,
         showConfirmDlg,
         hideConfirm,
-        fetchJob
+        fetchJob,
+        refresh
       }}
     >
       {children}
