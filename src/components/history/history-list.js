@@ -2,11 +2,11 @@ import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
 import { HistoryService } from "src/services";
-import { EDataGrid } from "src/components/e-datagrid";
+import { EDataGrid } from "src/components/tables/e-datagrid";
 import { initialPage } from "src/utils";
 import { HistoryColumns } from "src/columns/history-columns";
-import { Modal } from "../modal";
-import { PdfViewer } from "../pdf-viewer";
+import { Modal } from "../common/modal";
+import { PdfViewer } from "./pdf-viewer";
 
 export const HistoryList = ({ histories, setHistories }) => {
   const [loading, setLoading] = useState(false);

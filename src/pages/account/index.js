@@ -1,7 +1,5 @@
 import {
   Box,
-  Card,
-  CardContent,
   Container,
   Divider,
   Typography,
@@ -25,9 +23,7 @@ const ManageAccount = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Manage Account</Typography>
+              <Typography variant="h6" mb={5}>Manage Account</Typography>
               <Typography
                 variant="body2"
                 color="GrayText"
@@ -41,8 +37,6 @@ const ManageAccount = () => {
                 <AvatarUpload />
                 <AccountForm />
               </Box>
-            </CardContent>
-          </Card>
         </Container>
       </Box>
     </>

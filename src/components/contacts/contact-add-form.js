@@ -40,7 +40,7 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
         toast.success("Successfully done.");
       }
     } catch (err) {
-      const submit = err.message || err.response?.data;
+      const submit = Array.isArray(err.response?.data) ? err.message : err.response?.data;
       helpers.setStatus({ success: false });
       helpers.setErrors({ submit });
       helpers.setSubmitting(false);

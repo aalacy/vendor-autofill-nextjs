@@ -9,7 +9,7 @@ import {
 import { alpha, styled } from '@mui/material/styles';
 import { toast } from "react-hot-toast";
 
-import { TableSkeleton } from "./table-skeleton";
+import { TableSkeleton } from "../skeleton/table-skeleton";
 import CustomNoRowsOverlay from "./custom-no-rows";
 import { useAuth } from "src/hooks/use-auth";
 

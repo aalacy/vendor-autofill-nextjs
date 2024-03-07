@@ -1,6 +1,6 @@
 import { DataGridPro } from "@mui/x-data-grid-pro";
 
-import { TableSkeleton } from "./table-skeleton";
+import { TableSkeleton } from "../skeleton/table-skeleton";
 import CustomNoRowsOverlay from "./custom-no-rows";
 import { useCallback, useState } from "react";
 

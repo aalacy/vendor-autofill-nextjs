@@ -14,7 +14,7 @@ import { createEmotionCache } from 'src/utils/create-emotion-cache';
 import 'simplebar-react/dist/simplebar.min.css';
 import "../theme/global.css";
 
-import ConfirmDialog from 'src/components/confirm';
+import ConfirmDialog from 'src/components/common/confirm';
 
 
 const clientSideEmotionCache = createEmotionCache();

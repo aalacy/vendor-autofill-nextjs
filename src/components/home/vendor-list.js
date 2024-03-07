@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import { VendorService } from "src/services";
 import { VendorsColumns } from "src/columns";
 import { updateList } from "src/utils";
-import { ClientDataGrid } from "../client-datagrid";
+import { ClientDataGrid } from "../tables/client-datagrid";
 
 const DetailPanelContent = ({ row }) => {
   return (

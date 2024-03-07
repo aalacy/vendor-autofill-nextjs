@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
-import { ClientDataGrid } from "../client-datagrid";
+import { ClientDataGrid } from "../tables/client-datagrid";
 import { JobInfoColumns, TrackingColumns, VendorsColumns } from "src/columns";
 import { VendorService } from "src/services";
 import { ClientTable } from "../client-table";

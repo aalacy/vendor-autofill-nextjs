@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Box, Container, Card, CardContent, Divider } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { useState } from "react";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
@@ -23,25 +23,20 @@ const Page = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Card>
-            <CardContent>
-              <HeaderForm
-                rowSelectionModel={rowSelectionModel}
-                setRowSelectionModel={setRowSelectionModel}
-                selectedData={selectedData}
-                setSelectedData={setSelectedData}
-              />
-              <VendorList
-                vendors={vendors}
-                setVendors={setVendors}
-                rowSelectionModel={rowSelectionModel}
-                setRowSelectionModel={setRowSelectionModel}
-                selectedData={selectedData}
-                setSelectedData={setSelectedData}
-              />
-              <Divider sx={{ my: 3 }} />
-            </CardContent>
-          </Card>
+          <HeaderForm
+            rowSelectionModel={rowSelectionModel}
+            setRowSelectionModel={setRowSelectionModel}
+            selectedData={selectedData}
+            setSelectedData={setSelectedData}
+          />
+          <VendorList
+            vendors={vendors}
+            setVendors={setVendors}
+            rowSelectionModel={rowSelectionModel}
+            setRowSelectionModel={setRowSelectionModel}
+            selectedData={selectedData}
+            setSelectedData={setSelectedData}
+          />
         </Container>
       </Box>
     </>

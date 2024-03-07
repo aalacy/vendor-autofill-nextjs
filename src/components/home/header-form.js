@@ -76,7 +76,7 @@ export const HeaderForm = ({
             flexWrap: "wrap",
             justifyContent: "space-between",
             gap: 2,
-            mb: 3,
+            mb: 5,
           }}
         >
           <Typography variant="h5">Vendor Forms</Typography>

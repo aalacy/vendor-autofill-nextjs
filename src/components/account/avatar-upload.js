@@ -4,9 +4,9 @@ import { Avatar, Box, CircularProgress, IconButton } from "@mui/material";
 import { AccountCircle as UserCircleIcon, Edit as PencilIcon } from "@mui/icons-material";
 
 import { useAuth } from "src/hooks/use-auth";
-import { Modal } from "../modal";
+import { Modal } from "../common/modal";
 import { UserService } from "src/services";
-import { FileDropzone } from "../file-dropzone";
+import { FileDropzone } from "./file-dropzone";
 
 export const AvatarUpload = () => {
   const { user, setUser } = useAuth();

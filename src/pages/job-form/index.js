@@ -8,8 +8,6 @@ import {
   Typography,
   CircularProgress,
   Box,
-  Card,
-  CardContent,
   Container,
   Divider,
 } from "@mui/material";
@@ -107,9 +105,7 @@ export const JobFormPage = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Card>
-            <CardContent>
-              <Typography component="h1" variant="h5" mb={3}>
+              <Typography component="h1" variant="h5" mb={5}>
                 Job Form
               </Typography>
               <Stepper activeStep={activeStep}>
@@ -161,8 +157,6 @@ export const JobFormPage = () => {
                   </Formik>
                 )}
               </>
-            </CardContent>
-          </Card>
         </Container>
       </Box>
     </>

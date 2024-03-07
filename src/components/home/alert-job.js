@@ -1,6 +1,6 @@
 import { Typography, Link } from "@mui/material";
 
-import { Modal } from "../modal";
+import { Modal } from "../common/modal";
 import { useAuth } from "src/hooks/use-auth";
 
 export const AlertJob = ({ open, onClose }) => {

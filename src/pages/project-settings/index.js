@@ -1,4 +1,4 @@
-import { Box, Card, CardHeader, CardContent, Container, IconButton, Tooltip } from "@mui/material";
+import { Box, Typography, Container, IconButton, Tooltip } from "@mui/material";
 import { Refresh as RefreshIcon } from "@mui/icons-material";
 import Head from "next/head";
 
@@ -21,21 +21,17 @@ const ProjectSettings = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Card>
-            <CardHeader
-              title="Project Settings"
-              action={
-                <Tooltip title="Refetch the Job data">
-                  <IconButton onClick={fetchJob} color="primary">
-                    <RefreshIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-            <CardContent>
-              <JobDataTable />
-            </CardContent>
-          </Card>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="h5" mb={5}>
+              Project Settings
+            </Typography>
+            <Tooltip title="Refetch the Job data">
+              <IconButton onClick={fetchJob} color="primary">
+                <RefreshIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <JobDataTable />
         </Container>
       </Box>
     </>

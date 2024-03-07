@@ -1,21 +1,8 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-  CircularProgress,
-  Box,
-  Card,
-  CardContent,
-  Container,
-  Divider,
-} from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 import Head from "next/head";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
+import { FileManager } from "src/components/files/file-manager";
 
 export const FilesPage = () => {
   return (
@@ -30,13 +17,10 @@ export const FilesPage = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Card>
-            <CardContent>
-              <Typography component="h1" variant="h5" mb={3}>
-              File Manager
-              </Typography>
-            </CardContent>
-          </Card>
+          <Typography component="h1" variant="h5" mb={5}>
+            File Manager
+          </Typography>
+          <FileManager />
         </Container>
       </Box>
     </>

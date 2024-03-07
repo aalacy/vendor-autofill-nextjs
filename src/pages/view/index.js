@@ -1,4 +1,4 @@
-import { Box, Card, CardHeader, CardContent, Container } from "@mui/material";
+import { Box,  Typography,  Container } from "@mui/material";
 import Head from "next/head";
 import { useState } from "react";
 import { HistoryList } from "src/components/history/history-list";
@@ -20,15 +20,11 @@ const ViewPDF = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Card>
-            <CardHeader title="Job Files"></CardHeader>
-            <CardContent>
+        <Typography variant="h5" mb={5}>Job Files</Typography>
               <HistoryList 
                 histories={histories}
                 setHistories={setHistories}
               />
-            </CardContent>
-          </Card>
         </Container>
       </Box>
     </>

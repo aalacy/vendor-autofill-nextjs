@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
-import { EDataGrid } from "src/components/e-datagrid";
+import { EDataGrid } from "src/components/tables/e-datagrid";
 import { ContactService } from "src/services";
 import { initialPage } from "src/utils";
 import { ContactsColumns } from "src/columns";

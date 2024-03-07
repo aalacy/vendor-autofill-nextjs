@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Typography } from "@mui/material";
 import { useCSVReader, lightenDarkenColor, formatFileSize } from "react-papaparse";
 
-import { Modal } from "../modal";
-import { ClientDataGrid } from "../client-datagrid";
+import { Modal } from "../common/modal";
+import { ClientDataGrid } from "../tables/client-datagrid";
 import { JobInfoColumns } from "src/columns";
 import { csvUploadStyles } from "src/utils/constants";
 import { refineCSVData } from "src/utils";

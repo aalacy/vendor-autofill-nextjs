@@ -1,16 +1,7 @@
-import {
-  Box,
-  Card,
-  Button,
-  CardContent,
-  Container,
-  Divider,
-  Typography,
-  Tooltip,
-} from "@mui/material";
+import { Box, Button, Container, Divider, Typography, Tooltip } from "@mui/material";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { Add, FileDownload, SensorOccupiedTwoTone } from "@mui/icons-material";
+import { Add, FileDownload } from "@mui/icons-material";
 
 import { ContactList } from "src/components/contacts/contact-list";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
@@ -33,8 +24,8 @@ const ContactView = () => {
 
   useEffect(() => {
     if (open) return;
-    setContact(null)
-  }, [open])
+    setContact(null);
+  }, [open]);
 
   return (
     <>
@@ -48,43 +39,41 @@ const ContactView = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Card>
-            <CardContent>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography variant="h6">Contacts</Typography>
-                <Box sx={{ display: "flex", gap: 2 }}>
-                  <Tooltip title="Add New Contact">
-                    <Button
-                      size="small"
-                      onClick={() => setOpen(true)}
-                      startIcon={<Add />}
-                      variant="contained"
-                    >
-                      Add
-                    </Button>
-                  </Tooltip>
-                  <Tooltip title="Export as CSV">
-                    <Button
-                      size="small"
-                      onClick={handleExport}
-                      startIcon={<FileDownload />}
-                      variant="outlined"
-                    >
-                      Export
-                    </Button>
-                  </Tooltip>
-                </Box>
-              </Box>
-              <Divider sx={{ my: 1 }} />
-              <ContactList contacts={contacts} setContacts={setContacts} handleEdit={handleEdit} />
-            </CardContent>
-          </Card>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography variant="h6" mb={5}>
+              Contacts
+            </Typography>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <Tooltip title="Add New Contact">
+                <Button
+                  size="small"
+                  onClick={() => setOpen(true)}
+                  startIcon={<Add />}
+                  variant="contained"
+                >
+                  Add
+                </Button>
+              </Tooltip>
+              <Tooltip title="Export as CSV">
+                <Button
+                  size="small"
+                  onClick={handleExport}
+                  startIcon={<FileDownload />}
+                  variant="outlined"
+                >
+                  Export
+                </Button>
+              </Tooltip>
+            </Box>
+          </Box>
+          <Divider sx={{ my: 1 }} />
+          <ContactList contacts={contacts} setContacts={setContacts} handleEdit={handleEdit} />
         </Container>
       </Box>
       <ContactAddModal contact={contact} open={open} setOpen={setOpen} />

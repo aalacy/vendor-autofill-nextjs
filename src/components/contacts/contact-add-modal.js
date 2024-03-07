@@ -1,5 +1,5 @@
 import { useAuth } from "src/hooks/use-auth";
-import { Modal } from "../modal";
+import { Modal } from "../common/modal";
 import { ContactAddForm } from "./contact-add-form";
 import { ContactService } from "src/services";
 
