@@ -6,6 +6,7 @@ import { CardSkeleton } from "../skeleton/card-skeleton";
 import { FileItem } from "./file-item";
 import { FolderDetail } from "./folder-detail";
 import { useState } from "react";
+import CustomNoRowsOverlay from "../tables/custom-no-rows";
 
 export const FileList = ({ loading, folders, alignment, removeItem }) => {
   const [curFolder, setFolder] = useState();
@@ -17,6 +18,12 @@ export const FileList = ({ loading, folders, alignment, removeItem }) => {
         <CardSkeleton />
       ) : (
         <>
+          {folders.length === 0 ? (
+            <Box sx={{ my: 5 }}>
+              <CustomNoRowsOverlay />
+            </Box>
+          ) : null}
+
           {alignment === "card" ? (
             <Box
               sx={{
