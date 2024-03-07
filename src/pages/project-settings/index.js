@@ -21,7 +21,7 @@ const ProjectSettings = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
             <Typography variant="h5" mb={5}>
               Project Settings
             </Typography>
