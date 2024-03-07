@@ -1,4 +1,4 @@
-import { Box,  Typography,  Container } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import Head from "next/head";
 import { useState } from "react";
 import { HistoryList } from "src/components/history/history-list";
@@ -6,7 +6,7 @@ import { HistoryList } from "src/components/history/history-list";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 
 const ViewPDF = () => {
-    const [histories, setHistories] = useState();
+  const [histories, setHistories] = useState();
 
   return (
     <>
@@ -20,11 +20,10 @@ const ViewPDF = () => {
         }}
       >
         <Container maxWidth="xl">
-        <Typography variant="h5" mb={5}>Job Files</Typography>
-              <HistoryList 
-                histories={histories}
-                setHistories={setHistories}
-              />
+          <Typography variant="h5" mb={5}>
+            Job Files
+          </Typography>
+          <HistoryList histories={histories} setHistories={setHistories} />
         </Container>
       </Box>
     </>

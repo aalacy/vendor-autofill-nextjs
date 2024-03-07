@@ -6,6 +6,7 @@ import {
   ListItemText,
   ListItemAvatar,
   IconButton,
+  Typography
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
@@ -46,7 +47,7 @@ export const FileItem = ({ folder, removeItem, setFolder, setOpen }) => {
           <FolderIcon color="warning" fontSize="large" />
         </ListItemAvatar>
         <ListItemText
-          primary={folder_name}
+          primary={<Typography noWrap>{folder_name}</Typography>}
           secondary={`${bytesToSize(size)} • ${files.length} items`}
         />
         <ListItemText primary="Created at" secondary={beautyDateTime(created_at)} />
