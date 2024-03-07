@@ -9,8 +9,8 @@ import {
   Tooltip,
 } from "@mui/material";
 import Head from "next/head";
-import { useState } from "react";
-import { Add, FileDownload } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { Add, FileDownload, SensorOccupiedTwoTone } from "@mui/icons-material";
 
 import { ContactList } from "src/components/contacts/contact-list";
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
@@ -30,6 +30,11 @@ const ContactView = () => {
   const handleExport = () => {
     downloadOneCSV(contacts.items, "contacts");
   };
+
+  useEffect(() => {
+    if (open) return;
+    setContact(null)
+  }, [open])
 
   return (
     <>

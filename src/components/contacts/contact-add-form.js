@@ -34,11 +34,12 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
           await handleUpdate(contact.id, values);
         } else {
           await submitForm(values);
+          helpers.setTouched({});
+          helpers.setSubmitting(false);
         }
         toast.success("Successfully done.");
       }
     } catch (err) {
-      console.log('err', err)
       const submit = err.message || err.response?.data;
       helpers.setStatus({ success: false });
       helpers.setErrors({ submit });

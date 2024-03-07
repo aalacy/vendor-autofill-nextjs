@@ -55,7 +55,6 @@ const Page = () => {
       </Head>
       <Box
         sx={{
-          backgroundColor: 'background.paper',
           flex: '1 1 auto',
           alignItems: 'center',
           display: 'flex',
