@@ -85,10 +85,9 @@ export const ContactsColumns = ({ handleRemove, handleEdit }) => {
       {
         field: "union",
         headerName: "Union",
-        type: "number",
+        type: "text",
         resizable: true,
         width: 200,
-        valueFormatter: (params) => `$${formatLocalNumber(params.value)}`
       },
       {
         field: "id",

@@ -22,7 +22,6 @@ const {
     cardholderDriversLicenseNumber,
     cardholderDriversLicenseState,
     cardholderDriversLicenseExpiry,
-    creditCardInfo,
     accountType,
     issuingBank,
     cardType,
@@ -31,7 +30,6 @@ const {
     cvv,
     fourDigitCID,
     buyers,
-    shippingDetails,
     shippingAccount,
     shippingAccountNumber,
   },
@@ -46,9 +44,9 @@ export default [
     [jobNumber.name]: Yup.string().required(`${jobNumber.requiredErrorMsg}`),
   }),
   Yup.object().shape({
-    [productionCompanyInfo.name]: Yup.string().required(
-      `${productionCompanyInfo.requiredErrorMsg}`
-    ),
+    // [productionCompanyInfo.name]: Yup.string().required(
+    //   `${productionCompanyInfo.requiredErrorMsg}`
+    // ),
     [productionCompanyName.name]: Yup.string().required(
       `${productionCompanyName.requiredErrorMsg}`
     ),
@@ -91,7 +89,7 @@ export default [
       }),
   }),
   Yup.object().shape({
-    [creditCardInfo.name]: Yup.string().required(`${creditCardInfo.requiredErrorMsg}`),
+    // [creditCardInfo.name]: Yup.string().required(`${creditCardInfo.requiredErrorMsg}`),
     [accountType.name]: Yup.string().required(`${accountType.requiredErrorMsg}`),
     [issuingBank.name]: Yup.string().required(`${issuingBank.requiredErrorMsg}`),
     [cardType.name]: Yup.string().required(`${cardType.requiredErrorMsg}`),
@@ -114,7 +112,11 @@ export default [
       then: (schema) =>
         schema
           .required(`${cvv.requiredErrorMsg}`)
-          .test("len", `${cvv.invalidErrorMsg}`, (val) => val && val.length === 3),
+          .test(
+            "len",
+            `${cvv.invalidErrorMsg}`,
+            (val) => val && val.length >= 3 && val.length <= 4
+          ),
       otherwise: (schema) => schema.notRequired(),
     }),
     [fourDigitCID.name]: Yup.string().when("cardType", {
@@ -134,10 +136,8 @@ export default [
     ),
   }),
   Yup.object().shape({
-    [shippingDetails.name]: Yup.string().required(`${shippingDetails.requiredErrorMsg}`),
-    [shippingAccount.name]: Yup.string().required(`${shippingAccount.requiredErrorMsg}`),
-    [shippingAccountNumber.name]: Yup.string().required(
-      `${shippingAccountNumber.requiredErrorMsg}`
-    ),
+    // [shippingDetails.name]: Yup.string().required(`${shippingDetails.requiredErrorMsg}`),
+    [shippingAccount.name]: Yup.string(),
+    [shippingAccountNumber.name]: Yup.string(),
   }),
 ];

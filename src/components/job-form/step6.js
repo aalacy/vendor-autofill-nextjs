@@ -16,7 +16,6 @@ const shippingAccounts = [
 export const Step6 = (props) => {
   const {
     formField: {
-      shippingDetails,
       shippingAccount,
       shippingAccountNumber
     }
@@ -25,9 +24,6 @@ export const Step6 = (props) => {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <InputField name={shippingDetails.name} label={shippingDetails.label} fullWidth />
-        </Grid>
         <Grid item xs={12} sm={6}>
           <SelectField
               name={shippingAccount.name}

@@ -83,5 +83,7 @@ export const ContractTypes = [
   "cash", 
   "po", 
   "net 30", 
-  "credit card"
+  "credit card",
+  "independent contractor",
+  "loan out"
 ]

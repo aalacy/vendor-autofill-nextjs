@@ -5,7 +5,6 @@ import { InputField } from 'src/components/widgets';
 export const Step2 = (props) => {
   const {
     formField: {
-      productionCompanyInfo,
       productionCompanyName,
       billingAddress,
       billingCity,
@@ -21,9 +20,6 @@ export const Step2 = (props) => {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <InputField name={productionCompanyInfo.name} label={productionCompanyInfo.label} fullWidth />
-        </Grid>
         <Grid item xs={12} sm={6}>
           <InputField name={productionCompanyName.name} label={productionCompanyName.label} fullWidth />
         </Grid>

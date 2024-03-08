@@ -39,7 +39,6 @@ const cardTypes = [
 export const Step4 = (props) => {
   const {
     formField: {
-      creditCardInfo,
       accountType,
       issuingBank,
       cardType,
@@ -54,9 +53,6 @@ export const Step4 = (props) => {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <InputField name={creditCardInfo.name} label={creditCardInfo.label} fullWidth />
-        </Grid>
         <Grid item xs={12} sm={6}>
           <SelectField
               name={accountType.name}

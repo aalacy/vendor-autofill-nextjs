@@ -54,8 +54,6 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
     email: contact?.email || "",
     phone: contact?.phone || "",
     contract_per_day: contact?.contract_per_day || "",
-    contract_per_week: contact?.contract_per_week || "",
-    contract_per_month: contact?.contract_per_month || "",
     contract_type: contact?.contract_type || "",
     aipc_line_number: contact?.aipc_line_number || "",
     department: contact?.department || DepartmentType[0],
@@ -68,17 +66,23 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
     position: yup.string().required("Required"),
     email: yup.string().email("Invalid email!").required("Required"),
     phone: yup.string().matches(phoneRegExp, "phone number is not valid!"),
-    union: yup.number().min(0),
+    union: yup
+      .string()
+      .test(
+        "is-number",
+        (d) => `The value should be 3-4 digit number`,
+        (value) => Number(value) && value.length >= 3 && value.length <= 4
+      ),
     rate: yup.number().min(0).required("Required"),
     contract_per_day: yup.string().required("Required"),
-    contract_per_week: yup.string().required("Required"),
-    contract_per_month: yup.string().required("Required"),
     contract_type: yup.string().required("Required"),
-    aipc_line_number: yup.string().length(4, "4 digit number").test(
-      'is-number',
-      (d) => `The value should be 4-digit number`,
-      (value) => Number(value)
-    ).required("Required"),
+    aipc_line_number: yup
+      .string()
+      .test(
+        "is-number",
+        (d) => `The value should be 3-4 digit number`,
+        (value) => Number(value) && value.length >= 3 && value.length <= 4
+      )
   });
 
   return (
@@ -124,7 +128,7 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
                 helperText={touched.last_name && errors.last_name}
                 sx={{ gridColumn: "span 2" }}
               />
-              
+
               <TextField
                 fullWidth
                 type="text"
@@ -241,47 +245,7 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
               </TextField>
               <TextField
                 fullWidth
-                select
                 type="text"
-                label="Contract Per Week"
-                size="small"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.contract_per_week}
-                name="contract_per_week"
-                error={!!touched.contract_per_week && !!errors.contract_per_week}
-                helperText={touched.contract_per_week && errors.contract_per_week}
-                sx={{ gridColumn: "span 2" }}
-              >
-                {ContractOptions.map((key) => (
-                  <MenuItem key={key} value={key}>
-                    {key}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                fullWidth
-                select
-                type="text"
-                label="Contract Per Month"
-                size="small"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.contract_per_month}
-                name="contract_per_month"
-                error={!!touched.contract_per_month && !!errors.contract_per_month}
-                helperText={touched.contract_per_month && errors.contract_per_month}
-                sx={{ gridColumn: "span 2" }}
-              >
-                {ContractOptions.map((key) => (
-                  <MenuItem key={key} value={key}>
-                    {key}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                fullWidth
-                type="number"
                 size="small"
                 label="Union"
                 onBlur={handleBlur}
@@ -291,15 +255,8 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
                 error={!!touched.union && !!errors.union}
                 helperText={touched.union && errors.union}
                 sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <DollarIcon fontSize="small" />
-                    </InputAdornment>
-                  ),
-                }}
               />
-               <TextField
+              <TextField
                 fullWidth
                 type="text"
                 size="small"
@@ -340,7 +297,8 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
             )}
             <Box display="flex" justifyContent="end" mt="4em" gap={2}>
               <Button type="submit" variant="contained">
-                {isSubmitting && <CircularProgress sx={{ mr: 1 }} color="inherit" size={20} />} {contact ? 'Update' : 'Add'}
+                {isSubmitting && <CircularProgress sx={{ mr: 1 }} color="inherit" size={20} />}{" "}
+                {contact ? "Update" : "Add"}
               </Button>
               <Button onClick={onClose} variant="outlined">
                 Close
