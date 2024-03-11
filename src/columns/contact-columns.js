@@ -1,9 +1,8 @@
 import { Typography, IconButton, Tooltip, Box } from "@mui/material"; 
-import { Clear as ClearIcon, Edit, EditOutlined as EditIcon } from "@mui/icons-material";
-import { formatLocalNumber } from "src/utils";
+import { Clear as ClearIcon, EditOutlined as EditIcon } from "@mui/icons-material";
 
 const RenderAction = (props) => {
-  const { value, handleRemove, handleEdit, params } = props;
+  const { value, handleRemove, handleEdit } = props;
 
   return (
     <Box>

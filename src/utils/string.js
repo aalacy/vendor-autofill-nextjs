@@ -4,6 +4,8 @@ dayjs.extend(utc);
 
 export const beautyDateTime = (date) => (date ? dayjs.utc(date).format("MM/DD/YYYY HH:mm") : "");
 
+export const beautyDate = (date) => (date ? dayjs.utc(date).format("MM/DD/YYYY") : "");
+
 export const replaceWithBr = (text) => {
   return text.replace(/\t/g, " ").replace(/\n/g, "<br />");
 };
@@ -40,3 +42,5 @@ export const bytesToSize = (bytes, decimals = 2) => {
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
   };
   
+export const sum = (data) =>
+  data.length === 0 ? 0 : data.reduce((a, b) => a + b);

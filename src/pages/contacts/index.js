@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Typography, Tooltip } from "@mui/material";
+import { Box, Button, Container, Typography, Tooltip } from "@mui/material";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Add, FileDownload } from "@mui/icons-material";
@@ -9,8 +9,8 @@ import { ContactAddModal } from "src/components/contacts/contact-add-modal";
 import { downloadOneCSV } from "src/utils/csv";
 
 const ContactView = () => {
-  const [contacts, setContacts] = useState();
   const [open, setOpen] = useState(false);
+  const [contacts, setContacts] = useState();
   const [contact, setContact] = useState();
 
   const handleEdit = (id) => {
@@ -44,9 +44,10 @@ const ContactView = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              mb: 5
             }}
           >
-            <Typography variant="h6" mb={5}>
+            <Typography variant="h5" >
               Contacts
             </Typography>
             <Box sx={{ display: "flex", gap: 2 }}>
@@ -72,7 +73,6 @@ const ContactView = () => {
               </Tooltip>
             </Box>
           </Box>
-          <Divider sx={{ my: 1 }} />
           <ContactList contacts={contacts} setContacts={setContacts} handleEdit={handleEdit} />
         </Container>
       </Box>

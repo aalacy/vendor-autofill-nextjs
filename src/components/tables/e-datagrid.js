@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   DataGridPro,
   GridColumnMenuContainer,
@@ -6,47 +6,12 @@ import {
   GridColumnMenuSortItem,
   gridClasses,
 } from "@mui/x-data-grid-pro";
-import { alpha, styled } from '@mui/material/styles';
 import { toast } from "react-hot-toast";
 
 import { TableSkeleton } from "../skeleton/table-skeleton";
 import CustomNoRowsOverlay from "./custom-no-rows";
 import { useAuth } from "src/hooks/use-auth";
-
-const ODD_OPACITY = 0.2;
-
-const StripedDataGrid = styled(DataGridPro)(({ theme }) => ({
-  [`& .${gridClasses.row}.even`]: {
-    backgroundColor: theme.palette.grey[800],
-    '&:hover, &.Mui-hovered': {
-      backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
-      },
-    },
-    '&.Mui-selected': {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity,
-      ),
-      '&:hover, &.Mui-hovered': {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity,
-        ),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity,
-          ),
-        },
-      },
-    },
-  },
-}));
+import { StripedDataGrid } from "./styled-grid";
 
 export function CustomColumnMenuComponent(props) {
   const { hideMenu, colDef,  ...other } = props;
@@ -88,9 +53,13 @@ export const EDataGrid = (props) => {
     enableClipboardCopy
   } = props;
 
-  const { showConfirmDlg } = useAuth()
+  const { showConfirmDlg } = useAuth();
+  const [detailPanelExpandedRowIds, setDetailPanelExpandedRowIds] = useState([]);
 
   const getDetailPanelHeight = useCallback(() => 'auto', []);
+  const handleDetailPanelExpandedRowIdsChange = useCallback((newIds) => {
+    setDetailPanelExpandedRowIds(newIds.length > 1 ? [newIds[newIds.length - 1]] : newIds);
+  }, []);
 
   const computeMutation = (newRow, oldRow) => {
     let ret = null;
@@ -179,6 +148,8 @@ export const EDataGrid = (props) => {
       rowThreshold={rowThreshold}
       getDetailPanelHeight={getDetailPanelHeight}
       getDetailPanelContent={getDetailPanelContent}
+      detailPanelExpandedRowIds={detailPanelExpandedRowIds}
+      onDetailPanelExpandedRowIdsChange={handleDetailPanelExpandedRowIdsChange}
       slots={{
         noRowsOverlay: CustomNoRowsOverlay,
         noResultsOverlay: CustomNoRowsOverlay,

@@ -20,7 +20,7 @@ export const InputPhone = forwardRef<HTMLElement, CustomProps>(
         }}
         inputRef={ref}
         onAccept={(value: any) =>
-          onChange({ target: { name: props.name, value } })
+          onChange({ target: { name: props.name, value: `${value}` } })
         }
         overwrite
       />

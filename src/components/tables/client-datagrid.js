@@ -1,8 +1,8 @@
-import { DataGridPro } from "@mui/x-data-grid-pro";
+import { useCallback, useState } from "react";
 
 import { TableSkeleton } from "../skeleton/table-skeleton";
 import CustomNoRowsOverlay from "./custom-no-rows";
-import { useCallback, useState } from "react";
+import { StripedDataGrid } from "./styled-grid";
 
 export const ClientDataGrid = (props) => {
   const {
@@ -15,7 +15,7 @@ export const ClientDataGrid = (props) => {
     setRowSelectionModel,
     toolbar,
     slots,
-    onStateChange
+    onStateChange,
   } = props;
 
   const [detailPanelExpandedRowIds, setDetailPanelExpandedRowIds] = useState([]);
@@ -26,7 +26,7 @@ export const ClientDataGrid = (props) => {
   }, []);
 
   return (
-    <DataGridPro
+    <StripedDataGrid
       disableColumnFilter
       disableColumnSelector
       disableDensitySelector
@@ -41,10 +41,10 @@ export const ClientDataGrid = (props) => {
       getDetailPanelContent={getDetailPanelContent}
       detailPanelExpandedRowIds={detailPanelExpandedRowIds}
       onDetailPanelExpandedRowIdsChange={handleDetailPanelExpandedRowIdsChange}
-      // onRowSelectionModelChange={(newRowSelectionModel) => {
-      //   setRowSelectionModel(newRowSelectionModel);
-      // }}
-      // rowSelectionModel={rowSelectionModel}
+      onRowSelectionModelChange={(newRowSelectionModel) => {
+        setRowSelectionModel(newRowSelectionModel);
+      }}
+      rowSelectionModel={rowSelectionModel}
       rowThreshold={0}
       columnBuffer={2}
       columnThreshold={2}
