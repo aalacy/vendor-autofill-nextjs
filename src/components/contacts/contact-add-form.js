@@ -57,7 +57,7 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
     contract_type: contact?.contract_type || "",
     aipc_line_number: contact?.aipc_line_number || "",
     department: contact?.department || DepartmentType[0],
-    union: contact?.union || 0,
+    union: contact?.union || "",
     rate: contact?.rate || 0,
   };
   const checkoutSchema = yup.object().shape({
