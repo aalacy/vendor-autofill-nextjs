@@ -36,7 +36,7 @@ export const AutocompleteField = (props) => {
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
       loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=AIzaSyCSm8djlwVK_t3Jrb2I18bvWulxLbUWONw&libraries=places`,
+        `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places`,
         document.querySelector("head"),
         "google-maps"
       );
