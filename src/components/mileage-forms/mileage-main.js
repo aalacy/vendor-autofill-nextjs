@@ -2,15 +2,21 @@ import { Grid, Button, Box, Typography } from "@mui/material";
 import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
 import { FieldArray } from "formik";
 
-import {
-  InputField,
-  DatePickerField,
-  AutocompleteField,
-} from "src/components/widgets";
+import { InputField, DatePickerField, AutocompleteField } from "src/components/widgets";
 import { formatLocalNumber, sum } from "src/utils";
+import { useEffect } from "react";
 
 export const MileageMainForm = (props) => {
   const { values, setFieldValue } = props;
+
+  useEffect(() => {
+    if (!values?.data || values.data.length < 2) return;
+    // select date in the present and past vs date in the present and future.
+    const prevDate = values.data.at(-2).date;
+    const curDate = values.data.at(-1).date;
+    const index = values.data.length - 1;
+    setFieldValue(`data.${index}.date`, curDate || prevDate);
+  }, [values]);
 
   return (
     <>
@@ -23,7 +29,8 @@ export const MileageMainForm = (props) => {
             <Box mb={3}>
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 1 }}>
                 <Typography>
-                  <b>Total # of miles:</b> {formatLocalNumber(sum(data.map((d) => d.number_of_miles)))}
+                  <b>Total # of miles:</b>{" "}
+                  {formatLocalNumber(sum(data.map((d) => d.number_of_miles)))}
                 </Typography>
                 <Typography>
                   <b>Total Mileage Reimbursement($):</b>{" "}
@@ -42,7 +49,7 @@ export const MileageMainForm = (props) => {
                             name={`data.${index}.date`}
                             label={`Date`}
                             format="MM/dd/yyyy"
-                            minDate={new Date()}
+                            maxDate={new Date()}
                             fullWidth
                           />
                         </Grid>

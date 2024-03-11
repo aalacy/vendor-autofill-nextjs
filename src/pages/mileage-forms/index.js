@@ -55,7 +55,7 @@ export const MileageFormsPage = () => {
           </Box>
           <MileageList mileages={mileages} setMileages={setMileages} handleEdit={handleEdit} />
         </Container>
-        <MileageAddModal open={open} setOpen={setOpen} mileage={mileage} />
+        { open ? <MileageAddModal open={true} setOpen={setOpen} mileage={mileage} /> : null }
       </Box>
     </>
   );

@@ -30,13 +30,14 @@ export const AutocompleteField = (props) => {
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
+  const [defaultValue, setDefaultValue] = useState(values.data[index][name.split('.').at(-1)] || "");
   const loaded = useRef(false);
   const inputRef = useRef(null);
 
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
       loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places,geometry`,
+        `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places,geometry&loading=async`,
         document.querySelector("head"),
         "google-maps"
       );
@@ -58,8 +59,22 @@ export const AutocompleteField = (props) => {
     const toAddress = await geocodeByPlaceID(values.data[index].to_address_place_id);
     const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
     setFieldValue(`data.${index}.number_of_miles`, distance);
-    setFieldValue(`data.${index}.mileage_reimbursement`, distance * .67 / 100);
-  }, [value, values])
+    setFieldValue(`data.${index}.mileage_reimbursement`, distance * .67);
+  }, [value, values]);
+
+  const manageDefaultValue = () => {
+    if (!values?.data || values.data.length < 2) return;
+    if (!name.includes("from_address")) return;
+
+    // "From" address of new milage entry autofills with the "To" address of the previous entry
+    const curFrom = values.data.at(-1).from_address;
+    const curFromPlaceId = values.data.at(-1).from_address_place_id;
+    const prevTo = values.data.at(-2).to_address;
+    const prevToPlaceId = values.data.at(-2).to_address_place_id;
+    setFieldValue(`data.${index}.from_address`, curFrom || prevTo);
+    setFieldValue(`data.${index}.from_address_place_id`, curFromPlaceId || prevToPlaceId);
+    setDefaultValue(curFrom || prevTo);
+  }
 
   useEffect(() => {
     if (!values?.data || values.data.length === 0) return;
@@ -67,6 +82,7 @@ export const AutocompleteField = (props) => {
     if (!window.google?.maps?.Geocoder) return;
 
     calculateMiles();
+    manageDefaultValue();
   }, [values?.data])
 
   useEffect(() => {
@@ -127,7 +143,7 @@ export const AutocompleteField = (props) => {
       options={options}
       filterSelectedOptions
       noOptionsText="No locations"
-      defaultValue={values.data[index][name.split('.').at(-1)]}
+      defaultValue={defaultValue}
       onChange={(event, newValue) => {
         setOptions(newValue ? [newValue, ...options] : options);
         setValue(newValue);

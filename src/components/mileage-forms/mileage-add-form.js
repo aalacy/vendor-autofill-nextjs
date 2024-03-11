@@ -14,11 +14,12 @@ export const MileageAddForm = ({ loading, submitForm, mileage }) => {
         initialValues={MileageInitialValues(mileage)}
         validationSchema={MileageValidationSchema}
         onSubmit={submitForm}
+        enableReinitialize
       >
         {({ isSubmitting, values, setFieldValue }) => (
           <Form>
             <MileageTop values={values} />
-            <MileageMainForm values={values} setFieldValue={setFieldValue} />
+            <MileageMainForm values={values} setFieldValue={setFieldValue}/>
             <MileageBottom values={values} />
             <Box sx={{ display: "flex", gap: 3, mt: 3 }}>
               <Button
@@ -28,7 +29,7 @@ export const MileageAddForm = ({ loading, submitForm, mileage }) => {
                 color="primary"
                 startIcon={(isSubmitting || loading) && <CircularProgress size={24} />}
               >
-                {mileage ? "Update" : "Submit"}
+                {mileage ? "Update" : "Save"}
               </Button>
             </Box>
           </Form>

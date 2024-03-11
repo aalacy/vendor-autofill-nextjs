@@ -1,5 +1,5 @@
 import { useState } from "react";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 
 import { useAuth } from "src/hooks/use-auth";
 import { Modal } from "../common/modal";
@@ -17,6 +17,7 @@ export const MileageAddModal = ({ mileage, open, setOpen }) => {
       helpers.setTouched({});
       helpers.setSubmitting(false);
       toast.success("Successfully created.");
+      setOpen(false);
     } catch (err) {
       const submit = Array.isArray(err.response?.data) ? err.message : err.response?.data;
       helpers.setStatus({ success: false });
@@ -25,13 +26,13 @@ export const MileageAddModal = ({ mileage, open, setOpen }) => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const handleSubmit = async (values, helpers) => {
     if (mileage) {
-      await handleUpdate(mileage.id, values, helpers)
+      await handleUpdate(mileage.id, values, helpers);
     } else {
-      await _handleSubmit(values, helpers)
+      await _handleSubmit(values, helpers);
     }
     refresh();
   };
@@ -43,6 +44,7 @@ export const MileageAddModal = ({ mileage, open, setOpen }) => {
       helpers.setTouched({});
       helpers.setSubmitting(false);
       toast.success("Successfully updated.");
+      setOpen(false);
     } catch (err) {
       const submit = Array.isArray(err.response?.data) ? err.message : err.response?.data;
       helpers.setStatus({ success: false });
@@ -55,16 +57,16 @@ export const MileageAddModal = ({ mileage, open, setOpen }) => {
 
   return (
     <Modal
+      keepMounted
       title={`${mileage ? "Update Mileage Form" : "Add New Mileage Form"}`}
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={(event, reason) => {
+        if (reason && reason === "backdropClick") return;
+        setOpen(false);
+      }}
       size="md"
     >
-      <MileageAddForm
-        loading={loading}
-        mileage={mileage}
-        submitForm={handleSubmit}
-      />
+      <MileageAddForm loading={loading} mileage={mileage} submitForm={handleSubmit} />
     </Modal>
   );
 };

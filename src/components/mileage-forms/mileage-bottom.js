@@ -5,7 +5,7 @@ import { InputField, DatePickerField } from "src/components/widgets";
 export const MileageBottom = () => {
   return (
     <Box sx={{ mb: 2, border: 1, borderRadius: 1, p: 1 }}>
-      <Grid container spacing={3} mb={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <InputField name="employee_signature" label="Employee Signature" fullWidth size="small" />
         </Grid>
@@ -18,7 +18,7 @@ export const MileageBottom = () => {
           />
         </Grid>
       </Grid>
-      <Grid container spacing={3}>
+      {/* <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <InputField name="approval_signature" label="Approval Signature" fullWidth size="small" />
         </Grid>
@@ -30,7 +30,7 @@ export const MileageBottom = () => {
             fullWidth
           />
         </Grid>
-      </Grid>
+      </Grid> */}
     </Box>
   );
 };

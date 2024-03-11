@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 
-import { InputField, SelectField } from "src/components/widgets";
+import { DatePickerField, InputField, SelectField } from "src/components/widgets";
 
 const Weeks = [
   {
@@ -41,7 +41,7 @@ export const MileageTop = () => {
           <InputField name="name" label="Name" fullWidth size="small" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <SelectField name="week_of" label="Week Of" data={Weeks} fullWidth size="small" />
+          <DatePickerField name="week_of" maxDate={new Date()} label="Week Of" format="MM/dd/yyyy" fullWidth size="small"/>
         </Grid>
       </Grid>
     </>
