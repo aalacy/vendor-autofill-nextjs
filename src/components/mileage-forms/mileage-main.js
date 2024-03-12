@@ -7,9 +7,22 @@ import { formatLocalNumber, sum } from "src/utils";
 import { useEffect } from "react";
 
 export const MileageMainForm = (props) => {
-  const { values, setFieldValue } = props;
+  const { values, setFieldValue, setEmpty } = props;
 
   useEffect(() => {
+    const { data, ...others } = values;
+    // check if the values is empty object
+    if (Object.values(others).some((v) => v)) {
+      setEmpty(false);
+    } else {
+      for (const item of data) {
+        if (Object.values(item).some((v) => v)) {
+          setEmpty(false);
+          break;
+        }
+      }
+    }
+
     if (!values?.data || values.data.length < 2) return;
     // select date in the present and past vs date in the present and future.
     const prevDate = values.data.at(-2).date;

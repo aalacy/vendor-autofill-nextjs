@@ -46,6 +46,8 @@ export const AutocompleteField = (props) => {
     loaded.current = true;
   }
 
+  console.log('default', name, values.data[index][name.split('.').at(-1)])
+
   const fetch = useMemo(
     () =>
       debounce((request, callback) => {
@@ -74,6 +76,8 @@ export const AutocompleteField = (props) => {
     setFieldValue(`data.${index}.from_address`, curFrom || prevTo);
     setFieldValue(`data.${index}.from_address_place_id`, curFromPlaceId || prevToPlaceId);
     setDefaultValue(curFrom || prevTo);
+
+    console.log('curFrom || prevTo', name, curFrom || prevTo)
   }
 
   useEffect(() => {
@@ -82,8 +86,11 @@ export const AutocompleteField = (props) => {
     if (!window.google?.maps?.Geocoder) return;
 
     calculateMiles();
-    manageDefaultValue();
   }, [values?.data])
+
+  useEffect(() => {
+    manageDefaultValue();
+  }, [])
 
   useEffect(() => {
     let active = true;
