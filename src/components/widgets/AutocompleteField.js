@@ -46,8 +46,6 @@ export const AutocompleteField = (props) => {
     loaded.current = true;
   }
 
-  console.log('default', name, values.data[index][name.split('.').at(-1)])
-
   const fetch = useMemo(
     () =>
       debounce((request, callback) => {
@@ -62,29 +60,29 @@ export const AutocompleteField = (props) => {
     const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
     setFieldValue(`data.${index}.number_of_miles`, distance);
     setFieldValue(`data.${index}.mileage_reimbursement`, distance * .67);
-  }, [value, values]);
+}, [value, values]);
 
-  const manageDefaultValue = () => {
+    const manageDefaultValue = () => {
     if (!values?.data || values.data.length < 2) return;
     if (!name.includes("from_address")) return;
 
-    // "From" address of new milage entry autofills with the "To" address of the previous entry
+  // "From" address of new milage entry autofills with the "To" address of the previous entry
     const curFrom = values.data.at(-1).from_address;
     const curFromPlaceId = values.data.at(-1).from_address_place_id;
-    const prevTo = values.data.at(-2).to_address;
+        const prevTo = values.data.at(-2).to_address;
     const prevToPlaceId = values.data.at(-2).to_address_place_id;
     setFieldValue(`data.${index}.from_address`, curFrom || prevTo);
     setFieldValue(`data.${index}.from_address_place_id`, curFromPlaceId || prevToPlaceId);
-    setDefaultValue(curFrom || prevTo);
-
+          setDefaultValue(curFrom || prevTo);
+      
     console.log('curFrom || prevTo', name, curFrom || prevTo)
   }
 
   useEffect(() => {
     if (!values?.data || values.data.length === 0) return;
-    if (!values.data[index].from_address || !values.data[index].to_address) return;
+        if (!values.data[index].from_address || !values.data[index].to_address) return;
     if (!window.google?.maps?.Geocoder) return;
-
+    
     calculateMiles();
   }, [values?.data])
 
@@ -112,7 +110,7 @@ export const AutocompleteField = (props) => {
         let newOptions = [];
 
         // if (value) {
-        //   newOptions = [value];
+          //   newOptions = [value];
         // }
 
         if (results) {
@@ -133,8 +131,8 @@ export const AutocompleteField = (props) => {
       active = false;
     };
   }, [value, inputValue, fetch]);
-  
-  
+
+
   function _renderHelperText() {
     const [touched, error] = at(meta, "touched", "error");
     if (touched && error) {
@@ -151,6 +149,7 @@ export const AutocompleteField = (props) => {
       filterSelectedOptions
       noOptionsText="No locations"
       defaultValue={defaultValue}
+      // value={value}
       onChange={(event, newValue) => {
         setOptions(newValue ? [newValue, ...options] : options);
         setValue(newValue);

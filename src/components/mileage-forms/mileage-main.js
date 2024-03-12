@@ -9,7 +9,14 @@ import { useEffect } from "react";
 export const MileageMainForm = (props) => {
   const { values, setFieldValue, setEmpty } = props;
 
-  useEffect(() => {
+  const manageDateDefaultValue = () => {
+    const prevDate = values.data.at(-2).date;
+    const curDate = values.data.at(-1).date;
+    const index = values.data.length - 1;
+    setFieldValue(`data.${index}.date`, curDate || prevDate);
+  };
+
+  const checkFormEmpty = () => {
     const { data, ...others } = values;
     // check if the values is empty object
     if (Object.values(others).some((v) => v)) {
@@ -22,13 +29,15 @@ export const MileageMainForm = (props) => {
         }
       }
     }
+  };
+
+  useEffect(() => {
+    checkFormEmpty();
 
     if (!values?.data || values.data.length < 2) return;
     // select date in the present and past vs date in the present and future.
-    const prevDate = values.data.at(-2).date;
-    const curDate = values.data.at(-1).date;
-    const index = values.data.length - 1;
-    setFieldValue(`data.${index}.date`, curDate || prevDate);
+
+    manageDateDefaultValue();
   }, [values]);
 
   return (

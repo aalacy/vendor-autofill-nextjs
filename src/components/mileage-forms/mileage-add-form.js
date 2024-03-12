@@ -6,10 +6,9 @@ import { MileageValidationSchema } from "./FormModel/mileage-validation-schema";
 import { MileageTop } from "./mileage-top";
 import { MileageMainForm } from "./mileage-main";
 import { MileageBottom } from "./mileage-bottom";
-import { useEffect } from "react";
 
 export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
-   return (
+  return (
     <>
       <Formik
         initialValues={MileageInitialValues(mileage)}
@@ -33,7 +32,7 @@ export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
                 {mileage ? "Update" : "Save"}
               </Button>
             </Box>
-          </Form>
+                      </Form>
         )}
       </Formik>
     </>

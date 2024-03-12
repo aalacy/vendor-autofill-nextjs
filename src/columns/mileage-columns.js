@@ -19,6 +19,7 @@ const RenderAction = (props) => {
           <IconButton
             onClick={() => handleEdit(value)}
             size="small"
+            color="info"
             sx={{
               ml: 3,
             }}
@@ -78,7 +79,8 @@ export const MileagesColumns = ({
       type: "string",
       resizable: true,
       editable: true,
-      width: 100,
+      width: 120,
+      valueGetter: (params) => beautyDate(params.value),
     },
     {
       field: "employee_signature",
