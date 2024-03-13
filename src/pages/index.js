@@ -13,12 +13,12 @@ const Page = () => {
   const [vendors, setVendors] = useState();
   const [selectedData, setSelectedData] = useState([]);
 
-  const { job, showJobForm } = useAuth();
+  const { user, showJobForm } = useAuth();
 
   useEffect(() => {
-    if (!job) return;
+    if (user?.has_job_submitted) return;
     showJobForm(true);
-  }, [job])
+  }, [user]);
 
   return (
     <>
@@ -48,8 +48,7 @@ const Page = () => {
           />
         </Container>
       </Box>
-      <JobFormModal
-      />
+      <JobFormModal />
     </>
   );
 };

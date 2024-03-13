@@ -44,13 +44,12 @@ const handlers = {
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
-    const { user, job } = action.payload;
+    const { user } = action.payload;
 
     return {
       ...state,
       isAuthenticated: true,
       user,
-      job,
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {
@@ -165,7 +164,7 @@ export const AuthProvider = (props) => {
   const signIn = async (email, password) => {
     const { data } = await AuthService.login(email, password);
     const {
-      result: { access_token, user, job },
+      result: { access_token, user },
     } = data;
 
     localStorage.setItem("auth_token", access_token);
@@ -178,7 +177,7 @@ export const AuthProvider = (props) => {
 
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: { user, job },
+      payload: { user },
     });
   };
 
