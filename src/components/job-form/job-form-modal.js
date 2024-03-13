@@ -52,7 +52,7 @@ const _renderStepContent = (step, values) => {
 };
 
 export const JobFormModal = () => {
-  const { showJobForm, openJobForm } = useAuth();
+  const { showJobForm, openJobForm, fetchJob } = useAuth();
 
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -94,6 +94,11 @@ export const JobFormModal = () => {
     setActiveStep(0);
   };
 
+  const onClose = () => {
+    fetchJob();
+    showJobForm(false);
+  };
+
   return (
     <>
       <Modal
@@ -103,7 +108,7 @@ export const JobFormModal = () => {
           </Typography>
         }
         open={openJobForm}
-        onClose={() => showJobForm(false)}
+        onClose={onClose}
       >
         <Container maxWidth="xl">
           <Stepper activeStep={activeStep} sx={{ mb: 5 }}>
