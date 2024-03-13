@@ -69,6 +69,7 @@ export const JobFormModal = () => {
       setLoading(true);
       await JobService.add(values);
       toast.success("Successfully submitted");
+      showJobForm(false);
     } catch (error) {
       toast.error(error.message);
     } finally {
