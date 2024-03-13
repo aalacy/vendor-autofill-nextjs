@@ -1,16 +1,17 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { AuthService } from 'src/services/auth-service';
-import { useRouter } from 'next/router';
-import { JobService } from 'src/services';
+import { createContext, useContext, useEffect, useReducer, useRef } from "react";
+import PropTypes from "prop-types";
+import { AuthService } from "src/services/auth-service";
+import { useRouter } from "next/router";
+import { JobService } from "src/services";
 
 const HANDLERS = {
-  INITIALIZE: 'INITIALIZE',
-  SIGN_IN: 'SIGN_IN',
-  SIGN_OUT: 'SIGN_OUT',
-  CONFIRM: 'CONFIRM',
-  FETCH_JOB: 'FETCH_JOB',
-  REFRESH: 'REFRESH'
+  INITIALIZE: "INITIALIZE",
+  SIGN_IN: "SIGN_IN",
+  SIGN_OUT: "SIGN_OUT",
+  CONFIRM: "CONFIRM",
+  FETCH_JOB: "FETCH_JOB",
+  REFRESH: "REFRESH",
+  JOB_FORM: "JOB_FORM",
 };
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
   confirmMessage: null,
   isJobFetched: false,
   job: null,
-  shouldRefresh: false
+  shouldRefresh: false,
+  openJobForm: false,
 };
 
 const handlers = {
@@ -29,34 +31,33 @@ const handlers = {
 
     return {
       ...state,
-      ...(
-        // if payload (user) is provided, then is authenticated
-        user
-          ? ({
+      ...// if payload (user) is provided, then is authenticated
+      (user
+        ? {
             isAuthenticated: true,
             isLoading: false,
-            user
-          })
-          : ({
-            isLoading: false
-          })
-      )
+            user,
+          }
+        : {
+            isLoading: false,
+          }),
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
-    const user = action.payload;
+    const { user, job } = action.payload;
 
     return {
       ...state,
       isAuthenticated: true,
-      user
+      user,
+      job,
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {
     return {
       ...state,
       isAuthenticated: false,
-      user: null
+      user: null,
     };
   },
   [HANDLERS.CONFIRM]: (state, action) => {
@@ -64,7 +65,7 @@ const handlers = {
 
     return {
       ...state,
-      confirmMessage
+      confirmMessage,
     };
   },
   [HANDLERS.FETCH_JOB]: (state, action) => {
@@ -73,21 +74,26 @@ const handlers = {
     return {
       ...state,
       isJobFetched: true,
-      job
+      job,
     };
   },
   [HANDLERS.REFRESH]: (state, action) => {
-
     return {
       ...state,
-      shouldRefresh: !state.shouldRefresh
+      shouldRefresh: !state.shouldRefresh,
+    };
+  },
+  [HANDLERS.JOB_FORM]: (state, action) => {
+    const { open } = action.payload;
+    return {
+      ...state,
+      openJobForm: open,
     };
   },
 };
 
-const reducer = (state, action) => (
-  handlers[action.type] ? handlers[action.type](state, action) : state
-);
+const reducer = (state, action) =>
+  handlers[action.type] ? handlers[action.type](state, action) : state;
 
 // The role of this context is to propagate authentication state through the App tree.
 
@@ -110,87 +116,88 @@ export const AuthProvider = (props) => {
     let isAuthenticated = false;
 
     try {
-      isAuthenticated = window.sessionStorage.getItem('authenticated') === 'true';
+      isAuthenticated = window.sessionStorage.getItem("authenticated") === "true";
     } catch (err) {
       console.error(err);
     }
 
-    if (isAuthenticated && !pathname.includes('auth')) {
+    if (isAuthenticated && !pathname.includes("auth")) {
       const { data } = await AuthService.me();
 
       dispatch({
         type: HANDLERS.INITIALIZE,
-        payload: data.result
+        payload: data.result,
       });
     } else {
       dispatch({
-        type: HANDLERS.INITIALIZE
+        type: HANDLERS.INITIALIZE,
       });
     }
   };
 
-
   const skip = () => {
     try {
-      window.sessionStorage.setItem('authenticated', 'true');
+      window.sessionStorage.setItem("authenticated", "true");
     } catch (err) {
       console.error(err);
     }
 
     const user = {
-      id: '5e86809283e28b96d2d38537',
-      avatar: '/assets/avatars/avatar-anika-visser.png',
-      name: 'Anika Visser',
-      email: 'anika.visser@devias.io'
+      id: "5e86809283e28b96d2d38537",
+      avatar: "/assets/avatars/avatar-anika-visser.png",
+      name: "Anika Visser",
+      email: "anika.visser@devias.io",
     };
 
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: user
+      payload: { user },
     });
   };
 
   const setUser = (user) => {
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: user
+      payload: { user },
     });
   };
 
   const signIn = async (email, password) => {
     const { data } = await AuthService.login(email, password);
-    const { result: { access_token, user } } = data;
+    const {
+      result: { access_token, user, job },
+    } = data;
 
     localStorage.setItem("auth_token", access_token);
 
     try {
-      window.sessionStorage.setItem('authenticated', 'true');
+      window.sessionStorage.setItem("authenticated", "true");
     } catch (err) {
       console.error(err);
     }
 
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: user
+      payload: { user, job },
     });
   };
 
-  const signUp = async ({...values}) => {
+  const signUp = async ({ ...values }) => {
     const { data } = await AuthService.register(values);
   };
 
   const signOut = () => {
     dispatch({
-      type: HANDLERS.SIGN_OUT
+      type: HANDLERS.SIGN_OUT,
     });
   };
 
   const showConfirmDlg = (confirmMessage) => {
     dispatch({
       type: HANDLERS.CONFIRM,
-      payload: confirmMessage
+      payload: confirmMessage,
     });
-  }
+  };
 
   const hideConfirm = async () => {
     dispatch({
@@ -202,13 +209,13 @@ export const AuthProvider = (props) => {
   const fetchJob = async () => {
     let isJobFetched = false;
 
-    if ((!isJobFetched || !state.job) && !pathname.includes('auth')){
+    if ((!isJobFetched || !state.job) && !pathname.includes("auth")) {
       const { data } = await JobService.mine();
       const { result } = data;
 
       dispatch({
         type: HANDLERS.FETCH_JOB,
-        payload: result
+        payload: result,
       });
     } else {
       dispatch({
@@ -223,10 +230,16 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const showJobForm = (open) => {
+    dispatch({
+      type: HANDLERS.JOB_FORM,
+      payload: { open },
+    });
+  };
+
   useEffect(
     () => {
       initialize();
-      fetchJob();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -244,7 +257,8 @@ export const AuthProvider = (props) => {
         showConfirmDlg,
         hideConfirm,
         fetchJob,
-        refresh
+        refresh,
+        showJobForm,
       }}
     >
       {children}
@@ -253,7 +267,7 @@ export const AuthProvider = (props) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export const AuthConsumer = AuthContext.Consumer;

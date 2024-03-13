@@ -43,15 +43,15 @@ export const items = [
       </SvgIcon>
     ),
   },
-  {
-    title: "Job Form",
-    path: "/job-form",
-    icon: (
-      <SvgIcon fontSize="small">
-        <JobFormIcon />
-      </SvgIcon>
-    ),
-  },
+  // {
+  //   title: "Job Form",
+  //   path: "/job-form",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <JobFormIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
   {
     title: "Files",
     path: "/files",

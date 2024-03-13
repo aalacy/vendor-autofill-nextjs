@@ -16,7 +16,7 @@ import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 
 const Page = () => {
   const router = useRouter();
-  const auth = useAuth();
+  const { signIn } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -36,7 +36,7 @@ const Page = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        await auth.signIn(values.email, values.password);
+        await signIn(values.email, values.password);
         router.push('/');
       } catch (err) {
         helpers.setStatus({ success: false });
