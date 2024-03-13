@@ -16,7 +16,7 @@ const Page = () => {
   const { job, showJobForm } = useAuth();
 
   useEffect(() => {
-    // if (!job) return;
+    if (!job) return;
     showJobForm(true);
   }, [job])
 
