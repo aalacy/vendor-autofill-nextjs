@@ -45,7 +45,7 @@ export const TopNav = (props) => {
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
   const accountPopover = usePopover();
 
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <>
@@ -85,7 +85,7 @@ export const TopNav = (props) => {
               </IconButton>
             )}
           </Stack>
-          <Stack alignItems="center" direction="row" spacing={2}>
+          <Stack alignItems="center" direction="row" spacing={2} sx={{ display: isAuthenticated ? "inherit" : "none"}}>
             <StyledBadge
               overlap="circular"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}

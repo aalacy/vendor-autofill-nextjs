@@ -3,9 +3,9 @@ import Head from "next/head";
 import { Add } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 
-import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { MileageAddModal } from "src/components/mileage-forms/mileage-add-modal";
 import { MileageList } from "src/components/mileage-forms/mileage-list";
+import { GuestLayout } from "src/layouts/guest/layout";
 
 export const MileageFormsPage = () => {
   const [open, setOpen] = useState(false);
@@ -61,6 +61,6 @@ export const MileageFormsPage = () => {
   );
 };
 
-MileageFormsPage.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+MileageFormsPage.getLayout = (page) => <GuestLayout>{page}</GuestLayout>;
 
 export default MileageFormsPage;

@@ -1,9 +1,10 @@
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import Head from "next/head";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { AccountForm } from "src/components/account/account-form";
 import { AvatarUpload } from "src/components/account/avatar-upload";
+import { Money } from "@mui/icons-material";
 
 const ManageAccount = () => {
   return (
@@ -18,9 +19,14 @@ const ManageAccount = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography variant="h5" mb={5}>
-            Manage Account
-          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <Typography variant="h5" mb={5}>
+              Manage Account
+            </Typography>
+            <Button startIcon={<Money />} size="small" variant="outlined" href="/pricing">
+              Upgrade Plan
+            </Button>
+          </Box>
           <Box sx={{ ml: 4 }}>
             <AvatarUpload />
             <AccountForm />

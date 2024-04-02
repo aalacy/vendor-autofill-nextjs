@@ -186,6 +186,9 @@ export const AuthProvider = (props) => {
   };
 
   const signOut = () => {
+    localStorage.removeItem("auth_token");
+    window.sessionStorage.setItem("authenticated", "false");
+
     dispatch({
       type: HANDLERS.SIGN_OUT,
     });

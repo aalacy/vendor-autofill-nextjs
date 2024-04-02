@@ -53,6 +53,9 @@ export const AccountPopover = (props) => {
           }
         }}
       >
+        <MenuItem href='/pricing'>
+          Pricing
+        </MenuItem>
         <MenuItem onClick={handleSignOut}>
           Sign out
         </MenuItem>

@@ -20,6 +20,7 @@
     "@emotion/styled": "11.11.0",
     "@ericz1803/react-google-calendar": "^4.3.2",
     "@faker-js/faker": "^8.4.1",
+    "@fingerprintjs/fingerprintjs": "^4.2.2",
     "@fullcalendar/core": "^6.1.10",
     "@fullcalendar/daygrid": "^6.1.10",
     "@fullcalendar/google-calendar": "^6.1.10",

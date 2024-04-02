@@ -1,3 +1,4 @@
+
 import Head from 'next/head';
 import { CacheProvider } from '@emotion/react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -31,37 +32,37 @@ const App = (props) => {
   const theme = createTheme();
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>
-          Prodbot
-        </title>
-        <meta
-          name="viewport"
-          content="initial-scale=1, width=device-width"
-        />
-      </Head>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Toaster position="top-center" />
-            <AuthConsumer>
-              {
-                (auth) => auth.isLoading
-                  ? <SplashScreen />
-                  : getLayout(<>
-                    <Component {...pageProps} />
-                    {auth.confirmMessage?.open && (
-                      <ConfirmDialog {...auth.confirmMessage} />
-                    )}
-                  </>)
-              }
-            </AuthConsumer>
-          </ThemeProvider>
-        </AuthProvider>
-      </LocalizationProvider>
-    </CacheProvider>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <title>
+            Prodbot
+          </title>
+          <meta
+            name="viewport"
+            content="initial-scale=1, width=device-width"
+          />
+        </Head>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <AuthProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Toaster position="top-center" />
+              <AuthConsumer>
+                {
+                  (auth) => auth.isLoading
+                    ? <SplashScreen />
+                    : getLayout(<>
+                      <Component {...pageProps} />
+                      {auth.confirmMessage?.open && (
+                        <ConfirmDialog {...auth.confirmMessage} />
+                      )}
+                    </>)
+                }
+              </AuthConsumer>
+            </ThemeProvider>
+          </AuthProvider>
+        </LocalizationProvider>
+      </CacheProvider>
   );
 };
 

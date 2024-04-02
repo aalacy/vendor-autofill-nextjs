@@ -1,17 +1,18 @@
 import http from "./http";
 
 export class MileageService {
-  static all(paginationModel, filterModel, logicOperator) {
+  static all(paginationModel, filterModel, logicOperator, visitor_id) {
     return http.post(`/mileages/all`, {
       page: paginationModel.page + 1,
       take: paginationModel.pageSize,
-      filterModel: filterModel,
-      logicOperator: logicOperator,
+      filterModel,
+      logicOperator,
+      visitor_id
     });
   }
 
-  static add(values) {
-    return http.post("/mileages/add", { ...values });
+  static add(values, visitor_id) {
+    return http.post("/mileages/add", { ...values, visitor_id });
   }
 
   static get(id) {

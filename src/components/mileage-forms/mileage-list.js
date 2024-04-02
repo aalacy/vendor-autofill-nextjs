@@ -9,6 +9,7 @@ import { useAuth } from "src/hooks/use-auth";
 import { MileageDetailContent } from "./mileage-detail";
 import { Modal } from "../common/modal";
 import { PdfViewer } from "../history/pdf-viewer";
+import { useIndentifier } from "src/hooks/use-identifier";
 
 export const MileageList = ({ mileages, setMileages, handleEdit }) => {
   const { showConfirmDlg, hideConfirm, shouldRefresh, refresh } = useAuth();
@@ -26,10 +27,12 @@ export const MileageList = ({ mileages, setMileages, handleEdit }) => {
 
   const getDetailPanelContent = useCallback(({ row }) => <MileageDetailContent row={row} />, []);
 
+  const identifier = useIndentifier();
+
   const getData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await MileageService.all(paginationModel, filterModel, logicOperator);
+      const { data } = await MileageService.all(paginationModel, filterModel, logicOperator, identifier);
       setMileages(data.result);
       setRowCountState(data.result.total_count);
     } catch (error) {
@@ -37,11 +40,12 @@ export const MileageList = ({ mileages, setMileages, handleEdit }) => {
     } finally {
       setLoading(false);
     }
-  }, [paginationModel, filterModel, logicOperator]);
+  }, [paginationModel, filterModel, logicOperator, identifier]);
 
   useEffect(() => {
+    if (!identifier) return;
     getData();
-  }, [paginationModel, filterModel, logicOperator, shouldRefresh]);
+  }, [paginationModel, filterModel, logicOperator, shouldRefresh, identifier]);
 
   const removeMileage = async (id) => {
     try {
