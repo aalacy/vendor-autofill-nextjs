@@ -18,6 +18,11 @@ export const AccountPopover = (props) => {
     [onClose, auth, router]
   );
 
+  const handlePricing = useCallback(() => {
+    onClose?.();
+    router.push('/pricing');
+  }, [onClose]);
+
   return (
     <Popover
       anchorEl={anchorEl}
@@ -53,7 +58,7 @@ export const AccountPopover = (props) => {
           }
         }}
       >
-        <MenuItem href='/pricing'>
+        <MenuItem onClick={handlePricing}>
           Pricing
         </MenuItem>
         <MenuItem onClick={handleSignOut}>

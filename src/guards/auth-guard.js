@@ -1,23 +1,35 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import PropTypes from 'prop-types';
-import { useAuthContext } from 'src/contexts/auth-context';
+import { useAuth } from 'src/hooks/use-auth';
+
+const FREE_PATHS = ['/account', '/mileage-forms']
 
 export const AuthGuard = (props) => {
   const { children } = props;
   const router = useRouter();
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, user } = useAuth();
   const ignore = useRef(false);
   const [checked, setChecked] = useState(false);
+  const pathname = usePathname();
 
   // Only do authentication check on component mount.
   // This flow allows you to manually redirect the user after sign-out, otherwise this will be
   // triggered and will automatically redirect to sign-in page.
 
+  const needSubscribed = useMemo(() => {
+    return (!user?.subscriptions || user?.subscriptions?.length < 1) 
+  }, [user])
+
   useEffect(
     () => {
       if (!router.isReady) {
         return;
+      }
+
+      if (!FREE_PATHS.includes(pathname)) {
+        if (needSubscribed) router.replace('/pricing');
       }
 
       // Prevent from calling twice in development mode with React.StrictMode enabled
@@ -36,10 +48,11 @@ export const AuthGuard = (props) => {
           })
           .catch(console.error);
       } else {
+        
         setChecked(true);
       }
     },
-    [router.isReady]
+    [user, pathname, router.isReady]
   );
 
   if (!checked) {

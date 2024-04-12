@@ -87,3 +87,15 @@ export const ContractTypes = [
   "independent contractor",
   "loan out"
 ]
+
+export const PLAN_LABELS = {
+  "Monthly": "mo",
+  "Bi-Annual": "6mo",
+  "Annual": "year"
+}
+
+export const PLAN_PRICES = {
+  "monthly": 150,
+  "bi-annual": 750,
+  "annual": 1200
+}

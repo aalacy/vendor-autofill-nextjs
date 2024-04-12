@@ -1,12 +1,12 @@
 import propTypes from 'prop-types';
-import { Box, Button, Divider, Paper, Typography } from '@mui/material';
+import { Box, Button, Divider, Paper, Typography, CircularProgress } from '@mui/material';
 import { Check as CheckIcon } from '@mui/icons-material';
 
 export const PricingPlan = (props) => {
-  const { cta, currency, description, features, image, name, popular, price, isAnnual, sx, ...other } = props;
+  const { loading, handleCheckout, cta, currency, description, features, image, name, popular, price, label, sx, ...other } = props;
 
   return (
-    <Paper raised>
+    <Paper raised="true">
       <Box
         sx={{
           display: 'flex',
@@ -44,7 +44,7 @@ export const PricingPlan = (props) => {
               }}
               variant="subtitle2"
             >
-              /{isAnnual ? "yr" : "mo"}
+             / {label}
             </Typography>
           </Box>
           <Typography
@@ -107,6 +107,9 @@ export const PricingPlan = (props) => {
             <Button
               fullWidth
               variant={popular ? 'contained' : 'outlined'}
+              onClick={handleCheckout}
+              startIcon={ loading ? <CircularProgress /> : null }
+              disabled={loading}
             >
               {cta}
             </Button>
@@ -125,6 +128,6 @@ PricingPlan.propTypes = {
   image: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
   popular: propTypes.bool,
-  price: propTypes.string.isRequired,
+  price: propTypes.number.isRequired,
   sx: propTypes.object
 };

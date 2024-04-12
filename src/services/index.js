@@ -6,3 +6,4 @@ export * from "./job-service";
 export * from "./contact-service";
 export * from "./file-service";
 export * from "./mileage-service";
+export * from "./stripe-service";
