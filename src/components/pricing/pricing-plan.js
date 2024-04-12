@@ -38,6 +38,7 @@ export const PricingPlan = (props) => {
             </Typography>
             <Typography
               color="textSecondary"
+              textTransform="uppercase"
               sx={{
                 alignSelf: 'flex-end',
                 ml: 1

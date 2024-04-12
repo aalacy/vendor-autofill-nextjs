@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { Box } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -53,17 +53,17 @@ const Pricing = () => {
       }
     });
 
-  const standardPrices = useMemo(() => {
-    return plan && products?.length > 0 ? products.find(p => p.id === plan).prices[0].unit_amount : 0;
-  }, [plan])
+  // const standardPrices = useMemo(() => {
+  //   return plan && products?.length > 0 ? products.find(p => p.id === plan).prices[0].unit_amount : 0;
+  // }, [plan])
 
-  const pricingLabel = useMemo(() => {
-    if (!products || products?.length < 1 || !plan) return ""
-    const name = products.find(p => p.id === plan).name;
-    return PLAN_LABELS[name]
-  }, [plan])
+  // const pricingLabel = useMemo(() => {
+  //   if (!products || products?.length < 1 || !plan) return ""
+  //   const name = products.find(p => p.id === plan).name;
+  //   return PLAN_LABELS[name]
+  // }, [plan])
 
-  const buttonLabel = useMemo(() => {
+  const buttonLabel = useCallback((plan) => {
     if (user.subscriptions?.length < 1) return "Subscribe"
     const metadata = user.subscriptions[0].meta_data;
     if (!metadata) return ""
@@ -71,9 +71,9 @@ const Pricing = () => {
     return "Change Subscription"
   }, [plan, user])
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (label) => {
     try {
-      if (buttonLabel === "Subscribe") {
+      if (label === "Subscribe") {
         const price = products.find(p => p.id === plan).prices[0];
         checkoutWithStripe(price);
       } else {
@@ -102,13 +102,13 @@ const Pricing = () => {
           Pricing
         </title>
       </Head>
-      <Box sx={{ textAlign: "center", mb: 2 }}>
+      {/* <Box sx={{ textAlign: "center", mb: 2 }}>
         <PlanToggleButton
           plan={plan}
           setPlan={setPlan}
           products={products}
         />
-      </Box>
+      </Box> */}
       <Box
         component="main"
         sx={{
@@ -121,29 +121,35 @@ const Pricing = () => {
           pb: 6
         }}
       >
-        <PricingPlan
-          loading={isPricingLoading || isPricingPending}
-          handleCheckout={handleCheckout}
-          cta={buttonLabel}
-          currency="$"
-          description="To familiarize yourself with our tools."
-          features={[
-            'All previous',
-            'Highlights reporting',
-            'Data history',
-            'Unlimited users'
-          ]}
-          image="/static/pricing/plan2.svg"
-          name="Standard"
-          popular
-          price={standardPrices}
-          label={pricingLabel}
-          sx={{
-            height: '100%',
-            maxWidth: 460,
-            mx: 'auto'
-          }}
-        />
+        {
+          products && products.map(({ id, name, prices }) => (
+            <PricingPlan
+              key={id}
+            loading={isPricingLoading || isPricingPending}
+            handleCheckout={handleCheckout}
+            cta={buttonLabel(id)}
+            currency="$"
+            description="To familiarize yourself with our tools."
+            features={[
+              'All previous',
+              'Highlights reporting',
+              'Data history',
+              'Unlimited users'
+            ]}
+            image="/static/pricing/plan2.svg"
+            name="Standard"
+            popular
+            price={prices[0].unit_amount}
+            label={PLAN_LABELS[name]}
+            sx={{
+              height: '100%',
+              maxWidth: 460,
+              mx: 'auto'
+            }}
+          />
+          ))
+        }
+       
       </Box>
     </>
   );
