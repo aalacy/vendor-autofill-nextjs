@@ -31,3 +31,6 @@ export const formatLocalNumber = (value) =>
 export const sum = (data) =>
   data.length === 0 ? 0 : data.reduce((a, b) => a + b);
 
+export const splitCamelCase = (str) => {
+  return str.split(/(?=[A-Z])/).map(word => String(word).toUpperCase()).join(' ');
+}

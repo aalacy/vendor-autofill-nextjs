@@ -12,20 +12,6 @@ import {
 
 export const items = [
   {
-    title: "Vendor Forms",
-    path: "/",
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Job Files",
-    path: "/view",
-    icon: <PageviewIcon />,
-  },
-  {
     title: "Account",
     path: "/account",
     icon: (
@@ -35,8 +21,23 @@ export const items = [
     ),
   },
   {
-    title: "Contacts",
-    path: "/contacts",
+    title: "Vendor",
+    path: "/",
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    ),
+  },
+  // {
+  //   title: "Job Files",
+  //   path: "/view",
+  //   icon: <PageviewIcon />,
+  // },
+  
+  {
+    title: "Crew",
+    path: "/crew",
     icon: (
       <SvgIcon fontSize="small">
         <ContactIcon />
@@ -62,13 +63,13 @@ export const items = [
     path: "/mileage-forms",
     icon: <MileageIcon />,
   },
-  {
-    title: "Project Settings",
-    path: "/project-settings",
-    icon: (
-      <SvgIcon fontSize="small">
-        <CogIcon />
-      </SvgIcon>
-    ),
-  },
+  // {
+  //   title: "Project Settings",
+  //   path: "/project-settings",
+  //   icon: (
+  //     <SvgIcon fontSize="small">
+  //       <CogIcon />
+  //     </SvgIcon>
+  //   ),
+  // },
 ];

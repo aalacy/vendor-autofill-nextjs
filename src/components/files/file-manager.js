@@ -6,6 +6,7 @@ import { FileSearch } from "./file-search";
 import { FileService } from "src/services";
 import { FileList } from "./file-list";
 import { useAuth } from "src/hooks/use-auth";
+import { downloadMedia } from "src/utils";
 
 export const FileManager = ({}) => {
   const [page, setPage] = useState(0);
@@ -42,6 +43,21 @@ export const FileManager = ({}) => {
     }
   }, [page, rowsPerPage, query, sortby]);
 
+  const downloadFiles = useCallback(async (folders) => {
+    setLoading(true);
+    const keys = folders.map(({files}) => files.map((key) => key.key))
+    try {
+      const { data: { result } } = await FileService.download(keys.flat());
+      for (const item of result) {
+        downloadMedia("", item)
+      }
+    } catch (error) {
+      toast.error(error.message || error.response.data);
+    } finally {
+      setLoading(false);
+    }
+  }, [])
+
   const removeItem = (key) => {
     showConfirmDlg({
       open: true,
@@ -72,9 +88,11 @@ export const FileManager = ({}) => {
         query={query}
         setQuery={setQuery}
         getData={getData}
+        downloadFiles={downloadFiles}
+        folders={folders}
       />
 
-      <FileList folders={folders} loading={loading} alignment={alignment} removeItem={removeItem} />
+      <FileList downloadFiles={downloadFiles} folders={folders} loading={loading} alignment={alignment} removeItem={removeItem} />
 
       <TablePagination
         component="div"

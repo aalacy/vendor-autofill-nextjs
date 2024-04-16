@@ -137,7 +137,7 @@ const Pricing = () => {
               'Unlimited users'
             ]}
             image="/static/pricing/plan2.svg"
-            name="Standard"
+            name={name}
             popular
             price={prices[0].unit_amount}
             label={PLAN_LABELS[name]}

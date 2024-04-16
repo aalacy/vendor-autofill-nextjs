@@ -18,4 +18,8 @@ export class FileService {
     static remove(key) {
         return http.post(`/files/delete`, { key });
     }
+
+    static download(keys) {
+        return http.post(`/files/download`, { keys });
+    }
 }

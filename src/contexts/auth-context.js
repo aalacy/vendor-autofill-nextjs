@@ -212,8 +212,7 @@ export const AuthProvider = (props) => {
     let isJobFetched = false;
 
     if ((!isJobFetched || !state.job) && !pathname.includes("auth")) {
-      const { data } = await JobService.mine();
-      const { result } = data;
+      const { data: { result } } = await JobService.mine();
 
       dispatch({
         type: HANDLERS.FETCH_JOB,
@@ -225,6 +224,22 @@ export const AuthProvider = (props) => {
       });
     }
   };
+
+  const updateJob = async (id, data) => {
+    try {
+      const { data: { result } } = await JobService.update(id, data);
+
+      dispatch({
+        type: HANDLERS.FETCH_JOB,
+        payload: result,
+      });
+    } catch (err) {
+      dispatch({
+        type: HANDLERS.FETCH_JOB,
+        payload: state.job,
+      });
+    }
+  }
 
   const refresh = async () => {
     dispatch({
@@ -259,6 +274,7 @@ export const AuthProvider = (props) => {
         showConfirmDlg,
         hideConfirm,
         fetchJob,
+        updateJob,
         refresh,
         showJobForm,
       }}

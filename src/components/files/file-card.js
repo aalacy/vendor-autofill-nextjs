@@ -9,17 +9,18 @@ import {
   Box,
   Button,
   CardActionArea,
+  ClickAwayListener
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
-  StarOutline as StarIcon,
+  Download as DownloadIcon,
   Delete as RemoveIcon,
   FolderOutlined as FolderIcon,
 } from "@mui/icons-material";
 import { beautyDateTime, bytesToSize } from "src/utils";
 import { useState } from "react";
 
-export const FileCard = ({ folder, removeItem, setFolder, setOpen }) => {
+export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen }) => {
   const { folder_name, size, created_at, files } = folder;
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,10 +30,17 @@ export const FileCard = ({ folder, removeItem, setFolder, setOpen }) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
+  const handleClose = () => setAnchorEl(null)
+
   const handleRemove = () => {
-    setAnchorEl(null);
+    handleClose()
     removeItem(folder_name);
   };
+
+  const handleDownload = () => {
+    handleClose()
+    downloadFiles([folder])
+  }
 
   const handleFolder = () => {
     setFolder(folder);
@@ -67,11 +75,16 @@ export const FileCard = ({ folder, removeItem, setFolder, setOpen }) => {
         </CardActionArea>
       </Card>
       <Popper id={id} open={open} anchorEl={anchorEl}>
-        <Box sx={{ border: 1, p: 1 }}>
-          <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
-            Delete
-          </Button>
-        </Box>
+        <ClickAwayListener onClickAway={handleClose}>
+          <Box sx={{ p: 1, border: 1, borderRadius: 1, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
+              Download
+            </Button>
+            <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
+              Delete
+            </Button>
+          </Box>
+        </ClickAwayListener>
       </Popper>
     </>
   );

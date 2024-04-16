@@ -8,6 +8,8 @@ import {
   MenuItem,
   Select,
   IconButton,
+  Button,
+  Tooltip,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import {
@@ -15,6 +17,7 @@ import {
   GridView as GridViewIcon,
   ViewList as ListIcon,
   NorthEast as TriggerIcon,
+  Download as DownloadIcon
 } from "@mui/icons-material";
 
 const Search = styled("div")(({ theme }) => ({
@@ -79,6 +82,8 @@ export const FileSearch = ({
   query,
   setQuery,
   getData,
+  downloadFiles,
+  folders
 }) => {
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
@@ -112,18 +117,27 @@ export const FileSearch = ({
           </IconButton>
         </Search>
         <Stack direction="row" spacing={2}>
+          <Tooltip title="Download All Files">
+            <Button disabled={folders.length > 0} onClick={() => downloadFiles(folders)} variant="outlined" color="inherit" size="small">
+              <DownloadIcon />
+            </Button>
+          </Tooltip>
           <ToggleButtonGroup
             value={alignment}
             exclusive
             onChange={handleAlignment}
             aria-label="text alignment"
           >
-            <ToggleButton value="card" aria-label="card view">
-              <GridViewIcon />
-            </ToggleButton>
-            <ToggleButton value="list" aria-label="list view">
-              <ListIcon />
-            </ToggleButton>
+            <Tooltip title="Grid View">
+              <ToggleButton value="card" aria-label="card view">
+                <GridViewIcon />
+              </ToggleButton>
+            </Tooltip>
+            <Tooltip title="List View">
+              <ToggleButton value="list" aria-label="list view">
+                <ListIcon />
+              </ToggleButton>
+            </Tooltip>
           </ToggleButtonGroup>
           <FormControl>
             <Select

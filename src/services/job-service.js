@@ -8,4 +8,8 @@ export class JobService {
   static add(data) {
     return http.post("/job/add", { data });
   }
+
+  static update(id, data) {
+    return http.put(`/job/${id}`, data);
+  }
 }

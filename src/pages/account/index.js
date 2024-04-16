@@ -5,6 +5,7 @@ import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { AccountForm } from "src/components/account/account-form";
 import { AvatarUpload } from "src/components/account/avatar-upload";
 import { Money } from "@mui/icons-material";
+import { ProjectMain } from "src/components/project-settings/project-main";
 
 const ManageAccount = () => {
   return (
@@ -31,6 +32,9 @@ const ManageAccount = () => {
             <AvatarUpload />
             <AccountForm />
           </Box>
+          <Divider sx={{ my: 1}}/>
+          
+          <ProjectMain />
         </Container>
       </Box>
     </>

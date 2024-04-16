@@ -6,18 +6,20 @@ import {
   ListItemText,
   ListItemAvatar,
   IconButton,
-  Typography
+  Typography,
+  ClickAwayListener
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
   Delete as RemoveIcon,
   FolderOutlined as FolderIcon,
+  Download as DownloadIcon
 } from "@mui/icons-material";
 import { useState } from "react";
 
 import { beautyDateTime, bytesToSize } from "src/utils";
 
-export const FileItem = ({ folder, removeItem, setFolder, setOpen }) => {
+export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen }) => {
   const { folder_name, size, created_at, files } = folder;
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,10 +29,17 @@ export const FileItem = ({ folder, removeItem, setFolder, setOpen }) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
+  const handleClose = () => setAnchorEl(null)
+
   const handleRemove = () => {
     setAnchorEl(null);
     removeItem(folder_name)
   };
+
+  const handleDownload = () => {
+    setAnchorEl(null);
+    downloadFiles([folder])
+  }
 
   const handleFolder = () => {
     setFolder(folder);
@@ -56,11 +65,16 @@ export const FileItem = ({ folder, removeItem, setFolder, setOpen }) => {
         </IconButton>
       </ListItemButton>
       <Popper id={id} open={open} anchorEl={anchorEl}>
-        <Box sx={{ border: 1, p: 1 }}>
+      <ClickAwayListener onClickAway={handleClose}>
+        <Box sx={{ p: 1, border: 1, borderRadius: 1, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
+            Download
+          </Button>
           <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
             Delete
           </Button>
         </Box>
+        </ClickAwayListener>
       </Popper>
     </>
   );
