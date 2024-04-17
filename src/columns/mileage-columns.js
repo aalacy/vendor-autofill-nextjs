@@ -72,15 +72,15 @@ export const MileagesColumns = ({
         </div>
       ),
     },
-    // {
-    //   field: "week_of",
-    //   headerName: "Week of",
-    //   type: "string",
-    //   resizable: true,
-    //   editable: true,
-    //   width: 120,
-    //   valueGetter: (params) => beautyDate(params.value),
-    // },
+    {
+      field: "week_of",
+      headerName: "Week of",
+      type: "string",
+      resizable: true,
+      editable: true,
+      width: 120,
+      valueGetter: (params) => beautyDate(params.value),
+    },
     {
       field: "miles_travelled",
       headerName: "Miles Travelled",
