@@ -67,13 +67,13 @@ export const AvatarUpload = () => {
             <Avatar
               src={
                 user?.avatar ||
-                '/assets/avatars/no-profile.png'
+                '/assets/avatars/no-profile1.png'
               }
               sx={{
                 height: 85,
                 width: 85,
                 mb: 4,
-                border: '0.1px solid lightgray'
+                outline: '1px solid lightgray'
               }}
             >
               <UserCircleIcon fontSize="small" />

@@ -98,9 +98,9 @@ export const TopNav = (props) => {
                   cursor: "pointer",
                   height: 40,
                   width: 40,
-                  border: "0.1px solid lightgray",
+                  outline: "0.5px solid lightgray",
                 }}
-                src={user?.avatar || "/assets/avatars/no-profile.png"}
+                src={user?.avatar || "/assets/avatars/no-profile1.png"}
               />
             </StyledBadge>
           </Stack>
