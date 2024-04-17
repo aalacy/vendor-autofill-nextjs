@@ -13,8 +13,8 @@ export const MileageValidationSchema = Yup.object().shape({
         mileage_reimbursement: Yup.number().required(`required`),
       })
     ),
-    employee_signature: Yup.string().required(`required`),
-    employee_signature_date: Yup.string().required(`required`),
+    // employee_signature: Yup.string().required(`required`),
+    // employee_signature_date: Yup.string().required(`required`),
     // approval_signature: Yup.string().required(`required`),
     // approval_signature_date: Yup.string().required(`required`),
   })

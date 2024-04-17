@@ -42,7 +42,7 @@ export const ClientDataGrid = (props) => {
       detailPanelExpandedRowIds={detailPanelExpandedRowIds}
       onDetailPanelExpandedRowIdsChange={handleDetailPanelExpandedRowIdsChange}
       onRowSelectionModelChange={(newRowSelectionModel) => {
-        setRowSelectionModel(newRowSelectionModel);
+        setRowSelectionModel && setRowSelectionModel(newRowSelectionModel);
       }}
       rowSelectionModel={rowSelectionModel}
       rowThreshold={0}

@@ -149,6 +149,7 @@ export const AutocompleteField = (props) => {
       filterSelectedOptions
       noOptionsText="No locations"
       defaultValue={defaultValue}
+      // isOptionEqualToValue={(option, value) => option.id === value.id}
       // value={value}
       onChange={(event, newValue) => {
         setOptions(newValue ? [newValue, ...options] : options);

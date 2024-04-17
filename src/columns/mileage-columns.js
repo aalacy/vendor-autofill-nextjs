@@ -6,8 +6,7 @@ import {
   Download as DownloadIcon,
 } from "@mui/icons-material";
 
-import { beautyDate, beautyDateTime, formatLocalNumber } from "src/utils";
-import { permanent_marker } from "src/theme/font";
+import { beautyDate, formatLocalNumber, sum } from "src/utils";
 
 const RenderAction = (props) => {
   const { value, row, handleRemove, handleEdit, handleView, handleDownload, loadingGet } = props;
@@ -83,39 +82,27 @@ export const MileagesColumns = ({
       valueGetter: (params) => beautyDate(params.value),
     },
     {
-      field: "employee_signature",
-      headerName: "Employee Signature",
+      field: "miles_travelled",
+      headerName: "Miles Travelled",
       type: "string",
       resizable: true,
-      editable: true,
-      width: 200,
+      width: 150,
       renderCell: (params) => (
-        <div>
-          <Typography textTransform="uppercase" fontFamily={permanent_marker.style.fontFamily}>
-            {params.row.employee_signature}
+          <Typography>
+            {formatLocalNumber(sum(params.row.data.map((d) => d.number_of_miles)))}
           </Typography>
-          <Typography variant="caption">
-            {beautyDate(params.row.employee_signature_date)}
-          </Typography>
-        </div>
       ),
     },
     {
-      field: "approval_signature",
-      headerName: "Approval Signature",
+      field: "reimbursement_amount",
+      headerName: "Reimbursement",
       type: "string",
       resizable: true,
-      editable: true,
-      width: 200,
+      width: 150,
       renderCell: (params) => (
-        <div>
-          <Typography textTransform="uppercase" fontFamily={permanent_marker.style.fontFamily}>
-            {params.row.approval_signature}
+          <Typography >
+          ${formatLocalNumber(sum(params.row.data.map((d) => d.mileage_reimbursement)))}
           </Typography>
-          <Typography variant="caption">
-            {beautyDate(params.row.approval_signature_date)}
-          </Typography>
-        </div>
       ),
     },
     {
@@ -123,8 +110,8 @@ export const MileagesColumns = ({
       headerName: "Created",
       type: "string",
       resizable: true,
-      width: 140,
-      valueGetter: (params) => beautyDateTime(params.value),
+      width: 130,
+      valueGetter: (params) => beautyDate(params.value),
     },
     {
       field: "id",

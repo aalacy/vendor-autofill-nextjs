@@ -95,7 +95,7 @@ export const VendorList = ({
           </Tooltip>
         </Box>
       </Box>
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 550, width: "100%" }}>
         <ClientDataGrid
           loading={loading}
           data={vendors?.items || []}

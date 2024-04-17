@@ -3,8 +3,8 @@ export const MileageInitialValues = (props) => {
     name: props?.name || "",
     week_of: props?.week_of || "",
     data: [],
-    employee_signature: props?.employee_signature || "",
-    employee_signature_date: props?.employee_signature_date || "",
+    // employee_signature: props?.employee_signature || "",
+    // employee_signature_date: props?.employee_signature_date || "",
     // approval_signature: props?.approval_signature || "",
     // approval_signature_date: props?.approval_signature_date || "",
   };

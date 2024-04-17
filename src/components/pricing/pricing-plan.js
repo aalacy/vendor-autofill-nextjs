@@ -109,7 +109,8 @@ export const PricingPlan = (props) => {
               fullWidth
               variant={popular ? 'contained' : 'outlined'}
               onClick={handleCheckout}
-              startIcon={ loading ? <CircularProgress /> : null }
+              color="primary"
+              startIcon={ loading ? <CircularProgress size={24}/> : null }
               disabled={loading}
             >
               {cta}
