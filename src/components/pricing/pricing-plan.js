@@ -45,7 +45,7 @@ export const PricingPlan = (props) => {
               }}
               variant="subtitle2"
             >
-             / {label}
+              / {label}
             </Typography>
           </Box>
           <Typography
@@ -110,7 +110,7 @@ export const PricingPlan = (props) => {
               variant={popular ? 'contained' : 'outlined'}
               onClick={handleCheckout}
               color="primary"
-              startIcon={ loading ? <CircularProgress size={24}/> : null }
+              startIcon={loading ? <CircularProgress size={24} /> : null}
               disabled={loading}
             >
               {cta}

@@ -15,7 +15,6 @@ import { PricingSkeleton } from 'src/components/skeleton/pricing-skeleton';
 import { useAuth } from 'src/hooks/use-auth';
 
 const Pricing = () => {
-  const [plan, setPlan] = useState();
   const searchParams = useSearchParams();
   const success = searchParams.get('success')
   const session_id = searchParams.get('session_id')
@@ -53,28 +52,18 @@ const Pricing = () => {
       }
     });
 
-  // const standardPrices = useMemo(() => {
-  //   return plan && products?.length > 0 ? products.find(p => p.id === plan).prices[0].unit_amount : 0;
-  // }, [plan])
-
-  // const pricingLabel = useMemo(() => {
-  //   if (!products || products?.length < 1 || !plan) return ""
-  //   const name = products.find(p => p.id === plan).name;
-  //   return PLAN_LABELS[name]
-  // }, [plan])
-
   const buttonLabel = useCallback((plan) => {
-    if (user.subscriptions?.length < 1) return "Subscribe"
+    if (user?.subscriptions?.length < 1) return "Subscribe"
     const metadata = user.subscriptions[0].meta_data;
     if (!metadata) return ""
     if (metadata.product === plan) return "Cancel Subscription";
     return "Change Subscription"
-  }, [plan, user])
+  }, [user])
 
-  const handleCheckout = async (label) => {
+  const handleCheckout = async (id) => {
     try {
-      if (label === "Subscribe") {
-        const price = products.find(p => p.id === plan).prices[0];
+      if (user?.subscriptions?.length < 1) {
+        const price = products.find(p => p.id === id).prices[0];
         checkoutWithStripe(price);
       } else {
         poralWithStripe()
@@ -102,13 +91,6 @@ const Pricing = () => {
           Pricing
         </title>
       </Head>
-      {/* <Box sx={{ textAlign: "center", mb: 2 }}>
-        <PlanToggleButton
-          plan={plan}
-          setPlan={setPlan}
-          products={products}
-        />
-      </Box> */}
       <Box
         component="main"
         sx={{
@@ -125,31 +107,31 @@ const Pricing = () => {
           products && products.map(({ id, name, prices }) => (
             <PricingPlan
               key={id}
-            loading={isPricingLoading || isPricingPending}
-            handleCheckout={handleCheckout}
-            cta={buttonLabel(id)}
-            currency="$"
-            description="To familiarize yourself with our tools."
-            features={[
-              'All previous',
-              'Highlights reporting',
-              'Data history',
-              'Unlimited users'
-            ]}
-            image="/static/pricing/plan2.svg"
-            name={name}
-            popular
-            price={prices[0].unit_amount}
-            label={PLAN_LABELS[name]}
-            sx={{
-              height: '100%',
-              maxWidth: 460,
-              mx: 'auto'
-            }}
-          />
+              loading={isPricingLoading || isPricingPending}
+              handleCheckout={() => handleCheckout(id)}
+              cta={buttonLabel(id)}
+              currency="$"
+              description="To familiarize yourself with our tools."
+              features={[
+                'All previous',
+                'Highlights reporting',
+                'Data history',
+                'Unlimited users'
+              ]}
+              image="/static/pricing/plan2.svg"
+              name={name}
+              popular
+              price={prices[0].unit_amount}
+              label={PLAN_LABELS[name]}
+              sx={{
+                height: '100%',
+                maxWidth: 460,
+                mx: 'auto'
+              }}
+            />
           ))
         }
-       
+
       </Box>
     </>
   );
