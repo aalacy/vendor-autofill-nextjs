@@ -43,7 +43,7 @@
     "dayjs": "^1.11.10",
     "formik": "2.4.5",
     "lodash": "^4.17.21",
-    "next": "14.1.0",
+    "next": "14.2.1",
     "next-transpile-modules": "^10.0.1",
     "nprogress": "0.2.0",
     "pdfjs-dist": "3.11.174",
@@ -70,6 +70,6 @@
     "@types/react": "18.2.43",
     "@types/react-dom": "18.2.17",
     "eslint": "8.55.0",
-    "eslint-config-next": "14.0.4"
+    "eslint-config-next": "14.2.1"
   }
 }

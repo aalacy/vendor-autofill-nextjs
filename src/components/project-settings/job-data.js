@@ -41,7 +41,7 @@ export const JobDataTable = () => {
   if (!myJob) return <></>;
 
   return (
-    <Paper raised="true">
+    <Paper raised="true" sx={{ mb: 2}}>
       <List
         sx={{
           width: "100%",
@@ -53,8 +53,8 @@ export const JobDataTable = () => {
         {myJob && Object.keys(myJob).map((key) => (
           <>
             {key !== "buyers" ? (
-              <>
                 <ListItem
+                  divider
                   key={`item-${key}`}
                   onDoubleClick={() => setEditingItemId(key)}
                 >
@@ -72,8 +72,6 @@ export const JobDataTable = () => {
                     <ListItemText primary={splitCamelCase(key)} secondary={myJob[key]} />
                   )}
                 </ListItem>
-                <Divider variant="middle" component="li" />
-              </>
             ) : (
               null
             )}

@@ -17,7 +17,7 @@ export const AvatarUpload = () => {
 
   const onClose = () => setOpen(false);
 
-  const uploadedFile = (event) => {};
+  const uploadedFile = (event) => { };
 
   const handleDrop = (newFiles, fileRejections) => {
     setFiles(() => [...newFiles]);
@@ -47,7 +47,7 @@ export const AvatarUpload = () => {
     try {
       const { data } = await UserService.uploadAvatar(files[0], uploadedFile);
       toast.success("Successfully uploaded.");
-      setUser({...user, avatar: data.result});
+      setUser({ ...user, avatar: data.result });
     } catch (err) {
       const { message } = err?.response?.data;
       const submit = Array.isArray(message) ? err.message : message;
@@ -67,7 +67,7 @@ export const AvatarUpload = () => {
             <Avatar
               src={
                 user?.avatar ||
-                '/assets/avatars/avatar-anika-visser.png'
+                '/assets/avatars/no-profile.png'
               }
               sx={{
                 height: 85,
@@ -79,11 +79,11 @@ export const AvatarUpload = () => {
               <UserCircleIcon fontSize="small" />
             </Avatar>
           )}
+          <PencilIcon
+            color="primary"
+            sx={{ position: "absolute", top: 13, right: 5 }}
+          />
         </IconButton>
-        <PencilIcon
-          color="primary"
-          sx={{ position: "absolute", top: 13, right: 5 }}
-        />
       </Box>
       <Modal open={open} onClose={onClose} title="Upload Avatar" size="sm">
         <FileDropzone
