@@ -18,4 +18,8 @@ export class UserService {
   static updateUser(id, data) {
     return http.put(`/users/${id}`, data);
   }
+
+  static updatePerson(userId, personId, data) {
+    return http.put(`/users/update-person/${personId}/${userId}`, data);
+  }
 }
