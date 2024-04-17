@@ -123,6 +123,7 @@ export const MileageList = ({ mileages, setMileages, handleEdit }) => {
     <>
       <EDataGrid
         hideCheckbox
+        initialState={{ pinnedColumns: { right: ['id'] } }}
         loading={loading}
         data={mileages?.items}
         columns={MileagesColumns({

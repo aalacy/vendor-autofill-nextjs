@@ -12,16 +12,13 @@ const RenderAction = (props) => {
   const { value, row, handleRemove, handleEdit, handleView, handleDownload, loadingGet } = props;
 
   return (
-    <Box>
+    <Box >
       <Tooltip title="Edit Mileage">
         <span>
           <IconButton
             onClick={() => handleEdit(value)}
             size="small"
             color="info"
-            sx={{
-              ml: 3,
-            }}
           >
             <EditIcon />
           </IconButton>
@@ -29,14 +26,14 @@ const RenderAction = (props) => {
       </Tooltip>
       <Tooltip title="View PDF">
         <span>
-          <IconButton color="primary" onClick={() => handleView(row)}>
+          <IconButton size="small" color="primary" onClick={() => handleView(row)}>
             {loadingGet ? <CircularProgress /> : <ViewIcon />}
           </IconButton>
         </span>
       </Tooltip>
       <Tooltip title="Download PDF">
         <span>
-          <IconButton color="secondary" onClick={() => handleDownload(row)}>
+          <IconButton size="small" color="secondary" onClick={() => handleDownload(row)}>
             {loadingGet ? <CircularProgress /> : <DownloadIcon />}
           </IconButton>
         </span>
@@ -88,9 +85,9 @@ export const MileagesColumns = ({
       resizable: true,
       width: 150,
       renderCell: (params) => (
-          <Typography>
-            {formatLocalNumber(sum(params.row.data.map((d) => d.number_of_miles)))}
-          </Typography>
+        <Typography>
+          {formatLocalNumber(sum(params.row.data.map((d) => d.number_of_miles)))}
+        </Typography>
       ),
     },
     {
@@ -100,9 +97,9 @@ export const MileagesColumns = ({
       resizable: true,
       width: 150,
       renderCell: (params) => (
-          <Typography >
+        <Typography >
           ${formatLocalNumber(sum(params.row.data.map((d) => d.mileage_reimbursement)))}
-          </Typography>
+        </Typography>
       ),
     },
     {
@@ -118,9 +115,10 @@ export const MileagesColumns = ({
       type: "actions",
       headerName: "Actions",
       headerAlign: "center",
+      align: "center",
       description: "Action Column",
       sortable: false,
-      width: 200,
+      width: 140,
       renderCell: (params) => (
         <RenderAction
           {...params}

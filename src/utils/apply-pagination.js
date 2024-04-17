@@ -4,7 +4,7 @@ export function applyPagination(documents, page, rowsPerPage) {
 
 export const initialPage = {
   page: 0,
-  pageSize: 50,
+  pageSize: 5,
 };
 
 export const updateList = (existingList, newObject) => {

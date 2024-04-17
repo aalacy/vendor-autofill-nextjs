@@ -50,7 +50,8 @@ export const EDataGrid = (props) => {
     setLogicOperator,
     rowThreshold,
     getDetailPanelContent,
-    enableClipboardCopy
+    enableClipboardCopy,
+    initialState
   } = props;
 
   const { showConfirmDlg } = useAuth();
@@ -121,10 +122,11 @@ export const EDataGrid = (props) => {
 
   return (
     <StripedDataGrid
-      checkboxSelection={!hideCheckbox}
-      disableRowSelectionOnClick={!!!rowSelectionModel}
       autoHeight
       keepNonExistentRowsSelected
+      initialState={initialState}
+      checkboxSelection={!hideCheckbox}
+      disableRowSelectionOnClick={!!!rowSelectionModel}
       rowCount={rowCountState}
       rows={data || []}
       columns={columns}
