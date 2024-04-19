@@ -2,6 +2,10 @@ import http from "./http";
 
 export class VendorService {
 
+    static add(values) {
+        return http.post("/vendors/add", { ...values });
+      }
+
     static all() {
         
         return http.post(`/vendors/all`, {

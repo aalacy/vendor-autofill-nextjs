@@ -1,12 +1,10 @@
 import {
   Box,
   Button,
-  TextField,
   Typography,
-  InputAdornment,
   CircularProgress,
 } from "@mui/material";
-import { Email as EmailIcon } from "@mui/icons-material";
+import { AddOutlined as AddIcon } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -16,6 +14,7 @@ import { VendorService } from "src/services";
 import { ThankYou } from "./thank-you";
 import { useAuth } from "src/hooks/use-auth";
 import { AlertJob } from "./alert-job";
+import { VendorForm } from "./vendor-form";
 
 export const HeaderForm = ({
   setSelectedData,
@@ -26,6 +25,7 @@ export const HeaderForm = ({
   const [openThankyou, setOpenThankyou] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openJobAlert, setOpenJobAlert] = useState(false);
+  const [show, setShow] = useState(false);
 
   const onCloseThankyou = () => setOpenThankyou(false);
 
@@ -69,7 +69,7 @@ export const HeaderForm = ({
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      {/* <form onSubmit={formik.handleSubmit}> */}
         <Box
           sx={{
             display: "flex",
@@ -80,7 +80,17 @@ export const HeaderForm = ({
           }}
         >
           <Typography variant="h5">Vendor Forms</Typography>
-          <Box
+          <Button
+            disabled={loading}
+            startIcon={loading ? <CircularProgress size={20} /> : <AddIcon />}
+            type="submit"
+            size="small"
+            variant="contained"
+            onClick={() => setShow(true)}
+          >
+            Add Vendor
+          </Button>
+          {/* <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
@@ -89,9 +99,6 @@ export const HeaderForm = ({
               gap: 2,
             }}
           >
-            {/* <Button onClick={() => setOpen(true)} variant="contained">
-              Browse Job Info
-            </Button> */}
             <TextField
               type="text"
               size="small"
@@ -119,9 +126,9 @@ export const HeaderForm = ({
             >
               Generate
             </Button>
-          </Box>
+          </Box> */}
         </Box>
-      </form>
+      {/* </form> */}
 
       <ThankYou
         open={openThankyou}
@@ -134,6 +141,12 @@ export const HeaderForm = ({
         open={openJobAlert}
         onClose={() => setOpenJobAlert(false)}
       />
+      {
+        show && <VendorForm
+          show={true}
+          setShow={setShow}
+        />
+      }
     </>
   );
 };

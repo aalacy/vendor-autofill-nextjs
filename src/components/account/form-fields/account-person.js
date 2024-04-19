@@ -15,12 +15,6 @@ import { UserService } from "src/services";
 export const AccountPerson = ({ show, setShow }) => {
     const { user, setUser, showConfirmDlg, hideConfirm } = useAuth();
 
-    const cancelFirstName = () => {
-        setShow(false);
-        formik.setFieldValue('first_name', user?.person?.first_name);
-        setUser(user);
-    };
-
     const handleSubmitPerson = async (values, helpers) => {
         hideConfirm();
 
@@ -141,7 +135,7 @@ export const AccountPerson = ({ show, setShow }) => {
                     <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
                         Update
                     </Button>
-                    <Button onClick={cancelFirstName} variant="outlined" size="small">
+                    <Button onClick={handleClose} variant="outlined" size="small">
                         Cancel
                     </Button>
                 </Box>
