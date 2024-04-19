@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import {
     Mail as MailIcon,
+    Edit as PencilIcon
 } from "@mui/icons-material";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Box, Button, InputAdornment, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 
 import { useAuth } from "src/hooks/use-auth";
 
@@ -97,9 +98,11 @@ export const AccountEmail = ({ onSubmit }) => {
                         </Button>
                     </Box>
                 ) : (
-                    <Button onClick={() => setShowEmail(!showEmail)} variant="outlined" size="small" >
-                        Edit
-                    </Button>
+                    <IconButton onClick={() => setShowEmail(!showEmail)} variant="outlined" size="small" >
+                        <PencilIcon
+                            color="primary"
+                        />
+                    </IconButton>
                 )}
             </Box>
         </form>

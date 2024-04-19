@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import {
     Visibility as EyeIcon,
     VisibilityOff as EyeOffIcon,
+    Edit as PencilIcon
 } from "@mui/icons-material";
 import { Box, IconButton, Button, InputAdornment, TextField, Typography } from "@mui/material";
 
@@ -157,9 +158,11 @@ export const AccountPassword = ({ onSubmit }) => {
                         </Button>
                     </Box>
                 ) : (
-                    <Button onClick={() => setDisplayPassword(!displayPassword)} variant="outlined" size="small">
-                        Edit
-                    </Button>
+                    <IconButton onClick={() => setDisplayPassword(!displayPassword)} variant="outlined" size="small">
+                        <PencilIcon
+                            color="primary"
+                        />
+                    </IconButton>
                 )}
             </Box>
         </form>

@@ -6,6 +6,8 @@ export const beautyDateTime = (date) => (date ? dayjs.utc(date).format("MM/DD/YY
 
 export const beautyDate = (date) => (date ? dayjs.utc(date).format("MM/DD/YYYY") : "");
 
+export const thisSunday = () => dayjs().startOf('week').add(0, 'day');
+
 export const replaceWithBr = (text) => {
   return text.replace(/\t/g, " ").replace(/\n/g, "<br />");
 };
@@ -33,4 +35,23 @@ export const sum = (data) =>
 
 export const splitCamelCase = (str) => {
   return str.split(/(?=[A-Z])/).map(word => String(word).toUpperCase()).join(' ');
+}
+
+export const formatPhoneNumber = (phoneNumber) => {
+  // Remove all non-digit characters from the phone number
+  const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+
+  // Check if the phone number has 10 digits
+  if (cleaned.length === 10) {
+    // Capture the area code, first three digits, last four digits
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+
+    // If the pattern matches, format the number
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+  }
+
+  // if the phone number doesn't match the expected format, return the original input
+  return phoneNumber;
 }

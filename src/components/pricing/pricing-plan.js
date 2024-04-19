@@ -1,9 +1,9 @@
 import propTypes from 'prop-types';
-import { Box, Button, Divider, Paper, Typography, CircularProgress } from '@mui/material';
+import { Box, Button, Divider, Paper, Typography, CircularProgress, Chip } from '@mui/material';
 import { Check as CheckIcon } from '@mui/icons-material';
 
 export const PricingPlan = (props) => {
-  const { loading, handleCheckout, cta, currency, description, features, image, name, popular, price, label, sx, ...other } = props;
+  const { loading, handleCheckout, isCurrent, cta, currency, description, features, image, name, popular, price, label, sx, ...other } = props;
 
   return (
     <Paper raised="true">
@@ -12,6 +12,8 @@ export const PricingPlan = (props) => {
           display: 'flex',
           flexDirection: 'column',
           background: "paper.default",
+          border: isCurrent ? '1px solid yellow' : 'none',
+          borderRadius: 1,
           ...sx
         }}
         {...other}>
@@ -31,7 +33,7 @@ export const PricingPlan = (props) => {
               src={image}
             />
           </Box>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', alignItems: "flex-end", gap: 2 }}>
             <Typography variant="h4">
               {currency}
               {price}
@@ -47,6 +49,7 @@ export const PricingPlan = (props) => {
             >
               / {label}
             </Typography>
+            {isCurrent && <Chip label="Current" color='success' size="small" />}
           </Box>
           <Typography
             sx={{ mt: 2 }}

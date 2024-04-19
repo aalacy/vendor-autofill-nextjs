@@ -1,13 +1,31 @@
 import { Formik, Form } from "formik";
-import { Button, CircularProgress, Box, FormHelperText } from "@mui/material";
+import { Button, CircularProgress, Box, FormHelperText, Typography } from "@mui/material";
 
 import { MileageInitialValues } from "./FormModel/mileage-initialValues";
 import { MileageValidationSchema } from "./FormModel/mileage-validation-schema";
 import { MileageTop } from "./mileage-top";
 import { MileageMainForm } from "./mileage-main";
+import { useCallback } from "react";
+import { formatLocalNumber, sum } from "src/utils";
 // import { MileageBottom } from "./mileage-bottom";
 
 export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
+
+  const totalValues = useCallback((data) => {
+    return (
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 1 }}>
+      <Typography variant="body1">
+        Total # of miles:{" "}
+        <b>{formatLocalNumber(sum(data.map((d) => d.number_of_miles)))}</b>
+      </Typography>
+      <Typography variant="body1">
+        Total Mileage Reimbursement($):{" "}
+        <b>{formatLocalNumber(sum(data.map((d) => d.mileage_reimbursement)))}</b>
+      </Typography>
+    </Box>
+    )
+  }, [])
+
   return (
     <>
       <Formik
@@ -18,9 +36,10 @@ export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
       >
         {({ isSubmitting, values, setFieldValue, errors }) => (
           <Form>
-            <MileageTop values={values} />
+            <MileageTop values={values} setFieldValue={setFieldValue} />
             <MileageMainForm setEmpty={setEmpty} values={values} setFieldValue={setFieldValue} />
             {/* <MileageBottom values={values} /> */}
+            {totalValues(values?.data)}
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
                 <FormHelperText error>{errors.submit}</FormHelperText>

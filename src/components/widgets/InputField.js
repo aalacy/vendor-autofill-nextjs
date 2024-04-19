@@ -39,7 +39,6 @@ export const InputField = (props) => {
     }
   }
 
-
   return (
     <TextField
       type="text"

@@ -52,8 +52,13 @@ const Pricing = () => {
       }
     });
 
+  const isCurrentPlan = useCallback((plan) => {
+    if (!user || user?.subscriptions?.length < 1) return false;
+    return user.subscriptions[0].meta_data.product === plan
+  }, [user])
+
   const buttonLabel = useCallback((plan) => {
-    if (user?.subscriptions?.length < 1) return "Subscribe"
+    if (!user || user?.subscriptions?.length < 1) return "Subscribe"
     const metadata = user.subscriptions[0].meta_data;
     if (!metadata) return ""
     if (metadata.product === plan) return "Cancel Subscription";
@@ -123,10 +128,11 @@ const Pricing = () => {
               popular
               price={prices[0].unit_amount}
               label={PLAN_LABELS[name]}
+              isCurrent={isCurrentPlan(id)}
               sx={{
                 height: '100%',
                 maxWidth: 460,
-                mx: 'auto'
+                mx: 'auto',
               }}
             />
           ))

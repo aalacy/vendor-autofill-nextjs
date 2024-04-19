@@ -1,6 +1,8 @@
 import { Grid } from "@mui/material";
+import { useEffect } from "react";
 
-import { DatePickerField, InputField, SelectField } from "src/components/widgets";
+import { DatePickerField, InputField } from "src/components/widgets";
+import { thisSunday } from "src/utils";
 
 const Weeks = [
   {
@@ -33,7 +35,12 @@ const Weeks = [
   },
 ];
 
-export const MileageTop = () => {
+export const MileageTop = ({ values, setFieldValue }) => {
+
+  useEffect(() => {
+    setFieldValue('week_of', values.week_of || thisSunday())
+  }, []);
+
   return (
     <>
       <Grid container spacing={3} mb={3}>

@@ -1,10 +1,21 @@
 import { Grid, Button, Box, Typography } from "@mui/material";
 import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
 import { FieldArray } from "formik";
+import { useEffect } from "react";
 
 import { InputField, DatePickerField, AutocompleteField } from "src/components/widgets";
-import { formatLocalNumber, sum } from "src/utils";
-import { useEffect } from "react";
+
+const BusinessOptions = [
+  {
+    value: 'Fedex',
+    label: 'Fedex'
+  },
+  {
+    value: 'UPS',
+    label: 'UPS'
+  }
+];
+
 
 export const MileageMainForm = (props) => {
   const { values, setFieldValue, setEmpty } = props;
@@ -34,6 +45,13 @@ export const MileageMainForm = (props) => {
   useEffect(() => {
     checkFormEmpty();
 
+    // populate week_of date into first date of the mileage form
+    let date = values.week_of;
+    if (values?.data?.length > 0) {
+      date = values.data[0].date || date;
+    }
+    setFieldValue(`data.0.date`, date);
+
     if (!values?.data || values.data.length < 2) return;
     // select date in the present and past vs date in the present and future.
 
@@ -49,16 +67,6 @@ export const MileageMainForm = (props) => {
 
           return (
             <Box mb={3}>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 1 }}>
-                <Typography>
-                  <b>Total # of miles:</b>{" "}
-                  {formatLocalNumber(sum(data.map((d) => d.number_of_miles)))}
-                </Typography>
-                <Typography>
-                  <b>Total Mileage Reimbursement($):</b>{" "}
-                  {formatLocalNumber(sum(data.map((d) => d.mileage_reimbursement)))}
-                </Typography>
-              </Box>
               {data?.length > 0
                 ? data.map((mileage, index) => (
                     <Box key={index} sx={{ mb: 2, border: 1, borderRadius: 1, p: 1 }}>
