@@ -1,7 +1,9 @@
-import { Switch } from "@mui/material"
+import { Switch, Box, IconButton, Tooltip } from "@mui/material"
+import { DocumentScanner as ViewIcon } from "@mui/icons-material";
 import {
   useGridApiContext,
 } from "@mui/x-data-grid-pro";
+import { useCallback } from "react";
 
 const EditSwitchCell = (params) => {
   const { id, value, row, field, handleCellValueChange } = params;
@@ -11,47 +13,115 @@ const EditSwitchCell = (params) => {
     <Switch
       key={id}
       defaultValue={value}
-      onChange={(event) =>
-        {
-          event.defaultMuiPrevented = true;
-          const props = { id: row.id, field, value: event.target.checked };
-          handleCellValueChange && handleCellValueChange(props)
-          apiRef.current.setEditCellValue({...props, debounceMs: 200})
-        }
+      onChange={(event) => {
+        event.defaultMuiPrevented = true;
+        const props = { id: row.id, field, value: event.target.checked };
+        handleCellValueChange && handleCellValueChange(props)
+        apiRef.current.setEditCellValue({ ...props, debounceMs: 200 })
+      }
       }
     />
   );
 }
 
-export const VendorsColumns = ({ handleCellValueChange }) => {
-    return [
-      {
-        field: "name",
-        headerName: "Name",
-        type: "string",
-        resizable: true,
-        width: 200
-      },
-      
-      // {
-      //   field: "email",
-      //   headerName: "Email",
-      //   type: "string",
-      //   resizable: true,
-      //   width: 200
-      // },
-      {
-        field: "credit_auth",
-        headerName: "Credit Auth",
-        resizable: true,
-        renderCell: (params) => <EditSwitchCell  {...params}  field="credit_auth" handleCellValueChange={handleCellValueChange}/>
-      },
-      {
-        field: "rental_agreement",
-        headerName: "Rental Agreement",
-        resizable: true,
-        width: 300,
-        renderCell: (params) => <EditSwitchCell  {...params} field="rental_agreement" handleCellValueChange={handleCellValueChange}/>
-      },
-    ]
+const InvoiceCell = (params) => {
+  const { id, row, handleGeneratePDF } = params;
+  const disabledStatus = useCallback((name) => {
+    if (row[name]) return false
+    return true
+  }, [row])
+
+  const iconColor = useCallback((name) => {
+    if (row[name]) return 'primary'
+    return 'inherit'
+  }, [row]);
+
+  return (
+    <Box sx={{ display: "flex" }}>
+      <Tooltip title="Credit Auth">
+        <span>
+          <IconButton
+            onClick={() => handleGeneratePDF(row, 'credit_auth')}
+            disabled={disabledStatus('credit_auth')}
+          >
+            <ViewIcon color={iconColor('credit_auth')} /></IconButton>
+        </span>
+      </Tooltip>
+      <Tooltip title="Rental Agreement">
+        <span>
+          <IconButton
+            onClick={() => handleGeneratePDF(row, 'rental_agreement')}
+            disabled={disabledStatus('rental_agreement')}
+          >
+            <ViewIcon color={iconColor('rental_agreement')} /></IconButton>
+        </span>
+      </Tooltip>
+      <Tooltip title="Addition">
+        <span>
+          <IconButton
+            onClick={() => handleGeneratePDF(row, 'addition')}
+            disabled={disabledStatus('addition')}
+          >
+            <ViewIcon color={iconColor('addition')} /></IconButton>
+        </span>
+      </Tooltip>
+    </Box>
+  );
+}
+
+
+export const VendorsColumns = ({ handleCellValueChange, handleGeneratePDF }) => {
+  return [
+    {
+      field: "name",
+      headerName: "Name",
+      type: "string",
+      resizable: true,
+      width: 200
+    },
+    {
+      field: "w9",
+      headerName: "W9",
+      type: "string",
+      resizable: true,
+      width: 80
+    },
+    {
+      field: "coi",
+      headerName: "COI",
+      type: "string",
+      resizable: true,
+      width: 80
+    },
+    {
+      field: "forms",
+      headerName: "Forms",
+      type: "string",
+      resizable: true,
+      width: 200
+    },
+    {
+      field: "invoices",
+      headerName: "Invoices",
+      type: "string",
+      headerAlign: 'center',
+      align: 'center',
+      resizable: true,
+      width: 200,
+      renderCell: (params) => <InvoiceCell {...params} handleGeneratePDF={handleGeneratePDF} />
+    },
+    // {
+    //   field: "credit_auth",
+    //   headerName: "Credit Auth",
+    //   resizable: true,
+    //   renderCell: (params) => <EditSwitchCell  {...params}  field="credit_auth" handleCellValueChange={handleCellValueChange}/>
+    // },
+    // {
+    //   field: "rental_agreement",
+    //   headerName: "Rental Agreement",
+    //   resizable: true,
+    //   width: 300,
+    //   renderCell: (params) => <EditSwitchCell  {...params} field="rental_agreement" handleCellValueChange={handleCellValueChange}/>
+    // },
+  ]
 }

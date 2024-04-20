@@ -23,6 +23,13 @@ export class VendorService {
         })
     }
 
+    static generateOnePDF(vendor_id, invoice_name) {
+        return http.post('/vendors/generate_one_pdf', {
+            vendor_id,
+            invoice_name,
+        })
+    }
+
     static readGSheet() {
         return http.get('/vendors/read_g_sheet')
     }

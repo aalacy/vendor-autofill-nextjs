@@ -48,9 +48,9 @@ export const VendorForm = ({ show, setShow }) => {
         enableReinitialize: true,
         initialValues: {
             email: "",
+            address: "",
             name: "",
             phone: "",
-            address: "",
             wesite: "",
             hours: "",
             category: "",
@@ -58,9 +58,10 @@ export const VendorForm = ({ show, setShow }) => {
             submit: null,
         },
         validationSchema: Yup.object({
-            email: Yup.string().email("Must be a valid email").max(255),
             name: Yup.string().required("Required"),
-            phone: Yup.string().phone("US", "Please enter a valid phone number")
+            address: Yup.string().required("Required"),
+            email: Yup.string().email("Must be a valid email").max(255).required("Required"),
+            phone: Yup.string().phone("US", "Please enter a valid phone number").required("Required"),
         }),
         onSubmit,
     });
@@ -95,6 +96,19 @@ export const VendorForm = ({ show, setShow }) => {
                         sx={{ gridColumn: "span 2" }}
                     />
                     <TextField
+                        error={Boolean(formik.touched.address && formik.errors.address)}
+                        fullWidth
+                        helperText={formik.touched.address && formik.errors.address}
+                        label="Address"
+                        margin="dense"
+                        name="address"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        size="small"
+                        value={formik.values.address}
+                        sx={{ gridColumn: "span 2" }}
+                    />
+                    <TextField
                         error={Boolean(formik.touched.email && formik.errors.email)}
                         fullWidth
                         helperText={formik.touched.email && formik.errors.email}
@@ -116,7 +130,6 @@ export const VendorForm = ({ show, setShow }) => {
                         sx={{ gridColumn: "span 2" }}
                     />
                     <TextField
-                        
                         error={Boolean(formik.touched.phone && formik.errors.phone)}
                         fullWidth
                         helperText={formik.touched.phone && formik.errors.phone}
@@ -137,22 +150,8 @@ export const VendorForm = ({ show, setShow }) => {
                         }}
                         sx={{ gridColumn: "span 2" }}
                     />
+                    
                     <TextField
-                        
-                        error={Boolean(formik.touched.address && formik.errors.address)}
-                        fullWidth
-                        helperText={formik.touched.address && formik.errors.address}
-                        label="Address"
-                        margin="dense"
-                        name="address"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        size="small"
-                        value={formik.values.address}
-                        sx={{ gridColumn: "span 2" }}
-                    />
-                    <TextField
-                        
                         error={Boolean(formik.touched.website && formik.errors.website)}
                         fullWidth
                         helperText={formik.touched.website && formik.errors.website}

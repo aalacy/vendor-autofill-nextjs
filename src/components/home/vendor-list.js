@@ -9,6 +9,9 @@ import { VendorsColumns } from "src/columns";
 import { updateList } from "src/utils";
 import { ClientDataGrid } from "../tables/client-datagrid";
 import { VendorDetailPanelContent } from "./vendor-detail";
+import LoadingOverlay from "../common/loading-overlay";
+import { Modal } from "../common/modal";
+import { PdfViewer } from "../history/pdf-viewer";
 
 const ReportRenderToolbar = () => {
   return (
@@ -29,7 +32,12 @@ export const VendorList = ({
   setSelectedData,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [gLoading, setGLoading] = useState(false);
   const [pdfCount, setPDFCount] = useState(0);
+  const [pdfUrl, setUrl] = useState("");
+  const [vendor, setVendor] = useState("");
+  const [invoice, setInvoice] = useState("");
+  const [showPDFModal, setShowPDFModal] = useState(false)
 
   const getDetailPanelContent = useCallback(({ row }) => <VendorDetailPanelContent row={row} />, []);
 
@@ -69,6 +77,21 @@ export const VendorList = ({
     countPDFs(selected);
   };
 
+  const handleGeneratePDF = async (vendor, invoice) => {
+    setInvoice(invoice);
+    setVendor(vendor);
+    setGLoading(true);
+    try {
+      const { data: { result } } = await VendorService.generateOnePDF(vendor.id, invoice);
+      setShowPDFModal(true);
+      setUrl(result);
+    } catch (error) {
+      console.log('handleGeneratePDF', error)
+    } finally {
+      setGLoading(false);
+    }
+  }
+
   const handleClear = () => {
     setSelectedData([]);
   };
@@ -77,6 +100,7 @@ export const VendorList = ({
   useEffect(() => {
     countPDFs(selectedData);
   }, [selectedData]);
+
 
   return (
     <>
@@ -99,7 +123,7 @@ export const VendorList = ({
         <ClientDataGrid
           loading={loading}
           data={vendors?.items || []}
-          columns={VendorsColumns({ handleCellValueChange })}
+          columns={VendorsColumns({ handleCellValueChange, handleGeneratePDF })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
@@ -109,6 +133,15 @@ export const VendorList = ({
           }}
         />
       </div>
+      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
+      <Modal
+        title={`${vendor?.name} - ${invoice || ""}`}
+        open={showPDFModal}
+        onClose={() => setShowPDFModal(false)}
+        size="md"
+      >
+        <PdfViewer pdfUrl={pdfUrl} />
+      </Modal>
     </>
   );
 };
