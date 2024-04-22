@@ -13,6 +13,7 @@ import { Modal } from "src/components/common/modal";
 import { InputPhone } from "src/components/widgets/input-phone";
 import { VendorService } from "src/services";
 import { ThankYou } from "./thank-you";
+import { useState } from "react";
 
 export const VendorForm = ({ show, setShow }) => {
     const { showConfirmDlg, hideConfirm } = useAuth();
@@ -91,7 +92,7 @@ export const VendorForm = ({ show, setShow }) => {
                             error={Boolean(formik.touched.name && formik.errors.name)}
                             fullWidth
                             helperText={formik.touched.name && formik.errors.name}
-                            label="Name"
+                            label="Name*"
                             margin="dense"
                             name="name"
                             onBlur={formik.handleBlur}
@@ -104,7 +105,7 @@ export const VendorForm = ({ show, setShow }) => {
                             error={Boolean(formik.touched.address && formik.errors.address)}
                             fullWidth
                             helperText={formik.touched.address && formik.errors.address}
-                            label="Address"
+                            label="Address*"
                             margin="dense"
                             name="address"
                             onBlur={formik.handleBlur}
@@ -117,7 +118,7 @@ export const VendorForm = ({ show, setShow }) => {
                             error={Boolean(formik.touched.email && formik.errors.email)}
                             fullWidth
                             helperText={formik.touched.email && formik.errors.email}
-                            label="Email"
+                            label="Email*"
                             margin="dense"
                             name="email"
                             onBlur={formik.handleBlur}
@@ -138,7 +139,7 @@ export const VendorForm = ({ show, setShow }) => {
                             error={Boolean(formik.touched.phone && formik.errors.phone)}
                             fullWidth
                             helperText={formik.touched.phone && formik.errors.phone}
-                            label="Phone"
+                            label="Phone*"
                             margin="dense"
                             name="phone"
                             onBlur={formik.handleBlur}
