@@ -33,4 +33,17 @@ export class VendorService {
     static readGSheet() {
         return http.get('/vendors/read_g_sheet')
     }
+
+    static readW9(vendor_id) {
+        return http.post('/vendors/generate_w9', vendor_id)
+    }
+
+    static sendEmail(vendor_id, key, email, invoice_name) {
+        return http.post('/vendors/send-invoice-via-email', {
+            vendor_id,
+            key,
+            email,
+            invoice_name
+        })
+    }
 }

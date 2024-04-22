@@ -70,27 +70,27 @@ export const HeaderForm = ({
   return (
     <>
       {/* <form onSubmit={formik.handleSubmit}> */}
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            gap: 2,
-            mb: 5,
-          }}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          gap: 2,
+          mb: 5,
+        }}
+      >
+        <Typography variant="h5">Vendor Forms</Typography>
+        <Button
+          disabled={loading}
+          startIcon={loading ? <CircularProgress size={20} /> : <AddIcon />}
+          type="submit"
+          size="small"
+          variant="contained"
+          onClick={() => setShow(true)}
         >
-          <Typography variant="h5">Vendor Forms</Typography>
-          <Button
-            disabled={loading}
-            startIcon={loading ? <CircularProgress size={20} /> : <AddIcon />}
-            type="submit"
-            size="small"
-            variant="contained"
-            onClick={() => setShow(true)}
-          >
-            Add Vendor
-          </Button>
-          {/* <Box
+          Add Vendor
+        </Button>
+        {/* <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
@@ -127,7 +127,7 @@ export const HeaderForm = ({
               Generate
             </Button>
           </Box> */}
-        </Box>
+      </Box>
       {/* </form> */}
 
       <ThankYou

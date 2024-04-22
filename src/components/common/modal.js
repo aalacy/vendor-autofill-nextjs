@@ -11,17 +11,17 @@ import {
 import { Close as CloseIcon } from "@mui/icons-material";
 
 export const Modal = (props) => {
-  const { open, title, subTitle, onClose, size, keepMounted, children } = props;
+  const { open, noFullWidth, title, subTitle, onClose, size, keepMounted, children } = props;
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Dialog
-      fullWidth
+      fullWidth={!noFullWidth}
       keepMounted={keepMounted}
       maxWidth={size || "lg"}
-      fullScreen={fullScreen}
+      fullScreen={!noFullWidth && fullScreen}
       open={open}
       onClose={onClose}
       aria-labelledby="Staff Add Modal"

@@ -1,6 +1,8 @@
-import { Typography, Box, IconButton, Tooltip } from "@mui/material";
+import { Typography, Box, IconButton, Tooltip, Button, TextField, InputAdornment, CircularProgress } from "@mui/material";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid-pro";
-import { Refresh as RefreshIcon } from "@mui/icons-material";
+import { EmailOutlined as EmailIcon } from "@mui/icons-material";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
@@ -12,6 +14,7 @@ import { VendorDetailPanelContent } from "./vendor-detail";
 import LoadingOverlay from "../common/loading-overlay";
 import { Modal } from "../common/modal";
 import { PdfViewer } from "../history/pdf-viewer";
+import { ThankYou } from "./thank-you";
 
 const ReportRenderToolbar = () => {
   return (
@@ -35,9 +38,12 @@ export const VendorList = ({
   const [gLoading, setGLoading] = useState(false);
   const [pdfCount, setPDFCount] = useState(0);
   const [pdfUrl, setUrl] = useState("");
+  const [vendorKey, setVendorKey] = useState("");
   const [vendor, setVendor] = useState("");
   const [invoice, setInvoice] = useState("");
   const [showPDFModal, setShowPDFModal] = useState(false)
+  const [canSendEmail, setCanSendEmail] = useState(false);
+  const [showThankYou, setShowThankyou] = useState(false);
 
   const getDetailPanelContent = useCallback(({ row }) => <VendorDetailPanelContent row={row} />, []);
 
@@ -81,12 +87,29 @@ export const VendorList = ({
     setInvoice(invoice);
     setVendor(vendor);
     setGLoading(true);
+    setCanSendEmail(true);
     try {
-      const { data: { result } } = await VendorService.generateOnePDF(vendor.id, invoice);
+      const { data: { result: { presigned_url, key } } } = await VendorService.generateOnePDF(vendor.id, invoice);
+      setShowPDFModal(true);
+      setUrl(presigned_url);
+      setVendorKey(key)
+    } catch (error) {
+      console.log('handleGeneratePDF', error)
+    } finally {
+      setGLoading(false);
+    }
+  }
+
+  const handleW9 = async (vendor) => {
+    setInvoice('W9');
+    setVendor(vendor);
+    setGLoading(true);
+    try {
+      const { data: { result } } = await VendorService.readW9(vendor.id);
       setShowPDFModal(true);
       setUrl(result);
     } catch (error) {
-      console.log('handleGeneratePDF', error)
+      console.log('handleW9', error)
     } finally {
       setGLoading(false);
     }
@@ -95,6 +118,27 @@ export const VendorList = ({
   const handleClear = () => {
     setSelectedData([]);
   };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      setGLoading(true);
+      try {
+        await VendorService.sendEmail(vendor.id, vendorKey, values.email, invoice)
+        setShowThankyou(true)
+      } catch (error) {
+        toast.error(error.message || error.response?.message)
+      } finally {
+        setGLoading(false);
+      }
+    },
+    initialValues: {
+      email: "",
+    },
+    validationSchema: yup.object().shape({
+      email: yup.string().email("Invalid email!").required("Required"),
+    }),
+  });
 
   // Get the total number of pdfs
   useEffect(() => {
@@ -108,7 +152,7 @@ export const VendorList = ({
         <Typography variant="h6" mb={2}>
           Vendors: &nbsp;(<small>{vendors?.items?.length || "-"}</small>)
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        {/* <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography>
             {pdfCount} <b>PDFs</b>
           </Typography>
@@ -117,13 +161,13 @@ export const VendorList = ({
               <RefreshIcon />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
       </Box>
       <div style={{ height: 550, width: "100%" }}>
         <ClientDataGrid
           loading={loading}
           data={vendors?.items || []}
-          columns={VendorsColumns({ handleCellValueChange, handleGeneratePDF })}
+          columns={VendorsColumns({ handleCellValueChange, handleGeneratePDF, handleW9 })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
@@ -140,8 +184,56 @@ export const VendorList = ({
         onClose={() => setShowPDFModal(false)}
         size="md"
       >
+        <form onSubmit={formik.handleSubmit}>
+          <Box
+            sx={{
+              display: canSendEmail ? "flex" : "none",
+              flexWrap: "wrap",
+              alignItems: "flex-start",
+              gap: 2,
+              mb: 2
+            }}
+          >
+            <TextField
+              type="text"
+              size="small"
+              label="Email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              name="email"
+              error={!!formik.touched.email && !!formik.errors.email}
+              helperText={formik.touched.email && formik.errors.email}
+              sx={{ gridColumn: "span 2" }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EmailIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button
+              disabled={loading}
+              startIcon={loading ? <CircularProgress size={20} /> : null}
+              type="submit"
+              variant="contained"
+            >
+              Send Email
+            </Button>
+          </Box>
+        </form>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
+      {
+        showThankYou && <ThankYou
+          open={true}
+          onClose={() => setShowThankyou(false)}
+          text={<Typography variant="body1" mb={1} textAlign="center">
+            Form will be sent to <b>{formik.values.email}</b> &nbsp;
+          </Typography>}
+        />
+      }
     </>
   );
 };

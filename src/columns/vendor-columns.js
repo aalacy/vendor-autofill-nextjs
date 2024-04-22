@@ -1,5 +1,5 @@
 import { Switch, Box, IconButton, Tooltip } from "@mui/material"
-import { DocumentScanner as ViewIcon } from "@mui/icons-material";
+import { DocumentScanner as ViewIcon, AddCircleOutline as AddIcon } from "@mui/icons-material";
 import {
   useGridApiContext,
 } from "@mui/x-data-grid-pro";
@@ -69,8 +69,54 @@ const InvoiceCell = (params) => {
   );
 }
 
+const W9Cell = (params) => {
+  const { value, row, handleW9 } = params;
 
-export const VendorsColumns = ({ handleCellValueChange, handleGeneratePDF }) => {
+  return (
+    <Tooltip title="Show W9">
+        <span>
+          <IconButton
+            onClick={() => handleW9(row)}
+            disabled={!!!value}
+          >
+            <ViewIcon color={value ? 'primary' : 'inherit'} /></IconButton>
+        </span>
+      </Tooltip>
+  )
+}
+
+const COICell = (params) => {
+  const { value, row } = params;
+
+  return (
+    <Tooltip title="Manage COI">
+        <span>
+          <IconButton
+            disabled={!!!value}
+          >
+            <AddIcon color={value ? 'primary' : 'inherit'} /></IconButton>
+        </span>
+      </Tooltip>
+  )
+}
+
+const FormsCell = (params) => {
+  const { value, row } = params;
+
+  return (
+    <Tooltip title="Manage Forms">
+        <span>
+          <IconButton
+            disabled={!!!value}
+          >
+            <ViewIcon color={value ? 'primary' : 'inherit'} /></IconButton>
+        </span>
+      </Tooltip>
+  )
+}
+
+
+export const VendorsColumns = ({ handleCellValueChange, handleGeneratePDF, handleW9 }) => {
   return [
     {
       field: "name",
@@ -83,22 +129,27 @@ export const VendorsColumns = ({ handleCellValueChange, handleGeneratePDF }) => 
       field: "w9",
       headerName: "W9",
       type: "string",
+      headerAlign: 'center',
+      align: 'center',
       resizable: true,
-      width: 80
+      width: 80,
+      renderCell: (params) => <W9Cell {...params} handleW9={handleW9} />
     },
     {
       field: "coi",
       headerName: "COI",
       type: "string",
       resizable: true,
-      width: 80
+      width: 80,
+      renderCell: (params) => <COICell {...params} />
     },
     {
       field: "forms",
       headerName: "Forms",
       type: "string",
       resizable: true,
-      width: 200
+      width: 80,
+      renderCell: (params) => <FormsCell {...params} />
     },
     {
       field: "invoices",
