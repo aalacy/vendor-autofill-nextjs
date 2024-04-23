@@ -47,19 +47,15 @@ export const HeaderForm = ({
     }
   };
 
-  const initialValues = {
-    email: "",
-  };
-
-  const checkoutSchema = yup.object().shape({
-    email: yup.string().email("Invalid email!").required("Required"),
-  });
-
   const formik = useFormik({
     enableReinitialize: true,
     onSubmit,
-    initialValues,
-    validationSchema: checkoutSchema,
+    initialValues: {
+      email: "",
+    },
+    validationSchema: yup.object().shape({
+      email: yup.string().email("Invalid email!").required("Required"),
+    }),
   });
 
   const clearForm = () => {

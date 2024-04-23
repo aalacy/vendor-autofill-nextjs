@@ -15,6 +15,7 @@ import LoadingOverlay from "../common/loading-overlay";
 import { Modal } from "../common/modal";
 import { PdfViewer } from "../history/pdf-viewer";
 import { ThankYou } from "./thank-you";
+import { HandleCOI } from "./home-actions/coi";
 
 const ReportRenderToolbar = () => {
   return (
@@ -36,7 +37,7 @@ export const VendorList = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [gLoading, setGLoading] = useState(false);
-  const [pdfCount, setPDFCount] = useState(0);
+  const [showCOI, setShowCOI] = useState(false);
   const [pdfUrl, setUrl] = useState("");
   const [vendorKey, setVendorKey] = useState("");
   const [vendor, setVendor] = useState("");
@@ -63,25 +64,25 @@ export const VendorList = ({
     getData();
   }, []);
 
-  const countPDFs = (selected) => {
-    let total = 0;
-    for (const { credit_auth, rental_agreement } of selected) {
-      if (credit_auth) total++;
-      if (rental_agreement) total++;
-    }
+  // const countPDFs = (selected) => {
+  //   let total = 0;
+  //   for (const { credit_auth, rental_agreement } of selected) {
+  //     if (credit_auth) total++;
+  //     if (rental_agreement) total++;
+  //   }
 
-    setPDFCount(total);
-  };
+  //   setPDFCount(total);
+  // };
 
-  const handleCellValueChange = (params) => {
-    const newRow = {
-      id: params.id,
-      [params.field]: params.value,
-    };
-    const selected = updateList(selectedData, newRow);
-    setSelectedData(selected);
-    countPDFs(selected);
-  };
+  // const handleCellValueChange = (params) => {
+  //   const newRow = {
+  //     id: params.id,
+  //     [params.field]: params.value,
+  //   };
+  //   const selected = updateList(selectedData, newRow);
+  //   setSelectedData(selected);
+  //   countPDFs(selected);
+  // };
 
   const handleGeneratePDF = async (vendor, invoice) => {
     setInvoice(invoice);
@@ -115,9 +116,27 @@ export const VendorList = ({
     }
   }
 
-  const handleClear = () => {
-    setSelectedData([]);
-  };
+  const handleCOI = async (vendor) => {
+    setVendor(vendor);
+    setInvoice('COI');
+    if (vendor.coi) {
+      try {
+        const { data: { result } } = await VendorService.readCOI(vendor.coi);
+        setShowPDFModal(true);
+        setUrl(result);
+      } catch (error) {
+        console.log('handleCOI', error)
+      } finally {
+        setGLoading(false);
+      }
+    } else {
+      setShowCOI(true);
+    }
+  }
+
+  // const handleClear = () => {
+  //   setSelectedData([]);
+  // };
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -141,9 +160,9 @@ export const VendorList = ({
   });
 
   // Get the total number of pdfs
-  useEffect(() => {
-    countPDFs(selectedData);
-  }, [selectedData]);
+  // useEffect(() => {
+  //   countPDFs(selectedData);
+  // }, [selectedData]);
 
 
   return (
@@ -152,22 +171,12 @@ export const VendorList = ({
         <Typography variant="h6" mb={2}>
           Vendors: &nbsp;(<small>{vendors?.items?.length || "-"}</small>)
         </Typography>
-        {/* <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Typography>
-            {pdfCount} <b>PDFs</b>
-          </Typography>
-          <Tooltip title="Clear">
-            <IconButton onClick={handleClear} color="primary" size="small">
-              <RefreshIcon />
-            </IconButton>
-          </Tooltip>
-        </Box> */}
       </Box>
       <div style={{ height: 550, width: "100%" }}>
         <ClientDataGrid
           loading={loading}
           data={vendors?.items || []}
-          columns={VendorsColumns({ handleCellValueChange, handleGeneratePDF, handleW9 })}
+          columns={VendorsColumns({ handleGeneratePDF, handleW9, handleCOI })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
@@ -234,6 +243,12 @@ export const VendorList = ({
           </Typography>}
         />
       }
+      <HandleCOI
+        vendor={vendor}
+        open={showCOI}
+        setOpen={setShowCOI}
+        refreshData={getData}
+      />
     </>
   );
 };

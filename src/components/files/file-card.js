@@ -52,7 +52,7 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
 
   return (
     <>
-      <Card raised sx={{ minWidth: 235 }}>
+      <Card raised sx={{ width: 235, height: 235 }}>
         <CardActionArea onClick={handleFolder}>
           <CardHeader
             avatar={<FolderIcon color="warning" fontSize="large" />}
@@ -63,7 +63,7 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
             }
           />
           <CardContent>
-            <Typography variant="h6" gutterBottom>
+            <Typography title={folder_name} variant="h6" gutterBottom sx={{ textWrap: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               {folder_name}
             </Typography>
             <Divider />

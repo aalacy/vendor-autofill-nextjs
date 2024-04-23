@@ -74,29 +74,33 @@ const W9Cell = (params) => {
 
   return (
     <Tooltip title="Show W9">
-        <span>
-          <IconButton
-            onClick={() => handleW9(row)}
-            disabled={!!!value}
-          >
-            <ViewIcon color={value ? 'primary' : 'inherit'} /></IconButton>
-        </span>
-      </Tooltip>
+      <span>
+        <IconButton
+          onClick={() => handleW9(row)}
+          disabled={!!!value}
+        >
+          <ViewIcon color={value ? 'primary' : 'inherit'} /></IconButton>
+      </span>
+    </Tooltip>
   )
 }
 
 const COICell = (params) => {
-  const { value, row } = params;
+  const { value, row, handleCOI } = params;
 
   return (
     <Tooltip title="Manage COI">
-        <span>
-          <IconButton
-            disabled={!!!value}
-          >
-            <AddIcon color={value ? 'primary' : 'inherit'} /></IconButton>
-        </span>
-      </Tooltip>
+      <span>
+        <IconButton
+          onClick={() => handleCOI(row)}
+        >
+          {
+            !!!value ? <AddIcon color={value ? 'primary' : 'inherit'} /> : 
+            <ViewIcon color={value ? 'primary' : 'inherit'} />
+          }
+        </IconButton>
+      </span>
+    </Tooltip>
   )
 }
 
@@ -105,18 +109,18 @@ const FormsCell = (params) => {
 
   return (
     <Tooltip title="Manage Forms">
-        <span>
-          <IconButton
-            disabled={!!!value}
-          >
-            <ViewIcon color={value ? 'primary' : 'inherit'} /></IconButton>
-        </span>
-      </Tooltip>
+      <span>
+        <IconButton
+          disabled={!!!value}
+        >
+          <ViewIcon color={value ? 'primary' : 'inherit'} /></IconButton>
+      </span>
+    </Tooltip>
   )
 }
 
 
-export const VendorsColumns = ({ handleCellValueChange, handleGeneratePDF, handleW9 }) => {
+export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI }) => {
   return [
     {
       field: "name",
@@ -141,7 +145,7 @@ export const VendorsColumns = ({ handleCellValueChange, handleGeneratePDF, handl
       type: "string",
       resizable: true,
       width: 80,
-      renderCell: (params) => <COICell {...params} />
+      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />
     },
     {
       field: "forms",

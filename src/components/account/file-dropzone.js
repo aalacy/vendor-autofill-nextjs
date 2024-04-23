@@ -11,9 +11,9 @@ import {
   ListItemText,
   Tooltip,
   Typography,
+  LinearProgress
 } from "@mui/material";
-import { ControlPointDuplicate as DuplicateIcon } from "@mui/icons-material";
-import { X as XIcon } from "@mui/icons-material";
+import { ControlPointDuplicate as DuplicateIcon, X as XIcon } from "@mui/icons-material";
 
 import { bytesToSize } from "src/utils";
 
@@ -41,6 +41,7 @@ export const FileDropzone = (props) => {
     preventDropOnDocument,
     children,
     type,
+    loading,
     ...other
   } = props;
 
@@ -90,6 +91,7 @@ export const FileDropzone = (props) => {
         >
           {children}
           <Box sx={{ p: 2 }}>
+            {loading && <LinearProgress />}
             <Typography variant="h6" textAlign="center">
               {`Select ${type} file${maxFiles && maxFiles === 1 ? "" : "s"}`}
             </Typography>

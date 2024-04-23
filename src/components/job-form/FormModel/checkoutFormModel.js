@@ -165,13 +165,11 @@ export default {
     },
     shippingAccount: {
       name: 'shippingAccount',
-      label: 'Shipping Account*',
-      requiredErrorMsg: 'Shipping Account is required',
+      label: 'Shipping Account',
     },
     shippingAccountNumber: {
       name: 'shippingAccountNumber',
-      label: 'Shipping Account Number*',
-      requiredErrorMsg: 'Shipping Account Number is required',
+      label: 'Shipping Account Number',
     }
   }
 };

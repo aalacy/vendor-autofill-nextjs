@@ -133,7 +133,7 @@ export const AvatarUpload = () => {
       {open && <Modal open={true} onClose={onClose} title="Upload Avatar" size="sm">
         <FileDropzone
           maxFiles={1}
-          accept="image/*"
+          accept={{'image/jpeg': ['.jpeg', '.png']}}
           files={files}
           onDrop={handleDrop}
           onRemove={handleRemove}
