@@ -1,9 +1,10 @@
-import { Switch, Box, IconButton, Tooltip, Badge } from "@mui/material"
+import { Switch, Box, IconButton, Tooltip, Badge, Typography } from "@mui/material"
 import { DocumentScanner as ViewIcon, AddCircleOutline as AddIcon } from "@mui/icons-material";
 import {
   useGridApiContext,
 } from "@mui/x-data-grid-pro";
 import { useCallback } from "react";
+import { currencyFormatter, sum } from "src/utils";
 
 const EditSwitchCell = (params) => {
   const { id, value, row, field, handleCellValueChange } = params;
@@ -171,6 +172,16 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       resizable: true,
       width: 200,
       renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />
+    },
+    {
+      field: "total",
+      headerName: "Total",
+      type: "string",
+      headerAlign: 'center',
+      align: 'center',
+      resizable: true,
+      width: 120,
+      renderCell: (params) => <Typography>{currencyFormatter(sum(params.row.invoices.map(r => r.total)))}</Typography>
     },
     // {
     //   field: "credit_auth",

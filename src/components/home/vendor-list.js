@@ -277,6 +277,7 @@ export const VendorList = ({
           onClose={() => setShowInvoiceModal(false)}
           vendor={vendor}
           invoices={invoices}
+          setInvoices={setInvoices}
           setShowPDFModal={setShowPDFModal}
           setInvoice={setInvoice}
           setUrl={setUrl}

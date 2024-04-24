@@ -86,4 +86,11 @@ export class VendorService {
     static readInvoices(vendor_id) {
         return http.post(`/vendors/get-invoices`, vendor_id)
     }
+
+    static addTotal2Invoice(invoice_id, total) {
+        return http.post('/vendors/add-total-to-invoice', {
+            invoice_id,
+            total
+        })
+    }
 }

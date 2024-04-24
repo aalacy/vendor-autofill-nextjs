@@ -57,3 +57,11 @@ export const formatPhoneNumber = (phoneNumber) => {
   // if the phone number doesn't match the expected format, return the original input
   return phoneNumber;
 }
+
+export const currencyFormatter = (val) => {
+  if (!val) return ""
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(val);
+}
