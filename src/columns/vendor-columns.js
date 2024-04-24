@@ -1,4 +1,4 @@
-import { Switch, Box, IconButton, Tooltip } from "@mui/material"
+import { Switch, Box, IconButton, Tooltip, Badge } from "@mui/material"
 import { DocumentScanner as ViewIcon, AddCircleOutline as AddIcon } from "@mui/icons-material";
 import {
   useGridApiContext,
@@ -115,7 +115,10 @@ const InvoiceCell = (params) => {
         >
           {
             value.length === 0 ? <AddIcon color='primary' /> :
-              <ViewIcon color='primary' />
+
+              <Badge badgeContent={value.length} color="info" max={99}>
+                <ViewIcon color='primary' />
+              </Badge>
           }
         </IconButton>
       </span>

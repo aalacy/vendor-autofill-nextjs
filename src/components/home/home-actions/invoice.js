@@ -56,7 +56,7 @@ export const ManageInvoice = ({ vendor, open, setOpen, refreshData }) => {
 
     return (
         <>
-            {open && <Modal open={true} onClose={onClose} title="Upload Invoices" size="sm">
+            {open && <Modal open={true} onClose={onClose} title={`Upload Invoices for ${vendor.name}`} size="sm">
                 <FileDropzone
                     maxFiles={10}
                     accept={{ "application/pdf": ['.pdf'] }}

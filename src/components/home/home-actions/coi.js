@@ -56,7 +56,7 @@ export const ManageCOI = ({ vendor, open, setOpen, refreshData }) => {
 
     return (
         <>
-            {open && <Modal open={true} onClose={onClose} title="Upload COI" size="sm">
+            {open && <Modal open={true} onClose={onClose} title={`Upload COI for ${vendor.name}`} size="sm">
                 <FileDropzone
                     maxFiles={1}
                     accept={{ "application/pdf": ['.pdf'] }}
