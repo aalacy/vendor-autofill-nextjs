@@ -65,4 +65,25 @@ export class VendorService {
     static readCOI(key) {
         return http.post(`/vendors/get-coi`, key)
     }
+
+    static uploadInvoices(vendor_id, vendor_name, files, onUploadProgress = undefined) {
+        let formData = new FormData();
+
+        Array.from(files).forEach(file => {
+            formData.append('files', file);
+        });
+        formData.append('vendor_id', vendor_id)
+        formData.append('vendor_name', vendor_name)
+
+        return http.post("/vendors/upload-invoices", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress,
+        });
+    }
+
+    static readInvoices(vendor_id) {
+        return http.post(`/vendors/get-invoices`, vendor_id)
+    }
 }

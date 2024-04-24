@@ -24,7 +24,7 @@ const EditSwitchCell = (params) => {
   );
 }
 
-const InvoiceCell = (params) => {
+const FormCell = (params) => {
   const { id, row, handleGeneratePDF } = params;
   const disabledStatus = useCallback((name) => {
     if (row[name]) return false
@@ -95,8 +95,8 @@ const COICell = (params) => {
           onClick={() => handleCOI(row)}
         >
           {
-            !!!value ? <AddIcon color={value ? 'primary' : 'inherit'} /> : 
-            <ViewIcon color={value ? 'primary' : 'inherit'} />
+            !!!value ? <AddIcon color='primary' /> :
+              <ViewIcon color='primary' />
           }
         </IconButton>
       </span>
@@ -104,23 +104,27 @@ const COICell = (params) => {
   )
 }
 
-const FormsCell = (params) => {
-  const { value, row } = params;
+const InvoiceCell = (params) => {
+  const { value, row, handleInvoice } = params;
 
   return (
     <Tooltip title="Manage Forms">
       <span>
         <IconButton
-          disabled={!!!value}
+          onClick={() => handleInvoice(row)}
         >
-          <ViewIcon color={value ? 'primary' : 'inherit'} /></IconButton>
+          {
+            value.length === 0 ? <AddIcon color='primary' /> :
+              <ViewIcon color='primary' />
+          }
+        </IconButton>
       </span>
     </Tooltip>
   )
 }
 
 
-export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI }) => {
+export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleInvoice }) => {
   return [
     {
       field: "name",
@@ -148,22 +152,22 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI }) => {
       renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />
     },
     {
-      field: "forms",
-      headerName: "Forms",
+      field: "invoices",
+      headerName: "Invoices",
       type: "string",
       resizable: true,
       width: 80,
-      renderCell: (params) => <FormsCell {...params} />
+      renderCell: (params) => <InvoiceCell {...params} handleInvoice={handleInvoice} />
     },
     {
-      field: "invoices",
-      headerName: "Invoices",
+      field: "forms",
+      headerName: "Forms",
       type: "string",
       headerAlign: 'center',
       align: 'center',
       resizable: true,
       width: 200,
-      renderCell: (params) => <InvoiceCell {...params} handleGeneratePDF={handleGeneratePDF} />
+      renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />
     },
     // {
     //   field: "credit_auth",

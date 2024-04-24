@@ -1,4 +1,4 @@
-import { Typography, Box, IconButton, Tooltip, Button, TextField, InputAdornment, CircularProgress } from "@mui/material";
+import { Typography, Box, Button, TextField, InputAdornment, CircularProgress } from "@mui/material";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid-pro";
 import { EmailOutlined as EmailIcon } from "@mui/icons-material";
 import { useFormik } from "formik";
@@ -8,14 +8,15 @@ import { useCallback, useEffect, useState } from "react";
 
 import { VendorService } from "src/services";
 import { VendorsColumns } from "src/columns";
-import { updateList } from "src/utils";
 import { ClientDataGrid } from "../tables/client-datagrid";
 import { VendorDetailPanelContent } from "./vendor-detail";
 import LoadingOverlay from "../common/loading-overlay";
 import { Modal } from "../common/modal";
 import { PdfViewer } from "../history/pdf-viewer";
 import { ThankYou } from "./thank-you";
-import { HandleCOI } from "./home-actions/coi";
+import { ManageCOI } from "./home-actions/coi";
+import { ManageInvoice } from "./home-actions/invoice";
+import { InvoiceView } from "./home-actions/invoice-view";
 
 const ReportRenderToolbar = () => {
   return (
@@ -32,17 +33,18 @@ export const VendorList = ({
   rowSelectionModel,
   vendors,
   setVendors,
-  selectedData,
-  setSelectedData,
 }) => {
   const [loading, setLoading] = useState(false);
   const [gLoading, setGLoading] = useState(false);
   const [showCOI, setShowCOI] = useState(false);
+  const [showInvoice, setShowInvoice] = useState(false);
   const [pdfUrl, setUrl] = useState("");
   const [vendorKey, setVendorKey] = useState("");
   const [vendor, setVendor] = useState("");
   const [invoice, setInvoice] = useState("");
   const [showPDFModal, setShowPDFModal] = useState(false)
+  const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [invoices, setInvoices] = useState([]);
   const [canSendEmail, setCanSendEmail] = useState(false);
   const [showThankYou, setShowThankyou] = useState(false);
 
@@ -134,9 +136,23 @@ export const VendorList = ({
     }
   }
 
-  // const handleClear = () => {
-  //   setSelectedData([]);
-  // };
+  const handleInvoice = async (vendor) => {
+    setVendor(vendor);
+    setInvoice('Invoices');
+    if (vendor.invoices.length > 0) {
+      try {
+        const { data: { result } } = await VendorService.readInvoices(vendor.id);
+        setShowInvoiceModal(true);
+        setInvoices(result)
+      } catch (error) {
+        console.log('handleCOI', error)
+      } finally {
+        setGLoading(false);
+      }
+    } else {
+      setShowInvoice(true);
+    }
+  };
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -176,7 +192,7 @@ export const VendorList = ({
         <ClientDataGrid
           loading={loading}
           data={vendors?.items || []}
-          columns={VendorsColumns({ handleGeneratePDF, handleW9, handleCOI })}
+          columns={VendorsColumns({ handleGeneratePDF, handleW9, handleCOI, handleInvoice })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
@@ -243,12 +259,33 @@ export const VendorList = ({
           </Typography>}
         />
       }
-      <HandleCOI
+      {showCOI && <ManageCOI
         vendor={vendor}
-        open={showCOI}
+        open={true}
         setOpen={setShowCOI}
         refreshData={getData}
-      />
+      />}
+      {showInvoice && <ManageInvoice
+        vendor={vendor}
+        open={true}
+        setOpen={setShowInvoice}
+        refreshData={getData}
+      />}
+      {
+        showInvoiceModal && <InvoiceView
+          open={true}
+          onClose={() => setShowInvoiceModal(false)}
+          vendor={vendor}
+          invoices={invoices}
+          setShowPDFModal={setShowPDFModal}
+          setInvoice={setInvoice}
+          setUrl={setUrl}
+          setGLoading={setGLoading}
+          showInvoice={showInvoice}
+          setShowInvoice={setShowInvoice}
+          getData={getData}
+        />
+      }
     </>
   );
 };

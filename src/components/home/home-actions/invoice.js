@@ -1,12 +1,12 @@
 import toast from "react-hot-toast";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import { FileDropzone } from "src/components/account/file-dropzone"
 import { Modal } from "src/components/common/modal"
 import { VendorService } from "src/services";
 
 
-export const ManageCOI = ({ vendor, open, setOpen, refreshData }) => {
+export const ManageInvoice = ({ vendor, open, setOpen, refreshData }) => {
     const [loading, setLoading] = useState(false);
 
     const [files, setFiles] = useState([]);
@@ -40,7 +40,7 @@ export const ManageCOI = ({ vendor, open, setOpen, refreshData }) => {
         setFiles([]);
         setLoading(true);
         try {
-            await VendorService.uploadCOI(vendor.id, vendor.name, files[0], uploadedFile);
+            await VendorService.uploadInvoices(vendor.id, vendor.name, files, uploadedFile);
             toast.success("Successfully uploaded.");
             refreshData()
         } catch (err) {
@@ -56,9 +56,9 @@ export const ManageCOI = ({ vendor, open, setOpen, refreshData }) => {
 
     return (
         <>
-            {open && <Modal open={true} onClose={onClose} title="Upload COI" size="sm">
+            {open && <Modal open={true} onClose={onClose} title="Upload Invoices" size="sm">
                 <FileDropzone
-                    maxFiles={1}
+                    maxFiles={10}
                     accept={{ "application/pdf": ['.pdf'] }}
                     files={files}
                     onDrop={handleDrop}

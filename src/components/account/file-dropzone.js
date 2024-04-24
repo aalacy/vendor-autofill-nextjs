@@ -13,7 +13,7 @@ import {
   Typography,
   LinearProgress
 } from "@mui/material";
-import { ControlPointDuplicate as DuplicateIcon, X as XIcon } from "@mui/icons-material";
+import { ControlPointDuplicateRounded as DuplicateIcon, X as XIcon } from "@mui/icons-material";
 
 import { bytesToSize } from "src/utils";
 
@@ -135,7 +135,7 @@ export const FileDropzone = (props) => {
                     edge="end"
                     onClick={() => onRemove && onRemove(file)}
                   >
-                    <XIcon fontSize="small" />
+                    <XIcon color="error" fontSize="small" />
                   </IconButton>
                 </Tooltip>
               </ListItem>
@@ -148,7 +148,7 @@ export const FileDropzone = (props) => {
               mt: 2,
             }}
           >
-            <Button onClick={onRemoveAll} size="small" type="button">
+            <Button onClick={onRemoveAll} variant="outlined" size="small" type="button">
               Remove All
             </Button>
             <Button

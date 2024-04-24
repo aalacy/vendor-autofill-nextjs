@@ -77,16 +77,16 @@ export default [
     [cardholderDriversLicenseExpiry.name]: Yup.string()
       .nullable()
       .required(`${cardholderDriversLicenseExpiry.requiredErrorMsg}`)
-      .test("expDate", cardholderDriversLicenseExpiry.invalidErrorMsg, (val) => {
-        if (val) {
-          const startDate = new Date();
-          if (moment(val, moment.ISO_8601).isValid()) {
-            return moment(val).isAfter(startDate);
-          }
-          return false;
-        }
-        return false;
-      }),
+      // .test("expDate", cardholderDriversLicenseExpiry.invalidErrorMsg, (val) => {
+      //   if (val) {
+      //     const startDate = new Date();
+      //     if (moment(val, moment.ISO_8601).isValid()) {
+      //       return moment(val).isAfter(startDate);
+      //     }
+      //     return false;
+      //   }
+      //   return false;
+      // }),
   }),
   Yup.object().shape({
     // [creditCardInfo.name]: Yup.string().required(`${creditCardInfo.requiredErrorMsg}`),
@@ -96,17 +96,17 @@ export default [
     [cardNumber.name]: Yup.string().required(`${cardNumber.requiredErrorMsg}`),
     [expirationDate.name]: Yup.string()
       .nullable()
-      .required(`${expirationDate.requiredErrorMsg}`)
-      .test("expDate", expirationDate.invalidErrorMsg, (val) => {
-        if (val) {
-          const startDate = new Date();
-          if (moment(val, moment.ISO_8601).isValid()) {
-            return moment(val).isAfter(startDate);
-          }
-          return false;
-        }
-        return false;
-      }),
+      .required(`${expirationDate.requiredErrorMsg}`),
+      // .test("expDate", expirationDate.invalidErrorMsg, (val) => {
+      //   if (val) {
+      //     const startDate = new Date();
+      //     if (moment(val, moment.ISO_8601).isValid()) {
+      //       return moment(val).isAfter(startDate);
+      //     }
+      //     return false;
+      //   }
+      //   return false;
+      // }),
     [cvv.name]: Yup.string().when("cardType", {
       is: (val) => val !== "Amex",
       then: (schema) =>

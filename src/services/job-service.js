@@ -1,3 +1,4 @@
+import { beautyExpiry } from "src/utils";
 import http from "./http";
 
 export class JobService {
@@ -6,6 +7,8 @@ export class JobService {
   }
 
   static add(data) {
+    data.cardholderDriversLicenseExpiry = beautyExpiry(data.cardholderDriversLicenseExpiry);
+    data.expirationDate = beautyExpiry(data.expirationDate);
     return http.post("/job/add", { data });
   }
 

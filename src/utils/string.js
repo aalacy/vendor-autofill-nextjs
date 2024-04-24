@@ -6,6 +6,8 @@ export const beautyDateTime = (date) => (date ? dayjs.utc(date).format("MM/DD/YY
 
 export const beautyDate = (date) => (date ? dayjs.utc(date).format("MM/DD/YYYY") : "");
 
+export const beautyExpiry = (date) => (date ? dayjs.utc(date).format("YY/MM") : "");
+
 export const thisSunday = () => dayjs().startOf('week').add(0, 'day');
 
 export const replaceWithBr = (text) => {
