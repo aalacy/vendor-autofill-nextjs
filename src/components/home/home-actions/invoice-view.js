@@ -17,6 +17,7 @@ import {
   AttachMoney,
   Edit,
   Close,
+  DeleteOutline as DeleteIcon,
   Refresh,
   UploadFile,
   DocumentScanner as ViewIcon,
@@ -228,7 +229,7 @@ export const InvoiceView = ({
                       edge="end"
                       aria-label="comments"
                     >
-                      <Close />
+                      <DeleteIcon />
                     </IconButton>
                   </Tooltip>
                 </Stack>

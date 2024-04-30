@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
-  Delete as RemoveIcon,
+  DeleteOutline as RemoveIcon,
   FolderOutlined as FolderIcon,
   Download as DownloadIcon
 } from "@mui/icons-material";

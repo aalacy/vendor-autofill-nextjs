@@ -1,5 +1,5 @@
 import { Typography, IconButton, Tooltip, Box } from "@mui/material"; 
-import { Clear as ClearIcon, EditOutlined as EditIcon } from "@mui/icons-material";
+import { DeleteOutline as ClearIcon, EditOutlined as EditIcon } from "@mui/icons-material";
 
 const RenderAction = (props) => {
   const { value, handleRemove, handleEdit } = props;
@@ -11,6 +11,7 @@ const RenderAction = (props) => {
         <IconButton
           onClick={() => handleEdit(value)}
           size="small"
+          color="primary"
           sx={{
             ml: 3,
           }}
@@ -19,7 +20,7 @@ const RenderAction = (props) => {
         </IconButton>
       </span>
     </Tooltip>
-      <Tooltip title="Remove Contact">
+      <Tooltip title="Delete Contact">
       <span>
         <IconButton
           onClick={() => handleRemove(value)}

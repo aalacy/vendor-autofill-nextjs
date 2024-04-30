@@ -1,6 +1,6 @@
 import { Typography, IconButton, Tooltip, Box, CircularProgress } from "@mui/material";
 import {
-  Clear as ClearIcon,
+  DeleteOutline as ClearIcon,
   EditOutlined as EditIcon,
   FileOpen as ViewIcon,
   Download as DownloadIcon,
@@ -38,7 +38,7 @@ const RenderAction = (props) => {
           </IconButton>
         </span>
       </Tooltip>
-      <Tooltip title="Remove Mileage">
+      <Tooltip title="Delete Mileage">
         <span>
           <IconButton onClick={() => handleRemove(value)} color="error" size="small">
             <ClearIcon />

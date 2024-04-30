@@ -8,11 +8,13 @@ export const ContactAddModal = ({ contact, open, setOpen }) => {
 
   const handleSubmit = async (values) => {
     await ContactService.add(values);
+    setOpen(false);
     refresh();
   };
 
   const handleUpdate = async (id, values) => {
     await ContactService.update(id, values);
+    setOpen(false);
     refresh();
   }
 
