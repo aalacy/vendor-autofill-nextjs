@@ -2,13 +2,12 @@ import Head from 'next/head';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { Box } from '@mui/material';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useQuery, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { PricingPlan } from 'src/components/pricing/pricing-plan';
-import PlanToggleButton from 'src/components/pricing/pricing-switch';
 import { PLAN_LABELS } from 'src/utils/constants';
 import { StripeService } from 'src/services';
 import { PricingSkeleton } from 'src/components/skeleton/pricing-skeleton';

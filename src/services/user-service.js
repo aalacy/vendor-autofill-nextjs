@@ -22,4 +22,22 @@ export class UserService {
   static updatePerson(userId, personId, data) {
     return http.put(`/users/update-person/${personId}/${userId}`, data);
   }
+
+  static updateRole(id, data) {
+    return http.put(`/users/update-role/${id}`, data);
+  }
+
+  static all(paginationModel, filterModel, logicOperator) {
+
+    return http.post(`/users/all`, {
+      page: paginationModel.page + 1,
+      take: paginationModel.pageSize,
+      filterModel: filterModel,
+      logicOperator: logicOperator
+    });
+  }
+
+  static getAllRoles() {
+    return http.get('/users/roles/all')
+  }
 }

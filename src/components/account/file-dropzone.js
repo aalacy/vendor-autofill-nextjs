@@ -13,7 +13,7 @@ import {
   Typography,
   LinearProgress
 } from "@mui/material";
-import { ControlPointDuplicateRounded as DuplicateIcon, X as XIcon } from "@mui/icons-material";
+import { ControlPointDuplicateRounded as DuplicateIcon, Close as XIcon } from "@mui/icons-material";
 
 import { bytesToSize } from "src/utils";
 

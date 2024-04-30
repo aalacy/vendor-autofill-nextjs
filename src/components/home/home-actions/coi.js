@@ -18,9 +18,11 @@ export const ManageCOI = ({ vendor, open, setOpen, refreshData }) => {
     const handleDrop = (newFiles, fileRejections) => {
         setFiles(() => [...newFiles]);
         if (fileRejections.length) {
-            const { file } = fileRejections[0];
-            const { name } = file;
-            let message = `The file ${name} is not CSV format.`;
+            const { errors } = fileRejections[0];
+            let message = errors[0].message;
+            if (errors[0].code === ErrorCode.TooManyFiles) {
+              message = `Cannot upload more than ${maxFileLimit} file(s)` 
+            }
             toast.error(message);
         }
     };

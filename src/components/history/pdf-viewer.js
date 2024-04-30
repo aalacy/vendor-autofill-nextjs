@@ -21,9 +21,9 @@ export const PdfViewer = ({ pdfUrl }) => {
 
   return (
     <Paper elevation={3}>
-      <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page pageNumber={pageNumber} />
+      <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} wrap={false}>
         <Pagination count={numPages || 0} page={pageNumber} onChange={handlePageChange} />
+        <Page pageNumber={pageNumber} />
       </Document>
     </Paper>
   );

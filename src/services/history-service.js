@@ -7,8 +7,8 @@ export class HistoryService {
         return http.post(`/history/all`, {
             page: paginationModel.page + 1,
             take: paginationModel.pageSize,
-            filterModel: filterModel,
-            logicOperator: logicOperator
+            filterModel,
+            logicOperator
         });
     }
 }

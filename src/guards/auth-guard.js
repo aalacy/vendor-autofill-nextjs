@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import PropTypes from 'prop-types';
 import { useAuth } from 'src/hooks/use-auth';
 
-const FREE_PATHS = ['/account', '/mileage-forms']
+const FREE_PATHS = ['/account', '/auth/login', '/auth/register', '/mileage-forms']
 
 export const AuthGuard = (props) => {
   const { children } = props;

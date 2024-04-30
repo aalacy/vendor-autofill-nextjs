@@ -1,4 +1,11 @@
-import { Typography, Box, Button, TextField, InputAdornment, CircularProgress } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Button,
+  TextField,
+  InputAdornment,
+  CircularProgress,
+} from "@mui/material";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid-pro";
 import { EmailOutlined as EmailIcon } from "@mui/icons-material";
 import { useFormik } from "formik";
@@ -28,12 +35,7 @@ const ReportRenderToolbar = () => {
 
 const Footer = () => <></>;
 
-export const VendorList = ({
-  setRowSelectionModel,
-  rowSelectionModel,
-  vendors,
-  setVendors,
-}) => {
+export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, setVendors }) => {
   const [loading, setLoading] = useState(false);
   const [gLoading, setGLoading] = useState(false);
   const [showCOI, setShowCOI] = useState(false);
@@ -42,13 +44,17 @@ export const VendorList = ({
   const [vendorKey, setVendorKey] = useState("");
   const [vendor, setVendor] = useState("");
   const [invoice, setInvoice] = useState("");
-  const [showPDFModal, setShowPDFModal] = useState(false)
+  const [showPDFModal, setShowPDFModal] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [invoices, setInvoices] = useState([]);
   const [canSendEmail, setCanSendEmail] = useState(false);
   const [showThankYou, setShowThankyou] = useState(false);
+  const [subTitle, setSubTitle] = useState("");
 
-  const getDetailPanelContent = useCallback(({ row }) => <VendorDetailPanelContent row={row} />, []);
+  const getDetailPanelContent = useCallback(
+    ({ row }) => <VendorDetailPanelContent row={row} />,
+    []
+  );
 
   const getData = useCallback(async () => {
     try {
@@ -92,60 +98,70 @@ export const VendorList = ({
     setGLoading(true);
     setCanSendEmail(true);
     try {
-      const { data: { result: { presigned_url, key } } } = await VendorService.generateOnePDF(vendor.id, invoice);
+      const {
+        data: {
+          result: { presigned_url, key },
+        },
+      } = await VendorService.generateOnePDF(vendor.id, invoice);
       setShowPDFModal(true);
       setUrl(presigned_url);
-      setVendorKey(key)
+      setVendorKey(key);
     } catch (error) {
-      console.log('handleGeneratePDF', error)
+      console.log("handleGeneratePDF", error);
     } finally {
       setGLoading(false);
     }
-  }
+  };
 
   const handleW9 = async (vendor) => {
-    setInvoice('W9');
+    setInvoice("W9");
     setVendor(vendor);
     setGLoading(true);
     try {
-      const { data: { result } } = await VendorService.readW9(vendor.id);
+      const {
+        data: { result },
+      } = await VendorService.readW9(vendor.id);
       setShowPDFModal(true);
       setUrl(result);
     } catch (error) {
-      console.log('handleW9', error)
+      console.log("handleW9", error);
     } finally {
       setGLoading(false);
     }
-  }
+  };
 
   const handleCOI = async (vendor) => {
     setVendor(vendor);
-    setInvoice('COI');
+    setInvoice("COI");
     if (vendor.coi) {
       try {
-        const { data: { result } } = await VendorService.readCOI(vendor.coi);
+        const {
+          data: { result },
+        } = await VendorService.readCOI(vendor.coi);
         setShowPDFModal(true);
         setUrl(result);
       } catch (error) {
-        console.log('handleCOI', error)
+        console.log("handleCOI", error);
       } finally {
         setGLoading(false);
       }
     } else {
       setShowCOI(true);
     }
-  }
+  };
 
   const handleInvoice = async (vendor) => {
     setVendor(vendor);
-    setInvoice('Invoices');
+    setInvoice("Invoices");
     if (vendor.invoices.length > 0) {
       try {
-        const { data: { result } } = await VendorService.readInvoices(vendor.id);
+        const {
+          data: { result },
+        } = await VendorService.readInvoices(vendor.id);
         setShowInvoiceModal(true);
-        setInvoices(result)
+        setInvoices(result);
       } catch (error) {
-        console.log('handleCOI', error)
+        console.log("handleCOI", error);
       } finally {
         setGLoading(false);
       }
@@ -159,10 +175,10 @@ export const VendorList = ({
     onSubmit: async (values) => {
       setGLoading(true);
       try {
-        await VendorService.sendEmail(vendor.id, vendorKey, values.email, invoice)
-        setShowThankyou(true)
+        await VendorService.sendEmail(vendor.id, vendorKey, values.email, invoice);
+        setShowThankyou(true);
       } catch (error) {
-        toast.error(error.message || error.response?.message)
+        toast.error(error.message || error.response?.message);
       } finally {
         setGLoading(false);
       }
@@ -179,7 +195,6 @@ export const VendorList = ({
   // useEffect(() => {
   //   countPDFs(selectedData);
   // }, [selectedData]);
-
 
   return (
     <>
@@ -205,6 +220,7 @@ export const VendorList = ({
       <LoadingOverlay setOpen={setGLoading} open={gLoading} />
       <Modal
         title={`${vendor?.name} - ${invoice || ""}`}
+        subTitle={subTitle}
         open={showPDFModal}
         onClose={() => setShowPDFModal(false)}
         size="md"
@@ -216,7 +232,7 @@ export const VendorList = ({
               flexWrap: "wrap",
               alignItems: "flex-start",
               gap: 2,
-              mb: 2
+              mb: 2,
             }}
           >
             <TextField
@@ -250,29 +266,32 @@ export const VendorList = ({
         </form>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
-      {
-        showThankYou && <ThankYou
+      {showThankYou && (
+        <ThankYou
           open={true}
           onClose={() => setShowThankyou(false)}
-          text={<Typography variant="body1" mb={1} textAlign="center">
-            Form will be sent to <b>{formik.values.email}</b> &nbsp;
-          </Typography>}
+          text={
+            <Typography variant="body1" mb={1} textAlign="center">
+              Form will be sent to <b>{formik.values.email}</b> &nbsp;
+            </Typography>
+          }
         />
-      }
-      {showCOI && <ManageCOI
-        vendor={vendor}
-        open={true}
-        setOpen={setShowCOI}
-        refreshData={getData}
-      />}
-      {showInvoice && <ManageInvoice
-        vendor={vendor}
-        open={true}
-        setOpen={setShowInvoice}
-        refreshData={getData}
-      />}
-      {
-        showInvoiceModal && <InvoiceView
+      )}
+      {showCOI && (
+        <ManageCOI vendor={vendor} open={true} setOpen={setShowCOI} refreshData={getData} />
+      )}
+      {showInvoice && (
+        <ManageInvoice
+          title={`Upload Invoices for ${vendor.name}`}
+          vendor={vendor}
+          maxFileLimit={10 - vendor.invoices.length}
+          open={true}
+          setOpen={setShowInvoice}
+          refreshData={getData}
+        />
+      )}
+      {showInvoiceModal && (
+        <InvoiceView
           open={true}
           onClose={() => setShowInvoiceModal(false)}
           vendor={vendor}
@@ -285,8 +304,9 @@ export const VendorList = ({
           showInvoice={showInvoice}
           setShowInvoice={setShowInvoice}
           getData={getData}
+          setSubTitle={setSubTitle}
         />
-      }
+      )}
     </>
   );
 };

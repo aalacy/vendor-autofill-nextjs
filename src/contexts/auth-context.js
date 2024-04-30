@@ -18,6 +18,7 @@ const initialState = {
   isAuthenticated: false,
   isLoading: true,
   user: null,
+  isAdmin: false,
   confirmMessage: null,
   isJobFetched: false,
   job: null,
@@ -46,10 +47,13 @@ const handlers = {
   [HANDLERS.SIGN_IN]: (state, action) => {
     const { user } = action.payload;
 
+    const isAdmin = user.roles.find(({role_name}) => role_name === 'admin')
+
     return {
       ...state,
       isAuthenticated: true,
       user,
+      isAdmin
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {

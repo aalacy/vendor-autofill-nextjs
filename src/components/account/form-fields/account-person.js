@@ -22,6 +22,7 @@ export const AccountPerson = ({ show, setShow }) => {
         try {
             const { data } = await UserService.updatePerson(user.id, user.person_id, other);
             localStorage.setItem("auth_token", data.result.access_token);
+            setShow(false);
             setUser(data.result.user);
             toast.success(data.detail);
         } catch (err) {

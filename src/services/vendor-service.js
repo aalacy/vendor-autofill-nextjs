@@ -16,6 +16,16 @@ export class VendorService {
         });
     }
 
+    static allByPage(paginationModel, filterModel, logicOperator) {
+
+        return http.post(`/vendors/all-by-page`, {
+            page: paginationModel.page + 1,
+            take: paginationModel.pageSize,
+            filterModel,
+            logicOperator
+        });
+    }
+
     static generatePDF(data, email) {
         return http.post('/vendors/generate_pdf', {
             data,
@@ -92,5 +102,9 @@ export class VendorService {
             invoice_id,
             total
         })
+    }
+
+    static deleteInvoice(invoice_id) {
+        return http.delete(`/vendors/delete-invoice/${invoice_id}`)
     }
 }
