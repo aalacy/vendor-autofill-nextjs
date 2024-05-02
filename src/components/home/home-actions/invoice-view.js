@@ -61,7 +61,7 @@ export const InvoiceView = ({
 
   const handleView = async (id, key, total) => {
     if (!total) {
-      setCurInvoice({ id });
+      setCurInvoice({ id, total });
       return setShowPrompt(true);
     }
 
@@ -126,7 +126,7 @@ export const InvoiceView = ({
 
   const handleEdit = (id, total) => {
     formik.setFieldValue("total", total);
-    setCurInvoice({ id });
+    setCurInvoice({ id, total });
     setShowPrompt(true);
   };
 
