@@ -155,7 +155,7 @@ export const InvoiceView = ({
       title: `Replace Invoice for ${vendor.name}`,
       subTitle: "Invoice amount will remain same after replaced.",
     });
-    setCurInvoice({ id, total });
+    setCurInvoice({ id, total: total || 0 });
     setMaxFileLimit(1);
     setShowInvoice(true);
   };
