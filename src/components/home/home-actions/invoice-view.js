@@ -155,7 +155,7 @@ export const InvoiceView = ({
       title: `Replace Invoice for ${vendor.name}`,
       subTitle: "Invoice amount will remain same after replaced.",
     });
-    setCurInvoice({ id, total: total || 0 });
+    setCurInvoice({ id, total });
     setMaxFileLimit(1);
     setShowInvoice(true);
   };
@@ -163,9 +163,9 @@ export const InvoiceView = ({
   const replaceInvoice = async (newInvoice) => {
     try {
       await VendorService.deleteInvoice(curInvoice.id);
-      const {
-        data: { detail },
-      } = await VendorService.addTotal2Invoice(curInvoice.id, curInvoice.total);
+      if (curInvoice.total) {
+        await VendorService.addTotal2Invoice(curInvoice.id, curInvoice.total);
+      }
       setInvoices((prev) =>
         prev.map((invoice) => {
           if (invoice.id === curInvoice.id)
