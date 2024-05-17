@@ -1,4 +1,4 @@
-import { Typography, IconButton, Tooltip, Box } from "@mui/material";
+import { Typography, IconButton, Tooltip, Box, Checkbox } from "@mui/material";
 import {
   EditOutlined as EditIcon,
   LaunchOutlined,
@@ -143,6 +143,15 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
           <Typography variant="caption">{params.value.email}</Typography>
         </Box>
       ),
+    },
+    {
+      field: "active",
+      headerName: "Status",
+      resizable: true,
+      width: 80,
+      type: 'boolean',
+  
+      renderCell: (params) => <Checkbox readOnly checked={params?.value}></Checkbox>,
     },
     {
       field: "id",
