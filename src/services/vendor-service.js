@@ -107,4 +107,9 @@ export class VendorService {
     static deleteInvoice(invoice_id) {
         return http.delete(`/vendors/delete-invoice/${invoice_id}`)
     }
+
+    static updateVendor(id, data) {
+        return http.put(`/vendors/${id}`, data);
+      }
+    
 }
