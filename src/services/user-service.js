@@ -19,6 +19,10 @@ export class UserService {
     return http.put(`/users/${id}`, data);
   }
 
+  static removeUser(id) {
+    return http.delete(`/users/${id}`);
+  }
+
   static updatePerson(userId, personId, data) {
     return http.put(`/users/update-person/${personId}/${userId}`, data);
   }

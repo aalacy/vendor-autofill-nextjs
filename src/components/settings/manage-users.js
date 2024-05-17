@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { UserService } from "src/services";
@@ -6,6 +6,8 @@ import { EDataGrid } from "../tables/e-datagrid";
 import { UserColumns } from "src/columns/user-columns";
 import { initialPage } from "src/utils";
 import { UpdateUser } from "./update-user";
+import { useAuth } from "src/hooks/use-auth";
+import toast from "react-hot-toast";
 
 export const ManageUsers = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
@@ -14,6 +16,9 @@ export const ManageUsers = () => {
   const [logicOperator, setLogicOperator] = useState("");
   const [curUser, setUser] = useState();
   const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { showConfirmDlg, hideConfirm } = useAuth();
 
   const { isLoading, data: users } = useQuery({
     queryKey: ["getAllUsers", paginationModel, filterModel, logicOperator],
@@ -41,6 +46,24 @@ export const ManageUsers = () => {
     setOpen(true);
   };
 
+  const handleRemove = async (vendor) => {
+    showConfirmDlg({
+      open: true,
+      close: hideConfirm,
+      callback: async () => {
+        try {
+          await UserService.removeUser(vendor.id);
+          toast.success("Successfully Deleted");
+          queryClient.invalidateQueries({ queryKey: ["getAllUsers"] });
+        } catch (error) {
+          toast.error(error?.response?.data?.message || error.message);
+        } finally {
+          hideConfirm()
+        }
+      },
+    });
+  };
+
   return (
     <>
       <EDataGrid
@@ -48,7 +71,7 @@ export const ManageUsers = () => {
         initialState={{ pinnedColumns: { right: ["id"] } }}
         loading={isLoading}
         data={users}
-        columns={UserColumns({ handleEdit })}
+        columns={UserColumns({ handleEdit, handleRemove })}
         paginationModel={paginationModel}
         setPaginationModel={setPaginationModel}
         rowCountState={rowCountState}

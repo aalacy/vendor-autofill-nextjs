@@ -1,16 +1,16 @@
-import { Typography, IconButton, Tooltip, Box, Avatar, Chip, Badge, Checkbox } from "@mui/material";
+import { Typography, IconButton, Tooltip, Box } from "@mui/material";
 import {
-  Clear as ClearIcon,
   EditOutlined as EditIcon,
   LaunchOutlined,
-  AccountCircle as UserCircleIcon,
+  Clear as ClearIcon,
 } from "@mui/icons-material";
-import { beautyDateTime } from "src/utils";
 import { useCallback } from "react";
+
+import { beautyDateTime } from "src/utils";
 import { CreditAuthList, RentalAgreementList } from "src/utils/constants";
 
 const RenderAction = (props) => {
-  const { handleEdit, row } = props;
+  const { handleEdit, handleRemove, row } = props;
 
   return (
     <Box>
@@ -28,17 +28,17 @@ const RenderAction = (props) => {
           </IconButton>
         </span>
       </Tooltip>
-      {/* <Tooltip title="Remove Contact">
+      <Tooltip title="Remove Vendor">
     <span>
       <IconButton
-        onClick={() => handleRemove(value)}
+        onClick={() => handleRemove(row)}
         color="error"
         size="small"
       >
         <ClearIcon />
       </IconButton>
     </span>
-  </Tooltip> */}
+  </Tooltip>
     </Box>
   );
 };
@@ -71,6 +71,7 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       headerName: "Credit Auth",
       resizable: true,
       width: 100,
+      filterable: false,
       align: 'center',
       renderCell: (params) => (
         <Tooltip title={ selectedCreditAuth(params.value) ? "Show template": "No template"}>
@@ -91,6 +92,7 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       field: "rental_agreement",
       headerName: "Rental Agreement",
       resizable: true,
+      filterable: false,
       align: 'center',
       width: 140,
       renderCell: (params) => (
@@ -112,13 +114,15 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       field: "addition",
       headerName: "Addition",
       resizable: true,
+      filterable: false,
       align: 'center',
       width: 100,
     },
     {
       field: "created_at",
       headerName: "Created At",
-      type: "string",
+      type: "date",
+      filterable: false,
       resizable: true,
       width: 150,
       valueGetter: (params) => new Date(params.value),
@@ -129,6 +133,7 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       headerName: "Created By",
       type: "string",
       resizable: true,
+      filterable: false,
       width: 150,
       renderCell: (params) => (
         <Box>
@@ -143,11 +148,10 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       field: "id",
       type: "actions",
       headerName: "",
-      headerAlign: "center",
       align: "center",
       description: "Action Column",
       sortable: false,
-      width: 60,
+      width: 100,
       renderCell: (params) => (
         <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} />
       ),

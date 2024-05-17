@@ -1,115 +1,115 @@
 import http from "./http";
 
 export class VendorService {
+  static add(values) {
+    return http.post("/vendors/add", { ...values });
+  }
 
-    static add(values) {
-        return http.post("/vendors/add", { ...values });
-    }
+  static all() {
+    return http.post(`/vendors/all`, {
+      page: 1,
+      take: -1,
+      filterModel: [],
+      logicOperator: "",
+    });
+  }
 
-    static all() {
+  static allByPage(paginationModel, filterModel, logicOperator) {
+    return http.post(`/vendors/all-by-page`, {
+      page: paginationModel.page + 1,
+      take: paginationModel.pageSize,
+      filterModel,
+      logicOperator,
+    });
+  }
 
-        return http.post(`/vendors/all`, {
-            page: 1,
-            take: -1,
-            filterModel: [],
-            logicOperator: ""
-        });
-    }
+  static generatePDF(data, email) {
+    return http.post("/vendors/generate_pdf", {
+      data,
+      email,
+    });
+  }
 
-    static allByPage(paginationModel, filterModel, logicOperator) {
+  static generateOnePDF(vendor_id, invoice_name) {
+    return http.post("/vendors/generate_one_pdf", {
+      vendor_id,
+      invoice_name,
+    });
+  }
 
-        return http.post(`/vendors/all-by-page`, {
-            page: paginationModel.page + 1,
-            take: paginationModel.pageSize,
-            filterModel,
-            logicOperator
-        });
-    }
+  static readGSheet() {
+    return http.get("/vendors/read_g_sheet");
+  }
 
-    static generatePDF(data, email) {
-        return http.post('/vendors/generate_pdf', {
-            data,
-            email,
-        })
-    }
+  static readW9(vendor_id) {
+    return http.post("/vendors/generate_w9", vendor_id);
+  }
 
-    static generateOnePDF(vendor_id, invoice_name) {
-        return http.post('/vendors/generate_one_pdf', {
-            vendor_id,
-            invoice_name,
-        })
-    }
+  static sendEmail(vendor_id, key, email, invoice_name) {
+    return http.post("/vendors/send-invoice-via-email", {
+      vendor_id,
+      key,
+      email,
+      invoice_name,
+    });
+  }
 
-    static readGSheet() {
-        return http.get('/vendors/read_g_sheet')
-    }
+  static uploadCOI(vendor_id, vendor_name, file, onUploadProgress = undefined) {
+    let formData = new FormData();
 
-    static readW9(vendor_id) {
-        return http.post('/vendors/generate_w9', vendor_id)
-    }
+    formData.append("file", file);
+    formData.append("vendor_id", vendor_id);
+    formData.append("vendor_name", vendor_name);
 
-    static sendEmail(vendor_id, key, email, invoice_name) {
-        return http.post('/vendors/send-invoice-via-email', {
-            vendor_id,
-            key,
-            email,
-            invoice_name
-        })
-    }
+    return http.post("/vendors/upload-coi", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress,
+    });
+  }
 
-    static uploadCOI(vendor_id, vendor_name, file, onUploadProgress = undefined) {
-        let formData = new FormData();
+  static readCOI(key) {
+    return http.post(`/vendors/get-coi`, key);
+  }
 
-        formData.append("file", file);
-        formData.append('vendor_id', vendor_id)
-        formData.append('vendor_name', vendor_name)
+  static uploadInvoices(vendor_id, vendor_name, files, onUploadProgress = undefined) {
+    let formData = new FormData();
 
-        return http.post("/vendors/upload-coi", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            onUploadProgress,
-        });
-    }
+    Array.from(files).forEach((file) => {
+      formData.append("files", file);
+    });
+    formData.append("vendor_id", vendor_id);
+    formData.append("vendor_name", vendor_name);
 
-    static readCOI(key) {
-        return http.post(`/vendors/get-coi`, key)
-    }
+    return http.post("/vendors/upload-invoices", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress,
+    });
+  }
 
-    static uploadInvoices(vendor_id, vendor_name, files, onUploadProgress = undefined) {
-        let formData = new FormData();
+  static readInvoices(vendor_id) {
+    return http.post(`/vendors/get-invoices`, vendor_id);
+  }
 
-        Array.from(files).forEach(file => {
-            formData.append('files', file);
-        });
-        formData.append('vendor_id', vendor_id)
-        formData.append('vendor_name', vendor_name)
+  static addTotal2Invoice(invoice_id, total) {
+    return http.post("/vendors/add-total-to-invoice", {
+      invoice_id,
+      total,
+    });
+  }
 
-        return http.post("/vendors/upload-invoices", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            onUploadProgress,
-        });
-    }
+  static deleteInvoice(invoice_id) {
+    return http.delete(`/vendors/delete-invoice/${invoice_id}`);
+  }
 
-    static readInvoices(vendor_id) {
-        return http.post(`/vendors/get-invoices`, vendor_id)
-    }
+  static updateVendor(id, data) {
+    return http.put(`/vendors/${id}`, data);
+  }
 
-    static addTotal2Invoice(invoice_id, total) {
-        return http.post('/vendors/add-total-to-invoice', {
-            invoice_id,
-            total
-        })
-    }
-
-    static deleteInvoice(invoice_id) {
-        return http.delete(`/vendors/delete-invoice/${invoice_id}`)
-    }
-
-    static updateVendor(id, data) {
-        return http.put(`/vendors/${id}`, data);
-      }
-    
+  static removeVendor(id) {
+    return http.delete(`/vendors/${id}`);
+  }
 }
