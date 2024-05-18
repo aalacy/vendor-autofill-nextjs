@@ -1,24 +1,23 @@
 import { useCallback } from "react";
-import { useRouter } from "next/navigation";
 import PropTypes from "prop-types";
 import { Box, Divider, MenuItem, MenuList, Popover, Typography } from "@mui/material";
-import { useAuth } from "src/hooks/use-auth";
 
-export const AccountPopover = (props) => {
+import { useAuth } from "src/hooks/use-auth";
+import { useQueryClient } from "@tanstack/react-query";
+
+export const ProjectPopover = (props) => {
   const { anchorEl, onClose, open } = props;
-  const router = useRouter();
+  const queryClient = useQueryClient();
   const auth = useAuth();
 
-  const handleSignOut = useCallback(() => {
-    onClose?.();
-    auth.signOut();
-    router.push("/auth/login");
-  }, [onClose, auth, router]);
-
-  const handlePricing = useCallback(() => {
-    onClose?.();
-    router.push("/pricing");
-  }, [onClose]);
+  const handleProject = useCallback(
+    (id) => {
+      onClose?.();
+      auth.setProject(id);
+      queryClient.invalidateQueries({ queryKey: ["getAllJobs", id] });
+    },
+    [onClose, auth, queryClient]
+  );
 
   return (
     <Popover
@@ -35,12 +34,12 @@ export const AccountPopover = (props) => {
     >
       <Box
         sx={{
-          py: 1.5,
+          py: 1,
           px: 2,
         }}
       >
         <Typography color="text.secondary" variant="body2">
-          {auth.user?.email}
+          Projects
         </Typography>
       </Box>
       <Divider />
@@ -54,14 +53,22 @@ export const AccountPopover = (props) => {
           },
         }}
       >
-        <MenuItem onClick={handlePricing}>Pricing</MenuItem>
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        {auth.projects.map(({ id, name }) => (
+          <MenuItem
+            selected={id === auth?.project}
+            key={id}
+            onClick={() => handleProject(id)}
+            sx={{ textTransform: "capitalize" }}
+          >
+            {name}
+          </MenuItem>
+        ))}
       </MenuList>
     </Popover>
   );
 };
 
-AccountPopover.propTypes = {
+ProjectPopover.propTypes = {
   anchorEl: PropTypes.any,
   onClose: PropTypes.func,
   open: PropTypes.bool.isRequired,

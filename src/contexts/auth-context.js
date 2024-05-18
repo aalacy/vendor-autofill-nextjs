@@ -12,6 +12,8 @@ const HANDLERS = {
   FETCH_JOB: "FETCH_JOB",
   REFRESH: "REFRESH",
   JOB_FORM: "JOB_FORM",
+  SET_PROJECT: "SET_PROJECT",
+  SET_PROJECTS: "SET_PROJECTS"
 };
 
 const initialState = {
@@ -24,11 +26,13 @@ const initialState = {
   job: null,
   shouldRefresh: false,
   openJobForm: false,
+  projects: [],
+  project: null,
 };
 
 const handlers = {
   [HANDLERS.INITIALIZE]: (state, action) => {
-    const user = action.payload;
+    const { user, projects } = action.payload;
 
     return {
       ...state,
@@ -42,6 +46,7 @@ const handlers = {
         : {
             isLoading: false,
           }),
+      projects
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
@@ -91,6 +96,18 @@ const handlers = {
     return {
       ...state,
       openJobForm: open,
+    };
+  },
+  [HANDLERS.SET_PROJECT]: (state, action) => {
+    return {
+      ...state,
+      project: action.payload,
+    };
+  },
+  [HANDLERS.SET_PROJECTS]: (state, action) => {
+    return {
+      ...state,
+      projects: action.payload,
     };
   },
 };
@@ -212,23 +229,6 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const fetchJob = async () => {
-    let isJobFetched = false;
-
-    if ((!isJobFetched || !state.job) && !pathname.includes("auth")) {
-      const { data: { result } } = await JobService.mine();
-
-      dispatch({
-        type: HANDLERS.FETCH_JOB,
-        payload: result,
-      });
-    } else {
-      dispatch({
-        type: HANDLERS.FETCH_JOB,
-      });
-    }
-  };
-
   const updateJob = async (id, data) => {
     try {
       const { data: { result } } = await JobService.update(id, data);
@@ -258,6 +258,20 @@ export const AuthProvider = (props) => {
     });
   };
 
+  const setProject = (payload) => {
+    dispatch({
+      type: HANDLERS.SET_PROJECT,
+      payload,
+    });
+  };
+
+  const setProjects = (payload) => {
+    dispatch({
+      type: HANDLERS.SET_PROJECTS,
+      payload,
+    });
+  };
+
   useEffect(
     () => {
       initialize();
@@ -277,10 +291,11 @@ export const AuthProvider = (props) => {
         setUser,
         showConfirmDlg,
         hideConfirm,
-        fetchJob,
         updateJob,
         refresh,
         showJobForm,
+        setProject,
+        setProjects
       }}
     >
       {children}

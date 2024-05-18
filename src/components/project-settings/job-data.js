@@ -1,29 +1,62 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { List, Paper, Divider, ListItem, ListItemText, TextField } from "@mui/material";
+import { List, Paper, ListItem, ListItemText, TextField } from "@mui/material";
 
 import { useAuth } from "src/hooks/use-auth";
 import { splitCamelCase } from "src/utils";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { JobService } from "src/services";
+import LoadingOverlay from "../common/loading-overlay";
+import toast from "react-hot-toast";
 
 export const JobDataTable = () => {
-  const { job, fetchJob, updateJob, showConfirmDlg, hideConfirm } = useAuth();
+  const { showConfirmDlg, hideConfirm, project, setProject, setProjects } = useAuth();
+  const queryClient = useQueryClient();
 
   const [editingItemId, setEditingItemId] = useState(null);
   const [myJob, setJob] = useState();
   const inputRef = useRef();
 
-  useEffect(() => {
-    if (!job) fetchJob();
-    setJob(job?.data)
-  }, [job]);
+  const { isLoading, data: job } = useQuery({
+    queryKey: ["getAllJobs", project],
+    queryFn: async () => {
+      const {
+        data: { result },
+      } = await JobService.mine(project);
+      setJob(result.data);
+      setProject(result.id);
+      return result;
+    },
+  });
 
-  const handleChange = useCallback((e, key) => {
-    const newJob = { ...myJob, [key]: e.target.value };
-    setJob(newJob)
-  }, [myJob]);
+  const updateJob = useCallback(
+    async (id, data) => {
+      try {
+        const {
+          data: {
+            result: { job, projects },
+          },
+        } = await JobService.update(id, data);
+        setJob(job.data);
+        setProjects(projects);
+        queryClient.invalidateQueries({ queryKey: ["getAllJobs", job.id] });
+      } catch (error) {
+        toast.error(error?.response?.message || "Something went wrong");
+      }
+    },
+    [JobService, queryClient, setJob]
+  );
+
+  const handleChange = useCallback(
+    (e, key) => {
+      const newJob = { ...myJob, [key]: e.target.value };
+      setJob(newJob);
+    },
+    [myJob]
+  );
 
   const handleBlur = useCallback(() => {
     if (document.activeElement !== inputRef.current) {
-      setEditingItemId(null)
+      setEditingItemId(null);
       showConfirmDlg({
         open: true,
         close: () => {
@@ -38,46 +71,44 @@ export const JobDataTable = () => {
     }
   }, [job, myJob]);
 
-  if (!myJob) return <></>;
+  if (!job) return <></>;
 
   return (
-    <Paper raised="true" sx={{ mb: 2}}>
-      <List
-        sx={{
-          width: "100%",
-          position: "relative",
-          overflow: "auto",
-          maxHeight: 300,
-        }}
-      >
-        {myJob && Object.keys(myJob).map((key) => (
-          <>
-            {key !== "buyers" ? (
-                <ListItem
-                  divider
-                  key={`item-${key}`}
-                  onDoubleClick={() => setEditingItemId(key)}
-                >
-                  {editingItemId === key ? (
-                    <TextField
-                      ref={inputRef}
-                      autoFocus={true}
-                      label={splitCamelCase(key)}
-                      variant="standard"
-                      value={myJob[key]}
-                      onChange={(e) => handleChange(e, key)}
-                      onBlur={handleBlur}
-                    />
-                  ) : (
-                    <ListItemText primary={splitCamelCase(key)} secondary={myJob[key]} />
-                  )}
-                </ListItem>
-            ) : (
-              null
-            )}
-          </>
-        ))}
-      </List>
-    </Paper>
+    <>
+      <Paper raised="true" sx={{ mb: 2 }}>
+        <List
+          sx={{
+            width: "100%",
+            position: "relative",
+            overflow: "auto",
+            maxHeight: 300,
+          }}
+        >
+          {myJob &&
+            Object.keys(myJob).map((key) => (
+              <>
+                {key !== "buyers" ? (
+                  <ListItem divider key={`item-${key}`} onDoubleClick={() => setEditingItemId(key)}>
+                    {editingItemId === key ? (
+                      <TextField
+                        ref={inputRef}
+                        autoFocus={true}
+                        label={splitCamelCase(key)}
+                        variant="standard"
+                        value={myJob[key]}
+                        onChange={(e) => handleChange(e, key)}
+                        onBlur={handleBlur}
+                      />
+                    ) : (
+                      <ListItemText primary={splitCamelCase(key)} secondary={myJob[key]} />
+                    )}
+                  </ListItem>
+                ) : null}
+              </>
+            ))}
+        </List>
+      </Paper>
+      <LoadingOverlay open={isLoading} />
+    </>
   );
 };

@@ -2,7 +2,7 @@ import { Backdrop, CircularProgress, Button } from '@mui/material';
 
 export default function LoadingOverlay({ open, setOpen }) {
     const handleClose = () => {
-        setOpen(false);
+        setOpen?.(false);
     };
 
     return (

@@ -24,6 +24,7 @@ import formInitialValues from "src/components/job-form/FormModel/formInitialValu
 import { JobService } from "src/services";
 import { useAuth } from "src/hooks/use-auth";
 import { Modal } from "../common/modal";
+import { useQueryClient } from "@tanstack/react-query";
 
 const steps = ["1", "2", "3", "4", "5", "6"];
 const { formId, formField } = checkoutFormModel;
@@ -52,7 +53,8 @@ const _renderStepContent = (step, values) => {
 };
 
 export const JobFormModal = () => {
-  const { showJobForm, openJobForm, fetchJob } = useAuth();
+  const { showJobForm, openJobForm, project } = useAuth();
+  const queryClient = useQueryClient();
 
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -96,7 +98,7 @@ export const JobFormModal = () => {
   };
 
   const onClose = () => {
-    fetchJob();
+    queryClient.invalidateQueries({ queryKey: ["getAllJobs", project] });
     showJobForm(false);
   };
 

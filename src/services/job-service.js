@@ -2,8 +2,8 @@ import { beautyExpiry } from "src/utils";
 import http from "./http";
 
 export class JobService {
-  static mine() {
-    return http.post(`/job/mine`);
+  static mine(job_id) {
+    return http.post(`/job/mine`, { job_id });
   }
 
   static add(data) {
