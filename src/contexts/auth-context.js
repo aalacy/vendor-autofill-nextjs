@@ -30,7 +30,7 @@ const initialState = {
   project: null,
 };
 
-const checkAdmin = (user) => user.roles.find(({role_name}) => role_name === 'admin')
+const checkAdmin = (user) => user?.roles?.find(({role_name}) => role_name === 'admin')
 
 const handlers = {
   [HANDLERS.INITIALIZE]: (state, action) => {
@@ -53,7 +53,7 @@ const handlers = {
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
-    const { user } = action.payload;
+    const { user, projects } = action.payload;
 
     const isAdmin = checkAdmin(user)
 
@@ -61,6 +61,7 @@ const handlers = {
       ...state,
       isAuthenticated: true,
       user,
+      projects,
       isAdmin
     };
   },
@@ -154,28 +155,9 @@ export const AuthProvider = (props) => {
     } else {
       dispatch({
         type: HANDLERS.INITIALIZE,
+        payload: {}
       });
     }
-  };
-
-  const skip = () => {
-    try {
-      window.sessionStorage.setItem("authenticated", "true");
-    } catch (err) {
-      console.error(err);
-    }
-
-    const user = {
-      id: "5e86809283e28b96d2d38537",
-      avatar: "/assets/avatars/avatar-anika-visser.png",
-      name: "Anika Visser",
-      email: "anika.visser@devias.io",
-    };
-
-    dispatch({
-      type: HANDLERS.SIGN_IN,
-      payload: { user },
-    });
   };
 
   const setUser = (user) => {
@@ -287,7 +269,6 @@ export const AuthProvider = (props) => {
     <AuthContext.Provider
       value={{
         ...state,
-        skip,
         signIn,
         signUp,
         signOut,
