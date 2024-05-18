@@ -53,7 +53,7 @@ export const ProjectPopover = (props) => {
           },
         }}
       >
-        {auth.projects.map(({ id, name }) => (
+        {auth?.projects?.map(({ id, name }) => (
           <MenuItem
             selected={id === auth?.project}
             key={id}
