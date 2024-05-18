@@ -30,10 +30,12 @@ const initialState = {
   project: null,
 };
 
+const checkAdmin = (user) => user.roles.find(({role_name}) => role_name === 'admin')
+
 const handlers = {
   [HANDLERS.INITIALIZE]: (state, action) => {
     const { user, projects } = action.payload;
-
+    const isAdmin = checkAdmin(user)
     return {
       ...state,
       ...// if payload (user) is provided, then is authenticated
@@ -41,6 +43,7 @@ const handlers = {
         ? {
             isAuthenticated: true,
             isLoading: false,
+            isAdmin,
             user,
           }
         : {
@@ -52,7 +55,7 @@ const handlers = {
   [HANDLERS.SIGN_IN]: (state, action) => {
     const { user } = action.payload;
 
-    const isAdmin = user.roles.find(({role_name}) => role_name === 'admin')
+    const isAdmin = checkAdmin(user)
 
     return {
       ...state,
