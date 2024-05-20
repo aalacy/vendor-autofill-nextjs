@@ -58,6 +58,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
   const [canSendEmail, setCanSendEmail] = useState(false);
   const [showThankYou, setShowThankyou] = useState(false);
   const [subTitle, setSubTitle] = useState("");
+  const [title, setTitle] = useState("");
 
   const { showConfirmDlg, hideConfirm } = useAuth();
 
@@ -136,6 +137,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
         setGLoading(false);
       }
     } else {
+      setTitle(`Upload COI for ${vendor?.name}`);
       setShowCOI(true);
     }
   };
@@ -181,7 +183,11 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
     }),
   });
 
-  const handleReplaceCOI = () => {};
+  const handleReplaceCOI = () => {
+    setTitle(`Replace COI for ${vendor.name}`)
+    setShowCOI(true);
+    setShowPDFModal(false);
+  };
 
   const handleDeleteCOI = () => {
     showConfirmDlg({
@@ -334,7 +340,13 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
         />
       )}
       {showCOI && (
-        <ManageCOI vendor={vendor} open={true} setOpen={setShowCOI} refreshData={getData} />
+        <ManageCOI
+          title={title}
+          vendor={vendor}
+          open={true}
+          setOpen={setShowCOI}
+          refreshData={getData}
+        />
       )}
       {showInvoice && (
         <ManageInvoice
