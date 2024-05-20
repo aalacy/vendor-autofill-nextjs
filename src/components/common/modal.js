@@ -4,6 +4,7 @@ import {
   DialogTitle,
   Divider,
   IconButton,
+  Stack,
   Typography,
   useMediaQuery,
   useTheme,
@@ -11,7 +12,7 @@ import {
 import { Close as CloseIcon } from "@mui/icons-material";
 
 export const Modal = (props) => {
-  const { open, noFullWidth, title, subTitle, onClose, size, keepMounted, children } = props;
+  const { open, noFullWidth, title, subTitle, onClose, size, keepMounted, topActions, children } = props;
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -27,25 +28,27 @@ export const Modal = (props) => {
       aria-labelledby="Staff Add Modal"
       aria-describedby="Add Staff"
     >
-      <DialogTitle>
+      <DialogTitle sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div>
           <Typography variant="h6">{title}</Typography>
-          <Typography variant="caption" color="GrayText">
-            {subTitle}
-          </Typography>
+          {subTitle && (
+            <Typography variant="caption" color="GrayText">
+              {subTitle}
+            </Typography>
+          )}
         </div>
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          {topActions}
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Stack>
       </DialogTitle>
       <Divider />
       <DialogContent>{children}</DialogContent>

@@ -73,6 +73,10 @@ export class VendorService {
     return http.post(`/vendors/get-coi`, key);
   }
 
+  static deleteCOI(vendor_id) {
+    return http.delete(`/vendors/delete-coi/${vendor_id}`);
+  }
+
   static uploadInvoices(vendor_id, vendor_name, files, onUploadProgress = undefined) {
     let formData = new FormData();
 

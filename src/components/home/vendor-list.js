@@ -5,13 +5,20 @@ import {
   TextField,
   InputAdornment,
   CircularProgress,
+  Stack,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid-pro";
-import { EmailOutlined as EmailIcon } from "@mui/icons-material";
+import {
+  EmailOutlined as EmailIcon,
+  DeleteOutline as DeleteIcon,
+  Refresh,
+} from "@mui/icons-material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast from "react-hot-toast";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { VendorService } from "src/services";
 import { VendorsColumns } from "src/columns";
@@ -24,6 +31,7 @@ import { ThankYou } from "./thank-you";
 import { ManageCOI } from "./home-actions/coi";
 import { ManageInvoice } from "./home-actions/invoice";
 import { InvoiceView } from "./home-actions/invoice-view";
+import { useAuth } from "src/hooks/use-auth";
 
 const ReportRenderToolbar = () => {
   return (
@@ -51,6 +59,8 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
   const [showThankYou, setShowThankyou] = useState(false);
   const [subTitle, setSubTitle] = useState("");
 
+  const { showConfirmDlg, hideConfirm } = useAuth();
+
   const getDetailPanelContent = useCallback(
     ({ row }) => <VendorDetailPanelContent row={row} />,
     []
@@ -71,26 +81,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
   useEffect(() => {
     getData();
   }, []);
-
-  // const countPDFs = (selected) => {
-  //   let total = 0;
-  //   for (const { credit_auth, rental_agreement } of selected) {
-  //     if (credit_auth) total++;
-  //     if (rental_agreement) total++;
-  //   }
-
-  //   setPDFCount(total);
-  // };
-
-  // const handleCellValueChange = (params) => {
-  //   const newRow = {
-  //     id: params.id,
-  //     [params.field]: params.value,
-  //   };
-  //   const selected = updateList(selectedData, newRow);
-  //   setSelectedData(selected);
-  //   countPDFs(selected);
-  // };
 
   const handleGeneratePDF = async (vendor, invoice) => {
     setInvoice(invoice);
@@ -191,10 +181,75 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
     }),
   });
 
-  // Get the total number of pdfs
-  // useEffect(() => {
-  //   countPDFs(selectedData);
-  // }, [selectedData]);
+  const handleReplaceCOI = () => {};
+
+  const handleDeleteCOI = () => {
+    showConfirmDlg({
+      open: true,
+      close: hideConfirm,
+      callback: async () => {
+        hideConfirm();
+        try {
+          const {
+            data: { detail },
+          } = await VendorService.deleteCOI(vendor.id);
+          setVendors((prev) => ({
+            ...prev,
+            items: [
+              ...prev.items.filter((p) => p.id !== vendor.id),
+              ...prev.items
+                .filter((p) => p.id === vendor.id)
+                .map((p) => {
+                  const { coi, ...rest } = p;
+                  return { ...rest };
+                }),
+            ],
+          }));
+          setShowPDFModal(false);
+          toast.success(detail);
+        } catch (err) {
+          toast.error(err?.response?.message);
+        }
+      },
+    });
+  };
+
+  const topActions = useMemo(() => {
+    return (
+      <Stack direction="row" spacing={1}>
+        <Tooltip title="Replace COI">
+          <IconButton
+            onClick={() => handleReplaceCOI()}
+            size="small"
+            color="info"
+            edge="end"
+            aria-label="COI"
+          >
+            <Refresh />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete COI">
+          <IconButton
+            onClick={() => handleDeleteCOI()}
+            size="small"
+            color="error"
+            edge="end"
+            aria-label="COI"
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      </Stack>
+    );
+  }, [
+    handleDeleteCOI,
+    handleReplaceCOI,
+    vendors,
+    vendor,
+    showConfirmDlg,
+    hideConfirm,
+    showPDFModal,
+  ]);
 
   return (
     <>
@@ -224,6 +279,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
         open={showPDFModal}
         onClose={() => setShowPDFModal(false)}
         size="md"
+        topActions={topActions}
       >
         <form onSubmit={formik.handleSubmit}>
           <Box
