@@ -4,11 +4,13 @@ import { useCallback, useState } from "react";
 import { FileDropzone } from "src/components/account/file-dropzone";
 import { Modal } from "src/components/common/modal";
 import { VendorService } from "src/services";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const ManageCOI = ({ title, vendor, open, setOpen, refreshData }) => {
   const [loading, setLoading] = useState(false);
-
   const [files, setFiles] = useState([]);
+
+  const queryClient = useQueryClient();
 
   const onClose = () => setOpen(false);
 
@@ -41,7 +43,7 @@ export const ManageCOI = ({ title, vendor, open, setOpen, refreshData }) => {
     try {
       await VendorService.uploadCOI(vendor.id, vendor.name, files[0], uploadedFile);
       toast.success("Successfully uploaded.");
-      refreshData();
+      queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
     } catch (err) {
       console.log("err", err);
       const { message } = err?.response?.data;

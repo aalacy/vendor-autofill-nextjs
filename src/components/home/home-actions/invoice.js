@@ -5,6 +5,7 @@ import { ErrorCode } from "react-dropzone";
 import { FileDropzone } from "src/components/account/file-dropzone";
 import { Modal } from "src/components/common/modal";
 import { VendorService } from "src/services";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const ManageInvoice = ({
   title,
@@ -12,12 +13,13 @@ export const ManageInvoice = ({
   vendor,
   open,
   setOpen,
-  refreshData,
   maxFileLimit,
   replaceInvoice
 }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
+
+  const queryClient = useQueryClient();
 
   const onClose = () => setOpen(false);
 
@@ -52,7 +54,7 @@ export const ManageInvoice = ({
         data: { result },
       } = await VendorService.uploadInvoices(vendor.id, vendor.name, files, uploadedFile);
       toast.success("Successfully uploaded.");
-      await refreshData();
+      queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
       if (replaceInvoice) {
         await replaceInvoice(result[0])
       }

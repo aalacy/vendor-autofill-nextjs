@@ -31,6 +31,7 @@ import { VendorService } from "src/services";
 import { ManageInvoice } from "./invoice";
 import { currencyFormatter, sum } from "src/utils";
 import { useAuth } from "src/hooks/use-auth";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const InvoiceView = ({
   vendor,
@@ -44,7 +45,6 @@ export const InvoiceView = ({
   setGLoading,
   showInvoice,
   setShowInvoice,
-  getData,
   setSubTitle,
 }) => {
   const [showPrompt, setShowPrompt] = useState(false);
@@ -55,6 +55,8 @@ export const InvoiceView = ({
     subTitle: '',
   });
   const [maxFileLimit, setMaxFileLimit] = useState(10 - vendor.invoices.length);
+
+  const queryClient = useQueryClient();
 
   const { showConfirmDlg, hideConfirm } = useAuth();
 
@@ -103,7 +105,7 @@ export const InvoiceView = ({
             return invoice;
           })
         );
-        getData();
+        queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
       } catch (error) {
         toast.error(error.message);
       } finally {

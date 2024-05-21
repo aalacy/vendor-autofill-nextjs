@@ -10,7 +10,6 @@ import { JobFormModal } from "src/components/job-form/job-form-modal";
 
 const Page = () => {
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
-  const [vendors, setVendors] = useState();
   const [selectedData, setSelectedData] = useState([]);
 
   const { user, showJobForm } = useAuth();
@@ -39,8 +38,6 @@ const Page = () => {
             setSelectedData={setSelectedData}
           />
           <VendorList
-            vendors={vendors}
-            setVendors={setVendors}
             rowSelectionModel={rowSelectionModel}
             setRowSelectionModel={setRowSelectionModel}
             selectedData={selectedData}

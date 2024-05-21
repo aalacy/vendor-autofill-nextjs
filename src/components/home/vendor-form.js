@@ -15,7 +15,7 @@ import { VendorService } from "src/services";
 import { ThankYou } from "./thank-you";
 import { useState } from "react";
 
-export const VendorForm = ({ show, setShow }) => {
+export const VendorForm = ({ show, setShow, noThankYou }) => {
     const { showConfirmDlg, hideConfirm } = useAuth();
 
     const isNonMobile = useMediaQuery((theme) => theme.breakpoints.up('sm'));
@@ -231,7 +231,7 @@ export const VendorForm = ({ show, setShow }) => {
                 </form>
             </Modal>
 
-            { open && <ThankYou
+            { open && !noThankYou && <ThankYou
                 open={true}
                 onClose={() => setOpen(false)}
                 text="Thanks for submitting, please wait 24 hours for your vendor to be added."

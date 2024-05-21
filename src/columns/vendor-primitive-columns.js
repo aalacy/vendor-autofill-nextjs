@@ -1,8 +1,9 @@
-import { Typography, IconButton, Tooltip, Box, Checkbox } from "@mui/material";
+import { Typography, IconButton, Tooltip, Box, Checkbox, Button } from "@mui/material";
 import {
   EditOutlined as EditIcon,
   LaunchOutlined,
   Clear as ClearIcon,
+  AddCircleOutline as AddIcon,
 } from "@mui/icons-material";
 import { useCallback } from "react";
 
@@ -29,21 +30,36 @@ const RenderAction = (props) => {
         </span>
       </Tooltip>
       <Tooltip title="Remove Vendor">
-    <span>
-      <IconButton
-        onClick={() => handleRemove(row)}
-        color="error"
-        size="small"
-      >
-        <ClearIcon />
-      </IconButton>
-    </span>
-  </Tooltip>
+        <span>
+          <IconButton onClick={() => handleRemove(row)} color="error" size="small">
+            <ClearIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
     </Box>
   );
 };
 
-export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
+const RenderActionHeader = (props) => {
+  const { handleAdd, row } = props;
+
+  return (
+    <Tooltip title="Add Vendor">
+      <span>
+        <Button
+          onClick={() => handleAdd(row)}
+          size="small"
+          color="info"
+          startIcon={<AddIcon />}
+        >
+          Add
+        </Button>
+      </span>
+    </Tooltip>
+  );
+};
+
+export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd }) => {
   const selectedCreditAuth = useCallback(
     (selected) => {
       return CreditAuthList.find(({ script }) => script === selected);
@@ -72,18 +88,18 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       resizable: true,
       width: 100,
       filterable: false,
-      align: 'center',
+      align: "center",
       renderCell: (params) => (
-        <Tooltip title={ selectedCreditAuth(params.value) ? "Show template": "No template"}>
+        <Tooltip title={selectedCreditAuth(params.value) ? "Show template" : "No template"}>
           <span>
-          <IconButton
-            disabled={!!!selectedCreditAuth(params.value)}
-            color="info"
-            size="small"
-            href={selectedCreditAuth(params.value)?.link}
-          >
-            <LaunchOutlined />{" "}
-          </IconButton>
+            <IconButton
+              disabled={!!!selectedCreditAuth(params.value)}
+              color="info"
+              size="small"
+              href={selectedCreditAuth(params.value)?.link}
+            >
+              <LaunchOutlined />{" "}
+            </IconButton>
           </span>
         </Tooltip>
       ),
@@ -93,19 +109,19 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       headerName: "Rental Agreement",
       resizable: true,
       filterable: false,
-      align: 'center',
+      align: "center",
       width: 140,
       renderCell: (params) => (
-        <Tooltip title={ selectedRentalAgreemtn(params.value) ? "Show template": "No template"}>
+        <Tooltip title={selectedRentalAgreemtn(params.value) ? "Show template" : "No template"}>
           <span>
-          <IconButton
-            disabled={!!!selectedRentalAgreemtn(params.value)}
-            color="info"
-            size="small"
-            href={selectedRentalAgreemtn(params.value)?.link}
-          >
-            <LaunchOutlined />{" "}
-          </IconButton>
+            <IconButton
+              disabled={!!!selectedRentalAgreemtn(params.value)}
+              color="info"
+              size="small"
+              href={selectedRentalAgreemtn(params.value)?.link}
+            >
+              <LaunchOutlined />{" "}
+            </IconButton>
           </span>
         </Tooltip>
       ),
@@ -115,7 +131,7 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       headerName: "Addition",
       resizable: true,
       filterable: false,
-      align: 'center',
+      align: "center",
       width: 100,
     },
     {
@@ -149,16 +165,16 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit }) => {
       headerName: "Status",
       resizable: true,
       width: 80,
-      type: 'boolean',
-  
+      type: "boolean",
+
       renderCell: (params) => <Checkbox readOnly checked={params?.value}></Checkbox>,
     },
     {
       field: "id",
       type: "actions",
-      headerName: "",
       align: "center",
       description: "Action Column",
+      renderHeader: (params) => <RenderActionHeader {...params} handleAdd={handleAdd}/>,
       sortable: false,
       width: 100,
       renderCell: (params) => (

@@ -18,7 +18,8 @@ import {
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast from "react-hot-toast";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { VendorService } from "src/services";
 import { VendorsColumns } from "src/columns";
@@ -43,8 +44,7 @@ const ReportRenderToolbar = () => {
 
 const Footer = () => <></>;
 
-export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, setVendors }) => {
-  const [loading, setLoading] = useState(false);
+export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
   const [gLoading, setGLoading] = useState(false);
   const [showCOI, setShowCOI] = useState(false);
   const [showInvoice, setShowInvoice] = useState(false);
@@ -62,26 +62,22 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
 
   const { showConfirmDlg, hideConfirm } = useAuth();
 
+  const queryClient = useQueryClient();
+
   const getDetailPanelContent = useCallback(
     ({ row }) => <VendorDetailPanelContent row={row} />,
     []
   );
 
-  const getData = useCallback(async () => {
-    try {
-      setLoading(true);
-      const { data } = await VendorService.all();
-      setVendors(data.result);
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const { isLoading, data: vendors } = useQuery({
+    queryKey: ["getAdminVendors"],
+    queryFn: async () => {
+      const {
+        data: { result },
+      } = await VendorService.all();
+      return result;
+    },
+  });
 
   const handleGeneratePDF = async (vendor, invoice) => {
     setInvoice(invoice);
@@ -184,7 +180,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
   });
 
   const handleReplaceCOI = () => {
-    setTitle(`Replace COI for ${vendor.name}`)
+    setTitle(`Replace COI for ${vendor.name}`);
     setShowCOI(true);
     setShowPDFModal(false);
   };
@@ -199,18 +195,20 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
           const {
             data: { detail },
           } = await VendorService.deleteCOI(vendor.id);
-          setVendors((prev) => ({
-            ...prev,
-            items: [
-              ...prev.items.filter((p) => p.id !== vendor.id),
-              ...prev.items
-                .filter((p) => p.id === vendor.id)
-                .map((p) => {
-                  const { coi, ...rest } = p;
-                  return { ...rest };
-                }),
-            ],
-          }));
+          queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
+
+          // setVendors((prev) => ({
+          //   ...prev,
+          //   items: [
+          //     ...prev.items.filter((p) => p.id !== vendor.id),
+          //     ...prev.items
+          //       .filter((p) => p.id === vendor.id)
+          //       .map((p) => {
+          //         const { coi, ...rest } = p;
+          //         return { ...rest };
+          //       }),
+          //   ],
+          // }));
           setShowPDFModal(false);
           toast.success(detail);
         } catch (err) {
@@ -266,7 +264,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
       </Box>
       <div style={{ height: 550, width: "100%" }}>
         <ClientDataGrid
-          loading={loading}
+          loading={isLoading}
           data={vendors?.items || []}
           columns={VendorsColumns({ handleGeneratePDF, handleW9, handleCOI, handleInvoice })}
           getDetailPanelContent={getDetailPanelContent}
@@ -278,7 +276,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
           }}
         />
       </div>
-      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
+      <LoadingOverlay setOpen={setGLoading} open={gLoading || isLoading} />
       <Modal
         title={`${vendor?.name} - ${invoice || ""}`}
         subTitle={subTitle}
@@ -317,8 +315,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
               }}
             />
             <Button
-              disabled={loading}
-              startIcon={loading ? <CircularProgress size={20} /> : null}
+              startIcon={ <CircularProgress size={20} />}
               type="submit"
               variant="contained"
             >
@@ -345,7 +342,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
           vendor={vendor}
           open={true}
           setOpen={setShowCOI}
-          refreshData={getData}
         />
       )}
       {showInvoice && (
@@ -355,7 +351,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
           maxFileLimit={10 - vendor.invoices.length}
           open={true}
           setOpen={setShowInvoice}
-          refreshData={getData}
         />
       )}
       {showInvoiceModal && (
@@ -371,7 +366,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, vendors, s
           setGLoading={setGLoading}
           showInvoice={showInvoice}
           setShowInvoice={setShowInvoice}
-          getData={getData}
           setSubTitle={setSubTitle}
         />
       )}

@@ -9,6 +9,7 @@ import { VendorDetailPanelContent } from "../home/vendor-detail";
 import { UpdateVendor } from "./update-vendor";
 import toast from "react-hot-toast";
 import { useAuth } from "src/hooks/use-auth";
+import { VendorForm } from "../home/vendor-form";
 
 export const ManageVendors = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
@@ -17,6 +18,7 @@ export const ManageVendors = () => {
   const [logicOperator, setLogicOperator] = useState("");
   const [curVendor, setVendor] = useState();
   const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -80,6 +82,13 @@ export const ManageVendors = () => {
       />
 
       {open && <UpdateVendor open={true} onClose={() => setOpen(false)} vendor={curVendor} />}
+
+      {
+        show && <VendorForm
+          show={true}
+          setShow={setShow}
+        />
+      }
     </>
   );
 };
