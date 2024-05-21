@@ -70,7 +70,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
   );
 
   const { isLoading, data: vendors } = useQuery({
-    queryKey: ["getAdminVendors"],
+    queryKey: ["getAllVendors"],
     queryFn: async () => {
       const {
         data: { result },
@@ -117,27 +117,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
     }
   };
 
-  const handleCOI = async (vendor) => {
-    setVendor(vendor);
-    setInvoice("COI");
-    if (vendor.coi) {
-      try {
-        const {
-          data: { result },
-        } = await VendorService.readCOI(vendor.coi);
-        setShowPDFModal(true);
-        setUrl(result);
-      } catch (error) {
-        console.log("handleCOI", error);
-      } finally {
-        setGLoading(false);
-      }
-    } else {
-      setTitle(`Upload COI for ${vendor?.name}`);
-      setShowCOI(true);
-    }
-  };
-
+  
   const handleInvoice = async (vendor) => {
     setVendor(vendor);
     setInvoice("Invoices");
@@ -179,6 +159,27 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
     }),
   });
 
+  const handleCOI = async (vendor) => {
+    setVendor(vendor);
+    setInvoice("COI");
+    if (vendor.coi) {
+      try {
+        const {
+          data: { result },
+        } = await VendorService.readCOI(vendor.coi);
+        setShowPDFModal(true);
+        setUrl(result);
+      } catch (error) {
+        console.log("handleCOI", error);
+      } finally {
+        setGLoading(false);
+      }
+    } else {
+      setTitle(`Upload COI for ${vendor?.name}`);
+      setShowCOI(true);
+    }
+  };
+
   const handleReplaceCOI = () => {
     setTitle(`Replace COI for ${vendor.name}`);
     setShowCOI(true);
@@ -195,7 +196,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
           const {
             data: { detail },
           } = await VendorService.deleteCOI(vendor.id);
-          queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
+          queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
 
           // setVendors((prev) => ({
           //   ...prev,
@@ -283,7 +284,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
         open={showPDFModal}
         onClose={() => setShowPDFModal(false)}
         size="md"
-        topActions={topActions}
+        topActions={invoice === "COI" ? topActions : null}
       >
         <form onSubmit={formik.handleSubmit}>
           <Box

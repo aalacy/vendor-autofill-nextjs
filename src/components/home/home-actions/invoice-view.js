@@ -143,7 +143,7 @@ export const InvoiceView = ({
           } = await VendorService.deleteInvoice(id);
           toast.success(detail);
           setInvoices((prev) => prev.filter((invoice) => invoice.id !== id));
-          getData();
+          queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
         } catch (err) {
           toast.error(err?.response?.message);
         }
@@ -263,7 +263,6 @@ export const InvoiceView = ({
           vendor={vendor}
           open={true}
           setOpen={setShowInvoice}
-          refreshData={getData}
           replaceInvoice={replaceInvoice}
         />
       )}

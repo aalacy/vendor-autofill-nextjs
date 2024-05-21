@@ -54,7 +54,7 @@ export const ManageInvoice = ({
         data: { result },
       } = await VendorService.uploadInvoices(vendor.id, vendor.name, files, uploadedFile);
       toast.success("Successfully uploaded.");
-      queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
       if (replaceInvoice) {
         await replaceInvoice(result[0])
       }

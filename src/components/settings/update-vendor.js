@@ -38,7 +38,7 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
     hideConfirm();
     try {
       const { data: vendorData } = await VendorService.updateVendor(vendor.id, values);
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+      queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
       toast.success(vendorData.detail);
       onClose();
     } catch (err) {

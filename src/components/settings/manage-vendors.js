@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 
 import { VendorService } from "src/services";
 import { EDataGrid } from "../tables/e-datagrid";
@@ -7,7 +8,6 @@ import { initialPage } from "src/utils";
 import { PrimitiveVendorsColumns } from "src/columns";
 import { VendorDetailPanelContent } from "../home/vendor-detail";
 import { UpdateVendor } from "./update-vendor";
-import toast from "react-hot-toast";
 import { useAuth } from "src/hooks/use-auth";
 import { VendorForm } from "../home/vendor-form";
 
@@ -30,7 +30,7 @@ export const ManageVendors = () => {
   );
 
   const { isLoading, data: vendors } = useQuery({
-    queryKey: ["getAllVendors", paginationModel, filterModel, logicOperator],
+    queryKey: ["getAdminVendors", paginationModel, filterModel, logicOperator],
     queryFn: async () => {
       const {
         data: { result },
@@ -53,15 +53,19 @@ export const ManageVendors = () => {
         try {
           await VendorService.removeVendor(vendor.id);
           toast.success("Successfully Deleted");
-          queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+          queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
         } catch (error) {
           toast.error(error?.response?.data?.message || error.message);
         } finally {
-          hideConfirm()
+          hideConfirm();
         }
       },
     });
   };
+
+  const handleAdd = useCallback(() => {
+    setShow(true);
+  }, []);
 
   return (
     <>
@@ -70,7 +74,7 @@ export const ManageVendors = () => {
         initialState={{ pinnedColumns: { right: ["id"] } }}
         loading={isLoading}
         data={vendors}
-        columns={PrimitiveVendorsColumns({ handleEdit, handleRemove })}
+        columns={PrimitiveVendorsColumns({ handleEdit, handleRemove, handleAdd })}
         paginationModel={paginationModel}
         setPaginationModel={setPaginationModel}
         rowCountState={rowCountState}
@@ -83,12 +87,7 @@ export const ManageVendors = () => {
 
       {open && <UpdateVendor open={true} onClose={() => setOpen(false)} vendor={curVendor} />}
 
-      {
-        show && <VendorForm
-          show={true}
-          setShow={setShow}
-        />
-      }
+      {show && <VendorForm noThankYou show={true} setShow={setShow} />}
     </>
   );
 };

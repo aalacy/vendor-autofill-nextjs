@@ -12,7 +12,8 @@ import {
 import { Close as CloseIcon } from "@mui/icons-material";
 
 export const Modal = (props) => {
-  const { open, noFullWidth, title, subTitle, onClose, size, keepMounted, topActions, children } = props;
+  const { open, noFullWidth, title, subTitle, onClose, size, keepMounted, topActions, children } =
+    props;
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));

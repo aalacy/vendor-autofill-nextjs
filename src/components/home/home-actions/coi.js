@@ -43,7 +43,7 @@ export const ManageCOI = ({ title, vendor, open, setOpen, refreshData }) => {
     try {
       await VendorService.uploadCOI(vendor.id, vendor.name, files[0], uploadedFile);
       toast.success("Successfully uploaded.");
-      queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
     } catch (err) {
       console.log("err", err);
       const { message } = err?.response?.data;
