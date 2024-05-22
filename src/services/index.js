@@ -7,3 +7,4 @@ export * from "./contact-service";
 export * from "./file-service";
 export * from "./mileage-service";
 export * from "./stripe-service";
+export * from "./faq-service"

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 
 import { Avatar, Box, IconButton, Stack, SvgIcon, useMediaQuery, Badge } from "@mui/material";
+import { Help as HelpIcon } from "@mui/icons-material";
 import { styled, alpha } from "@mui/material/styles";
 import { usePopover } from "src/hooks/use-popover";
 import { AccountPopover } from "./account-popover";
@@ -78,14 +79,22 @@ export const TopNav = (props) => {
         >
           <Stack alignItems="center" direction="row" spacing={2}>
             {!lgUp && (
-              <IconButton onClick={onNavOpen}>
+              <IconButton  onClick={onNavOpen}>
                 <SvgIcon fontSize="small">
                   <Bars3Icon />
                 </SvgIcon>
               </IconButton>
             )}
           </Stack>
-          <Stack alignItems="center" direction="row" spacing={2} sx={{ display: isAuthenticated ? "inherit" : "none"}}>
+          <Stack
+            alignItems="center"
+            direction="row"
+            spacing={2}
+            sx={{ display: isAuthenticated ? "inherit" : "none" }}
+          >
+            <IconButton size="large" href="/faqs">
+              <HelpIcon sx={{ fontSize: 40 }}/>
+            </IconButton>
             <StyledBadge
               overlap="circular"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
