@@ -2,12 +2,13 @@ import http from "./http";
 
 export class FileService {
 
-    static all(query, page, take, sortby) {
+    static all(query, page, take, sortby, job_id) {
         return http.post(`/files/all`, {
             page: page,
             take,
             query,
-            sortby
+            sortby,
+            job_id
         });
     }
 

@@ -13,7 +13,7 @@ const HANDLERS = {
   REFRESH: "REFRESH",
   JOB_FORM: "JOB_FORM",
   SET_PROJECT: "SET_PROJECT",
-  SET_PROJECTS: "SET_PROJECTS"
+  SET_PROJECTS: "SET_PROJECTS",
 };
 
 const initialState = {
@@ -30,12 +30,16 @@ const initialState = {
   project: null,
 };
 
-const checkAdmin = (user) => user?.roles?.find(({role_name}) => role_name === 'admin')
+const checkAdmin = (user) => user?.roles?.find(({ role_name }) => role_name === "admin");
 
 const handlers = {
   [HANDLERS.INITIALIZE]: (state, action) => {
     const { user, projects } = action.payload;
-    const isAdmin = checkAdmin(user)
+    const isAdmin = checkAdmin(user);
+    let project = null;
+    if (projects && projects.length > 0) {
+      project = projects[0].id;
+    }
     return {
       ...state,
       ...// if payload (user) is provided, then is authenticated
@@ -49,20 +53,26 @@ const handlers = {
         : {
             isLoading: false,
           }),
-      projects
+      projects,
+      project,
     };
   },
   [HANDLERS.SIGN_IN]: (state, action) => {
     const { user, projects } = action.payload;
 
-    const isAdmin = checkAdmin(user)
+    const isAdmin = checkAdmin(user);
+    let project = null;
+    if (projects && projects.length > 0) {
+      project = projects[0].id;
+    }
 
     return {
       ...state,
       isAuthenticated: true,
       user,
       projects,
-      isAdmin
+      project,
+      isAdmin,
     };
   },
   [HANDLERS.SIGN_OUT]: (state) => {
@@ -155,7 +165,7 @@ export const AuthProvider = (props) => {
     } else {
       dispatch({
         type: HANDLERS.INITIALIZE,
-        payload: {}
+        payload: {},
       });
     }
   };
@@ -170,7 +180,7 @@ export const AuthProvider = (props) => {
   const signIn = async (email, password) => {
     const { data } = await AuthService.login(email, password);
     const {
-      result: { access_token, user },
+      result: { access_token, user, projects },
     } = data;
 
     localStorage.setItem("auth_token", access_token);
@@ -183,7 +193,7 @@ export const AuthProvider = (props) => {
 
     dispatch({
       type: HANDLERS.SIGN_IN,
-      payload: { user },
+      payload: { user, projects },
     });
   };
 
@@ -216,7 +226,9 @@ export const AuthProvider = (props) => {
 
   const updateJob = async (id, data) => {
     try {
-      const { data: { result } } = await JobService.update(id, data);
+      const {
+        data: { result },
+      } = await JobService.update(id, data);
 
       dispatch({
         type: HANDLERS.FETCH_JOB,
@@ -228,7 +240,7 @@ export const AuthProvider = (props) => {
         payload: state.job,
       });
     }
-  }
+  };
 
   const refresh = async () => {
     dispatch({
@@ -279,7 +291,7 @@ export const AuthProvider = (props) => {
         refresh,
         showJobForm,
         setProject,
-        setProjects
+        setProjects,
       }}
     >
       {children}

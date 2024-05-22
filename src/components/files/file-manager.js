@@ -7,18 +7,18 @@ import { FileService } from "src/services";
 import { FileList } from "./file-list";
 import { useAuth } from "src/hooks/use-auth";
 import { downloadMedia } from "src/utils";
+import { useQuery } from "@tanstack/react-query";
 
 export const FileManager = ({}) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [folders, setFolders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [alignment, setAlignment] = useState("card");
   const [sortby, setSortby] = useState("Latest");
   const [total, setTotal] = useState(0);
 
-  const { showConfirmDlg, hideConfirm } = useAuth();
+  const { showConfirmDlg, hideConfirm, project } = useAuth();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -29,34 +29,38 @@ export const FileManager = ({}) => {
     setPage(0);
   };
 
-  const getData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const { data } = await FileService.all(query, page, rowsPerPage, sortby);
-      const { items, count } = data.result;
-      setFolders(items);
+  const { isLoading, data: folders } = useQuery({
+    queryKey: ["getAllFiles", query, page, rowsPerPage, sortby, project],
+    queryFn: async () => {
+      const {
+        data: {
+          result: { items, count },
+        },
+      } = await FileService.all(query, page, rowsPerPage, sortby, project);
       setTotal(count);
-    } catch (error) {
-      toast.error(error.message || error.response.data);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, rowsPerPage, query, sortby]);
+      return items;
+    },
+  });
 
-  const downloadFiles = useCallback(async (folders) => {
-    setLoading(true);
-    const keys = folders.map(({files}) => files.map((key) => key.key))
-    try {
-      const { data: { result } } = await FileService.download(keys.flat());
-      for (const item of result) {
-        downloadMedia("", item)
+  const downloadFiles = useCallback(
+    async (folders) => {
+      setLoading(true);
+      const keys = folders.map(({ files }) => files.map((key) => key.key));
+      try {
+        const {
+          data: { result },
+        } = await FileService.download(keys.flat());
+        for (const item of result) {
+          downloadMedia("", item);
+        }
+      } catch (error) {
+        toast.error(error.message || error.response.data);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      toast.error(error.message || error.response.data);
-    } finally {
-      setLoading(false);
-    }
-  }, [])
+    },
+    [folders, downloadMedia, FileService]
+  );
 
   const removeItem = (key) => {
     showConfirmDlg({
@@ -74,10 +78,6 @@ export const FileManager = ({}) => {
     });
   };
 
-  useEffect(() => {
-    getData();
-  }, [page, rowsPerPage, sortby]);
-
   return (
     <>
       <FileSearch
@@ -87,12 +87,17 @@ export const FileManager = ({}) => {
         setSortby={setSortby}
         query={query}
         setQuery={setQuery}
-        getData={getData}
         downloadFiles={downloadFiles}
         folders={folders}
       />
 
-      <FileList downloadFiles={downloadFiles} folders={folders} loading={loading} alignment={alignment} removeItem={removeItem} />
+      <FileList
+        downloadFiles={downloadFiles}
+        folders={folders}
+        loading={loading || isLoading}
+        alignment={alignment}
+        removeItem={removeItem}
+      />
 
       <TablePagination
         component="div"

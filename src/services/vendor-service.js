@@ -30,9 +30,10 @@ export class VendorService {
     });
   }
 
-  static generateOnePDF(vendor_id, invoice_name) {
+  static generateOnePDF(vendor_id, job_id, invoice_name) {
     return http.post("/vendors/generate_one_pdf", {
       vendor_id,
+      job_id,
       invoice_name,
     });
   }
@@ -54,12 +55,13 @@ export class VendorService {
     });
   }
 
-  static uploadCOI(vendor_id, vendor_name, file, onUploadProgress = undefined) {
+  static uploadCOI(vendor_id, vendor_name, job_id, file, onUploadProgress = undefined) {
     let formData = new FormData();
 
     formData.append("file", file);
     formData.append("vendor_id", vendor_id);
     formData.append("vendor_name", vendor_name);
+    formData.append("job_id", job_id)
 
     return http.post("/vendors/upload-coi", formData, {
       headers: {
@@ -77,7 +79,7 @@ export class VendorService {
     return http.delete(`/vendors/delete-coi/${vendor_id}`);
   }
 
-  static uploadInvoices(vendor_id, vendor_name, files, onUploadProgress = undefined) {
+  static uploadInvoices(vendor_id, vendor_name, job_id, files, onUploadProgress = undefined) {
     let formData = new FormData();
 
     Array.from(files).forEach((file) => {
@@ -85,6 +87,7 @@ export class VendorService {
     });
     formData.append("vendor_id", vendor_id);
     formData.append("vendor_name", vendor_name);
+    formData.append("job_id", job_id)
 
     return http.post("/vendors/upload-invoices", formData, {
       headers: {

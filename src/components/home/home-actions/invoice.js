@@ -6,6 +6,7 @@ import { FileDropzone } from "src/components/account/file-dropzone";
 import { Modal } from "src/components/common/modal";
 import { VendorService } from "src/services";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "src/hooks/use-auth";
 
 export const ManageInvoice = ({
   title,
@@ -18,6 +19,8 @@ export const ManageInvoice = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
+
+  const { project } = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -52,7 +55,7 @@ export const ManageInvoice = ({
     try {
       const {
         data: { result },
-      } = await VendorService.uploadInvoices(vendor.id, vendor.name, files, uploadedFile);
+      } = await VendorService.uploadInvoices(vendor.id, vendor.name, project, files, uploadedFile);
       toast.success("Successfully uploaded.");
       queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
       if (replaceInvoice) {

@@ -23,7 +23,7 @@ export const JobDataTable = () => {
         data: { result },
       } = await JobService.mine(project);
       setJob(result.data);
-      setProject(result.id);
+      if (!project) setProject(result.id);
       return result;
     },
   });

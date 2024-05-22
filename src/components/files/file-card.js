@@ -9,7 +9,7 @@ import {
   Box,
   Button,
   CardActionArea,
-  ClickAwayListener
+  ClickAwayListener,
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
@@ -30,21 +30,21 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
-  const handleClose = () => setAnchorEl(null)
+  const handleClose = () => setAnchorEl(null);
 
   const handleRemove = () => {
-    handleClose()
+    handleClose();
     removeItem(folder_name);
   };
 
   const handleDownload = () => {
-    handleClose()
-    downloadFiles([folder])
-  }
+    handleClose();
+    downloadFiles([folder]);
+  };
 
   const handleFolder = () => {
     setFolder(folder);
-    setOpen(true)
+    setOpen(true);
   };
 
   const open = Boolean(anchorEl);
@@ -63,7 +63,12 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
             }
           />
           <CardContent>
-            <Typography title={folder_name} variant="h6" gutterBottom sx={{ textWrap: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            <Typography
+              title={folder_name}
+              variant="h6"
+              gutterBottom
+              sx={{ textWrap: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+            >
               {folder_name}
             </Typography>
             <Divider />
@@ -76,7 +81,16 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
       </Card>
       <Popper id={id} open={open} anchorEl={anchorEl}>
         <ClickAwayListener onClickAway={handleClose}>
-          <Box sx={{ p: 1, border: 1, borderRadius: 1, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          <Box
+            sx={{
+              p: 1,
+              border: 1,
+              borderRadius: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+            }}
+          >
             <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
               Download
             </Button>

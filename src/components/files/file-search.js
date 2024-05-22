@@ -17,8 +17,9 @@ import {
   GridView as GridViewIcon,
   ViewList as ListIcon,
   NorthEast as TriggerIcon,
-  Download as DownloadIcon
+  Download as DownloadIcon,
 } from "@mui/icons-material";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -81,10 +82,11 @@ export const FileSearch = ({
   setSortby,
   query,
   setQuery,
-  getData,
   downloadFiles,
-  folders
+  folders,
 }) => {
+  const queryClient = useQueryClient();
+
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
@@ -97,6 +99,10 @@ export const FileSearch = ({
 
   const handleSearch = (event) => {
     setQuery(event.target.value);
+  };
+
+  const handleClick = () => {
+    queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
   };
 
   return (
@@ -112,13 +118,19 @@ export const FileSearch = ({
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />
-          <IconButton color="primary" onClick={getData} sx={{ mr: 1 }}>
+          <IconButton color="primary" onClick={handleClick} sx={{ mr: 1 }}>
             <TriggerIcon />
           </IconButton>
         </Search>
         <Stack direction="row" spacing={2}>
           <Tooltip title="Download All Files">
-            <Button disabled={folders.length > 0} onClick={() => downloadFiles(folders)} variant="outlined" color="inherit" size="small">
+            <Button
+              disabled={folders?.length > 0}
+              onClick={() => downloadFiles(folders)}
+              variant="outlined"
+              color="inherit"
+              size="small"
+            >
               <DownloadIcon />
             </Button>
           </Tooltip>

@@ -60,7 +60,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
   const [subTitle, setSubTitle] = useState("");
   const [title, setTitle] = useState("");
 
-  const { showConfirmDlg, hideConfirm } = useAuth();
+  const { showConfirmDlg, hideConfirm, project } = useAuth();
 
   const queryClient = useQueryClient();
 
@@ -89,7 +89,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
         data: {
           result: { presigned_url, key },
         },
-      } = await VendorService.generateOnePDF(vendor.id, invoice);
+      } = await VendorService.generateOnePDF(vendor.id, project, invoice);
       setShowPDFModal(true);
       setUrl(presigned_url);
       setVendorKey(key);
