@@ -55,7 +55,7 @@ export const ProjectPopover = (props) => {
       >
         {auth?.projects?.map(({ id, name }) => (
           <MenuItem
-            selected={id === auth?.project}
+            selected={id === auth?.project?.id}
             key={id}
             onClick={() => handleProject(id)}
             sx={{ textTransform: "capitalize" }}

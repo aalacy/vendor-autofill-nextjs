@@ -26,7 +26,7 @@ export const SideNav = (props) => {
   const pathname = usePathname();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
-  const { isAdmin } = useAuth();
+  const { isAdmin, project } = useAuth();
   const projectPopover = usePopover();
 
   const content = (
@@ -74,11 +74,11 @@ export const SideNav = (props) => {
                 sx={{ backgroundColor: "rgba(255, 255, 255, 0.04)", mt: 2 }}
               >
                 <Stack>
-                  <Typography color="inherit" variant="subtitle1">
-                    Prodbot
+                  <Typography color="inherit" variant="subtitle1" textTransform="capitalize">
+                    {project?.productionCompanyName}
                   </Typography>
-                  <Typography color="neutral.400" variant="body2">
-                    Coordinating Assistant
+                  <Typography color="neutral.400" variant="body2" textTransform="capitalize">
+                    {project?.name} - {project?.jobNumber}
                   </Typography>
                 </Stack>
               </Button>

@@ -55,7 +55,7 @@ export const ManageInvoice = ({
     try {
       const {
         data: { result },
-      } = await VendorService.uploadInvoices(vendor.id, vendor.name, project, files, uploadedFile);
+      } = await VendorService.uploadInvoices(vendor.id, vendor.name, project?.id, files, uploadedFile);
       toast.success("Successfully uploaded.");
       queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
       if (replaceInvoice) {

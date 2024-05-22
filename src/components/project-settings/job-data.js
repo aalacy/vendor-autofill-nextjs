@@ -17,11 +17,11 @@ export const JobDataTable = () => {
   const inputRef = useRef();
 
   const { isLoading, data: job } = useQuery({
-    queryKey: ["getAllJobs", project],
+    queryKey: ["getAllJobs", project?.id],
     queryFn: async () => {
       const {
         data: { result },
-      } = await JobService.mine(project);
+      } = await JobService.mine(project?.id);
       setJob(result.data);
       if (!project) setProject(result.id);
       return result;

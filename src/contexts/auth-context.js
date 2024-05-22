@@ -1,4 +1,12 @@
-import { createContext, useContext, useEffect, useReducer, useRef } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+} from "react";
 import PropTypes from "prop-types";
 import { AuthService } from "src/services/auth-service";
 import { useRouter } from "next/router";
@@ -31,15 +39,13 @@ const initialState = {
 };
 
 const checkAdmin = (user) => user?.roles?.find(({ role_name }) => role_name === "admin");
+const pickProject = (projects) => (projects && projects.length > 0 ? projects[0] : null);
 
 const handlers = {
   [HANDLERS.INITIALIZE]: (state, action) => {
     const { user, projects } = action.payload;
     const isAdmin = checkAdmin(user);
-    let project = null;
-    if (projects && projects.length > 0) {
-      project = projects[0].id;
-    }
+    const project = pickProject(projects);
     return {
       ...state,
       ...// if payload (user) is provided, then is authenticated
@@ -61,10 +67,7 @@ const handlers = {
     const { user, projects } = action.payload;
 
     const isAdmin = checkAdmin(user);
-    let project = null;
-    if (projects && projects.length > 0) {
-      project = projects[0].id;
-    }
+    const project = pickProject(projects);
 
     return {
       ...state,

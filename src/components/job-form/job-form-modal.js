@@ -98,7 +98,7 @@ export const JobFormModal = () => {
   };
 
   const onClose = () => {
-    queryClient.invalidateQueries({ queryKey: ["getAllJobs", project] });
+    queryClient.invalidateQueries({ queryKey: ["getAllJobs", project?.id] });
     showJobForm(false);
   };
 

@@ -44,7 +44,7 @@ export const ManageCOI = ({ title, vendor, open, setOpen, refreshData }) => {
     setFiles([]);
     setLoading(true);
     try {
-      await VendorService.uploadCOI(vendor.id, vendor.name, project, files[0], uploadedFile);
+      await VendorService.uploadCOI(vendor.id, vendor.name, project?.id, files[0], uploadedFile);
       toast.success("Successfully uploaded.");
       queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
     } catch (err) {

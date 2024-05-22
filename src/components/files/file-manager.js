@@ -30,13 +30,13 @@ export const FileManager = ({}) => {
   };
 
   const { isLoading, data: folders } = useQuery({
-    queryKey: ["getAllFiles", query, page, rowsPerPage, sortby, project],
+    queryKey: ["getAllFiles", query, page, rowsPerPage, sortby, project?.id],
     queryFn: async () => {
       const {
         data: {
           result: { items, count },
         },
-      } = await FileService.all(query, page, rowsPerPage, sortby, project);
+      } = await FileService.all(query, page, rowsPerPage, sortby, project?.id);
       setTotal(count);
       return items;
     },

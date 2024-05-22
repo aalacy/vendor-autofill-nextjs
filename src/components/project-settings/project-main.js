@@ -12,7 +12,7 @@ export const ProjectMain = () => {
   const queryClient = useQueryClient();
 
   const fetchJob = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: ["getAllJobs", project] });
+    queryClient.invalidateQueries({ queryKey: ["getAllJobs", project?.id] });
   }, [queryClient, project]);
 
   return (

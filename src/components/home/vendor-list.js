@@ -89,7 +89,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
         data: {
           result: { presigned_url, key },
         },
-      } = await VendorService.generateOnePDF(vendor.id, project, invoice);
+      } = await VendorService.generateOnePDF(vendor.id, project?.id, invoice);
       setShowPDFModal(true);
       setUrl(presigned_url);
       setVendorKey(key);
