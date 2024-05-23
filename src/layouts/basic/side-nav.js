@@ -62,26 +62,34 @@ export const SideNav = (props) => {
               <Logo />
             </Box>
             <Tooltip>
-              <Button
-                variant="contained"
-                onClick={projectPopover.handleOpen}
-                ref={projectPopover.anchorRef}
-                endIcon={
-                  <SvgIcon fontSize="small" sx={{ color: "neutral.500" }}>
-                    <ChevronUpDownIcon />
-                  </SvgIcon>
-                }
-                sx={{ backgroundColor: "rgba(255, 255, 255, 0.04)", mt: 2 }}
-              >
-                <Stack>
-                  <Typography color="inherit" variant="subtitle1" textTransform="capitalize">
-                    {project?.productionCompanyName}
-                  </Typography>
-                  <Typography color="neutral.400" variant="body2" textTransform="capitalize">
-                    {project?.name} - {project?.jobNumber}
-                  </Typography>
-                </Stack>
-              </Button>
+              <span>
+                <Button
+                  variant="contained"
+                  onClick={project && projectPopover.handleOpen}
+                  ref={projectPopover.anchorRef}
+                  endIcon={
+                    <SvgIcon fontSize="small" sx={{ color: "neutral.500" }}>
+                      <ChevronUpDownIcon />
+                    </SvgIcon>
+                  }
+                  sx={{ backgroundColor: "rgba(255, 255, 255, 0.04)", mt: 2 }}
+                >
+                  {project ? (
+                    <Stack>
+                      <Typography color="inherit" variant="subtitle1" textTransform="capitalize">
+                        {project?.productionCompanyName}
+                      </Typography>
+                      <Typography color="neutral.400" variant="body2" textTransform="capitalize">
+                        {project?.name} - {project?.jobNumber}
+                      </Typography>
+                    </Stack>
+                  ) : (
+                    <Typography color="inherit" variant="subtitle1">
+                      Prodbot
+                    </Typography>
+                  )}
+                </Button>
+              </span>
             </Tooltip>
           </Box>
           <Divider sx={{ borderColor: "neutral.700" }} />

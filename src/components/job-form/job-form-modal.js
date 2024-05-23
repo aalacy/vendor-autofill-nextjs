@@ -53,7 +53,7 @@ const _renderStepContent = (step, values) => {
 };
 
 export const JobFormModal = () => {
-  const { showJobForm, openJobForm, project } = useAuth();
+  const { showJobForm, openJobForm, project, setProjects, setProject } = useAuth();
   const queryClient = useQueryClient();
 
   const [activeStep, setActiveStep] = useState(0);
@@ -69,7 +69,13 @@ export const JobFormModal = () => {
 
     try {
       setLoading(true);
-      await JobService.add(values);
+      const {
+        data: { result },
+      } = await JobService.add(values);
+      setProjects(result);
+      if (result.length > 0) {
+        setProject(result[0]);
+      }
       toast.success("Successfully submitted");
       showJobForm(false);
     } catch (error) {

@@ -103,7 +103,7 @@ export const MileagesColumns = ({
       ),
     },
     {
-      field: "created_at",
+      field: "modified_at",
       headerName: "Created",
       type: "string",
       resizable: true,

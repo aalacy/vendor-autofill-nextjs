@@ -15,4 +15,8 @@ export class JobService {
   static update(id, data) {
     return http.put(`/job/${id}`, data);
   }
+
+  static remove(id) {
+    return http.delete(`/job/${id}`);
+  }
 }

@@ -1,18 +1,43 @@
 import { Box, Typography, IconButton, Tooltip } from "@mui/material";
-import { Refresh as RefreshIcon, Add as AddIcon } from "@mui/icons-material";
+import {
+  Refresh as RefreshIcon,
+  Add as AddIcon,
+  DeleteOutline as DeleteIcon,
+} from "@mui/icons-material";
 
 import { JobDataTable } from "src/components/project-settings/job-data";
 import { useAuth } from "src/hooks/use-auth";
 import { JobFormModal } from "src/components/job-form/job-form-modal";
 import { useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { JobService } from "src/services";
+import toast from "react-hot-toast";
 
 export const ProjectMain = () => {
-  const { showJobForm, project } = useAuth();
+  const { showJobForm, project, showConfirmDlg, hideConfirm, setProjects, setProject } = useAuth();
   const queryClient = useQueryClient();
 
-  const fetchJob = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: ["getAllJobs", project?.id] });
+  const deleteJob = useCallback(() => {
+    showConfirmDlg({
+      open: true,
+      close: hideConfirm,
+      callback: async () => {
+        try {
+          const { data: { result }} = await JobService.remove(project?.id);
+          toast.success("Successfully Deleted");
+          setProjects(result)
+          if (result.length > 0) {
+            setProject(result[0])
+          } else {
+            setProject(null)
+          }
+        } catch (error) {
+          toast.error(error?.response?.data?.message || error.message);
+        } finally {
+          hideConfirm();
+        }
+      },
+    });
   }, [queryClient, project]);
 
   return (
@@ -27,10 +52,12 @@ export const ProjectMain = () => {
               <AddIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Refetch the Job data">
-            <IconButton onClick={fetchJob} color="primary">
-              <RefreshIcon />
-            </IconButton>
+          <Tooltip title="Delete this Job">
+            <span>
+              <IconButton disabled={!!!project} onClick={deleteJob} color="error">
+                <DeleteIcon />
+              </IconButton>
+            </span>
           </Tooltip>
         </Box>
       </Box>

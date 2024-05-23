@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { List, Paper, ListItem, ListItemText, TextField } from "@mui/material";
+import toast from "react-hot-toast";
 
 import { useAuth } from "src/hooks/use-auth";
 import { splitCamelCase } from "src/utils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { JobService } from "src/services";
 import LoadingOverlay from "../common/loading-overlay";
-import toast from "react-hot-toast";
 
 export const JobDataTable = () => {
   const { showConfirmDlg, hideConfirm, project, setProject, setProjects } = useAuth();
@@ -23,7 +23,7 @@ export const JobDataTable = () => {
         data: { result },
       } = await JobService.mine(project?.id);
       setJob(result.data);
-      if (!project) setProject(result.id);
+      if (!project) setProject(result);
       return result;
     },
   });
@@ -84,7 +84,7 @@ export const JobDataTable = () => {
             maxHeight: 300,
           }}
         >
-          {myJob &&
+          {myJob ?
             Object.keys(myJob).map((key) => (
               <>
                 {key !== "buyers" ? (
@@ -105,7 +105,9 @@ export const JobDataTable = () => {
                   </ListItem>
                 ) : null}
               </>
-            ))}
+            ))
+            : <ListItem><ListItemText primary="Empty Project" /></ListItem>
+          }
         </List>
       </Paper>
       <LoadingOverlay open={isLoading} />
