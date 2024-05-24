@@ -101,8 +101,8 @@ export const FileManager = ({}) => {
 
       <TablePagination
         component="div"
-        count={total}
-        page={page}
+        count={total || 0}
+        page={page || 0}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}

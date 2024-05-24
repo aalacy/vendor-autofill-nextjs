@@ -18,7 +18,7 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
         <CardSkeleton />
       ) : (
         <>
-          {folders.length === 0 ? (
+          {!folders || folders?.length === 0 ? (
             <Box sx={{ my: 5 }}>
               <CustomNoRowsOverlay />
             </Box>
@@ -35,7 +35,7 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
                 my: 5,
               }}
             >
-              {folders.map((folder) => (
+              {folders?.map((folder) => (
                 <FileCard
                   key={folder.folder_name}
                   setFolder={setFolder}
@@ -55,7 +55,7 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
                 </IconButton>
               }
             >
-              {folders.map((folder) => (
+              {folders?.map((folder) => (
                 <FileItem
                   key={folder.name}
                   setFolder={setFolder}
