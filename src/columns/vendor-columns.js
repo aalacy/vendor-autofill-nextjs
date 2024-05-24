@@ -103,7 +103,7 @@ const COICell = (params) => {
     <Tooltip title="Manage COI">
       <span>
         <IconButton onClick={() => handleCOI(row)}>
-          {!!!value ? <AddIcon color="primary" /> : <COIIcon color="primary" />}
+          {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
         </IconButton>
       </span>
     </Tooltip>

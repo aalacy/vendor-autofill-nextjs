@@ -80,6 +80,9 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
   });
 
   const handleGeneratePDF = async (vendor, invoice) => {
+    if (!project) {
+      return toast.error("Please add a project.")
+    }
     setInvoice(invoice);
     setVendor(vendor);
     setGLoading(true);

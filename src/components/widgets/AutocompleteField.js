@@ -171,6 +171,10 @@ export const AutocompleteField = (props) => {
           error={meta.touched && meta.error && true}
           helperText={_renderHelperText()}
           fullWidth
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: 'new-password',
+          }}
         />
       )}
       renderOption={(props, option) => {

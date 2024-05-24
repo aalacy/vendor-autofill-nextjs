@@ -7,7 +7,6 @@ import { MileageTop } from "./mileage-top";
 import { MileageMainForm } from "./mileage-main";
 import { useCallback } from "react";
 import { formatLocalNumber, sum } from "src/utils";
-// import { MileageBottom } from "./mileage-bottom";
 
 export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
 

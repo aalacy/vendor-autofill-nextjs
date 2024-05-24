@@ -65,7 +65,7 @@ export const SideNav = (props) => {
               <span>
                 <Button
                   variant="contained"
-                  onClick={project && projectPopover.handleOpen}
+                  onClick={projectPopover.handleOpen}
                   ref={projectPopover.anchorRef}
                   endIcon={
                     <SvgIcon fontSize="small" sx={{ color: "neutral.500" }}>

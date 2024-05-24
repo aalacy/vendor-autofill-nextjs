@@ -1,6 +1,16 @@
 import { useCallback } from "react";
 import PropTypes from "prop-types";
-import { Box, Divider, MenuItem, MenuList, Popover, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Popover,
+  Typography,
+} from "@mui/material";
+import { AddCircleOutline as AddIcon } from "@mui/icons-material";
 
 import { useAuth } from "src/hooks/use-auth";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,6 +28,11 @@ export const ProjectPopover = (props) => {
     },
     [onClose, auth, queryClient]
   );
+
+  const handleNewProject = useCallback(() => {
+    onClose?.();
+    auth.showJobForm(true);
+  }, [auth, onClose]);
 
   return (
     <Popover
@@ -53,16 +68,25 @@ export const ProjectPopover = (props) => {
           },
         }}
       >
-        {auth?.projects?.map(({ id, name }) => (
-          <MenuItem
-            selected={id === auth?.project?.id}
-            key={id}
-            onClick={() => handleProject(id)}
-            sx={{ textTransform: "capitalize" }}
-          >
-            {name}
+        {auth?.projects?.length > 0 ? (
+          auth?.projects?.map(({ id, name }) => (
+            <MenuItem
+              selected={id === auth?.project?.id}
+              key={id}
+              onClick={() => handleProject(id)}
+              sx={{ textTransform: "capitalize" }}
+            >
+              <ListItemText>{name}</ListItemText>
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem onClick={handleNewProject} sx={{ textTransform: "capitalize" }}>
+            <ListItemIcon>
+              <AddIcon color="primary" fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>New Project</ListItemText>
           </MenuItem>
-        ))}
+        )}
       </MenuList>
     </Popover>
   );
