@@ -6,8 +6,7 @@ import parse from "autosuggest-highlight/parse";
 import { debounce } from "@mui/material/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { geocodeByPlaceID } from "./geocoder";
-import { calculateDistance } from "src/utils";
+import { calculateDistanceByRoute, geocodeByPlaceID } from "./geocoder";
 
 const loadScript = (src, position, id) => {
   if (!position) {
@@ -56,7 +55,8 @@ export const AutocompleteField = (props) => {
   const calculateMiles = useCallback(async () => {
     const fromAddress = await geocodeByPlaceID(values.data[index].from_address_place_id);
     const toAddress = await geocodeByPlaceID(values.data[index].to_address_place_id);
-    const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
+    const distance = await calculateDistanceByRoute(fromAddress[0].geometry.location, toAddress[0].geometry.location)
+    // const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
     setFieldValue(`data.${index}.number_of_miles`, distance);
     setFieldValue(`data.${index}.mileage_reimbursement`, distance * .67);
   }, [value, values]);
