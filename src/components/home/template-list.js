@@ -74,8 +74,8 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
         label="Select All"
         control={
           <Checkbox
-            checked={checked.length === templates.length}
-            indeterminate={checked.length && checked.length < templates.length}
+            checked={checked?.length === templates?.length}
+            indeterminate={checked?.length && checked.length < templates?.length}
             onChange={handleSelectAll}
           />
         }
@@ -107,7 +107,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
         <Stack direction="row" spacing={2} mr="auto">
           <Button
             startIcon={loading ? <CircularProgress size={20} /> : null}
-            disabled={!!!checked.length}
+            disabled={!!!checked?.length}
             variant="contained"
             onClick={handleSubmit}
           >
@@ -118,7 +118,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
           </Button>
         </Stack>
         <Stack direction="row" spacing={2} alignItems="center">
-          {checked.length > 0 && <Typography>{checked.length} Selected</Typography>}
+          {checked?.length > 0 && <Typography>{checked?.length} Selected</Typography>}
           <Tooltip title="Clear Selection">
             <IconButton color="success" onClick={handleClear}>
               <Clear />
