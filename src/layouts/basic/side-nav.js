@@ -113,7 +113,7 @@ export const SideNav = (props) => {
               {items.map((item) => {
                 const active = item.path ? pathname === item.path : false;
 
-                if (item.requireAdmin && !isAdmin) return <></>;
+                if (item.requireAdmin && !isAdmin) return null;
 
                 return (
                   <SideNavItem

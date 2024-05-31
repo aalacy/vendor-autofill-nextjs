@@ -19,7 +19,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import toast from "react-hot-toast";
 import { useCallback, useMemo, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { VendorService } from "src/services";
 import { VendorsColumns } from "src/columns";
@@ -44,7 +44,7 @@ const ReportRenderToolbar = () => {
 
 const Footer = () => <></>;
 
-export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
+export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading, vendors }) => {
   const [gLoading, setGLoading] = useState(false);
   const [showCOI, setShowCOI] = useState(false);
   const [showInvoice, setShowInvoice] = useState(false);
@@ -65,23 +65,13 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
   const queryClient = useQueryClient();
 
   const getDetailPanelContent = useCallback(
-    ({ row }) => <VendorDetailPanelContent row={row} />,
+    ({ row }) => <VendorDetailPanelContent row={row.vendor} />,
     []
   );
 
-  const { isLoading, data: vendors } = useQuery({
-    queryKey: ["getAllVendors"],
-    queryFn: async () => {
-      const {
-        data: { result },
-      } = await VendorService.all();
-      return result;
-    },
-  });
-
   const handleGeneratePDF = async (vendor, invoice) => {
     if (!project) {
-      return toast.error("Please add a project.")
+      return toast.error("Please add a project.");
     }
     setInvoice(invoice);
     setVendor(vendor);
@@ -120,7 +110,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
     }
   };
 
-  
   const handleInvoice = async (vendor) => {
     setVendor(vendor);
     setInvoice("Invoices");
@@ -263,13 +252,13 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Typography variant="h6" mb={2}>
-          Vendors: &nbsp;(<small>{vendors?.items?.length || "-"}</small>)
+          My Vendors: &nbsp;(<small>{vendors?.length || "-"}</small>)
         </Typography>
       </Box>
       <div style={{ height: 550, width: "100%" }}>
         <ClientDataGrid
           loading={isLoading}
-          data={vendors?.items || []}
+          data={vendors || []}
           columns={VendorsColumns({ handleGeneratePDF, handleW9, handleCOI, handleInvoice })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
@@ -318,11 +307,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
                 ),
               }}
             />
-            <Button
-              startIcon={ <CircularProgress size={20} />}
-              type="submit"
-              variant="contained"
-            >
+            <Button startIcon={<CircularProgress size={20} />} type="submit" variant="contained">
               Send Email
             </Button>
           </Box>
@@ -340,14 +325,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel }) => {
           }
         />
       )}
-      {showCOI && (
-        <ManageCOI
-          title={title}
-          vendor={vendor}
-          open={true}
-          setOpen={setShowCOI}
-        />
-      )}
+      {showCOI && <ManageCOI title={title} vendor={vendor} open={true} setOpen={setShowCOI} />}
       {showInvoice && (
         <ManageInvoice
           title={`Upload Invoices for ${vendor.name}`}

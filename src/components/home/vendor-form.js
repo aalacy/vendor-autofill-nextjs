@@ -226,10 +226,10 @@ export const VendorForm = ({ show, setShow, noThankYou }) => {
             />
           </Box>
           <Box sx={{ my: 2, textAlign: "center" }}>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit" variant="contained" sx={{ mr: 2 }}>
               Submit
             </Button>
-            <Button onClick={handleClose} variant="outlined" size="small">
+            <Button onClick={handleClose} variant="outlined">
               Cancel
             </Button>
           </Box>

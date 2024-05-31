@@ -5,6 +5,10 @@ export class VendorService {
     return http.post("/vendors/add", { ...values });
   }
 
+  static addMyVendors(vendor_ids, removed_ids) {
+    return http.post("/vendors/add-my-vendor", { vendor_ids, removed_ids});
+  }
+
   static all() {
     return http.post(`/vendors/all`, {
       page: 1,
@@ -12,6 +16,10 @@ export class VendorService {
       filterModel: [],
       logicOperator: "",
     });
+  }
+
+  static allTemplates() {
+    return http.get(`/vendors/templates`);
   }
 
   static allByPage(paginationModel, filterModel, logicOperator) {

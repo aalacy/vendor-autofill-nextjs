@@ -2,9 +2,8 @@ import toast from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
 import { ClientDataGrid } from "../tables/client-datagrid";
-import { JobInfoColumns, TrackingColumns, VendorsColumns } from "src/columns";
+import { TrackingColumns } from "src/columns";
 import { VendorService } from "src/services";
-import { ClientTable } from "../client-table";
 
 export const TrackingInfo = ({ data, setData }) => {
   const [loading, setLoading] = useState(false);

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
-import { Box } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { useCallback, useEffect } from 'react';
 import { useQuery, useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -100,42 +100,46 @@ const Pricing = () => {
         sx={{
           backgroundColor: 'background.paper',
           flexGrow: 1,
-          justifyContent: "center",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 3,
-          pb: 6
+          pb: 6,
+          maxHeight: 500
         }}
       >
-        {
-          products && products.map(({ id, name, prices }) => (
-            <PricingPlan
-              key={id}
-              loading={isPricingLoading || isPricingPending}
-              handleCheckout={() => handleCheckout(id)}
-              cta={buttonLabel(id)}
-              currency="$"
-              description="To familiarize yourself with our tools."
-              features={[
-                'All previous',
-                'Highlights reporting',
-                'Data history',
-                'Unlimited users'
-              ]}
-              image="/static/pricing/plan2.svg"
-              name={name}
-              popular
-              price={prices[0].unit_amount}
-              label={PLAN_LABELS[name]}
-              isCurrent={isCurrentPlan(id)}
-              sx={{
-                height: '100%',
-                maxWidth: 460,
-                mx: 'auto',
-              }}
-            />
-          ))
-        }
+        <Container maxWidth="xl">
+          <Typography component="h1" variant="h5" marginBottom={7}>
+            Pricing Plan
+          </Typography>
+          <Stack direction="row" spacing={3} justifyContent="center"> 
+            {
+              products && products.map(({ id, name, prices }) => (
+                <PricingPlan
+                  key={id}
+                  loading={isPricingLoading || isPricingPending}
+                  handleCheckout={() => handleCheckout(id)}
+                  cta={buttonLabel(id)}
+                  currency="$"
+                  description="To familiarize yourself with our tools."
+                  features={[
+                    'All previous',
+                    'Highlights reporting',
+                    'Data history',
+                    'Unlimited users'
+                  ]}
+                  image="/static/pricing/plan2.svg"
+                  name={name}
+                  popular
+                  price={prices[0].unit_amount}
+                  label={PLAN_LABELS[name]}
+                  isCurrent={isCurrentPlan(id)}
+                  sx={{
+                    height: '100%',
+                    maxWidth: 460,
+                    mx: 'auto',
+                  }}
+                />
+              ))
+            }
+          </Stack>
+          </Container>
 
       </Box>
     </>

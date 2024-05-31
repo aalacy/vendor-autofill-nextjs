@@ -1,9 +1,9 @@
 {
-  "name": "material-kit-react",
+  "name": "prodbot",
   "version": "3.0.0",
   "author": "Aaron",
   "licence": "MIT",
-  "homepage": "https://devias.io",
+  "homepage": "https://prodbot.io",
   "private": false,
   "scripts": {
     "dev": "next",

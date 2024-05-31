@@ -1,71 +1,32 @@
-import {
-  Box,
-  Button,
-  Typography,
-  CircularProgress,
-} from "@mui/material";
-import { AddOutlined as AddIcon } from "@mui/icons-material";
-import toast from "react-hot-toast";
-import { useFormik } from "formik";
-import * as yup from "yup";
+import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { VendorService } from "src/services";
-import { ThankYou } from "./thank-you";
-import { useAuth } from "src/hooks/use-auth";
 import { AlertJob } from "./alert-job";
-import { VendorForm } from "./vendor-form";
+import { TemplateList } from "./template-list";
+import { Modal } from "../common/modal";
+import { AddOutlined as AddIcon } from "@mui/icons-material";
 
-export const HeaderForm = ({
-  setSelectedData,
-  selectedData,
-}) => {
-  const { job } = useAuth();
+export const HeaderForm = ({ vendors }) => {
 
-  const [openThankyou, setOpenThankyou] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [openJobAlert, setOpenJobAlert] = useState(false);
   const [show, setShow] = useState(false);
 
-  const onCloseThankyou = () => setOpenThankyou(false);
-
-  const onSubmit = async (values) => {
-    if (selectedData.length < 1) {
-      return toast.error("Please select the vendors.");
-    }
-    if (!job) {
-      return setOpenJobAlert(true);
-    }
-    try {
-      setLoading(true);
-      await VendorService.generatePDF(selectedData, values.email);
-      setOpenThankyou(true);
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const formik = useFormik({
-    enableReinitialize: true,
-    onSubmit,
-    initialValues: {
-      email: "",
+  const { data: templates } = useQuery({
+    queryKey: ["getAllVendorTemplates"],
+    queryFn: async () => {
+      const {
+        data: { result },
+      } = await VendorService.allTemplates();
+      return result;
     },
-    validationSchema: yup.object().shape({
-      email: yup.string().email("Invalid email!").required("Required"),
-    }),
   });
 
-  const clearForm = () => {
-    formik.resetForm();
-    setSelectedData([]);
-  };
+  const onClose = () => setShow(false);
 
   return (
     <>
-      {/* <form onSubmit={formik.handleSubmit}> */}
       <Box
         sx={{
           display: "flex",
@@ -77,8 +38,7 @@ export const HeaderForm = ({
       >
         <Typography variant="h5">Vendor Forms</Typography>
         <Button
-          disabled={loading}
-          startIcon={loading ? <CircularProgress size={20} /> : <AddIcon />}
+          startIcon={<AddIcon />}
           type="submit"
           size="small"
           variant="contained"
@@ -86,63 +46,14 @@ export const HeaderForm = ({
         >
           Add Vendor
         </Button>
-        {/* <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "flex-start",
-              justifyContent: "space-around",
-              gap: 2,
-            }}
-          >
-            <TextField
-              type="text"
-              size="small"
-              label="Email Address"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.email}
-              name="email"
-              error={!!formik.touched.email && !!formik.errors.email}
-              helperText={formik.touched.email && formik.errors.email}
-              sx={{ gridColumn: "span 2" }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <Button
-              disabled={loading}
-              startIcon={loading ? <CircularProgress size={20} /> : null}
-              type="submit"
-              variant="contained"
-            >
-              Generate
-            </Button>
-          </Box> */}
       </Box>
-      {/* </form> */}
 
-      <ThankYou
-        open={openThankyou}
-        onClose={onCloseThankyou}
-        email={formik.values?.email}
-        clearForm={clearForm}
-      />
-
-      <AlertJob
-        open={openJobAlert}
-        onClose={() => setOpenJobAlert(false)}
-      />
-      {
-        show && <VendorForm
-          show={true}
-          setShow={setShow}
-        />
-      }
+      <AlertJob open={openJobAlert} onClose={() => setOpenJobAlert(false)} />
+      {show && (
+        <Modal size="sm" title={`Select Vendors (${templates.length})`} open={show} onClose={onClose}>
+          <TemplateList vendors={vendors} templates={templates} onClose={onClose} />
+        </Modal>
+      )}
     </>
   );
 };

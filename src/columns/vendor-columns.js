@@ -29,10 +29,10 @@ const EditSwitchCell = (params) => {
 };
 
 const FormCell = (params) => {
-  const { id, row, handleGeneratePDF } = params;
+  const { row, handleGeneratePDF } = params;
   const disabledStatus = useCallback(
     (name) => {
-      if (row[name]) return false;
+      if (row.vendor[name]) return false;
       return true;
     },
     [row]
@@ -40,7 +40,7 @@ const FormCell = (params) => {
 
   const iconColor = useCallback(
     (name) => {
-      if (row[name]) return "primary";
+      if (row.vendor[name]) return "primary";
       return "inherit";
     },
     [row]
@@ -51,7 +51,7 @@ const FormCell = (params) => {
       <Tooltip title="Credit Auth">
         <span>
           <IconButton
-            onClick={() => handleGeneratePDF(row, "credit_auth")}
+            onClick={() => handleGeneratePDF(row.vendor, "credit_auth")}
             disabled={disabledStatus("credit_auth")}
           >
             <ViewIcon color={iconColor("credit_auth")} />
@@ -61,7 +61,7 @@ const FormCell = (params) => {
       <Tooltip title="Rental Agreement">
         <span>
           <IconButton
-            onClick={() => handleGeneratePDF(row, "rental_agreement")}
+            onClick={() => handleGeneratePDF(row.vendor, "rental_agreement")}
             disabled={disabledStatus("rental_agreement")}
           >
             <ViewIcon color={iconColor("rental_agreement")} />
@@ -71,7 +71,7 @@ const FormCell = (params) => {
       <Tooltip title="Addition">
         <span>
           <IconButton
-            onClick={() => handleGeneratePDF(row, "addition")}
+            onClick={() => handleGeneratePDF(row.vendor, "addition")}
             disabled={disabledStatus("addition")}
           >
             <InvoiceIcon color={iconColor("addition")} />
@@ -88,7 +88,7 @@ const W9Cell = (params) => {
   return (
     <Tooltip title="Show W9">
       <span>
-        <IconButton onClick={() => handleW9(row)} disabled={!!!value}>
+        <IconButton onClick={() => handleW9(row.vendor)} disabled={!!!value}>
           <W9Icon color={value ? "primary" : "inherit"} />
         </IconButton>
       </span>
@@ -102,7 +102,7 @@ const COICell = (params) => {
   return (
     <Tooltip title="Manage COI">
       <span>
-        <IconButton onClick={() => handleCOI(row)}>
+        <IconButton onClick={() => handleCOI(row.vendor)}>
           {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
         </IconButton>
       </span>
@@ -116,11 +116,11 @@ const InvoiceCell = (params) => {
   return (
     <Tooltip title="Manage Forms">
       <span>
-        <IconButton onClick={() => handleInvoice(row)}>
+        <IconButton onClick={() => handleInvoice(row.vendor)}>
           {!value || value.length === 0 ? (
             <AddIcon color="primary" />
           ) : (
-            <Badge badgeContent={value.length} color="info" max={99}>
+            <Badge badgeContent={row.vendor.invoices.length} color="info" max={99}>
               <InvoiceIcon color="primary" />
             </Badge>
           )}
@@ -133,14 +133,15 @@ const InvoiceCell = (params) => {
 export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleInvoice }) => {
   return [
     {
-      field: "name",
+      field: "vendor_name",
       headerName: "Name",
       type: "string",
       resizable: true,
+      valueGetter: (params) => params.row.vendor.name,
       width: 200,
     },
     {
-      field: "w9",
+      field: "vendor_w9",
       headerName: "W9",
       type: "string",
       headerAlign: "center",
@@ -150,7 +151,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       renderCell: (params) => <W9Cell {...params} handleW9={handleW9} />,
     },
     {
-      field: "coi",
+      field: "vendor_coi",
       headerName: "COI",
       type: "string",
       resizable: true,
@@ -158,7 +159,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
     },
     {
-      field: "invoices",
+      field: "vendor_invoices",
       headerName: "Invoices",
       type: "string",
       resizable: true,
@@ -166,7 +167,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       renderCell: (params) => <InvoiceCell {...params} handleInvoice={handleInvoice} />,
     },
     {
-      field: "forms",
+      field: "vendor_forms",
       headerName: "Forms",
       type: "string",
       headerAlign: "center",
@@ -176,7 +177,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />,
     },
     {
-      field: "total",
+      field: "vendor_total",
       headerName: "Total",
       type: "string",
       headerAlign: "center",
@@ -184,7 +185,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       resizable: true,
       width: 120,
       renderCell: (params) => (
-        <Typography>{currencyFormatter(sum(params.row.invoices.map((r) => r.total)))}</Typography>
+        <Typography>{currencyFormatter(sum(params.row.vendor.invoices.map((r) => r.total)))}</Typography>
       ),
     },
     // {

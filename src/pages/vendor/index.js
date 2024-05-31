@@ -1,23 +1,11 @@
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
-import { useEffect, useState } from "react";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-import { VendorList } from "src/components/home/vendor-list";
-import { HeaderForm } from "src/components/home/header-form";
-import { useAuth } from "src/hooks/use-auth";
 import { JobFormModal } from "src/components/job-form/job-form-modal";
+import { HomeMain } from "src/components/home/home-main";
 
 const Page = () => {
-  const [rowSelectionModel, setRowSelectionModel] = useState([]);
-  const [selectedData, setSelectedData] = useState([]);
-
-  const { user, showJobForm } = useAuth();
-
-  useEffect(() => {
-    if (user?.has_job_submitted) return;
-    showJobForm(true);
-  }, [user]);
 
   return (
     <>
@@ -31,18 +19,7 @@ const Page = () => {
         }}
       >
         <Container maxWidth="xl">
-          <HeaderForm
-            rowSelectionModel={rowSelectionModel}
-            setRowSelectionModel={setRowSelectionModel}
-            selectedData={selectedData}
-            setSelectedData={setSelectedData}
-          />
-          <VendorList
-            rowSelectionModel={rowSelectionModel}
-            setRowSelectionModel={setRowSelectionModel}
-            selectedData={selectedData}
-            setSelectedData={setSelectedData}
-          />
+          <HomeMain />
         </Container>
       </Box>
       <JobFormModal />
