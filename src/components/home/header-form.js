@@ -9,7 +9,6 @@ import { Modal } from "../common/modal";
 import { AddOutlined as AddIcon } from "@mui/icons-material";
 
 export const HeaderForm = ({ vendors }) => {
-
   const [openJobAlert, setOpenJobAlert] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -50,7 +49,12 @@ export const HeaderForm = ({ vendors }) => {
 
       <AlertJob open={openJobAlert} onClose={() => setOpenJobAlert(false)} />
       {show && (
-        <Modal size="sm" title={`Select Vendors (${templates.length})`} open={show} onClose={onClose}>
+        <Modal
+          size="sm"
+          title={`Select Vendors (${templates.length})`}
+          open={show}
+          onClose={onClose}
+        >
           <TemplateList vendors={vendors} templates={templates} onClose={onClose} />
         </Modal>
       )}

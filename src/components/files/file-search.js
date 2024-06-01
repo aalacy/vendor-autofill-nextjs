@@ -1,79 +1,21 @@
 import {
   Card,
-  InputBase,
   ToggleButtonGroup,
   ToggleButton,
   FormControl,
   Stack,
   MenuItem,
   Select,
-  IconButton,
   Button,
   Tooltip,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
 import {
-  Search as SearchIcon,
   GridView as GridViewIcon,
   ViewList as ListIcon,
-  NorthEast as TriggerIcon,
   Download as DownloadIcon,
 } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  display: "flex",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const TriggerIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  right: 0,
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "100%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "32ch",
-      "&:focus": {
-        width: "40ch",
-      },
-    },
-  },
-}));
+import { SearchBox } from "../widgets/search-box";
 
 export const FileSearch = ({
   alignment,
@@ -97,10 +39,6 @@ export const FileSearch = ({
     setSortby(event.target.value);
   };
 
-  const handleSearch = (event) => {
-    setQuery(event.target.value);
-  };
-
   const handleClick = () => {
     queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
   };
@@ -108,20 +46,7 @@ export const FileSearch = ({
   return (
     <Card sx={{ p: 2 }}>
       <Stack useFlexGap flexWrap="wrap" justifyContent="space-between" direction="row" spacing={2}>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            value={query}
-            onChange={handleSearch}
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-          />
-          <IconButton color="primary" onClick={handleClick} sx={{ mr: 1 }}>
-            <TriggerIcon />
-          </IconButton>
-        </Search>
+        <SearchBox query={query} setQuery={setQuery} handleClick={handleClick} />
         <Stack direction="row" spacing={2}>
           <Tooltip title="Download All Files">
             <Button

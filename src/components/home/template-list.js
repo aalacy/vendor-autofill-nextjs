@@ -5,22 +5,34 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, CircularProgress, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { Clear } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { VendorService } from "src/services";
 import { useQueryClient } from "@tanstack/react-query";
+import { SearchBox } from "../widgets/search-box";
 
 export const TemplateList = ({ templates, vendors, onClose }) => {
   const [checked, setChecked] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
+
   const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!vendors) return;
     setChecked(vendors.map(({ vendor_id }) => vendor_id));
   }, [vendors]);
+
+  useEffect(() => {
+
+  }, [query])
+
+  const filteredTemplates = useMemo(() => {
+    if (!templates) return  []
+    return templates.filter(({ name, address }) => name.match(new RegExp(query, 'i')) || address.match(new RegExp(query, 'i')))
+  }, [query])
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -51,9 +63,11 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
     try {
       setLoading(true);
       const vendorIds = vendors.map(({ vendor_id }) => vendor_id);
-      const created = checked.filter( id => !vendorIds.includes(id))
+      const created = checked.filter((id) => !vendorIds.includes(id));
       const removed = vendorIds.filter((x) => !checked.includes(x));
-      const removed_vendors = vendors.filter(({ vendor_id }) => removed.includes(vendor_id)).map(({ id}) => id)
+      const removed_vendors = vendors
+        .filter(({ vendor_id }) => removed.includes(vendor_id))
+        .map(({ id }) => id);
       const {
         data: { detail },
       } = await VendorService.addMyVendors(created, removed_vendors);
@@ -68,20 +82,23 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
     }
   };
 
+  const handleSearchClick = () => {};
+
   return (
     <>
+      <SearchBox query={query} setQuery={setQuery} handleClick={handleSearchClick} />
       <FormControlLabel
         label="Select All"
         control={
           <Checkbox
-            checked={checked?.length === templates?.length}
-            indeterminate={checked?.length && checked.length < templates?.length}
+            checked={checked?.length === filteredTemplates?.length}
+            indeterminate={!!checked?.length && checked.length < filteredTemplates?.length}
             onChange={handleSelectAll}
           />
         }
       />
-      <List sx={{ width: "100%", maxHeight: 500, overflow: "auto" }}>
-        {templates.map(({ id, name, address }) => {
+      <List sx={{ width: "100%", maxHeight: 450, overflow: "auto" }}>
+        {filteredTemplates.map(({ id, name, address }) => {
           const labelId = `template-list-item-${id}`;
 
           return (
