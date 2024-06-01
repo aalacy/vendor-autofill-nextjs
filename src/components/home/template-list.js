@@ -9,8 +9,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Button, CircularProgress, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { Clear } from "@mui/icons-material";
 import toast from "react-hot-toast";
-import { VendorService } from "src/services";
 import { useQueryClient } from "@tanstack/react-query";
+
+import { VendorService } from "src/services";
 import { SearchBox } from "../widgets/search-box";
 
 export const TemplateList = ({ templates, vendors, onClose }) => {
@@ -25,14 +26,15 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
     setChecked(vendors.map(({ vendor_id }) => vendor_id));
   }, [vendors]);
 
-  useEffect(() => {
-
-  }, [query])
+  useEffect(() => {}, [query]);
 
   const filteredTemplates = useMemo(() => {
-    if (!templates) return  []
-    return templates.filter(({ name, address }) => name.match(new RegExp(query, 'i')) || address.match(new RegExp(query, 'i')))
-  }, [query])
+    if (!templates) return [];
+    return templates.filter(
+      ({ name, address }) =>
+        name.match(new RegExp(query, "i")) || address.match(new RegExp(query, "i"))
+    );
+  }, [query]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -91,8 +93,8 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
         label="Select All"
         control={
           <Checkbox
-            checked={checked?.length === filteredTemplates?.length}
-            indeterminate={!!checked?.length && checked.length < filteredTemplates?.length}
+            checked={checked?.length === templates?.length}
+            indeterminate={!!checked?.length && checked.length < templates?.length}
             onChange={handleSelectAll}
           />
         }
