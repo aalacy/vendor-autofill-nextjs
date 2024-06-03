@@ -62,7 +62,8 @@ export const calculateDistanceByRoute = (startValue, endValue) => {
       })
       .then((response) => {
         if (response.rows.length > 0) {
-          resolve(response.rows[0].elements[0]?.distance?.value * 0.000621371)
+          const distance = response.rows[0].elements[0]?.distance?.value ?? 0;
+          resolve(distance * 0.000621371);
         } else {
           resolve(calculateDistance(startValue, endValue));
         }

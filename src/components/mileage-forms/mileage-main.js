@@ -119,7 +119,6 @@ export const MileageMainForm = (props) => {
                             label={`# of Miles`}
                             fullWidth
                             size="small"
-                            type="number"
                             inputProps={{ readOnly: true }}
                           />
                         </Grid>
@@ -129,7 +128,6 @@ export const MileageMainForm = (props) => {
                             label={`Mileage Reimbursement $`}
                             fullWidth
                             size="small"
-                            type="number"
                             inputProps={{ readOnly: true }}
                           />
                         </Grid>
