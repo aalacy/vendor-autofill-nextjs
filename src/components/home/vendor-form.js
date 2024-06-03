@@ -27,7 +27,7 @@ export const VendorForm = ({ show, setShow, noThankYou }) => {
     const { submit, ...other } = values;
     let submitData = { ...other };
     if (noThankYou) {
-      submitData = { ...other, active: true };
+      submitData = { ...other, active: true, is_template: true };
     }
     try {
       const { data } = await VendorService.add(submitData);

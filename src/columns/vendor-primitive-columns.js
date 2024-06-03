@@ -160,15 +160,15 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd })
         </Box>
       ),
     },
-    {
-      field: "active",
-      headerName: "Status",
-      resizable: true,
-      width: 80,
-      type: "boolean",
+    // {
+    //   field: "active",
+    //   headerName: "Status",
+    //   resizable: true,
+    //   width: 80,
+    //   type: "boolean",
 
-      renderCell: (params) => <Checkbox readOnly checked={params?.value}></Checkbox>,
-    },
+    //   renderCell: (params) => <Checkbox readOnly checked={params?.value}></Checkbox>,
+    // },
     {
       field: "id",
       type: "actions",

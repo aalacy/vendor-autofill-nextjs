@@ -74,6 +74,7 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
       category: vendor?.category || "",
       address: vendor?.address || "",
       active: vendor?.active || false,
+      is_template: vendor?.is_template || false,
       submit: null,
     },
     validationSchema: Yup.object({
@@ -310,6 +311,19 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
                 label="Is Active?"
               />
               <FormHelperText>{formik.errors.active || formik.errors.active}</FormHelperText>
+            </FormControl>
+            <FormControl fullWidth margin="normal" size="small" error={formik.errors.is_template}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formik.values.is_template}
+                    onChange={formik.handleChange}
+                    name="is_template"
+                  />
+                }
+                label="Is Template?"
+              />
+              <FormHelperText>{formik.errors.is_template || formik.errors.is_template}</FormHelperText>
             </FormControl>
           </Stack>
           <Box sx={{ my: 3, textAlign: "center" }}>
