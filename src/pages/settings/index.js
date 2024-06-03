@@ -2,7 +2,6 @@ import Head from "next/head";
 import { Box, Container, Typography } from "@mui/material";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-import { JobFormModal } from "src/components/job-form/job-form-modal";
 import { ManageUsers } from "src/components/settings/manage-users";
 import { ManageVendors } from "src/components/settings/manage-vendors";
 import TabComponent from "src/components/tab/tab-component";
@@ -42,7 +41,6 @@ const Page = () => {
           />
         </Container>
       </Box>
-      <JobFormModal />
     </>
   );
 };

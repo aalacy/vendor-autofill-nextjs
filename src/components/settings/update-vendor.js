@@ -67,6 +67,7 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
       credit_auth: vendor?.credit_auth ?? "",
       rental_agreement: vendor?.rental_agreement || "",
       addition: vendor?.addition || "",
+      w9: vendor?.w9 || "",
       website: vendor?.website || "",
       email: vendor?.email || "",
       phone: vendor?.phone || "",
@@ -222,6 +223,18 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
               </FormHelperText>
             </FormControl>
             <TextField
+              type="url"
+              error={Boolean(formik.touched.w9 && formik.errors.w9)}
+              fullWidth
+              helperText={formik.touched.w9 && formik.errors.w9}
+              label="W9"
+              name="w9"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.w9}
+            />
+            <TextField
+              type="url"
               error={Boolean(formik.touched.website && formik.errors.website)}
               fullWidth
               helperText={formik.touched.website && formik.errors.website}

@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { VendorList } from "src/components/home/vendor-list";
 import { HeaderForm } from "src/components/home/header-form";
 import { useAuth } from "src/hooks/use-auth";
-import { JobFormModal } from "../job-form/job-form-modal";
 import { VendorService } from "src/services";
 
 export const HomeMain = () => {
@@ -43,8 +42,6 @@ export const HomeMain = () => {
         vendors={vendors}
         isLoading={isLoading}
       />
-
-      <JobFormModal />
     </>
   );
 };

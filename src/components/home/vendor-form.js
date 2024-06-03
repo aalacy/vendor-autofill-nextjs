@@ -64,7 +64,8 @@ export const VendorForm = ({ show, setShow, noThankYou }) => {
       address: "",
       name: "",
       phone: "",
-      wesite: "",
+      website: "",
+      w9: "",
       hours: "",
       category: "",
       notes: "",
@@ -162,6 +163,19 @@ export const VendorForm = ({ show, setShow, noThankYou }) => {
                   </InputAdornment>
                 ),
               }}
+              sx={{ gridColumn: "span 2" }}
+            />
+            <TextField
+              error={Boolean(formik.touched.w9 && formik.errors.w9)}
+              fullWidth
+              helperText={formik.touched.w9 && formik.errors.w9}
+              label="W9"
+              margin="dense"
+              name="w9"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              size="small"
+              value={formik.values.w9}
               sx={{ gridColumn: "span 2" }}
             />
 

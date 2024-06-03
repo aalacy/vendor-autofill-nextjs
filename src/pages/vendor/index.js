@@ -2,7 +2,6 @@ import Head from "next/head";
 import { Box, Container } from "@mui/material";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
-import { JobFormModal } from "src/components/job-form/job-form-modal";
 import { HomeMain } from "src/components/home/home-main";
 
 const Page = () => {
@@ -22,7 +21,6 @@ const Page = () => {
           <HomeMain />
         </Container>
       </Box>
-      <JobFormModal />
     </>
   );
 };

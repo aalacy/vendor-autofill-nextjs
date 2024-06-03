@@ -83,13 +83,13 @@ const FormCell = (params) => {
 };
 
 const W9Cell = (params) => {
-  const { value, row, handleW9 } = params;
+  const { row, handleW9 } = params;
 
   return (
     <Tooltip title="Show W9">
       <span>
-        <IconButton onClick={() => handleW9(row.vendor)} disabled={!!!value}>
-          <W9Icon color={value ? "primary" : "inherit"} />
+        <IconButton onClick={() => handleW9(row.vendor)} disabled={!!!row.vendor.w9}>
+          <W9Icon color={row.w9 ? "primary" : "inherit"} />
         </IconButton>
       </span>
     </Tooltip>
@@ -97,13 +97,13 @@ const W9Cell = (params) => {
 };
 
 const COICell = (params) => {
-  const { value, row, handleCOI } = params;
+  const { row, handleCOI } = params;
 
   return (
     <Tooltip title="Manage COI">
       <span>
         <IconButton onClick={() => handleCOI(row.vendor)}>
-          {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
+          {!!!row.vendor.coi ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
         </IconButton>
       </span>
     </Tooltip>

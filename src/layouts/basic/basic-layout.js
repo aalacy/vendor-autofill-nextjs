@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import { SideNav } from './side-nav';
 import { TopNav } from './top-nav';
+import { JobFormModal } from 'src/components/job-form/job-form-modal';
 
 const SIDE_NAV_WIDTH = 280;
 
@@ -57,6 +58,7 @@ export const BasicLayout = (props) => {
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
           <LayoutContainer>
             {children}
+            <JobFormModal />
           </LayoutContainer>
         </GoogleOAuthProvider>
       </LayoutRoot>

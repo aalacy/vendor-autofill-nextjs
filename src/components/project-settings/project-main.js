@@ -7,7 +7,6 @@ import {
 
 import { JobDataTable } from "src/components/project-settings/job-data";
 import { useAuth } from "src/hooks/use-auth";
-import { JobFormModal } from "src/components/job-form/job-form-modal";
 import { useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { JobService } from "src/services";
@@ -62,7 +61,7 @@ export const ProjectMain = () => {
         </Box>
       </Box>
       <JobDataTable />
-      <JobFormModal />
+      
     </>
   );
 };
