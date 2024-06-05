@@ -14,6 +14,7 @@ import {
   EmailOutlined as EmailIcon,
   DeleteOutline as DeleteIcon,
   Refresh,
+  Download,
 } from "@mui/icons-material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -33,6 +34,7 @@ import { ManageCOI } from "./home-actions/coi";
 import { ManageInvoice } from "./home-actions/invoice";
 import { InvoiceView } from "./home-actions/invoice-view";
 import { useAuth } from "src/hooks/use-auth";
+import { downloadMedia } from "src/utils";
 
 const ReportRenderToolbar = () => {
   return (
@@ -238,15 +240,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         </Tooltip>
       </Stack>
     );
-  }, [
-    handleDeleteCOI,
-    handleReplaceCOI,
-    vendors,
-    vendor,
-    showConfirmDlg,
-    hideConfirm,
-    showPDFModal,
-  ]);
+  }, [handleDeleteCOI, handleReplaceCOI, invoice]);
 
   return (
     <>
@@ -282,12 +276,13 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         size="md"
         topActions={invoice === "COI" ? topActions : null}
       >
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
         <form onSubmit={formik.handleSubmit}>
           <Box
             sx={{
               display: canSendEmail ? "flex" : "none",
               flexWrap: "wrap",
-              alignItems: "flex-start",
+              alignItems: "center",
               gap: 2,
               mb: 2,
             }}
@@ -311,11 +306,21 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
                 ),
               }}
             />
-            <Button startIcon={<CircularProgress size={20} />} type="submit" variant="contained">
-              Send Email
+            <Button type="submit" variant="contained">
+              Send
             </Button>
           </Box>
         </form>
+            <Tooltip title="Download PDF">
+            <IconButton
+              color="primary"
+              variant="contained"
+              onClick={() => downloadMedia(`${vendor?.name} - ${invoice || ""}`, pdfUrl)}
+            >
+              <Download />
+            </IconButton>
+            </Tooltip>
+        </Stack>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
 
