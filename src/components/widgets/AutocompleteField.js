@@ -178,10 +178,10 @@ export const AutocompleteField = (props) => {
         />
       )}
       renderOption={(props, option) => {
-        const matches = option.structured_formatting.main_text_matched_substrings || [];
+        const matches = option.structured_formatting?.main_text_matched_substrings || [];
 
         const parts = parse(
-          option.structured_formatting.main_text,
+          option.structured_formatting?.main_text,
           matches.map((match) => [match.offset, match.offset + match.length])
         );
 
@@ -202,7 +202,7 @@ export const AutocompleteField = (props) => {
                   </Box>
                 ))}
                 <Typography variant="body2" color="text.secondary">
-                  {option.structured_formatting.secondary_text}
+                  {option.structured_formatting?.secondary_text}
                 </Typography>
               </Grid>
             </Grid>

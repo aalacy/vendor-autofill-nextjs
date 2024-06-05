@@ -11,12 +11,16 @@ import {
   ListItemText,
   Tooltip,
   Typography,
-  LinearProgress
+  LinearProgress,
+  FormControl,
+  FormHelperText,
 } from "@mui/material";
-import { ControlPointDuplicateRounded as DuplicateIcon, DeleteOutline as XIcon } from "@mui/icons-material";
+import {
+  ControlPointDuplicateRounded as DuplicateIcon,
+  DeleteOutline as XIcon,
+} from "@mui/icons-material";
 
 import { bytesToSize } from "src/utils";
-
 
 export const FileDropzone = (props) => {
   const {
@@ -42,6 +46,10 @@ export const FileDropzone = (props) => {
     children,
     type,
     loading,
+    error,
+    helperText,
+    canUpload,
+    name,
     ...other
   } = props;
 
@@ -53,6 +61,7 @@ export const FileDropzone = (props) => {
     maxSize,
     minSize,
     onDrop,
+    disabled: !canUpload || disabled,
   });
 
   return (
@@ -82,28 +91,35 @@ export const FileDropzone = (props) => {
         }}
         {...getRootProps()}
       >
-        <input {...getInputProps()} />
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          {children}
-          <Box sx={{ p: 2 }}>
-            {loading && <LinearProgress />}
-            <Typography variant="h6" textAlign="center">
-              {`Select ${type} file${maxFiles && maxFiles === 1 ? "" : "s"}`}
-            </Typography>
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="body1">
-                {`Drop ${type} file${maxFiles && maxFiles === 1 ? "" : "s"}`}{" "}
-                <Link underline="always">browse</Link> thorough your machine
+        <input {...getInputProps()} required={false} name={name} />
+
+        {children ? (
+          <>{children}</>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ p: 2 }}>
+              {loading && <LinearProgress />}
+              <Typography variant="h6" textAlign="center">
+                {`Select ${type} file${maxFiles && maxFiles === 1 ? "" : "s"}`}
               </Typography>
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="body1">
+                  {`Drop ${type} file${maxFiles && maxFiles === 1 ? "" : "s"}`}{" "}
+                  <Link underline="always">browse</Link> thorough your machine
+                </Typography>
+              </Box>
             </Box>
           </Box>
-        </Box>
+        )}
       </Box>
+      <FormControl error={error} variant="standard">
+        <FormHelperText>{helperText}</FormHelperText>
+      </FormControl>
       {files.length > 0 && (
         <Box sx={{ mt: 2 }}>
           <List>
@@ -131,10 +147,7 @@ export const FileDropzone = (props) => {
                   secondary={bytesToSize(file.size)}
                 />
                 <Tooltip title="Remove">
-                  <IconButton
-                    edge="end"
-                    onClick={() => onRemove && onRemove(file)}
-                  >
+                  <IconButton edge="end" onClick={() => onRemove && onRemove(file)}>
                     <XIcon color="error" fontSize="small" />
                   </IconButton>
                 </Tooltip>
@@ -168,10 +181,7 @@ export const FileDropzone = (props) => {
 };
 
 FileDropzone.propTypes = {
-  accept: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
+  accept: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   disabled: PropTypes.bool,
   files: PropTypes.array,
   getFilesFromEvent: PropTypes.func,

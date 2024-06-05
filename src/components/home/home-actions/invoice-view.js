@@ -25,13 +25,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Modal } from "src/components/common/modal";
 import { VendorService } from "src/services";
 import { ManageInvoice } from "./invoice";
 import { currencyFormatter, sum } from "src/utils";
 import { useAuth } from "src/hooks/use-auth";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const InvoiceView = ({
   vendor,

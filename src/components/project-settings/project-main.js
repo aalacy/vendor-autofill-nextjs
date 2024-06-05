@@ -61,7 +61,6 @@ export const ProjectMain = () => {
         </Box>
       </Box>
       <JobDataTable />
-      
     </>
   );
 };

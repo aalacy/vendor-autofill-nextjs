@@ -7,9 +7,8 @@ import { EDataGrid } from "../tables/e-datagrid";
 import { initialPage } from "src/utils";
 import { PrimitiveVendorsColumns } from "src/columns";
 import { VendorDetailPanelContent } from "../home/vendor-detail";
-import { UpdateVendor } from "./update-vendor";
 import { useAuth } from "src/hooks/use-auth";
-import { VendorForm } from "../home/vendor-form";
+import { VendorForm1 } from "../home/vendor-form1";
 
 export const ManageVendors = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
@@ -17,7 +16,6 @@ export const ManageVendors = () => {
   const [rowCountState, setRowCountState] = useState(0);
   const [logicOperator, setLogicOperator] = useState("");
   const [curVendor, setVendor] = useState();
-  const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
 
   const queryClient = useQueryClient();
@@ -42,7 +40,7 @@ export const ManageVendors = () => {
 
   const handleEdit = (vendor) => {
     setVendor(vendor);
-    setOpen(true);
+    setShow(true);
   };
 
   const handleRemove = async (vendor) => {
@@ -85,9 +83,7 @@ export const ManageVendors = () => {
         getDetailPanelContent={getDetailPanelContent}
       />
 
-      {open && <UpdateVendor open={true} onClose={() => setOpen(false)} vendor={curVendor} />}
-
-      {show && <VendorForm noThankYou show={true} setShow={setShow} />}
+      {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
     </>
   );
 };

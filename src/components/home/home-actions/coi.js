@@ -1,13 +1,13 @@
 import toast from "react-hot-toast";
-import { useCallback, useState } from "react";
-
-import { FileDropzone } from "src/components/account/file-dropzone";
-import { Modal } from "src/components/common/modal";
-import { VendorService } from "src/services";
+import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "src/hooks/use-auth";
 
-export const ManageCOI = ({ title, vendor, open, setOpen, refreshData }) => {
+import { VendorService } from "src/services";
+import { useAuth } from "src/hooks/use-auth";
+import { FileInput } from "src/components/widgets/file-input";
+import { Modal } from "src/components/common/modal";
+
+export const ManageCOI = ({ title, vendor, open, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
 
@@ -18,26 +18,6 @@ export const ManageCOI = ({ title, vendor, open, setOpen, refreshData }) => {
   const onClose = () => setOpen(false);
 
   const uploadedFile = (event) => {};
-
-  const handleDrop = (newFiles, fileRejections) => {
-    setFiles(() => [...newFiles]);
-    if (fileRejections.length) {
-      const { errors } = fileRejections[0];
-      let message = errors[0].message;
-      if (errors[0].code === ErrorCode.TooManyFiles) {
-        message = `Cannot upload more than ${maxFileLimit} file(s)`;
-      }
-      toast.error(message);
-    }
-  };
-
-  const handleRemove = (file) => {
-    setFiles((prevFiles) => prevFiles.filter((_file) => _file.path !== file.path));
-  };
-
-  const handleRemoveAll = () => {
-    setFiles([]);
-  };
 
   const onUpload = async () => {
     if (!files || files?.length < 1) return;
@@ -61,16 +41,12 @@ export const ManageCOI = ({ title, vendor, open, setOpen, refreshData }) => {
   return (
     <>
       {open && (
-        <Modal open={true} onClose={onClose} title={title} size="sm">
-          <FileDropzone
-            maxFiles={1}
-            accept={{ "application/pdf": [".pdf"] }}
+        <Modal open={true} onClose={onClose} title={title} subTitle={subTitle} size="sm">
+          <FileInput
             files={files}
-            onDrop={handleDrop}
-            onRemove={handleRemove}
-            onRemoveAll={handleRemoveAll}
+            setFiles={setFiles}
+            maxFileLimit={1}
             onUpload={onUpload}
-            type="PDF"
             loading={loading}
           />
         </Modal>

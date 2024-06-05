@@ -6,15 +6,10 @@
   display: none;
 }
 
-/* .MuiDataGrid-sortIcon {
-  fill: white;
-  color: white;
+input:invalid {
+  display: block !important;
 }
 
-.MuiDataGrid-menuIcon .MuiSvgIcon-root {
-  fill: white;
-  color: white;
-} */
 @media only screen and (max-width: 767px) {
   table.dnxTable {
     border: none !important;

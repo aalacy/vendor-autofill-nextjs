@@ -79,6 +79,25 @@ export class VendorService {
     });
   }
 
+  static uploadFormPDF(vendor_name, file, onUploadProgress = undefined) {
+    let formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("vendor_name", vendor_name);
+
+    return http.post("/vendors/upload-form-pdf", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress,
+    });
+  }
+
+  static deleteFormPdf(key) {
+    return http.post(`/vendors/delete-form-pdf`, { key });
+  }
+
+
   static readCOI(key) {
     return http.post(`/vendors/get-coi`, key);
   }
