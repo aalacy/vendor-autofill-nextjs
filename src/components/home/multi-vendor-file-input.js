@@ -8,7 +8,7 @@ import { FileInput } from "../widgets/file-input";
 export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
-  const [filePath, setFilePath] = useState(value);
+  const [template_key, setTemplateKey] = useState(value);
 
   const onUpload = async () => {
     if (!files || files?.length < 1) return;
@@ -17,7 +17,7 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
     try {
       const { data: { result} } = await VendorService.uploadFormPDF(values.name, files[0]);
       console.log(result);
-      setFilePath(result);
+      setTemplateKey(result);
       setFieldValue(name, result);
     } catch (err) {
       console.log("err", err);
@@ -32,8 +32,8 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const { data: { detail } } = await VendorService.deleteFormPdf(filePath);
-      setFilePath("");
+      const { data: { detail } } = await VendorService.deleteFormPdf(template_key);
+      setTemplateKey("");
       toast.success(detail);
     } catch (err) {
       console.log("err", err);
@@ -58,9 +58,9 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
       loading={loading}
       canUpload={canUpload}
       name={name}
-      disabled={!!filePath}
+      disabled={!!template_key}
     >
-      {filePath ? (
+      {template_key ? (
         <Button onClick={handleDelete} variant="outlined" color="error">
           Remove File
         </Button>

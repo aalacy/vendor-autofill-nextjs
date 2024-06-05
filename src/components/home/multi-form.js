@@ -33,8 +33,8 @@ export const VendorMultiForm = (props) => {
                           <MultiVendorFileInput
                             values={values}
                             setFieldValue={setFieldValue}
-                            name={`forms.${index}.filePath`}
-                            value={form.filePath}
+                            name={`forms.${index}.template_key`}
+                            value={form.template_key}
                           />
                         </Grid>
                       </Grid>
@@ -56,7 +56,7 @@ export const VendorMultiForm = (props) => {
                   arrayHelpers.push({
                     name: "",
                     title: "",
-                    filePath: ""
+                    template_key: ""
                   })
                 } // insert an empty string at a position
               >

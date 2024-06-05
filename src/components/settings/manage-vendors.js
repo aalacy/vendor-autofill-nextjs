@@ -9,6 +9,9 @@ import { PrimitiveVendorsColumns } from "src/columns";
 import { VendorDetailPanelContent } from "../home/vendor-detail";
 import { useAuth } from "src/hooks/use-auth";
 import { VendorForm1 } from "../home/vendor-form1";
+import { Modal } from "../common/modal";
+import { PdfViewer } from "../history/pdf-viewer";
+import LoadingOverlay from "../common/loading-overlay";
 
 export const ManageVendors = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
@@ -17,6 +20,10 @@ export const ManageVendors = () => {
   const [logicOperator, setLogicOperator] = useState("");
   const [curVendor, setVendor] = useState();
   const [show, setShow] = useState(false);
+  const [title, setTitle] = useState("");
+  const [showPDFModal, setShowPDFModal] = useState(false);
+  const [pdfUrl, setUrl] = useState("");
+  const [gLoading, setGLoading] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -43,27 +50,48 @@ export const ManageVendors = () => {
     setShow(true);
   };
 
-  const handleRemove = async (vendor) => {
-    showConfirmDlg({
-      open: true,
-      close: hideConfirm,
-      callback: async () => {
-        try {
-          await VendorService.removeVendor(vendor.id);
-          toast.success("Successfully Deleted");
-          queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
-        } catch (error) {
-          toast.error(error?.response?.data?.message || error.message);
-        } finally {
-          hideConfirm();
-        }
-      },
-    });
-  };
+  const handleRemove = useCallback(
+    async (vendor) => {
+      showConfirmDlg({
+        open: true,
+        close: hideConfirm,
+        callback: async () => {
+          try {
+            await VendorService.removeVendor(vendor.id);
+            toast.success("Successfully Deleted");
+            queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
+          } catch (error) {
+            toast.error(error?.response?.data?.message || error.message);
+          } finally {
+            hideConfirm();
+          }
+        },
+      });
+    },
+    [showConfirmDlg, hideConfirm, queryClient, toast, VendorService]
+  );
 
   const handleAdd = useCallback(() => {
     setShow(true);
   }, []);
+
+  const handleOpenPDF = useCallback(
+    async (vendor, form) => {
+      setTitle(`${vendor.name} - ${form?.title}`);
+      try {
+        const {
+          data: { result },
+        } = await VendorService.readPDF(form.template_key);
+        setShowPDFModal(true);
+        setUrl(result);
+      } catch (error) {
+        console.log("handleCOI", error);
+      } finally {
+        setGLoading(false);
+      }
+    },
+    [setTitle, setShowPDFModal, setUrl, setGLoading, VendorService]
+  );
 
   return (
     <>
@@ -72,7 +100,7 @@ export const ManageVendors = () => {
         initialState={{ pinnedColumns: { right: ["id"] } }}
         loading={isLoading}
         data={vendors}
-        columns={PrimitiveVendorsColumns({ handleEdit, handleRemove, handleAdd })}
+        columns={PrimitiveVendorsColumns({ handleEdit, handleRemove, handleAdd, handleOpenPDF })}
         paginationModel={paginationModel}
         setPaginationModel={setPaginationModel}
         rowCountState={rowCountState}
@@ -84,6 +112,12 @@ export const ManageVendors = () => {
       />
 
       {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
+
+      <Modal title={title} open={showPDFModal} onClose={() => setShowPDFModal(false)}>
+        <PdfViewer pdfUrl={pdfUrl} />
+      </Modal>
+
+      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
     </>
   );
 };

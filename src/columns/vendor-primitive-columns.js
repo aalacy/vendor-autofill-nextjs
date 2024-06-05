@@ -1,9 +1,10 @@
-import { Typography, IconButton, Tooltip, Box, Checkbox, Button } from "@mui/material";
+import { Typography, IconButton, Tooltip, Box, Checkbox, Button, Stack } from "@mui/material";
 import {
   EditOutlined as EditIcon,
   LaunchOutlined,
   Clear as ClearIcon,
   AddCircleOutline as AddIcon,
+  DocumentScanner as ViewIcon,
 } from "@mui/icons-material";
 import { useCallback } from "react";
 
@@ -46,12 +47,7 @@ const RenderActionHeader = (props) => {
   return (
     <Tooltip title="Add Vendor">
       <span>
-        <Button
-          onClick={() => handleAdd(row)}
-          size="small"
-          color="info"
-          startIcon={<AddIcon />}
-        >
+        <Button onClick={() => handleAdd(row)} size="small" color="info" startIcon={<AddIcon />}>
           Add
         </Button>
       </span>
@@ -59,7 +55,7 @@ const RenderActionHeader = (props) => {
   );
 };
 
-export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd }) => {
+export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, handleOpenPDF }) => {
   const selectedCreditAuth = useCallback(
     (selected) => {
       return CreditAuthList.find(({ script }) => script === selected);
@@ -67,7 +63,7 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd })
     [CreditAuthList]
   );
 
-  const selectedRentalAgreemtn = useCallback(
+  const selectedRentalAgreement = useCallback(
     (selected) => {
       return RentalAgreementList.find(({ script }) => script === selected);
     },
@@ -83,57 +79,60 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd })
       width: 200,
     },
     {
-      field: "credit_auth",
-      headerName: "Credit Auth",
+      field: "forms",
+      headerName: "Forms",
       resizable: true,
       width: 100,
       filterable: false,
       align: "center",
       renderCell: (params) => (
-        <Tooltip title={selectedCreditAuth(params.value) ? "Show template" : "No template"}>
-          <span>
-            <IconButton
-              disabled={!!!selectedCreditAuth(params.value)}
-              color="info"
-              size="small"
-              href={selectedCreditAuth(params.value)?.link}
-            >
-              <LaunchOutlined />{" "}
-            </IconButton>
-          </span>
-        </Tooltip>
+        <Stack direction="row" justifyContent="center">
+          {params.value?.map((form) => (
+            <Tooltip key={form.template_key} title={form.title}>
+              <span>
+                <IconButton
+                  color="info"
+                  size="small"
+                  onClick={() => handleOpenPDF(params.row, form)}
+                >
+                  <ViewIcon />{" "}
+                </IconButton>
+              </span>
+            </Tooltip>
+          ))}
+        </Stack>
       ),
     },
-    {
-      field: "rental_agreement",
-      headerName: "Rental Agreement",
-      resizable: true,
-      filterable: false,
-      align: "center",
-      width: 140,
-      renderCell: (params) => (
-        <Tooltip title={selectedRentalAgreemtn(params.value) ? "Show template" : "No template"}>
-          <span>
-            <IconButton
-              disabled={!!!selectedRentalAgreemtn(params.value)}
-              color="info"
-              size="small"
-              href={selectedRentalAgreemtn(params.value)?.link}
-            >
-              <LaunchOutlined />{" "}
-            </IconButton>
-          </span>
-        </Tooltip>
-      ),
-    },
-    {
-      field: "addition",
-      headerName: "Addition",
-      resizable: true,
-      filterable: false,
-      align: "center",
-      width: 100,
-    },
+    // {
+    //   field: "rental_agreement",
+    //   headerName: "Rental Agreement",
+    //   resizable: true,
+    //   filterable: false,
+    //   align: "center",
+    //   width: 140,
+    //   renderCell: (params) => (
+    //     <Tooltip title={selectedRentalAgreement(params.value) ? "Show template" : "No template"}>
+    //       <span>
+    //         <IconButton
+    //           disabled={!!!selectedRentalAgreement(params.value)}
+    //           color="info"
+    //           size="small"
+    //           href={selectedRentalAgreement(params.value)?.link}
+    //         >
+    //           <LaunchOutlined />{" "}
+    //         </IconButton>
+    //       </span>
+    //     </Tooltip>
+    //   ),
+    // },
+    // {
+    //   field: "addition",
+    //   headerName: "Addition",
+    //   resizable: true,
+    //   filterable: false,
+    //   align: "center",
+    //   width: 100,
+    // },
     {
       field: "created_at",
       headerName: "Created At",
@@ -174,7 +173,7 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd })
       type: "actions",
       align: "center",
       description: "Action Column",
-      renderHeader: (params) => <RenderActionHeader {...params} handleAdd={handleAdd}/>,
+      renderHeader: (params) => <RenderActionHeader {...params} handleAdd={handleAdd} />,
       sortable: false,
       width: 100,
       renderCell: (params) => (

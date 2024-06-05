@@ -41,8 +41,15 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
       submitData = { ...other, active: true, is_template: true };
     }
     try {
-      const { data } = await VendorService.add(submitData);
-      toast.success(data.detail);
+      if (vendor) {
+        const {
+          data: { detail },
+        } = await VendorService.updateVendor(vendor.id, submitData);
+        toast.success(detail);
+      } else {
+        const { data } = await VendorService.add(submitData);
+        toast.success(data.detail);
+      }
       if (noThankYou) {
         queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
       } else {
@@ -80,7 +87,7 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
     hours: vendor?.hours ?? "",
     category: vendor?.category ?? "",
     notes: vendor?.notes ?? "",
-    forms: vendor?.forms ?? [{ name: "", title: "", filePath: "" }],
+    forms: vendor?.forms ?? [{ name: "", title: "", template_key: "" }],
     submit: null,
   };
 
@@ -88,12 +95,12 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
     name: Yup.string().required("Required"),
     address: Yup.string().required("Required"),
     email: Yup.string().email("Must be a valid email").max(255).required("Required"),
-    phone: Yup.string().phone("US", "Please enter a valid phone number").required("Required"),
+    phone: Yup.string().phone("US", "Please enter a valid phone number"),
     forms: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required(`required`),
         title: Yup.string().required(`required`),
-        filePath: Yup.string().required(`required`),
+        template_key: Yup.string().required(`required`),
       })
     ),
   });
@@ -144,7 +151,7 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                 />
                 <InputField
                   name="phone"
-                  label="Phone*"
+                  label="Phone"
                   sx={{ gridColumn: "span 2" }}
                   InputProps={{
                     inputComponent: InputPhone,

@@ -69,11 +69,11 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     []
   );
 
-  const handleGeneratePDF = async (vendor, invoice) => {
+  const handleGeneratePDF = async (vendor, form) => {
     if (!project) {
       return toast.error("Please add a project.");
     }
-    setInvoice(invoice);
+    setInvoice(form.title);
     setVendor(vendor);
     setGLoading(true);
     setCanSendEmail(true);
@@ -82,7 +82,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         data: {
           result: { presigned_url, key },
         },
-      } = await VendorService.generateOnePDF(vendor.id, project?.id, invoice);
+      } = await VendorService.generateFormPDF(vendor.id, project?.id, form.template_key);
       setShowPDFModal(true);
       setUrl(presigned_url);
       setVendorKey(key);
@@ -158,7 +158,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       try {
         const {
           data: { result },
-        } = await VendorService.readCOI(vendor.coi);
+        } = await VendorService.readPDF(vendor.coi);
         setShowPDFModal(true);
         setUrl(result);
       } catch (error) {
@@ -269,7 +269,11 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
           }}
         />
       </div>
+
+      {/* Loading Overlay */}
       <LoadingOverlay setOpen={setGLoading} open={gLoading || isLoading} />
+
+      {/* PDF Modal */}
       <Modal
         title={`${vendor?.name} - ${invoice || ""}`}
         subTitle={subTitle}
@@ -314,6 +318,8 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         </form>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
+
+      {/* Thank you modal */}
       {showThankYou && (
         <ThankYou
           open={true}
@@ -325,7 +331,11 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
           }
         />
       )}
+
+      {/* COI Modal */}
       {showCOI && <ManageCOI title={title} vendor={vendor} open={true} setOpen={setShowCOI} />}
+
+      {/* Manage Invoice Modal */}
       {showInvoice && (
         <ManageInvoice
           title={`Upload Invoices for ${vendor.name}`}
@@ -335,6 +345,8 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
           setOpen={setShowInvoice}
         />
       )}
+
+      {/* Show Invoice Modal */}
       {showInvoiceModal && (
         <InvoiceView
           open={true}

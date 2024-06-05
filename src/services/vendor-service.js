@@ -46,6 +46,14 @@ export class VendorService {
     });
   }
 
+  static generateFormPDF(vendor_id, job_id, template_key) {
+    return http.post("/vendors/generate-form-pdf", {
+      vendor_id,
+      job_id,
+      template_key,
+    });
+  }
+
   static readGSheet() {
     return http.get("/vendors/read_g_sheet");
   }
@@ -98,8 +106,8 @@ export class VendorService {
   }
 
 
-  static readCOI(key) {
-    return http.post(`/vendors/get-coi`, key);
+  static readPDF(key) {
+    return http.post(`/vendors/read-pdf`, key);
   }
 
   static deleteCOI(vendor_id) {

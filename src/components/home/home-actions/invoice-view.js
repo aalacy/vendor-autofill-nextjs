@@ -71,7 +71,7 @@ export const InvoiceView = ({
     try {
       const {
         data: { result },
-      } = await VendorService.readCOI(key);
+      } = await VendorService.readPDF(key);
       setShowPDFModal(true);
       setUrl(result);
     } catch (error) {

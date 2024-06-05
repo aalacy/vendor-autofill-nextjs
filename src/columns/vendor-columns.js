@@ -1,10 +1,10 @@
-import { Switch, Box, IconButton, Tooltip, Badge, Typography } from "@mui/material";
+import { Switch, Box, IconButton, Tooltip, Badge, Typography, Stack } from "@mui/material";
 import {
   DocumentScanner as ViewIcon,
   AddCircleOutline as AddIcon,
   LocalPoliceOutlined as COIIcon,
   RequestPageOutlined as InvoiceIcon,
-  VerifiedOutlined as W9Icon
+  VerifiedOutlined as W9Icon,
 } from "@mui/icons-material";
 import { useGridApiContext } from "@mui/x-data-grid-pro";
 import { useCallback } from "react";
@@ -30,55 +30,54 @@ const EditSwitchCell = (params) => {
 
 const FormCell = (params) => {
   const { row, handleGeneratePDF } = params;
-  const disabledStatus = useCallback(
-    (name) => {
-      if (row.vendor[name]) return false;
-      return true;
-    },
-    [row]
-  );
-
-  const iconColor = useCallback(
-    (name) => {
-      if (row.vendor[name]) return "primary";
-      return "inherit";
-    },
-    [row]
-  );
-
   return (
-    <Box sx={{ display: "flex" }}>
-      <Tooltip title="Credit Auth">
-        <span>
-          <IconButton
-            onClick={() => handleGeneratePDF(row.vendor, "credit_auth")}
-            disabled={disabledStatus("credit_auth")}
-          >
-            <ViewIcon color={iconColor("credit_auth")} />
-          </IconButton>
-        </span>
-      </Tooltip>
-      <Tooltip title="Rental Agreement">
-        <span>
-          <IconButton
-            onClick={() => handleGeneratePDF(row.vendor, "rental_agreement")}
-            disabled={disabledStatus("rental_agreement")}
-          >
-            <ViewIcon color={iconColor("rental_agreement")} />
-          </IconButton>
-        </span>
-      </Tooltip>
-      <Tooltip title="Addition">
-        <span>
-          <IconButton
-            onClick={() => handleGeneratePDF(row.vendor, "addition")}
-            disabled={disabledStatus("addition")}
-          >
-            <InvoiceIcon color={iconColor("addition")} />
-          </IconButton>
-        </span>
-      </Tooltip>
-    </Box>
+    <Stack direction="row" justifyContent="center" spacing={1}>
+      {row.vendor.forms?.map((form) => (
+        <Tooltip key={form.template_key} title={form.title}>
+          <span>
+            <IconButton
+              color="info"
+              size="small"
+              onClick={() => handleGeneratePDF(row.vendor, form)}
+            >
+              <ViewIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
+      ))}
+    </Stack>
+    // <Box sx={{ display: "flex" }}>
+    //   <Tooltip title="Credit Auth">
+    //     <span>
+    //       <IconButton
+    //         onClick={() => handleGeneratePDF(row.vendor, "credit_auth")}
+    //         disabled={disabledStatus("credit_auth")}
+    //       >
+    //         <ViewIcon color={iconColor("credit_auth")} />
+    //       </IconButton>
+    //     </span>
+    //   </Tooltip>
+    //   <Tooltip title="Rental Agreement">
+    //     <span>
+    //       <IconButton
+    //         onClick={() => handleGeneratePDF(row.vendor, "rental_agreement")}
+    //         disabled={disabledStatus("rental_agreement")}
+    //       >
+    //         <ViewIcon color={iconColor("rental_agreement")} />
+    //       </IconButton>
+    //     </span>
+    //   </Tooltip>
+    //   <Tooltip title="Addition">
+    //     <span>
+    //       <IconButton
+    //         onClick={() => handleGeneratePDF(row.vendor, "addition")}
+    //         disabled={disabledStatus("addition")}
+    //       >
+    //         <InvoiceIcon color={iconColor("addition")} />
+    //       </IconButton>
+    //     </span>
+    //   </Tooltip>
+    // </Box>
   );
 };
 
@@ -185,7 +184,9 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       resizable: true,
       width: 120,
       renderCell: (params) => (
-        <Typography>{currencyFormatter(sum(params.row.vendor.invoices.map((r) => r.total)))}</Typography>
+        <Typography>
+          {currencyFormatter(sum(params.row.vendor.invoices.map((r) => r.total)))}
+        </Typography>
       ),
     },
     // {
