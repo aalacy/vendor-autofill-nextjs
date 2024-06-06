@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { useKey } from "react-use";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Button,
-  Snackbar,
-} from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 
 const ConfirmDialog = (props) => {
@@ -23,17 +16,9 @@ const ConfirmDialog = (props) => {
 
   return (
     <>
-      <Dialog
-        open={open || false}
-        onClose={close}
-        aria-labelledby="confirm-dialog"
-      >
-        <DialogTitle id="confirm-dialog">
-          {title ?? "Are you sure?"}
-        </DialogTitle>
-        <DialogContent>
-          {successMsg ? <>{successMsg}</> : children}
-        </DialogContent>
+      <Dialog open={open || false} onClose={close} aria-labelledby="confirm-dialog">
+        <DialogTitle id="confirm-dialog">{title ?? "Are you sure?"}</DialogTitle>
+        <DialogContent>{successMsg ? <>{successMsg}</> : children}</DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={close} color="warning">
             No

@@ -39,7 +39,7 @@ export const ManageInvoice = ({
         vendor.name,
         project?.id,
         files,
-        uploadedFile
+        uploadedFile,
       );
       toast.success("Successfully uploaded.");
       queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });

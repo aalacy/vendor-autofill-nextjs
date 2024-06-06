@@ -16,11 +16,21 @@ export const ContactAddModal = ({ contact, open, setOpen }) => {
     await ContactService.update(id, values);
     setOpen(false);
     refresh();
-  }
+  };
 
   return (
-    <Modal title={`${contact ? "Update Contact" : "Add New Contact"}`} open={open} onClose={() => setOpen(false)} size="md">
-      <ContactAddForm contact={contact} handleUpdate={handleUpdate} submitForm={handleSubmit} onClose={() => setOpen(false)} />
+    <Modal
+      title={`${contact ? "Update Contact" : "Add New Contact"}`}
+      open={open}
+      onClose={() => setOpen(false)}
+      size="md"
+    >
+      <ContactAddForm
+        contact={contact}
+        handleUpdate={handleUpdate}
+        submitForm={handleSubmit}
+        onClose={() => setOpen(false)}
+      />
     </Modal>
   );
 };

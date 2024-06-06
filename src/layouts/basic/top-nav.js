@@ -79,7 +79,7 @@ export const TopNav = (props) => {
         >
           <Stack alignItems="center" direction="row" spacing={2}>
             {!lgUp && (
-              <IconButton  onClick={onNavOpen}>
+              <IconButton onClick={onNavOpen}>
                 <SvgIcon fontSize="small">
                   <Bars3Icon />
                 </SvgIcon>
@@ -93,7 +93,7 @@ export const TopNav = (props) => {
             sx={{ display: isAuthenticated ? "inherit" : "none" }}
           >
             <IconButton size="large" href="/faqs">
-              <HelpIcon sx={{ fontSize: 40 }}/>
+              <HelpIcon sx={{ fontSize: 40 }} />
             </IconButton>
             <StyledBadge
               overlap="circular"

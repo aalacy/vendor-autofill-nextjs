@@ -7,13 +7,13 @@ import {
   ListItemAvatar,
   IconButton,
   Typography,
-  ClickAwayListener
+  ClickAwayListener,
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
   DeleteOutline as RemoveIcon,
   FolderOutlined as FolderIcon,
-  Download as DownloadIcon
+  Download as DownloadIcon,
 } from "@mui/icons-material";
 import { useState } from "react";
 
@@ -29,22 +29,22 @@ export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
-  const handleClose = () => setAnchorEl(null)
+  const handleClose = () => setAnchorEl(null);
 
   const handleRemove = () => {
     setAnchorEl(null);
-    removeItem(folder_name)
+    removeItem(folder_name);
   };
 
   const handleDownload = () => {
     setAnchorEl(null);
-    downloadFiles([folder])
-  }
+    downloadFiles([folder]);
+  };
 
   const handleFolder = () => {
     setFolder(folder);
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const open = Boolean(anchorEl);
   const id = open ? "more-popper" : undefined;
@@ -65,15 +65,24 @@ export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen
         </IconButton>
       </ListItemButton>
       <Popper id={id} open={open} anchorEl={anchorEl}>
-      <ClickAwayListener onClickAway={handleClose}>
-        <Box sx={{ p: 1, border: 1, borderRadius: 1, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-          <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
-            Download
-          </Button>
-          <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
-            Delete
-          </Button>
-        </Box>
+        <ClickAwayListener onClickAway={handleClose}>
+          <Box
+            sx={{
+              p: 1,
+              border: 1,
+              borderRadius: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+            }}
+          >
+            <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
+              Download
+            </Button>
+            <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
+              Delete
+            </Button>
+          </Box>
         </ClickAwayListener>
       </Popper>
     </>

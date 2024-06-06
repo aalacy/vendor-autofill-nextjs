@@ -33,7 +33,7 @@ function a11yProps(index) {
 
 export default function TabComponent({ nodes }) {
   const [value, setValue] = useState(0);
-  const orientation = "horizontal"
+  const orientation = "horizontal";
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

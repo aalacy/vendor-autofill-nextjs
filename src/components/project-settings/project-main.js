@@ -22,13 +22,15 @@ export const ProjectMain = () => {
       close: hideConfirm,
       callback: async () => {
         try {
-          const { data: { result }} = await JobService.remove(project?.id);
+          const {
+            data: { result },
+          } = await JobService.remove(project?.id);
           toast.success("Successfully Deleted");
-          setProjects(result)
+          setProjects(result);
           if (result.length > 0) {
-            setProject(result[0])
+            setProject(result[0]);
           } else {
-            setProject(null)
+            setProject(null);
           }
         } catch (error) {
           toast.error(error?.response?.data?.message || error.message);

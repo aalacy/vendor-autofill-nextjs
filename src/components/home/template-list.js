@@ -32,7 +32,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
     if (!templates) return [];
     return templates.filter(
       ({ name, address }) =>
-        name.match(new RegExp(query, "i")) || address.match(new RegExp(query, "i"))
+        name.match(new RegExp(query, "i")) || address.match(new RegExp(query, "i")),
     );
   }, [query]);
 

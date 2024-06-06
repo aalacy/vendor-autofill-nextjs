@@ -1,6 +1,6 @@
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 
-import { DatePickerField, InputField } from 'src/components/widgets';
+import { DatePickerField, InputField } from "src/components/widgets";
 
 export const Step3 = (props) => {
   const {
@@ -10,7 +10,7 @@ export const Step3 = (props) => {
       cardholderDriversLicenseNumber,
       cardholderDriversLicenseState,
       cardholderDriversLicenseExpiry,
-    }
+    },
   } = props;
 
   return (
@@ -23,17 +23,25 @@ export const Step3 = (props) => {
           <InputField name={cardholderName.name} label={cardholderName.label} fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputField name={cardholderDriversLicenseNumber.name} label={cardholderDriversLicenseNumber.label} fullWidth />
+          <InputField
+            name={cardholderDriversLicenseNumber.name}
+            label={cardholderDriversLicenseNumber.label}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputField name={cardholderDriversLicenseState.name} label={cardholderDriversLicenseState.label} fullWidth />
+          <InputField
+            name={cardholderDriversLicenseState.name}
+            label={cardholderDriversLicenseState.label}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <DatePickerField
             name={cardholderDriversLicenseExpiry.name}
             label={cardholderDriversLicenseExpiry.label}
             format="MM/yy"
-            views={['year', 'month']}
+            views={["year", "month"]}
             minDate={new Date()}
             fullWidth
           />
@@ -41,4 +49,4 @@ export const Step3 = (props) => {
       </Grid>
     </>
   );
-}
+};

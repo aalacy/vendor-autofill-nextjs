@@ -1,5 +1,9 @@
 import { Typography, IconButton, Tooltip, Box, Avatar, Chip } from "@mui/material";
-import { EditOutlined as EditIcon, AccountCircle as UserCircleIcon, Clear as ClearIcon } from "@mui/icons-material";
+import {
+  EditOutlined as EditIcon,
+  AccountCircle as UserCircleIcon,
+  Clear as ClearIcon,
+} from "@mui/icons-material";
 import { useCallback } from "react";
 
 const RenderAction = (props) => {
@@ -50,7 +54,7 @@ export const UserColumns = ({ handleEdit, handleRemove }) => {
       if (label === "Free") return "error";
       return "primary";
     },
-    [subscriptionLabel]
+    [subscriptionLabel],
   );
 
   return [

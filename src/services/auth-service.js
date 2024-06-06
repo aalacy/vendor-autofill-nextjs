@@ -13,9 +13,7 @@ export class AuthService {
     });
   }
 
-  static register(
-    {...input}
-  ) {
+  static register({ ...input }) {
     return http.post("/auth/register/", input);
   }
 

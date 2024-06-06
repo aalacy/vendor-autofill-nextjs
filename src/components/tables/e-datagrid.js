@@ -14,19 +14,15 @@ import { useAuth } from "src/hooks/use-auth";
 import { StripedDataGrid } from "./styled-grid";
 
 export function CustomColumnMenuComponent(props) {
-  const { hideMenu, colDef,  ...other } = props;
+  const { hideMenu, colDef, ...other } = props;
 
-    return (
-      <GridColumnMenuContainer
-        hideMenu={hideMenu}
-        colDef={colDef}
-        {...other}
-      >
-        <GridColumnMenuSortItem onClick={hideMenu} colDef={colDef} />
-        <GridColumnMenuFilterItem onClick={hideMenu} colDef={colDef} />
-      </GridColumnMenuContainer>
-    );
-    }
+  return (
+    <GridColumnMenuContainer hideMenu={hideMenu} colDef={colDef} {...other}>
+      <GridColumnMenuSortItem onClick={hideMenu} colDef={colDef} />
+      <GridColumnMenuFilterItem onClick={hideMenu} colDef={colDef} />
+    </GridColumnMenuContainer>
+  );
+}
 
 export const EDataGrid = (props) => {
   const {
@@ -51,13 +47,13 @@ export const EDataGrid = (props) => {
     rowThreshold,
     getDetailPanelContent,
     enableClipboardCopy,
-    initialState
+    initialState,
   } = props;
 
   const { showConfirmDlg } = useAuth();
   const [detailPanelExpandedRowIds, setDetailPanelExpandedRowIds] = useState([]);
 
-  const getDetailPanelHeight = useCallback(() => 'auto', []);
+  const getDetailPanelHeight = useCallback(() => "auto", []);
   const handleDetailPanelExpandedRowIdsChange = useCallback((newIds) => {
     setDetailPanelExpandedRowIds(newIds.length > 1 ? [newIds[newIds.length - 1]] : newIds);
   }, []);
@@ -96,18 +92,18 @@ export const EDataGrid = (props) => {
 
   const handleCellClick = useCallback((params, event) => {
     const { field, row } = params;
-    if (['department', 'id'].includes(field)) return;
+    if (["department", "id"].includes(field)) return;
     let value = row[field];
     if (field === "phone_email") {
-      value = `phone: ${row['phone']}, email: ${row['email']}`
+      value = `phone: ${row["phone"]}, email: ${row["email"]}`;
     } else if (field === "name_position") {
-      value = `name: ${row['first_name']} ${row['last_name']}, position: ${row['position']}`
+      value = `name: ${row["first_name"]} ${row["last_name"]}, position: ${row["position"]}`;
     }
     if (value && enableClipboardCopy) {
       navigator.clipboard.writeText(value);
-      toast.success(`Copied: ${value}`)
+      toast.success(`Copied: ${value}`);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (!promiseArguments) return;
@@ -135,7 +131,7 @@ export const EDataGrid = (props) => {
       loading={loading}
       filterMode="server"
       onFilterModelChange={onFilterChange}
-      columnBuffer={2} 
+      columnBuffer={2}
       columnThreshold={2}
       pagination
       pageSizeOptions={pageSizeOptions || [5]}
@@ -158,9 +154,7 @@ export const EDataGrid = (props) => {
         loadingOverlay: TableSkeleton,
         columnMenu: CustomColumnMenuComponent,
       }}
-      getRowClassName={(params) =>
-        params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-      }
+      getRowClassName={(params) => (params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd")}
       processRowUpdate={processRowUpdate}
       onProcessRowUpdateError={handleProcessRowUpdateError}
       sx={{

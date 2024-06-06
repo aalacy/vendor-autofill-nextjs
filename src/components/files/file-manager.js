@@ -59,7 +59,7 @@ export const FileManager = ({}) => {
         setLoading(false);
       }
     },
-    [folders, downloadMedia, FileService]
+    [folders, downloadMedia, FileService],
   );
 
   const removeItem = (key) => {

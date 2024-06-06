@@ -8,8 +8,8 @@ export const geocodeByPlaceID = (placeId) => {
       if (status !== window.google.maps.GeocoderStatus.OK) {
         reject(
           new Error(
-            `Geocoding query for a place with an ID of '${placeId}' failed - response status: ${status}`
-          )
+            `Geocoding query for a place with an ID of '${placeId}' failed - response status: ${status}`,
+          ),
         );
 
         return;
@@ -28,8 +28,8 @@ export const geocodeByAddress = (address) => {
       if (status !== window.google.maps.GeocoderStatus.OK) {
         reject(
           new Error(
-            `Geocoding query for a place with an addr of '${address}' failed - response status: ${status}`
-          )
+            `Geocoding query for a place with an addr of '${address}' failed - response status: ${status}`,
+          ),
         );
 
         return;

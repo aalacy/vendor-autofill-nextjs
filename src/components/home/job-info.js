@@ -46,7 +46,7 @@ export const JobInfo = ({ open, setOpen, data, setData }) => {
                 style={Object.assign(
                   {},
                   csvUploadStyles.zone,
-                  zoneHover && csvUploadStyles.zoneHover
+                  zoneHover && csvUploadStyles.zoneHover,
                 )}
               >
                 {acceptedFile ? (

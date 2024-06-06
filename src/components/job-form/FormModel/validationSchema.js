@@ -46,7 +46,7 @@ export default [
     //   `${productionCompanyInfo.requiredErrorMsg}`
     // ),
     [productionCompanyName.name]: Yup.string().required(
-      `${productionCompanyName.requiredErrorMsg}`
+      `${productionCompanyName.requiredErrorMsg}`,
     ),
     [billingAddress.name]: Yup.string().required(`${billingAddress.requiredErrorMsg}`),
     [billingCity.name]: Yup.string().required(`${billingCity.requiredErrorMsg}`),
@@ -57,34 +57,34 @@ export default [
       .email("Invalid email!")
       .required(`${emailAddressToReceiveInvoices.requiredErrorMsg}`),
     [nameOfAuthorizedSignatory.name]: Yup.string().required(
-      `${nameOfAuthorizedSignatory.requiredErrorMsg}`
+      `${nameOfAuthorizedSignatory.requiredErrorMsg}`,
     ),
     [titleOfAuthorizedSignatory.name]: Yup.string().required(
-      `${titleOfAuthorizedSignatory.requiredErrorMsg}`
+      `${titleOfAuthorizedSignatory.requiredErrorMsg}`,
     ),
   }),
   Yup.object().shape({
     [cardholderInfo.name]: Yup.string().required(`${cardholderInfo.requiredErrorMsg}`),
     [cardholderName.name]: Yup.string().required(`${cardholderName.requiredErrorMsg}`),
     [cardholderDriversLicenseNumber.name]: Yup.string().required(
-      `${cardholderDriversLicenseNumber.requiredErrorMsg}`
+      `${cardholderDriversLicenseNumber.requiredErrorMsg}`,
     ),
     [cardholderDriversLicenseState.name]: Yup.string().required(
-      `${cardholderDriversLicenseState.requiredErrorMsg}`
+      `${cardholderDriversLicenseState.requiredErrorMsg}`,
     ),
     [cardholderDriversLicenseExpiry.name]: Yup.string()
       .nullable()
-      .required(`${cardholderDriversLicenseExpiry.requiredErrorMsg}`)
-      // .test("expDate", cardholderDriversLicenseExpiry.invalidErrorMsg, (val) => {
-      //   if (val) {
-      //     const startDate = new Date();
-      //     if (moment(val, moment.ISO_8601).isValid()) {
-      //       return moment(val).isAfter(startDate);
-      //     }
-      //     return false;
-      //   }
-      //   return false;
-      // }),
+      .required(`${cardholderDriversLicenseExpiry.requiredErrorMsg}`),
+    // .test("expDate", cardholderDriversLicenseExpiry.invalidErrorMsg, (val) => {
+    //   if (val) {
+    //     const startDate = new Date();
+    //     if (moment(val, moment.ISO_8601).isValid()) {
+    //       return moment(val).isAfter(startDate);
+    //     }
+    //     return false;
+    //   }
+    //   return false;
+    // }),
   }),
   Yup.object().shape({
     // [creditCardInfo.name]: Yup.string().required(`${creditCardInfo.requiredErrorMsg}`),
@@ -92,19 +92,17 @@ export default [
     [issuingBank.name]: Yup.string().required(`${issuingBank.requiredErrorMsg}`),
     [cardType.name]: Yup.string().required(`${cardType.requiredErrorMsg}`),
     [cardNumber.name]: Yup.string().required(`${cardNumber.requiredErrorMsg}`),
-    [expirationDate.name]: Yup.string()
-      .nullable()
-      .required(`${expirationDate.requiredErrorMsg}`),
-      // .test("expDate", expirationDate.invalidErrorMsg, (val) => {
-      //   if (val) {
-      //     const startDate = new Date();
-      //     if (moment(val, moment.ISO_8601).isValid()) {
-      //       return moment(val).isAfter(startDate);
-      //     }
-      //     return false;
-      //   }
-      //   return false;
-      // }),
+    [expirationDate.name]: Yup.string().nullable().required(`${expirationDate.requiredErrorMsg}`),
+    // .test("expDate", expirationDate.invalidErrorMsg, (val) => {
+    //   if (val) {
+    //     const startDate = new Date();
+    //     if (moment(val, moment.ISO_8601).isValid()) {
+    //       return moment(val).isAfter(startDate);
+    //     }
+    //     return false;
+    //   }
+    //   return false;
+    // }),
     [cvv.name]: Yup.string().when("cardType", {
       is: (val) => val !== "Amex",
       then: (schema) =>
@@ -113,7 +111,7 @@ export default [
           .test(
             "len",
             `${cvv.invalidErrorMsg}`,
-            (val) => val && val.length >= 3 && val.length <= 4
+            (val) => val && val.length >= 3 && val.length <= 4,
           ),
       otherwise: (schema) => schema.notRequired(),
     }),
@@ -130,7 +128,7 @@ export default [
         title: Yup.string().required(`required`),
         phone: Yup.string().required(`required`),
         email: Yup.string().email("Invalid email!").required(`required`),
-      })
+      }),
     ),
   }),
   Yup.object().shape({

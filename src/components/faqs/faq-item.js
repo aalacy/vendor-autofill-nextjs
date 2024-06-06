@@ -9,9 +9,7 @@ export const FaqItem = ({ item }) => {
         aria-controls={item.question + "-content"}
         id={item.question}
       >
-        <Typography variant="subtitle1">
-          {item.question}
-        </Typography>
+        <Typography variant="subtitle1">{item.question}</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Typography sx={{ whiteSpace: "pre-wrap" }}>{item.answer}</Typography>

@@ -14,7 +14,7 @@ input:invalid {
   table.dnxTable {
     border: none !important;
   }
-  
+
   table.dnxTable th,
   table.dnxTable td {
     padding: 1em 0.5em;
@@ -40,7 +40,7 @@ input:invalid {
     border-top: none !important;
     border-left: none !important;
   }
-  
+
   table.dnxTable tbody tr {
     padding: 0.25em 0;
     border: 1px solid rgba(34, 36, 38, 0.2);

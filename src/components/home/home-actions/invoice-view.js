@@ -52,7 +52,7 @@ export const InvoiceView = ({
   const [curInvoice, setCurInvoice] = useState();
   const [uploadTitle, setUploadTitle] = useState({
     title: `Upload Invoices for ${vendor?.name}`,
-    subTitle: '',
+    subTitle: "",
   });
   const [maxFileLimit, setMaxFileLimit] = useState(10 - vendor.invoices.length);
 
@@ -103,7 +103,7 @@ export const InvoiceView = ({
                 total: values.total,
               };
             return invoice;
-          })
+          }),
         );
         queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
       } catch (error) {
@@ -175,7 +175,7 @@ export const InvoiceView = ({
               total: curInvoice.total,
             };
           return invoice;
-        })
+        }),
       );
     } catch (err) {
       toast.error(err?.message || err?.response?.message);
@@ -186,7 +186,7 @@ export const InvoiceView = ({
     <>
       <Modal
         title={`${vendor?.name} - Invoices (${invoices.length})`}
-        subTitle={currencyFormatter(sum(invoices.map((i) => i.total).filter(v => v)))}
+        subTitle={currencyFormatter(sum(invoices.map((i) => i.total).filter((v) => v)))}
         open={open}
         onClose={onClose}
         size="md"

@@ -66,23 +66,19 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
     position: yup.string().required("Required"),
     email: yup.string().email("Invalid email!").required("Required"),
     phone: yup.string().matches(phoneRegExp, "phone number is not valid!"),
-    union: yup
-      .string()
-      .test(
-        "is-number",
-        (d) => `The value should be 3-4 digit number`,
-        (value) => Number(value) && value.length >= 3 && value.length <= 4
-      ),
+    union: yup.string().test(
+      "is-number",
+      (d) => `The value should be 3-4 digit number`,
+      (value) => Number(value) && value.length >= 3 && value.length <= 4,
+    ),
     rate: yup.number().min(0).required("Required"),
     contract_per_day: yup.string().required("Required"),
     contract_type: yup.string().required("Required"),
-    aipc_line_number: yup
-      .string()
-      .test(
-        "is-number",
-        (d) => `The value should be 3-4 digit number`,
-        (value) => Number(value) && value.length >= 3 && value.length <= 4
-      )
+    aipc_line_number: yup.string().test(
+      "is-number",
+      (d) => `The value should be 3-4 digit number`,
+      (value) => Number(value) && value.length >= 3 && value.length <= 4,
+    ),
   });
 
   return (

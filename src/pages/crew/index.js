@@ -44,12 +44,10 @@ const ContactView = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              mb: 5
+              mb: 5,
             }}
           >
-            <Typography variant="h5" >
-              Contacts
-            </Typography>
+            <Typography variant="h5">Contacts</Typography>
             <Box sx={{ display: "flex", gap: 2 }}>
               <Tooltip title="Add New Contact">
                 <Button

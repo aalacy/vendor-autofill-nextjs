@@ -6,7 +6,7 @@ export class VendorService {
   }
 
   static addMyVendors(vendor_ids, removed_ids) {
-    return http.post("/vendors/add-my-vendor", { vendor_ids, removed_ids});
+    return http.post("/vendors/add-my-vendor", { vendor_ids, removed_ids });
   }
 
   static all() {
@@ -77,7 +77,7 @@ export class VendorService {
     formData.append("file", file);
     formData.append("vendor_id", vendor_id);
     formData.append("vendor_name", vendor_name);
-    formData.append("job_id", job_id)
+    formData.append("job_id", job_id);
 
     return http.post("/vendors/upload-coi", formData, {
       headers: {
@@ -105,7 +105,6 @@ export class VendorService {
     return http.post(`/vendors/delete-form-pdf`, { key });
   }
 
-
   static readPDF(key) {
     return http.post(`/vendors/read-pdf`, key);
   }
@@ -122,7 +121,7 @@ export class VendorService {
     });
     formData.append("vendor_id", vendor_id);
     formData.append("vendor_name", vendor_name);
-    formData.append("job_id", job_id)
+    formData.append("job_id", job_id);
 
     return http.post("/vendors/upload-invoices", formData, {
       headers: {

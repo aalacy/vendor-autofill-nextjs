@@ -26,7 +26,7 @@ export const ProjectPopover = (props) => {
       auth.setProject(project);
       queryClient.invalidateQueries({ queryKey: ["getAllJobs", project.id] });
     },
-    [onClose, auth, queryClient]
+    [onClose, auth, queryClient],
   );
 
   const handleNewProject = useCallback(() => {
@@ -68,25 +68,22 @@ export const ProjectPopover = (props) => {
           },
         }}
       >
-        {
-          auth?.projects?.map((project) => (
-            <MenuItem
-              selected={project.id === auth?.project?.id}
-              key={project.id}
-              onClick={() => handleProject(project)}
-              sx={{ textTransform: "capitalize" }}
-            >
-              <ListItemText>{project.name}</ListItemText>
-            </MenuItem>
-          ))
-        
-        }
-          <MenuItem onClick={handleNewProject} sx={{ textTransform: "capitalize", mt: 1 }}>
-            <ListItemIcon>
-              <AddIcon color="primary" fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>New Project</ListItemText>
+        {auth?.projects?.map((project) => (
+          <MenuItem
+            selected={project.id === auth?.project?.id}
+            key={project.id}
+            onClick={() => handleProject(project)}
+            sx={{ textTransform: "capitalize" }}
+          >
+            <ListItemText>{project.name}</ListItemText>
           </MenuItem>
+        ))}
+        <MenuItem onClick={handleNewProject} sx={{ textTransform: "capitalize", mt: 1 }}>
+          <ListItemIcon>
+            <AddIcon color="primary" fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>New Project</ListItemText>
+        </MenuItem>
       </MenuList>
     </Popover>
   );

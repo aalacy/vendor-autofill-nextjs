@@ -6,17 +6,8 @@ import { useField } from "formik";
 import { FileDropzone } from "src/components/account/file-dropzone";
 
 export const FileInput = (props) => {
-  const {
-    maxFileLimit,
-    onUpload,
-    loading,
-    files,
-    setFiles,
-    canUpload,
-    children,
-    name,
-    disabled
-  } = props;
+  const { maxFileLimit, onUpload, loading, files, setFiles, canUpload, children, name, disabled } =
+    props;
   const [, meta] = useField(props);
 
   function _renderHelperText() {

@@ -2,10 +2,7 @@
 import * as Yup from "yup";
 import faqFormModel from "./faqFormModel";
 const {
-  formField: {
-    question,
-    answer,
-  },
+  formField: { question, answer },
 } = faqFormModel;
 
 export default Yup.object().shape({

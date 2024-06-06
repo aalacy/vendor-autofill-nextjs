@@ -43,7 +43,7 @@ export const JobDataTable = () => {
         toast.error(error?.response?.message || "Something went wrong");
       }
     },
-    [JobService, queryClient, setJob]
+    [JobService, queryClient, setJob],
   );
 
   const handleChange = useCallback(
@@ -51,7 +51,7 @@ export const JobDataTable = () => {
       const newJob = { ...myJob, [key]: e.target.value };
       setJob(newJob);
     },
-    [myJob]
+    [myJob],
   );
 
   const handleBlur = useCallback(() => {
@@ -84,7 +84,7 @@ export const JobDataTable = () => {
             maxHeight: 300,
           }}
         >
-          {myJob ?
+          {myJob ? (
             Object.keys(myJob).map((key) => (
               <>
                 {key !== "buyers" ? (
@@ -106,8 +106,11 @@ export const JobDataTable = () => {
                 ) : null}
               </>
             ))
-            : <ListItem><ListItemText primary="Empty Project" /></ListItem>
-          }
+          ) : (
+            <ListItem>
+              <ListItemText primary="Empty Project" />
+            </ListItem>
+          )}
         </List>
       </Paper>
       <LoadingOverlay open={isLoading} />

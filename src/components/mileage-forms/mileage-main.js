@@ -7,15 +7,14 @@ import { InputField, DatePickerField, AutocompleteField } from "src/components/w
 
 const BusinessOptions = [
   {
-    value: 'Fedex',
-    label: 'Fedex'
+    value: "Fedex",
+    label: "Fedex",
   },
   {
-    value: 'UPS',
-    label: 'UPS'
-  }
+    value: "UPS",
+    label: "UPS",
+  },
 ];
-
 
 export const MileageMainForm = (props) => {
   const { values, setFieldValue, setEmpty } = props;

@@ -7,11 +7,7 @@ import { initialPage } from "src/utils";
 import { ContactsColumns } from "src/columns";
 import { useAuth } from "src/hooks/use-auth";
 
-export const ContactList = ({
-  contacts,
-  setContacts,
-  handleEdit
-}) => {
+export const ContactList = ({ contacts, setContacts, handleEdit }) => {
   const { showConfirmDlg, hideConfirm, shouldRefresh, refresh } = useAuth();
 
   const [loading, setLoading] = useState(false);
@@ -47,7 +43,7 @@ export const ContactList = ({
     }
     hideConfirm();
     refresh();
-  }
+  };
 
   const handleRemove = (id) => {
     showConfirmDlg({
@@ -55,7 +51,7 @@ export const ContactList = ({
       close: hideConfirm,
       callback: () => removeContact(id),
     });
-  }
+  };
 
   const handleOk = async () => {
     showConfirmDlg({ open: false });
@@ -84,23 +80,23 @@ export const ContactList = ({
   };
 
   return (
-      <EDataGrid
-        hideCheckbox
-        enableClipboardCopy
-        loading={loading}
-        data={contacts?.items}
-        columns={ContactsColumns({ handleRemove, handleEdit })}
-        paginationModel={paginationModel}
-        setPaginationModel={setPaginationModel}
-        rowCountState={rowCountState}
-        setRowCountState={setRowCountState}
-        filterModel={filterModel}
-        setFilterModel={setFilterModel}
-        setLogicOperator={setLogicOperator}
-        promiseArguments={promiseArguments}
-        setPromiseArguments={setPromiseArguments}
-        handleOk={handleOk}
-        handleNo={handleNo}
-      />
+    <EDataGrid
+      hideCheckbox
+      enableClipboardCopy
+      loading={loading}
+      data={contacts?.items}
+      columns={ContactsColumns({ handleRemove, handleEdit })}
+      paginationModel={paginationModel}
+      setPaginationModel={setPaginationModel}
+      rowCountState={rowCountState}
+      setRowCountState={setRowCountState}
+      filterModel={filterModel}
+      setFilterModel={setFilterModel}
+      setLogicOperator={setLogicOperator}
+      promiseArguments={promiseArguments}
+      setPromiseArguments={setPromiseArguments}
+      handleOk={handleOk}
+      handleNo={handleNo}
+    />
   );
 };

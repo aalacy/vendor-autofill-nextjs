@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY
+const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
@@ -27,28 +27,24 @@ export const GoogleCalendar = () => {
   }, []);
 
   const openSignInPopup = () => {
-    window.gapi.auth2.authorize(
-      { client_id: CLIENT_ID, scope: SCOPES },
-      (res) => {
-        console.log(res);
-        if (res) {
-          console.log(window.gapi.client, res);
+    window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {
+      console.log(res);
+      if (res) {
+        console.log(window.gapi.client, res);
 
-          if (res.access_token)
-            localStorage.setItem("access_token", res.access_token);
+        if (res.access_token) localStorage.setItem("access_token", res.access_token);
 
-          // fetch(
-          //   `https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=${res.access_token}`
-          // )
-          //   .then((res) => res.json())
-          //   .then((data) =>
-          //     localStorage.setItem("calendarId", data.items[0].id)
-          //   );
+        // fetch(
+        //   `https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=${res.access_token}`
+        // )
+        //   .then((res) => res.json())
+        //   .then((data) =>
+        //     localStorage.setItem("calendarId", data.items[0].id)
+        //   );
 
-          window.gapi.client.load("calendar", "v3", listUpcomingEvents);
-        }
+        window.gapi.client.load("calendar", "v3", listUpcomingEvents);
       }
-    );
+    });
   };
 
   /**
@@ -72,7 +68,7 @@ export const GoogleCalendar = () => {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
-        }
+        },
       )
         .then((res) => {
           if (res.status !== 401) {
@@ -132,13 +128,13 @@ export const GoogleCalendar = () => {
 
       fetch(
         `https://www.googleapis.com/calendar/v3/calendars/primary/events?key=${API_KEY}&timeMax=${new Date(
-          "Apr 14, 2021"
+          "Apr 14, 2021",
         ).toISOString()}&timeMin=${new Date("Apr 15, 2021").toISOString()}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
-        }
+        },
       )
         .then((res) => res.json())
         .then((data) => console.log(data));
@@ -166,11 +162,7 @@ export const GoogleCalendar = () => {
   return (
     <>
       <button onClick={addEvent}>Add event</button>
-      <FullCalendar
-        plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
-        events={events}
-      />
+      <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" events={events} />
     </>
   );
 };

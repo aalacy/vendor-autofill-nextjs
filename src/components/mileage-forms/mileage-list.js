@@ -32,7 +32,12 @@ export const MileageList = ({ mileages, setMileages, handleEdit }) => {
   const getData = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await MileageService.all(paginationModel, filterModel, logicOperator, identifier);
+      const { data } = await MileageService.all(
+        paginationModel,
+        filterModel,
+        logicOperator,
+        identifier,
+      );
       setMileages(data.result);
       setRowCountState(data.result.total_count);
     } catch (error) {
@@ -123,7 +128,7 @@ export const MileageList = ({ mileages, setMileages, handleEdit }) => {
     <>
       <EDataGrid
         hideCheckbox
-        initialState={{ pinnedColumns: { right: ['id'] } }}
+        initialState={{ pinnedColumns: { right: ["id"] } }}
         loading={loading}
         data={mileages?.items}
         columns={MileagesColumns({

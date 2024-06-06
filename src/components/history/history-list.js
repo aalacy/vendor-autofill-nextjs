@@ -39,7 +39,7 @@ export const HistoryList = ({ histories, setHistories }) => {
   const handleView = (url, item, type) => {
     setUrl(url);
     setVendor(item);
-    setType(type)
+    setType(type);
     setOpen(true);
   };
 

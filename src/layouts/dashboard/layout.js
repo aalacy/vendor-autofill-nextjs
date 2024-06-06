@@ -5,9 +5,7 @@ import { JobFormModal } from "src/components/job-form/job-form-modal";
 export const Layout = withAuthGuard(({ children }) => {
   return (
     <>
-    <BasicLayout>
-      {children}
-    </BasicLayout>
+      <BasicLayout>{children}</BasicLayout>
     </>
-  )
+  );
 });

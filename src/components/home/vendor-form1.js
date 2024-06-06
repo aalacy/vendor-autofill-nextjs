@@ -101,7 +101,7 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
         name: Yup.string().required(`required`),
         title: Yup.string().required(`required`),
         template_key: Yup.string().required(`required`),
-      })
+      }),
     ),
   });
 

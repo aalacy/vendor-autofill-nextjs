@@ -9,21 +9,19 @@ import { useCallback } from "react";
 import { formatLocalNumber, sum } from "src/utils";
 
 export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
-
   const totalValues = useCallback((data) => {
     return (
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mb: 1 }}>
-      <Typography variant="body1">
-        Total # of miles:{" "}
-        <b>{formatLocalNumber(sum(data.map((d) => d.number_of_miles)))}</b>
-      </Typography>
-      <Typography variant="body1">
-        Total Mileage Reimbursement($):{" "}
-        <b>{formatLocalNumber(sum(data.map((d) => d.mileage_reimbursement)))}</b>
-      </Typography>
-    </Box>
-    )
-  }, [])
+        <Typography variant="body1">
+          Total # of miles: <b>{formatLocalNumber(sum(data.map((d) => d.number_of_miles)))}</b>
+        </Typography>
+        <Typography variant="body1">
+          Total Mileage Reimbursement($):{" "}
+          <b>{formatLocalNumber(sum(data.map((d) => d.mileage_reimbursement)))}</b>
+        </Typography>
+      </Box>
+    );
+  }, []);
 
   return (
     <>

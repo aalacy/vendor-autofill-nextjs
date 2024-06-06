@@ -5,7 +5,6 @@ import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { HomeMain } from "src/components/home/home-main";
 
 const Page = () => {
-
   return (
     <>
       <Head>

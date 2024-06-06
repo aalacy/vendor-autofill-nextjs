@@ -66,92 +66,80 @@ export const csvUploadStyles = {
   },
 };
 
-export const DepartmentType = [
-  "Construction",
-  "Props",
-  "Set Dec",
-  "Other"
-]
+export const DepartmentType = ["Construction", "Props", "Set Dec", "Other"];
 
-export const ContractOptions = [
-  "8 hr Days",
-  "10 hr Days",
-  "12 hr Days"
-]
+export const ContractOptions = ["8 hr Days", "10 hr Days", "12 hr Days"];
 
 export const ContractTypes = [
-  "cash", 
-  "po", 
-  "net 30", 
+  "cash",
+  "po",
+  "net 30",
   "credit card",
   "independent contractor",
-  "loan out"
-]
+  "loan out",
+];
 
 export const PLAN_LABELS = {
-  "Monthly": "mo",
+  Monthly: "mo",
   "Bi-Annual": "6mo",
-  "Annual": "year"
-}
+  Annual: "year",
+};
 
 export const PLAN_PRICES = {
-  "monthly": 150,
+  monthly: 150,
   "bi-annual": 750,
-  "annual": 1200
-}
+  annual: 1200,
+};
 
-export const StatusEnum = [
-  'active',
-  'inactive'
-]
+export const StatusEnum = ["active", "inactive"];
 
 export const CreditAuthList = [
   {
-    name: 'a1 medical',
-    script: 'a1_medical_credit_auth',
-    link: 'https://a1props.com/wp-content/uploads/2023/07/A1-Credit-Card-Auth-Form-2023Update.pdf'
+    name: "a1 medical",
+    script: "a1_medical_credit_auth",
+    link: "https://a1props.com/wp-content/uploads/2023/07/A1-Credit-Card-Auth-Form-2023Update.pdf",
   },
   {
-    name: 'advanced liquidators',
-    script: 'advanced_liquidators_credit_auth',
-    link: 'https://advancedliquidators.com/pdf/RentalCreditCardAuthorizationForm.pdf'
+    name: "advanced liquidators",
+    script: "advanced_liquidators_credit_auth",
+    link: "https://advancedliquidators.com/pdf/RentalCreditCardAuthorizationForm.pdf",
   },
   {
-    name: 'bill ferrell',
-    script: 'bill_ferrell_credit_auth',
-    link: 'https://www.billferrell.com/_files/ugd/15f829_f315246833d64be18ae1bc33e75f1c12.pdf'
+    name: "bill ferrell",
+    script: "bill_ferrell_credit_auth",
+    link: "https://www.billferrell.com/_files/ugd/15f829_f315246833d64be18ae1bc33e75f1c12.pdf",
   },
   {
-    name: 'gil roy',
-    script: 'gil_roy_credit_auth',
-    link: 'https://cdn.shopify.com/s/files/1/1810/9697/files/Gil_Roy_Props_2022_Credit_Card_Authorization.pdf?v=1664121371'
+    name: "gil roy",
+    script: "gil_roy_credit_auth",
+    link: "https://cdn.shopify.com/s/files/1/1810/9697/files/Gil_Roy_Props_2022_Credit_Card_Authorization.pdf?v=1664121371",
   },
   {
-    name: 'nest',
-    script: 'nest_credit_auth',
-    link: 'http://www.neststudiorentals.net/wp-content/uploads/2020/12/Credit-Card-Authorization-Form.pdf'
+    name: "nest",
+    script: "nest_credit_auth",
+    link: "http://www.neststudiorentals.net/wp-content/uploads/2020/12/Credit-Card-Authorization-Form.pdf",
   },
   {
-    name: 'omega cinema',
-    script: 'omega_cinema_credit_auth',
-    link: 'https://www.omegacinemaprops.com/files/forms-policies/CCCharge2016.pdf'
+    name: "omega cinema",
+    script: "omega_cinema_credit_auth",
+    link: "https://www.omegacinemaprops.com/files/forms-policies/CCCharge2016.pdf",
   },
   {
-    name: 'target props',
-    script: 'target_props_credit_auth',
-    link: 'https://storage.googleapis.com/propcart-dev.appspot.com/uploads/vendors/targetprops/public/TP-CC-Auth-Form.pdf'
-  }
-]
+    name: "target props",
+    script: "target_props_credit_auth",
+    link: "https://storage.googleapis.com/propcart-dev.appspot.com/uploads/vendors/targetprops/public/TP-CC-Auth-Form.pdf",
+  },
+];
 
 export const RentalAgreementList = [
   {
-    name: 'a1 edical',
-    script: 'a1_medical_rental_agreement',
-    link: 'https://a1props.com/wp-content/uploads/2023/07/A1-Rental-Agreement-2023Update.pdf'
+    name: "a1 edical",
+    script: "a1_medical_rental_agreement",
+    link: "https://a1props.com/wp-content/uploads/2023/07/A1-Rental-Agreement-2023Update.pdf",
   },
   {
-    name: 'ec props',
-    script: 'ec_props_rental_agreement',
-    link: 'https://ecprops.com/includes/rental_agreement_revised_wm_20230424.pdf'
-  }
-]
+    name: "ec props",
+    script: "ec_props_rental_agreement",
+    link: "https://ecprops.com/includes/rental_agreement_revised_wm_20230424.pdf",
+  },
+];

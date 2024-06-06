@@ -95,14 +95,14 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
     (selected) => {
       return CreditAuthList.find(({ script }) => script === selected);
     },
-    [CreditAuthList]
+    [CreditAuthList],
   );
 
   const selectedRentalAgreemtn = useCallback(
     (selected) => {
       return RentalAgreementList.find(({ script }) => script === selected);
     },
-    [RentalAgreementList]
+    [RentalAgreementList],
   );
 
   return (
@@ -336,7 +336,9 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
                 }
                 label="Is Template?"
               />
-              <FormHelperText>{formik.errors.is_template || formik.errors.is_template}</FormHelperText>
+              <FormHelperText>
+                {formik.errors.is_template || formik.errors.is_template}
+              </FormHelperText>
             </FormControl>
           </Stack>
           <Box sx={{ my: 3, textAlign: "center" }}>

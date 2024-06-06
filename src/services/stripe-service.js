@@ -6,7 +6,7 @@ export class StripeService {
   }
 
   static checkoutWithStripe(price) {
-    return http.post(`/stripe/create-checkout-session`, price );
+    return http.post(`/stripe/create-checkout-session`, price);
   }
 
   static portalWithStripe() {

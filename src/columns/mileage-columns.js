@@ -12,14 +12,10 @@ const RenderAction = (props) => {
   const { value, row, handleRemove, handleEdit, handleView, handleDownload, loadingGet } = props;
 
   return (
-    <Box >
+    <Box>
       <Tooltip title="Edit Mileage">
         <span>
-          <IconButton
-            onClick={() => handleEdit(value)}
-            size="small"
-            color="info"
-          >
+          <IconButton onClick={() => handleEdit(value)} size="small" color="info">
             <EditIcon />
           </IconButton>
         </span>
@@ -97,7 +93,7 @@ export const MileagesColumns = ({
       resizable: true,
       width: 150,
       renderCell: (params) => (
-        <Typography >
+        <Typography>
           ${formatLocalNumber(sum(params.row.data.map((d) => d.mileage_reimbursement)))}
         </Typography>
       ),

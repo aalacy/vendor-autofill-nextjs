@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useField } from 'formik';
-import { Grid } from '@mui/material';
+import { useState, useEffect } from "react";
+import { useField } from "formik";
+import { Grid } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 
 export const DatePickerField = (props) => {
@@ -34,22 +34,22 @@ export const DatePickerField = (props) => {
 
   return (
     <Grid container>
-        <DatePicker
-          {...field}
-          {...props}
-          value={selectedDate}
-          onChange={_onChange}
-          slotProps={{
-            textField: {
-              error: isError && error,
-              helperText: isError && error,
-              size: "small",
-            },
-          }}
-          sx={{
-            width: 1
-          }}
-        />
+      <DatePicker
+        {...field}
+        {...props}
+        value={selectedDate}
+        onChange={_onChange}
+        slotProps={{
+          textField: {
+            error: isError && error,
+            helperText: isError && error,
+            size: "small",
+          },
+        }}
+        sx={{
+          width: 1,
+        }}
+      />
     </Grid>
   );
-}
+};

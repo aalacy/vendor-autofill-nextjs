@@ -51,7 +51,7 @@ export const AvatarUpload = () => {
       const { errors } = fileRejections[0];
       let message = errors[0].message;
       if (errors[0].code === ErrorCode.TooManyFiles) {
-        message = `Cannot upload more than ${maxFileLimit} file(s)` 
+        message = `Cannot upload more than ${maxFileLimit} file(s)`;
       }
       toast.error(message);
     }

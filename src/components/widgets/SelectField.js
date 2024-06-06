@@ -22,7 +22,7 @@ export const SelectField = (props) => {
       <Select multiple={multiple} {...field} value={selectedValue ? selectedValue : ""}>
         {data.map((item, index) => (
           <MenuItem key={index} value={item.value || item.role_name}>
-            {item.label|| item.role_name}
+            {item.label || item.role_name}
           </MenuItem>
         ))}
       </Select>

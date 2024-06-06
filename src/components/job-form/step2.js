@@ -1,6 +1,6 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography } from "@mui/material";
 
-import { InputField } from 'src/components/widgets';
+import { InputField } from "src/components/widgets";
 
 export const Step2 = (props) => {
   const {
@@ -14,14 +14,18 @@ export const Step2 = (props) => {
       emailAddressToReceiveInvoices,
       nameOfAuthorizedSignatory,
       titleOfAuthorizedSignatory,
-    }
+    },
   } = props;
 
   return (
     <>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <InputField name={productionCompanyName.name} label={productionCompanyName.label} fullWidth />
+          <InputField
+            name={productionCompanyName.name}
+            label={productionCompanyName.label}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputField name={billingAddress.name} label={billingAddress.label} fullWidth />
@@ -39,15 +43,27 @@ export const Step2 = (props) => {
           <InputField name={billingPhoneNumber.name} label={billingPhoneNumber.label} fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputField name={emailAddressToReceiveInvoices.name} label={emailAddressToReceiveInvoices.label} fullWidth />
+          <InputField
+            name={emailAddressToReceiveInvoices.name}
+            label={emailAddressToReceiveInvoices.label}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputField name={nameOfAuthorizedSignatory.name} label={nameOfAuthorizedSignatory.label} fullWidth />
+          <InputField
+            name={nameOfAuthorizedSignatory.name}
+            label={nameOfAuthorizedSignatory.label}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputField name={titleOfAuthorizedSignatory.name} label={titleOfAuthorizedSignatory.label} fullWidth />
+          <InputField
+            name={titleOfAuthorizedSignatory.name}
+            label={titleOfAuthorizedSignatory.label}
+            fullWidth
+          />
         </Grid>
       </Grid>
     </>
   );
-}
+};

@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { usePathname } from 'next/navigation';
-import PropTypes from 'prop-types';
-import { useAuth } from 'src/hooks/use-auth';
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
+import PropTypes from "prop-types";
+import { useAuth } from "src/hooks/use-auth";
 
-const FREE_PATHS = ['/account', '/auth/login', '/auth/register', '/mileage-forms']
+const FREE_PATHS = ["/account", "/auth/login", "/auth/register", "/mileage-forms"];
 
 export const AuthGuard = (props) => {
   const { children } = props;
@@ -19,41 +19,37 @@ export const AuthGuard = (props) => {
   // triggered and will automatically redirect to sign-in page.
 
   const needSubscribed = useMemo(() => {
-    return (!user?.subscriptions || user?.subscriptions?.length < 1) 
-  }, [user])
+    return !user?.subscriptions || user?.subscriptions?.length < 1;
+  }, [user]);
 
-  useEffect(
-    () => {
-      if (!router.isReady) {
-        return;
-      }
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
 
-      if (!FREE_PATHS.includes(pathname)) {
-        if (needSubscribed) router.replace('/pricing');
-      }
+    if (!FREE_PATHS.includes(pathname)) {
+      if (needSubscribed) router.replace("/pricing");
+    }
 
-      // Prevent from calling twice in development mode with React.StrictMode enabled
-      if (ignore.current) {
-        return;
-      }
+    // Prevent from calling twice in development mode with React.StrictMode enabled
+    if (ignore.current) {
+      return;
+    }
 
-      ignore.current = true;
+    ignore.current = true;
 
-      if (!isAuthenticated) {
-        console.log('Not authenticated, redirecting');
-        router
-          .replace({
-            pathname: '/auth/login',
-            query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
-          })
-          .catch(console.error);
-      } else {
-        
-        setChecked(true);
-      }
-    },
-    [user, pathname, router.isReady]
-  );
+    if (!isAuthenticated) {
+      console.log("Not authenticated, redirecting");
+      router
+        .replace({
+          pathname: "/auth/login",
+          query: router.asPath !== "/" ? { continueUrl: router.asPath } : undefined,
+        })
+        .catch(console.error);
+    } else {
+      setChecked(true);
+    }
+  }, [user, pathname, router.isReady]);
 
   if (!checked) {
     return null;
@@ -66,5 +62,5 @@ export const AuthGuard = (props) => {
 };
 
 AuthGuard.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

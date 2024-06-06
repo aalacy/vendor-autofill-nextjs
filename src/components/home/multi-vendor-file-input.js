@@ -15,7 +15,9 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
     setFiles([]);
     setLoading(true);
     try {
-      const { data: { result} } = await VendorService.uploadFormPDF(values.name, files[0]);
+      const {
+        data: { result },
+      } = await VendorService.uploadFormPDF(values.name, files[0]);
       console.log(result);
       setTemplateKey(result);
       setFieldValue(name, result);
@@ -32,7 +34,9 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const { data: { detail } } = await VendorService.deleteFormPdf(template_key);
+      const {
+        data: { detail },
+      } = await VendorService.deleteFormPdf(template_key);
       setTemplateKey("");
       toast.success(detail);
     } catch (err) {

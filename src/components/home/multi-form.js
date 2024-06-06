@@ -56,7 +56,7 @@ export const VendorMultiForm = (props) => {
                   arrayHelpers.push({
                     name: "",
                     title: "",
-                    template_key: ""
+                    template_key: "",
                   })
                 } // insert an empty string at a position
               >

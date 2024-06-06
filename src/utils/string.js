@@ -8,7 +8,7 @@ export const beautyDate = (date) => (date ? dayjs.utc(date).format("MM/DD/YYYY")
 
 export const beautyExpiry = (date) => (date ? dayjs.utc(date).format("YY/MM") : "");
 
-export const thisSunday = () => dayjs().startOf('week').add(0, 'day');
+export const thisSunday = () => dayjs().startOf("week").add(0, "day");
 
 export const replaceWithBr = (text) => {
   return text.replace(/\t/g, " ").replace(/\n/g, "<br />");
@@ -32,16 +32,18 @@ export const downloadMedia = (fileName, output) => {
 export const formatLocalNumber = (value) =>
   value ? Number(value.toFixed(2)).toLocaleString("en-US") : "0";
 
-export const sum = (data) =>
-  data.length === 0 ? 0 : data.reduce((a, b) => a + b);
+export const sum = (data) => (data.length === 0 ? 0 : data.reduce((a, b) => a + b));
 
 export const splitCamelCase = (str) => {
-  return str.split(/(?=[A-Z])/).map(word => String(word).toUpperCase()).join(' ');
-}
+  return str
+    .split(/(?=[A-Z])/)
+    .map((word) => String(word).toUpperCase())
+    .join(" ");
+};
 
 export const formatPhoneNumber = (phoneNumber) => {
   // Remove all non-digit characters from the phone number
-  const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+  const cleaned = ("" + phoneNumber).replace(/\D/g, "");
 
   // Check if the phone number has 10 digits
   if (cleaned.length === 10) {
@@ -56,12 +58,12 @@ export const formatPhoneNumber = (phoneNumber) => {
 
   // if the phone number doesn't match the expected format, return the original input
   return phoneNumber;
-}
+};
 
 export const currencyFormatter = (val) => {
-  if (!val) return ""
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
+  if (!val) return "";
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
   }).format(val);
-}
+};

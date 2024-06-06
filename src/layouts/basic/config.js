@@ -5,7 +5,7 @@ import {
   GroupOutlined as ContactIcon,
   CloudCircle as FileIcon,
   RadarOutlined as MileageIcon,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
 } from "@mui/icons-material";
 
 export const items = [
@@ -32,7 +32,7 @@ export const items = [
   //   path: "/view",
   //   icon: <PageviewIcon />,
   // },
-  
+
   {
     title: "Crew",
     path: "/crew",
@@ -65,6 +65,6 @@ export const items = [
     title: "Settings",
     path: "/settings",
     icon: <SettingsIcon />,
-    requireAdmin: true
+    requireAdmin: true,
   },
 ];

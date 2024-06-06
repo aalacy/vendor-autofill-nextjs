@@ -60,14 +60,14 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, h
     (selected) => {
       return CreditAuthList.find(({ script }) => script === selected);
     },
-    [CreditAuthList]
+    [CreditAuthList],
   );
 
   const selectedRentalAgreement = useCallback(
     (selected) => {
       return RentalAgreementList.find(({ script }) => script === selected);
     },
-    [RentalAgreementList]
+    [RentalAgreementList],
   );
 
   return [

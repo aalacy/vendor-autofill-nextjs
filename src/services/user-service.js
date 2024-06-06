@@ -1,7 +1,6 @@
 import http from "./http";
 
 export class UserService {
-
   static uploadAvatar(file, onUploadProgress = undefined) {
     let formData = new FormData();
 
@@ -32,16 +31,15 @@ export class UserService {
   }
 
   static all(paginationModel, filterModel, logicOperator) {
-
     return http.post(`/users/all`, {
       page: paginationModel.page + 1,
       take: paginationModel.pageSize,
       filterModel: filterModel,
-      logicOperator: logicOperator
+      logicOperator: logicOperator,
     });
   }
 
   static getAllRoles() {
-    return http.get('/users/roles/all')
+    return http.get("/users/roles/all");
   }
 }

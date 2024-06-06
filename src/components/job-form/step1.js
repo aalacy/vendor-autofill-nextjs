@@ -1,14 +1,10 @@
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 
-import { InputField } from 'src/components/widgets';
+import { InputField } from "src/components/widgets";
 
 export const Step1 = (props) => {
   const {
-    formField: {
-      email,
-      jobName,
-      jobNumber,
-    }
+    formField: { email, jobName, jobNumber },
   } = props;
 
   return (
@@ -26,4 +22,4 @@ export const Step1 = (props) => {
       </Grid>
     </>
   );
-}
+};

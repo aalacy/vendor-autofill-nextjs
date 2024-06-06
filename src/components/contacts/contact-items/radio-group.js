@@ -16,7 +16,7 @@ export const MyRadioGroup = ({
   helperText,
   handleChange,
   items,
-  noLabel
+  noLabel,
 }) => {
   return (
     <FormControl

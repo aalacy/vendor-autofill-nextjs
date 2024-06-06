@@ -7,7 +7,7 @@ export class MileageService {
       take: paginationModel.pageSize,
       filterModel,
       logicOperator,
-      visitor_id
+      visitor_id,
     });
   }
 

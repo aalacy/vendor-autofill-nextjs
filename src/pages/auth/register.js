@@ -1,17 +1,25 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { CircularProgress, Box, Button, Link, Stack, TextField, Typography, InputAdornment, IconButton, useMediaQuery } from '@mui/material';
+import Head from "next/head";
+import NextLink from "next/link";
+import { useRouter } from "next/navigation";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
-  Visibility as EyeIcon,
-  VisibilityOff as EyeOffIcon
-} from "@mui/icons-material"
-import { useState } from 'react';
+  CircularProgress,
+  Box,
+  Button,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+  useMediaQuery,
+} from "@mui/material";
+import { Visibility as EyeIcon, VisibilityOff as EyeOffIcon } from "@mui/icons-material";
+import { useState } from "react";
 
-import { useAuth } from 'src/hooks/use-auth';
-import { Layout as AuthLayout } from 'src/layouts/auth/layout';
+import { useAuth } from "src/hooks/use-auth";
+import { Layout as AuthLayout } from "src/layouts/auth/layout";
 
 const handleMouseDownPassword = (event) => {
   event.preventDefault();
@@ -24,7 +32,7 @@ const Page = () => {
   const router = useRouter();
   const auth = useAuth();
 
-  const isNonMobile = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+  const isNonMobile = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -35,28 +43,24 @@ const Page = () => {
 
   const formik = useFormik({
     initialValues: {
-      first_name: '',
-      last_name: '',
-      title: '',
-      phone_number: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      submit: null
+      first_name: "",
+      last_name: "",
+      title: "",
+      phone_number: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      submit: null,
     },
     validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required('Email is required'),
+      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
       password: Yup.string()
         .min(8)
         .max(255)
         .required("Password is required")
         .matches(
           /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-          "Must Contain 8 Characters, One Number and One Special Case Character"
+          "Must Contain 8 Characters, One Number and One Special Case Character",
         ),
       confirmPassword: Yup.string()
         .required("Please confirm your password")
@@ -68,7 +72,7 @@ const Page = () => {
 
         const { confirmPassword, ...other } = values;
         await auth.signUp(other);
-        router.push('/');
+        router.push("/");
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.response?.data?.detail || err.message });
@@ -76,66 +80,46 @@ const Page = () => {
       } finally {
         setLoading(false);
       }
-    }
+    },
   });
 
   return (
     <>
       <Head>
-        <title>
-          Register | Prodbot
-        </title>
+        <title>Register | Prodbot</title>
       </Head>
       <Box
         sx={{
-          flex: '1 1 auto',
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'center'
+          flex: "1 1 auto",
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
         <Box
           sx={{
             maxWidth: 550,
-            width: '100%'
+            width: "100%",
           }}
         >
-          <Stack
-            spacing={1}
-            sx={{ mb: 3 }}
-          >
-            <Typography variant="h4">
-              Register
-            </Typography>
-            <Typography
-              color="text.secondary"
-              variant="body2"
-            >
-              Already have an account?
-              &nbsp;
-              <Link
-                component={NextLink}
-                href="/auth/login"
-                underline="hover"
-                variant="subtitle2"
-              >
+          <Stack spacing={1} sx={{ mb: 3 }}>
+            <Typography variant="h4">Register</Typography>
+            <Typography color="text.secondary" variant="body2">
+              Already have an account? &nbsp;
+              <Link component={NextLink} href="/auth/login" underline="hover" variant="subtitle2">
                 Log in
               </Link>
             </Typography>
           </Stack>
-          <form
-            noValidate
-            onSubmit={formik.handleSubmit}
-          >
+          <form noValidate onSubmit={formik.handleSubmit}>
             <Box
               display="grid"
               gridTemplateColumns="repeat(4, minmax(0, 1fr))"
               sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-                gap: 2
+                gap: 2,
               }}
             >
-
               <TextField
                 error={!!(formik.touched.first_name && formik.errors.first_name)}
                 fullWidth
@@ -222,13 +206,9 @@ const Page = () => {
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
-                error={Boolean(
-                  formik.touched.confirmPassword && formik.errors.confirmPassword,
-                )}
+                error={Boolean(formik.touched.confirmPassword && formik.errors.confirmPassword)}
                 fullWidth
-                helperText={
-                  formik.touched.confirmPassword && formik.errors.confirmPassword
-                }
+                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                 label="Confirm Password *"
                 name="confirmPassword"
                 onBlur={formik.handleBlur}
@@ -255,11 +235,7 @@ const Page = () => {
                 sx={{ gridColumn: "span 2" }}
               />
               {formik.errors.submit && (
-                <Typography
-                  color="error"
-                  sx={{ mt: 3 }}
-                  variant="body2"
-                >
+                <Typography color="error" sx={{ mt: 3 }} variant="body2">
                   {formik.errors.submit}
                 </Typography>
               )}
@@ -290,10 +266,6 @@ const Page = () => {
   );
 };
 
-Page.getLayout = (page) => (
-  <AuthLayout>
-    {page}
-  </AuthLayout>
-);
+Page.getLayout = (page) => <AuthLayout>{page}</AuthLayout>;
 
 export default Page;

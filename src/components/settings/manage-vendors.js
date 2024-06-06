@@ -31,7 +31,7 @@ export const ManageVendors = () => {
 
   const getDetailPanelContent = useCallback(
     ({ row }) => <VendorDetailPanelContent row={row} />,
-    []
+    [],
   );
 
   const { isLoading, data: vendors } = useQuery({
@@ -68,7 +68,7 @@ export const ManageVendors = () => {
         },
       });
     },
-    [showConfirmDlg, hideConfirm, queryClient, toast, VendorService]
+    [showConfirmDlg, hideConfirm, queryClient, toast, VendorService],
   );
 
   const handleAdd = useCallback(() => {
@@ -90,7 +90,7 @@ export const ManageVendors = () => {
         setGLoading(false);
       }
     },
-    [setTitle, setShowPDFModal, setUrl, setGLoading, VendorService]
+    [setTitle, setShowPDFModal, setUrl, setGLoading, VendorService],
   );
 
   return (

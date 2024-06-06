@@ -68,7 +68,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
 
   const getDetailPanelContent = useCallback(
     ({ row }) => <VendorDetailPanelContent row={row.vendor} />,
-    []
+    [],
   );
 
   const handleGeneratePDF = async (vendor, form) => {
@@ -277,41 +277,41 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         topActions={invoice === "COI" ? topActions : null}
       >
         <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <form onSubmit={formik.handleSubmit}>
-          <Box
-            sx={{
-              display: canSendEmail ? "flex" : "none",
-              flexWrap: "wrap",
-              alignItems: "center",
-              gap: 2,
-              mb: 2,
-            }}
-          >
-            <TextField
-              type="text"
-              size="small"
-              label="Email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.email}
-              name="email"
-              error={!!formik.touched.email && !!formik.errors.email}
-              helperText={formik.touched.email && formik.errors.email}
-              sx={{ gridColumn: "span 2" }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailIcon />
-                  </InputAdornment>
-                ),
+          <form onSubmit={formik.handleSubmit}>
+            <Box
+              sx={{
+                display: canSendEmail ? "flex" : "none",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: 2,
+                mb: 2,
               }}
-            />
-            <Button type="submit" variant="contained">
-              Send
-            </Button>
-          </Box>
-        </form>
-            <Tooltip title="Download PDF">
+            >
+              <TextField
+                type="text"
+                size="small"
+                label="Email"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                name="email"
+                error={!!formik.touched.email && !!formik.errors.email}
+                helperText={formik.touched.email && formik.errors.email}
+                sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Button type="submit" variant="contained">
+                Send
+              </Button>
+            </Box>
+          </form>
+          <Tooltip title="Download PDF">
             <IconButton
               color="primary"
               variant="contained"
@@ -319,7 +319,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
             >
               <Download />
             </IconButton>
-            </Tooltip>
+          </Tooltip>
         </Stack>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>

@@ -37,7 +37,7 @@ export const AutocompleteField = (props) => {
       loadScript(
         `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places,geometry&loading=async`,
         document.querySelector("head"),
-        "google-maps"
+        "google-maps",
       );
     }
 
@@ -49,16 +49,19 @@ export const AutocompleteField = (props) => {
       debounce((request, callback) => {
         autocompleteService.current.getPlacePredictions(request, callback);
       }, 400),
-    []
+    [],
   );
 
   const calculateMiles = useCallback(async () => {
     const fromAddress = await geocodeByPlaceID(values.data[index].from_address_place_id);
     const toAddress = await geocodeByPlaceID(values.data[index].to_address_place_id);
-    const distance = await calculateDistanceByRoute(fromAddress[0].geometry.location, toAddress[0].geometry.location)
+    const distance = await calculateDistanceByRoute(
+      fromAddress[0].geometry.location,
+      toAddress[0].geometry.location,
+    );
     // const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
     setFieldValue(`data.${index}.number_of_miles`, distance);
-    setFieldValue(`data.${index}.mileage_reimbursement`, distance * .67);
+    setFieldValue(`data.${index}.mileage_reimbursement`, distance * 0.67);
   }, [value, values]);
 
   const manageDefaultValueForSecondItem = () => {
@@ -72,8 +75,8 @@ export const AutocompleteField = (props) => {
     const prevToPlaceId = values.data.at(-2).to_address_place_id;
     setFieldValue(`data.${index}.from_address`, curFrom || prevTo);
     setFieldValue(`data.${index}.from_address_place_id`, curFromPlaceId || prevToPlaceId);
-    setValue({ place_id: curFromPlaceId || prevToPlaceId, description: curFrom || prevTo })
-  }
+    setValue({ place_id: curFromPlaceId || prevToPlaceId, description: curFrom || prevTo });
+  };
 
   useEffect(() => {
     if (!values?.data || values.data.length === 0) return;
@@ -81,23 +84,25 @@ export const AutocompleteField = (props) => {
     if (!window.google?.maps?.Geocoder) return;
 
     calculateMiles();
-  }, [values?.data])
+  }, [values?.data]);
 
   useEffect(() => {
     manageDefaultValueForSecondItem();
-    const key = name.split('.').at(-1);
+    const key = name.split(".").at(-1);
     if (values.data[index].hasOwnProperty(key)) {
       const description = values.data[index][key];
       const place_id = values.data[index][`${key}_place_id`];
-      if (place_id && description) setValue({ place_id, description })
+      if (place_id && description) setValue({ place_id, description });
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     let active = true;
 
     if (!autocompleteService.current && window.google?.maps?.places) {
-      autocompleteService.current = new window.google.maps.places.AutocompleteService(inputRef.current);
+      autocompleteService.current = new window.google.maps.places.AutocompleteService(
+        inputRef.current,
+      );
     }
     if (!autocompleteService.current) {
       return undefined;
@@ -129,14 +134,12 @@ export const AutocompleteField = (props) => {
       setFieldValue(`${name}_place_id`, place_id);
       setFieldValue(`${name}`, description);
     } else {
-      
     }
 
     return () => {
       active = false;
     };
   }, [value, inputValue, fetch]);
-
 
   function _renderHelperText() {
     const [touched, error] = at(meta, "touched", "error");
@@ -173,7 +176,7 @@ export const AutocompleteField = (props) => {
           fullWidth
           inputProps={{
             ...params.inputProps,
-            autoComplete: 'new-password',
+            autoComplete: "new-password",
           }}
         />
       )}
@@ -182,7 +185,7 @@ export const AutocompleteField = (props) => {
 
         const parts = parse(
           option.structured_formatting?.main_text,
-          matches.map((match) => [match.offset, match.offset + match.length])
+          matches.map((match) => [match.offset, match.offset + match.length]),
         );
 
         return (

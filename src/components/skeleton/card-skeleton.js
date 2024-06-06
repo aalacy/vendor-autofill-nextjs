@@ -1,7 +1,6 @@
 import { Skeleton, Box } from "@mui/material";
 
 export const CardSkeleton = () => {
-
   return (
     <Box
       sx={{
@@ -9,7 +8,7 @@ export const CardSkeleton = () => {
         display: "flex",
         flexWrap: "wrap",
         gap: 2,
-        py: 5
+        py: 5,
       }}
     >
       {Array.from({ length: 6 }, (_, i) => i + 1).map((item) => (
