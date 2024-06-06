@@ -21,7 +21,6 @@ export const GoogleCalendar = () => {
     }));
   }, []);
 
-
   const listUpcomingEvents = useCallback(() => {
     window.gapi.client.calendar.events
       .list({
@@ -114,14 +113,13 @@ export const GoogleCalendar = () => {
     script.addEventListener("load", () => {
       if (window.gapi) handleClientLoad();
     });
-  }, [openSignInPopup]);
+  }, [openSignInPopup, formatEvents]);
 
   /**
    * Print the summary and start datetime/date of the next ten events in
    * the authorized user's calendar. If no events are found an
    * appropriate message is printed.
    */
-
 
   const addEvent = () => {
     if (window.gapi.client || localStorage.getItem("access_token")) {
