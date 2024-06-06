@@ -15,7 +15,7 @@ export const FileInput = (props) => {
     name,
     disabled,
     helperText,
-    error
+    error,
   } = props;
 
   const onDrop = (newFiles, fileRejections) => {

@@ -42,7 +42,7 @@ export const FileInputField = (props) => {
 
   return (
     <>
-    <FileInput
+      <FileInput
         maxFiles={maxFileLimit || 10}
         accept={{ "application/pdf": [".pdf"] }}
         files={files}
@@ -60,7 +60,6 @@ export const FileInputField = (props) => {
       >
         {children}
       </FileInput>
-
     </>
   );
 };
