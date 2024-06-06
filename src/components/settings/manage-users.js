@@ -82,7 +82,10 @@ export const ManageUsers = () => {
       />
 
       {open && (
-        <UpdateUser roles={roles} open={true} onClose={() => setOpen(false)} user={curUser} />
+        <UpdateUser roles={roles}
+open={true}
+onClose={() => setOpen(false)}
+user={curUser} />
       )}
     </>
   );

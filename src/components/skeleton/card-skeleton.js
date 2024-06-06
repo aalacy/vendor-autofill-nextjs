@@ -12,7 +12,10 @@ export const CardSkeleton = () => {
       }}
     >
       {Array.from({ length: 6 }, (_, i) => i + 1).map((item) => (
-        <Skeleton key={item} variant="rounded" width={230} height={218} />
+        <Skeleton key={item}
+variant="rounded"
+width={230}
+height={218} />
       ))}
     </Box>
   );

@@ -20,7 +20,7 @@ export const useIndentifier = () => {
 
   const vendorId = useMemo(() => {
     return isAuthenticated ? user.id : fpHash;
-  }, [fpHash, isAuthenticated]);
+  }, [fpHash, isAuthenticated, user]);
 
   return vendorId;
 };

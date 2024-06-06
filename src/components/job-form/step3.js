@@ -15,28 +15,43 @@ export const Step3 = (props) => {
 
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <InputField name={cardholderInfo.name} label={cardholderInfo.label} fullWidth />
+      <Grid container
+spacing={3}>
+        <Grid item
+xs={12}
+sm={6}>
+          <InputField name={cardholderInfo.name}
+label={cardholderInfo.label}
+fullWidth />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <InputField name={cardholderName.name} label={cardholderName.label} fullWidth />
+        <Grid item
+xs={12}
+sm={6}>
+          <InputField name={cardholderName.name}
+label={cardholderName.label}
+fullWidth />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item
+xs={12}
+sm={6}>
           <InputField
             name={cardholderDriversLicenseNumber.name}
             label={cardholderDriversLicenseNumber.label}
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item
+xs={12}
+sm={6}>
           <InputField
             name={cardholderDriversLicenseState.name}
             label={cardholderDriversLicenseState.label}
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item
+xs={12}
+sm={6}>
           <DatePickerField
             name={cardholderDriversLicenseExpiry.name}
             label={cardholderDriversLicenseExpiry.label}

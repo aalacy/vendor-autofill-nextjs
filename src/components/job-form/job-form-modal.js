@@ -38,14 +38,17 @@ const _renderStepContent = (step, values) => {
     case 2:
       return <Step3 formField={formField} />;
     case 3:
-      return <Step4 formField={formField} values={values} />;
+      return <Step4 formField={formField}
+values={values} />;
     case 4:
-      return <Step5 formField={formField} values={values} />;
+      return <Step5 formField={formField}
+values={values} />;
     case 5:
       return <Step6 formField={formField} />;
     default:
       return (
-        <Typography variant="h6" p={3}>
+        <Typography variant="h6"
+p={3}>
           Thank you very much
         </Typography>
       );
@@ -112,7 +115,8 @@ export const JobFormModal = () => {
     <>
       <Modal
         title={
-          <Typography component="h1" variant="h5">
+          <Typography component="h1"
+variant="h5">
             Job Form
           </Typography>
         }
@@ -120,7 +124,8 @@ export const JobFormModal = () => {
         onClose={onClose}
       >
         <Container maxWidth="xl">
-          <Stepper activeStep={activeStep} sx={{ mb: 5 }}>
+          <Stepper activeStep={activeStep}
+sx={{ mb: 5 }}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel></StepLabel>
@@ -130,10 +135,12 @@ export const JobFormModal = () => {
           <>
             {activeStep >= steps.length ? (
               <>
-                <Typography variant="h6" p={3}>
+                <Typography variant="h6"
+p={3}>
                   Thank you very much
                 </Typography>
-                <Button variant="outlined" onClick={_handleRetry}>
+                <Button variant="outlined"
+onClick={_handleRetry}>
                   Retry
                 </Button>
               </>
@@ -149,7 +156,8 @@ export const JobFormModal = () => {
 
                     <Box sx={{ display: "flex", gap: 3, mt: 3 }}>
                       {activeStep !== 0 && (
-                        <Button variant="outlined" onClick={_handleBack}>
+                        <Button variant="outlined"
+onClick={_handleBack}>
                           Back
                         </Button>
                       )}

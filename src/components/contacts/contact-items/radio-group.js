@@ -25,7 +25,8 @@ export const MyRadioGroup = ({
       error={error}
       variant="standard"
     >
-      <FormLabel id={`myRadios-${name}`} sx={{ mr: 3, mb: 1 }}>
+      <FormLabel id={`myRadios-${name}`}
+sx={{ mr: 3, mb: 1 }}>
         {groupLabel}
       </FormLabel>
       <RadioGroup
@@ -34,7 +35,8 @@ export const MyRadioGroup = ({
         value={value}
         onChange={handleChange}
       >
-        <Stack spacing={3} direction="row">
+        <Stack spacing={3}
+direction="row">
           {items.map((item) => (
             <FormControlLabel
               labelPlacement="top"

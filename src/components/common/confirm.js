@@ -16,21 +16,29 @@ const ConfirmDialog = (props) => {
 
   return (
     <>
-      <Dialog open={open || false} onClose={close} aria-labelledby="confirm-dialog">
+      <Dialog open={open || false}
+onClose={close}
+aria-labelledby="confirm-dialog">
         <DialogTitle id="confirm-dialog">{title ?? "Are you sure?"}</DialogTitle>
         <DialogContent>{successMsg ? <>{successMsg}</> : children}</DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={close} color="warning">
+          <Button variant="contained"
+onClick={close}
+color="warning">
             No
           </Button>
-          <Button variant="contained" onClick={callback}>
+          <Button variant="contained"
+onClick={callback}>
             Yes
           </Button>
         </DialogActions>
       </Dialog>
       {!!snackbar && (
-        <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
-          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        <Snackbar open
+onClose={handleCloseSnackbar}
+autoHideDuration={6000}>
+          <Alert {...snackbar}
+onClose={handleCloseSnackbar} />
         </Snackbar>
       )}
     </>

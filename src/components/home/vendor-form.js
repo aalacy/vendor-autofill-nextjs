@@ -87,8 +87,12 @@ export const VendorForm = ({ show, setShow, noThankYou }) => {
 
   return (
     <>
-      <Modal size="sm" open={show} onClose={handleClose} title="Add Vendor">
-        <form noValidate onSubmit={formik.handleSubmit}>
+      <Modal size="sm"
+open={show}
+onClose={handleClose}
+title="Add Vendor">
+        <form noValidate
+onSubmit={formik.handleSubmit}>
           <Box
             display="grid"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -240,10 +244,13 @@ export const VendorForm = ({ show, setShow, noThankYou }) => {
             />
           </Box>
           <Box sx={{ my: 2, textAlign: "center" }}>
-            <Button type="submit" variant="contained" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+sx={{ mr: 2 }}>
               Submit
             </Button>
-            <Button onClick={handleClose} variant="outlined">
+            <Button onClick={handleClose}
+variant="outlined">
               Cancel
             </Button>
           </Box>

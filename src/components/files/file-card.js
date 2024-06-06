@@ -52,12 +52,15 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
 
   return (
     <>
-      <Card raised sx={{ width: 235, height: 235 }}>
+      <Card raised
+sx={{ width: 235, height: 235 }}>
         <CardActionArea onClick={handleFolder}>
           <CardHeader
-            avatar={<FolderIcon color="warning" fontSize="large" />}
+            avatar={<FolderIcon color="warning"
+fontSize="large" />}
             action={
-              <IconButton onClick={handleMore} aria-label="settings">
+              <IconButton onClick={handleMore}
+aria-label="settings">
                 <MoreVertIcon />
               </IconButton>
             }
@@ -72,14 +75,17 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
               {folder_name}
             </Typography>
             <Divider />
-            <Typography variant="body2" mt={2}>
+            <Typography variant="body2"
+mt={2}>
               {bytesToSize(size)} • {files.length} items
             </Typography>
             <Typography variant="caption">Created at {beautyDateTime(created_at)}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>
-      <Popper id={id} open={open} anchorEl={anchorEl}>
+      <Popper id={id}
+open={open}
+anchorEl={anchorEl}>
         <ClickAwayListener onClickAway={handleClose}>
           <Box
             sx={{
@@ -91,10 +97,16 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
               alignItems: "flex-start",
             }}
           >
-            <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
+            <Button color="info"
+onClick={handleDownload}
+startIcon={<DownloadIcon />}
+size="small">
               Download
             </Button>
-            <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
+            <Button color="error"
+onClick={handleRemove}
+startIcon={<RemoveIcon />}
+size="small">
               Delete
             </Button>
           </Box>

@@ -22,7 +22,9 @@ export default function PlanToggleButton({ products, plan, setPlan }) {
       aria-label="Plan"
     >
       {products?.map(({ id, name }) => (
-        <ToggleButton key={id} size="small" value={id}>
+        <ToggleButton key={id}
+size="small"
+value={id}>
           {name}
         </ToggleButton>
       ))}

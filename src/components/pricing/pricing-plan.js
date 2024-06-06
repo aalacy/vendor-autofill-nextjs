@@ -44,7 +44,8 @@ export const PricingPlan = (props) => {
               },
             }}
           >
-            <img alt="" src={image} />
+            <img alt=""
+src={image} />
           </Box>
           <Box sx={{ display: "flex", alignItems: "flex-end", gap: 2 }}>
             <Typography variant="h4">
@@ -62,12 +63,17 @@ export const PricingPlan = (props) => {
             >
               / {label}
             </Typography>
-            {isCurrent && <Chip label="Current" color="success" size="small" />}
+            {isCurrent && <Chip label="Current"
+color="success"
+size="small" />}
           </Box>
-          <Typography sx={{ mt: 2 }} variant="h6">
+          <Typography sx={{ mt: 2 }}
+variant="h6">
             {name}
           </Typography>
-          <Typography color="textSecondary" sx={{ mt: 2 }} variant="body2">
+          <Typography color="textSecondary"
+sx={{ mt: 2 }}
+variant="body2">
             {description}
           </Typography>
         </Box>
@@ -91,7 +97,8 @@ export const PricingPlan = (props) => {
                 },
               }}
             >
-              <CheckIcon fontSize="small" sx={{ color: "text.primary" }} />
+              <CheckIcon fontSize="small"
+sx={{ color: "text.primary" }} />
               <Typography
                 sx={{
                   fontWeight: 500,

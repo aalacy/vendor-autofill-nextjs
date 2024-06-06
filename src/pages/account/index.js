@@ -21,10 +21,14 @@ const ManageAccount = () => {
       >
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-            <Typography variant="h5" mb={5}>
+            <Typography variant="h5"
+mb={5}>
               Manage Account
             </Typography>
-            <Button startIcon={<Money />} size="small" variant="outlined" href="/pricing">
+            <Button startIcon={<Money />}
+size="small"
+variant="outlined"
+href="/pricing">
               Upgrade Plan
             </Button>
           </Box>

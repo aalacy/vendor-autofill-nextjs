@@ -65,7 +65,9 @@ export const ManageFaqs = () => {
           columns={FaqColumns({ handleRemove, handleEdit, handleAdd })}
         />
       </div>
-      {open && <FaqFormModal curFaq={curFaq} open={true} setOpen={setOpen} />}
+      {open && <FaqFormModal curFaq={curFaq}
+open={true}
+setOpen={setOpen} />}
     </>
   );
 };

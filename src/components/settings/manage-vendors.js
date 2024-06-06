@@ -111,13 +111,19 @@ export const ManageVendors = () => {
         getDetailPanelContent={getDetailPanelContent}
       />
 
-      {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
+      {show && <VendorForm1 noThankYou
+vendor={curVendor}
+show={true}
+setShow={setShow} />}
 
-      <Modal title={title} open={showPDFModal} onClose={() => setShowPDFModal(false)}>
+      <Modal title={title}
+open={showPDFModal}
+onClose={() => setShowPDFModal(false)}>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
 
-      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
+      <LoadingOverlay setOpen={setGLoading}
+open={gLoading} />
     </>
   );
 };

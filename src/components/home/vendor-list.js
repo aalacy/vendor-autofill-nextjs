@@ -215,7 +215,8 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
 
   const topActions = useMemo(() => {
     return (
-      <Stack direction="row" spacing={1}>
+      <Stack direction="row"
+spacing={1}>
         <Tooltip title="Replace COI">
           <IconButton
             onClick={() => handleReplaceCOI()}
@@ -245,7 +246,8 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <Typography variant="h6" mb={2}>
+        <Typography variant="h6"
+mb={2}>
           My Vendors: &nbsp;(<small>{vendors?.length || "-"}</small>)
         </Typography>
       </Box>
@@ -265,7 +267,8 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       </div>
 
       {/* Loading Overlay */}
-      <LoadingOverlay setOpen={setGLoading} open={gLoading || isLoading} />
+      <LoadingOverlay setOpen={setGLoading}
+open={gLoading || isLoading} />
 
       {/* PDF Modal */}
       <Modal
@@ -276,7 +279,9 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         size="md"
         topActions={invoice === "COI" ? topActions : null}
       >
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row"
+justifyContent="space-between"
+alignItems="center">
           <form onSubmit={formik.handleSubmit}>
             <Box
               sx={{
@@ -306,7 +311,8 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
                   ),
                 }}
               />
-              <Button type="submit" variant="contained">
+              <Button type="submit"
+variant="contained">
                 Send
               </Button>
             </Box>
@@ -330,7 +336,9 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
           open={true}
           onClose={() => setShowThankyou(false)}
           text={
-            <Typography variant="body1" mb={1} textAlign="center">
+            <Typography variant="body1"
+mb={1}
+textAlign="center">
               Form will be sent to <b>{formik.values.email}</b> &nbsp;
             </Typography>
           }
@@ -338,7 +346,10 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       )}
 
       {/* COI Modal */}
-      {showCOI && <ManageCOI title={title} vendor={vendor} open={true} setOpen={setShowCOI} />}
+      {showCOI && <ManageCOI title={title}
+vendor={vendor}
+open={true}
+setOpen={setShowCOI} />}
 
       {/* Manage Invoice Modal */}
       {showInvoice && (

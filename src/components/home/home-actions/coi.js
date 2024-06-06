@@ -41,7 +41,11 @@ export const ManageCOI = ({ title, vendor, open, setOpen }) => {
   return (
     <>
       {open && (
-        <Modal open={true} onClose={onClose} title={title} subTitle={subTitle} size="sm">
+        <Modal open={true}
+onClose={onClose}
+title={title}
+subTitle={subTitle}
+size="sm">
           <FileInput
             files={files}
             setFiles={setFiles}

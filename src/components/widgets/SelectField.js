@@ -17,11 +17,15 @@ export const SelectField = (props) => {
   }
 
   return (
-    <FormControl {...rest} error={isError}>
+    <FormControl {...rest}
+error={isError}>
       <InputLabel>{label}</InputLabel>
-      <Select multiple={multiple} {...field} value={selectedValue ? selectedValue : ""}>
+      <Select multiple={multiple}
+{...field}
+value={selectedValue ? selectedValue : ""}>
         {data.map((item, index) => (
-          <MenuItem key={index} value={item.value || item.role_name}>
+          <MenuItem key={index}
+value={item.value || item.role_name}>
             {item.label || item.role_name}
           </MenuItem>
         ))}

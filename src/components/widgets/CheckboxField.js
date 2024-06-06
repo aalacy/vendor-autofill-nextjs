@@ -24,7 +24,8 @@ export const CheckboxField = (props) => {
       <FormControlLabel
         value={field.checked}
         checked={field.checked}
-        control={<Checkbox {...field} onChange={_onChange} />}
+        control={<Checkbox {...field}
+onChange={_onChange} />}
         label={label}
       />
       {_renderHelperText()}

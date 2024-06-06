@@ -59,9 +59,11 @@ const Page = () => {
           }}
         >
           <div>
-            <Stack spacing={1} sx={{ mb: 3 }}>
+            <Stack spacing={1}
+sx={{ mb: 3 }}>
               <Typography variant="h4">Login</Typography>
-              <Typography color="text.secondary" variant="body2">
+              <Typography color="text.secondary"
+variant="body2">
                 Don&apos;t have an account? &nbsp;
                 <Link
                   component={NextLink}
@@ -73,7 +75,8 @@ const Page = () => {
                 </Link>
               </Typography>
             </Stack>
-            <form noValidate onSubmit={formik.handleSubmit}>
+            <form noValidate
+onSubmit={formik.handleSubmit}>
               <Stack spacing={3}>
                 <TextField
                   error={!!(formik.touched.email && formik.errors.email)}
@@ -99,11 +102,17 @@ const Page = () => {
                 />
               </Stack>
               {formik.errors.submit && (
-                <Typography color="error" sx={{ mt: 3 }} variant="body2">
+                <Typography color="error"
+sx={{ mt: 3 }}
+variant="body2">
                   {formik.errors.submit}
                 </Typography>
               )}
-              <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
+              <Button fullWidth
+size="large"
+sx={{ mt: 3 }}
+type="submit"
+variant="contained">
                 Continue
               </Button>
             </form>

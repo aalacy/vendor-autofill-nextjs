@@ -50,7 +50,8 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
             <List
               sx={{ width: 1 }}
               secondaryAction={
-                <IconButton edge="end" aria-label="more">
+                <IconButton edge="end"
+aria-label="more">
                   <MoreVertIcon />
                 </IconButton>
               }
@@ -70,7 +71,10 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
         </>
       )}
 
-      <FolderDetail removeItem={removeItem} open={open} setOpen={setOpen} folder={curFolder} />
+      <FolderDetail removeItem={removeItem}
+open={open}
+setOpen={setOpen}
+folder={curFolder} />
     </>
   );
 };
