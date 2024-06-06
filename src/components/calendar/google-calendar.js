@@ -13,6 +13,15 @@ const SCOPES =
 export const GoogleCalendar = () => {
   const [events, setEvents] = useState(null);
 
+  const formatEvents = useCallback((list) => {
+    return list.map((item) => ({
+      title: item.summary,
+      start: item.start.dateTime || item.start.date,
+      end: item.end.dateTime || item.end.date,
+    }));
+  }, []);
+
+
   const listUpcomingEvents = useCallback(() => {
     window.gapi.client.calendar.events
       .list({
@@ -30,7 +39,7 @@ export const GoogleCalendar = () => {
           setEvents(formatEvents(events));
         }
       });
-  }, [setEvents, formatEvents])
+  }, [setEvents, formatEvents]);
 
   const openSignInPopup = useCallback(() => {
     window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {
@@ -113,13 +122,6 @@ export const GoogleCalendar = () => {
    * appropriate message is printed.
    */
 
-  const formatEvents = (list) => {
-    return list.map((item) => ({
-      title: item.summary,
-      start: item.start.dateTime || item.start.date,
-      end: item.end.dateTime || item.end.date,
-    }));
-  };
 
   const addEvent = () => {
     if (window.gapi.client || localStorage.getItem("access_token")) {
