@@ -68,8 +68,7 @@ export const SideNav = (props) => {
                   onClick={projectPopover.handleOpen}
                   ref={projectPopover.anchorRef}
                   endIcon={
-                    <SvgIcon fontSize="small"
-sx={{ color: "neutral.500" }}>
+                    <SvgIcon fontSize="small" sx={{ color: "neutral.500" }}>
                       <ChevronUpDownIcon />
                     </SvgIcon>
                   }
@@ -77,20 +76,15 @@ sx={{ color: "neutral.500" }}>
                 >
                   {project ? (
                     <Stack>
-                      <Typography color="inherit"
-variant="subtitle1"
-textTransform="capitalize">
+                      <Typography color="inherit" variant="subtitle1" textTransform="capitalize">
                         {project?.productionCompanyName}
                       </Typography>
-                      <Typography color="neutral.400"
-variant="body2"
-textTransform="capitalize">
+                      <Typography color="neutral.400" variant="body2" textTransform="capitalize">
                         {project?.name} - {project?.jobNumber}
                       </Typography>
                     </Stack>
                   ) : (
-                    <Typography color="inherit"
-variant="subtitle1">
+                    <Typography color="inherit" variant="subtitle1">
                       Prodbot
                     </Typography>
                   )}

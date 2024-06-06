@@ -61,8 +61,7 @@ export const FaqFormModal = ({ curFaq, open, setOpen }) => {
     <>
       <Modal
         title={
-          <Typography component="h1"
-variant="h5">
+          <Typography component="h1" variant="h5">
             Faq Form
           </Typography>
         }
@@ -78,16 +77,11 @@ variant="h5">
           >
             {({ isSubmitting }) => (
               <Form id={formId}>
-                <Grid container
-spacing={3}>
-                  <Grid item
-xs={12}>
-                    <InputField name={question.name}
-label={question.label}
-fullWidth />
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <InputField name={question.name} label={question.label} fullWidth />
                   </Grid>
-                  <Grid item
-xs={12}>
+                  <Grid item xs={12}>
                     <InputField
                       multiline
                       rows={3}
@@ -108,8 +102,7 @@ xs={12}>
                   >
                     Submit
                   </Button>
-                  <Button variant="outlined"
-onClick={onClose}>
+                  <Button variant="outlined" onClick={onClose}>
                     Close
                   </Button>
                 </Box>

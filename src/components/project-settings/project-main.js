@@ -44,22 +44,18 @@ export const ProjectMain = () => {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
-        <Typography variant="h5"
-mb={5}>
+        <Typography variant="h5" mb={5}>
           Project Settings
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
           <Tooltip title="Add new Job">
-            <IconButton onClick={() => showJobForm(true)}
-color="primary">
+            <IconButton onClick={() => showJobForm(true)} color="primary">
               <AddIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete this Job">
             <span>
-              <IconButton disabled={!!!project}
-onClick={deleteJob}
-color="error">
+              <IconButton disabled={!!!project} onClick={deleteJob} color="error">
                 <DeleteIcon />
               </IconButton>
             </span>

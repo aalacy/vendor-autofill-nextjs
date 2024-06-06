@@ -37,8 +37,7 @@ export const MileageFormsPage = () => {
           <Box
             sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 5 }}
           >
-            <Typography component="h1"
-variant="h5">
+            <Typography component="h1" variant="h5">
               Mileage Forms
             </Typography>
             <Box sx={{ display: "flex", gap: 2 }}>
@@ -54,13 +53,9 @@ variant="h5">
               </Tooltip>
             </Box>
           </Box>
-          <MileageList mileages={mileages}
-setMileages={setMileages}
-handleEdit={handleEdit} />
+          <MileageList mileages={mileages} setMileages={setMileages} handleEdit={handleEdit} />
         </Container>
-        {open ? <MileageAddModal open={true}
-setOpen={setOpen}
-mileage={mileage} /> : null}
+        {open ? <MileageAddModal open={true} setOpen={setOpen} mileage={mileage} /> : null}
       </Box>
     </>
   );

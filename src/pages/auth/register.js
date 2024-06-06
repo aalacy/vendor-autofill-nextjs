@@ -102,22 +102,16 @@ const Page = () => {
             width: "100%",
           }}
         >
-          <Stack spacing={1}
-sx={{ mb: 3 }}>
+          <Stack spacing={1} sx={{ mb: 3 }}>
             <Typography variant="h4">Register</Typography>
-            <Typography color="text.secondary"
-variant="body2">
+            <Typography color="text.secondary" variant="body2">
               Already have an account? &nbsp;
-              <Link component={NextLink}
-href="/auth/login"
-underline="hover"
-variant="subtitle2">
+              <Link component={NextLink} href="/auth/login" underline="hover" variant="subtitle2">
                 Log in
               </Link>
             </Typography>
           </Stack>
-          <form noValidate
-onSubmit={formik.handleSubmit}>
+          <form noValidate onSubmit={formik.handleSubmit}>
             <Box
               display="grid"
               gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -241,9 +235,7 @@ onSubmit={formik.handleSubmit}>
                 sx={{ gridColumn: "span 2" }}
               />
               {formik.errors.submit && (
-                <Typography color="error"
-sx={{ mt: 3 }}
-variant="body2">
+                <Typography color="error" sx={{ mt: 3 }} variant="body2">
                   {formik.errors.submit}
                 </Typography>
               )}

@@ -22,9 +22,7 @@ const RenderAction = (props) => {
       </Tooltip>
       <Tooltip title="Delete Contact">
         <span>
-          <IconButton onClick={() => handleRemove(value)}
-color="error"
-size="small">
+          <IconButton onClick={() => handleRemove(value)} color="error" size="small">
             <ClearIcon />
           </IconButton>
         </span>
@@ -102,9 +100,7 @@ export const ContactsColumns = ({ handleRemove, handleEdit }) => {
       sortable: false,
       width: 200,
       renderCell: (params) => (
-        <RenderAction {...params}
-handleRemove={handleRemove}
-handleEdit={handleEdit} />
+        <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} />
       ),
     },
   ];

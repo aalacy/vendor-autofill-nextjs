@@ -162,9 +162,7 @@ export const GoogleCalendar = () => {
   return (
     <>
       <button onClick={addEvent}>Add event</button>
-      <FullCalendar plugins={[dayGridPlugin]}
-initialView="dayGridMonth"
-events={events} />
+      <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" events={events} />
     </>
   );
 };

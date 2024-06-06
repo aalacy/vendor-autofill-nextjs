@@ -71,14 +71,10 @@ const ContactView = () => {
               </Tooltip>
             </Box>
           </Box>
-          <ContactList contacts={contacts}
-setContacts={setContacts}
-handleEdit={handleEdit} />
+          <ContactList contacts={contacts} setContacts={setContacts} handleEdit={handleEdit} />
         </Container>
       </Box>
-      <ContactAddModal contact={contact}
-open={open}
-setOpen={setOpen} />
+      <ContactAddModal contact={contact} open={open} setOpen={setOpen} />
     </>
   );
 };

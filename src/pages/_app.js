@@ -36,8 +36,7 @@ const App = (props) => {
     <CacheProvider value={emotionCache}>
       <Head>
         <title>Prodbot</title>
-        <meta name="viewport"
-content="initial-scale=1, width=device-width" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <QueryClientProvider client={queryClient}>

@@ -94,7 +94,7 @@ const Pricing = () => {
     // checkoutSession();
     toast.success("Successfully subscribed!");
     router.replace("/pricing");
-  }, [session_id]);
+  }, [session_id, router, success]);
 
   if (isLoading) return <PricingSkeleton />;
 
@@ -113,14 +113,10 @@ const Pricing = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography component="h1"
-variant="h5"
-marginBottom={7}>
+          <Typography component="h1" variant="h5" marginBottom={7}>
             Pricing Plan
           </Typography>
-          <Stack direction="row"
-spacing={3}
-justifyContent="center">
+          <Stack direction="row" spacing={3} justifyContent="center">
             {products &&
               products.map(({ id, name, prices }) => (
                 <PricingPlan

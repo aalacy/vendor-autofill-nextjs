@@ -71,9 +71,7 @@ export const SearchBox = ({ query, setQuery, handleClick }) => {
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
       />
-      <IconButton color="primary"
-onClick={handleClick}
-sx={{ mr: 1 }}>
+      <IconButton color="primary" onClick={handleClick} sx={{ mr: 1 }}>
         <TriggerIcon />
       </IconButton>
     </Search>

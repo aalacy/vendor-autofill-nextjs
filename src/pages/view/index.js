@@ -20,12 +20,10 @@ const ViewPDF = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography variant="h5"
-mb={5}>
+          <Typography variant="h5" mb={5}>
             Job Files
           </Typography>
-          <HistoryList histories={histories}
-setHistories={setHistories} />
+          <HistoryList histories={histories} setHistories={setHistories} />
         </Container>
       </Box>
     </>

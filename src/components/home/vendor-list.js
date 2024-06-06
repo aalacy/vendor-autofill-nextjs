@@ -215,8 +215,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
 
   const topActions = useMemo(() => {
     return (
-      <Stack direction="row"
-spacing={1}>
+      <Stack direction="row" spacing={1}>
         <Tooltip title="Replace COI">
           <IconButton
             onClick={() => handleReplaceCOI()}
@@ -246,8 +245,7 @@ spacing={1}>
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <Typography variant="h6"
-mb={2}>
+        <Typography variant="h6" mb={2}>
           My Vendors: &nbsp;(<small>{vendors?.length || "-"}</small>)
         </Typography>
       </Box>
@@ -267,8 +265,7 @@ mb={2}>
       </div>
 
       {/* Loading Overlay */}
-      <LoadingOverlay setOpen={setGLoading}
-open={gLoading || isLoading} />
+      <LoadingOverlay setOpen={setGLoading} open={gLoading || isLoading} />
 
       {/* PDF Modal */}
       <Modal
@@ -279,9 +276,7 @@ open={gLoading || isLoading} />
         size="md"
         topActions={invoice === "COI" ? topActions : null}
       >
-        <Stack direction="row"
-justifyContent="space-between"
-alignItems="center">
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
           <form onSubmit={formik.handleSubmit}>
             <Box
               sx={{
@@ -311,8 +306,7 @@ alignItems="center">
                   ),
                 }}
               />
-              <Button type="submit"
-variant="contained">
+              <Button type="submit" variant="contained">
                 Send
               </Button>
             </Box>
@@ -336,9 +330,7 @@ variant="contained">
           open={true}
           onClose={() => setShowThankyou(false)}
           text={
-            <Typography variant="body1"
-mb={1}
-textAlign="center">
+            <Typography variant="body1" mb={1} textAlign="center">
               Form will be sent to <b>{formik.values.email}</b> &nbsp;
             </Typography>
           }
@@ -346,10 +338,7 @@ textAlign="center">
       )}
 
       {/* COI Modal */}
-      {showCOI && <ManageCOI title={title}
-vendor={vendor}
-open={true}
-setOpen={setShowCOI} />}
+      {showCOI && <ManageCOI title={title} vendor={vendor} open={true} setOpen={setShowCOI} />}
 
       {/* Manage Invoice Modal */}
       {showInvoice && (

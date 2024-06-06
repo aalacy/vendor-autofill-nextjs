@@ -12,7 +12,7 @@
     "export": "next export",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "format": "prettier --ignore-unknown --write",
+    "format": "prettier . --ignore-unknown --write",
     "prepare": "is-ci || husky"
   },
   "dependencies": {

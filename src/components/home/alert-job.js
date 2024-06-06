@@ -8,18 +8,11 @@ export const AlertJob = ({ open, onClose }) => {
 
   return (
     <>
-      <Modal open={open}
-onClose={onClose}
-title="Alert"
-size="sm">
-        <Typography variant="h4"
-textAlign="center"
-mb={5}>
+      <Modal open={open} onClose={onClose} title="Alert" size="sm">
+        <Typography variant="h4" textAlign="center" mb={5}>
           Warning!
         </Typography>
-        <Typography variant="body1"
-mb={1}
-textAlign="center">
+        <Typography variant="body1" mb={1} textAlign="center">
           No Job Information was found for {user?.email} <br />
           Please Submit Job Info{" "}
           <Link

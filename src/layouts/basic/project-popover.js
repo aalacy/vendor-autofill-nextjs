@@ -53,8 +53,7 @@ export const ProjectPopover = (props) => {
           px: 2,
         }}
       >
-        <Typography color="text.secondary"
-variant="body2">
+        <Typography color="text.secondary" variant="body2">
           Projects
         </Typography>
       </Box>
@@ -79,11 +78,9 @@ variant="body2">
             <ListItemText>{project.name}</ListItemText>
           </MenuItem>
         ))}
-        <MenuItem onClick={handleNewProject}
-sx={{ textTransform: "capitalize", mt: 1 }}>
+        <MenuItem onClick={handleNewProject} sx={{ textTransform: "capitalize", mt: 1 }}>
           <ListItemIcon>
-            <AddIcon color="primary"
-fontSize="small" />
+            <AddIcon color="primary" fontSize="small" />
           </ListItemIcon>
           <ListItemText>New Project</ListItemText>
         </MenuItem>

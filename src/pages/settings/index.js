@@ -20,9 +20,7 @@ const Page = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography component="h1"
-variant="h5"
-marginBottom={5}>
+          <Typography component="h1" variant="h5" marginBottom={5}>
             Settings
           </Typography>
           <TabComponent
