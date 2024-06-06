@@ -28,7 +28,7 @@ export const ContactList = ({ contacts, setContacts, handleEdit }) => {
     } finally {
       setLoading(false);
     }
-  }, [paginationModel, filterModel, logicOperator]);
+  }, [paginationModel, filterModel, logicOperator, setContacts]);
 
   useEffect(() => {
     getData();

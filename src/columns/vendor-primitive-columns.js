@@ -1,15 +1,12 @@
-import { Typography, IconButton, Tooltip, Box, Checkbox, Button, Stack } from "@mui/material";
+import { Typography, IconButton, Tooltip, Box, Button, Stack } from "@mui/material";
 import {
   EditOutlined as EditIcon,
-  LaunchOutlined,
   Clear as ClearIcon,
   AddCircleOutline as AddIcon,
   DocumentScanner as ViewIcon,
 } from "@mui/icons-material";
-import { useCallback } from "react";
 
 import { beautyDateTime } from "src/utils";
-import { CreditAuthList, RentalAgreementList } from "src/utils/constants";
 
 const RenderAction = (props) => {
   const { handleEdit, handleRemove, row } = props;
@@ -56,20 +53,6 @@ const RenderActionHeader = (props) => {
 };
 
 export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, handleOpenPDF }) => {
-  const selectedCreditAuth = useCallback(
-    (selected) => {
-      return CreditAuthList.find(({ script }) => script === selected);
-    },
-    [CreditAuthList],
-  );
-
-  const selectedRentalAgreement = useCallback(
-    (selected) => {
-      return RentalAgreementList.find(({ script }) => script === selected);
-    },
-    [RentalAgreementList],
-  );
-
   return [
     {
       field: "name",

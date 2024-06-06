@@ -11,7 +11,7 @@ export default function PlanToggleButton({ products, plan, setPlan }) {
   useEffect(() => {
     if (products?.length < 1) return;
     setPlan(products[0].id);
-  }, [products]);
+  }, [products, setPlan]);
 
   return (
     <ToggleButtonGroup

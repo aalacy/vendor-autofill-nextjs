@@ -43,7 +43,7 @@ export const JobDataTable = () => {
         toast.error(error?.response?.message || "Something went wrong");
       }
     },
-    [JobService, queryClient, setJob],
+    [setProjects, queryClient, setJob],
   );
 
   const handleChange = useCallback(
@@ -69,7 +69,7 @@ export const JobDataTable = () => {
         },
       });
     }
-  }, [job, myJob]);
+  }, [job, myJob, hideConfirm, showConfirmDlg, updateJob]);
 
   if (!job) return <></>;
 
