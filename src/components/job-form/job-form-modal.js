@@ -112,7 +112,7 @@ export const JobFormModal = () => {
     <>
       <Modal
         title={
-          <Typography component="h1" variant="h5">
+          <Typography  variant="h5">
             Job Form
           </Typography>
         }

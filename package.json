@@ -33,6 +33,7 @@
     "@mui/material": "5.15.6",
     "@mui/x-data-grid-pro": "^6.19.1",
     "@mui/x-date-pickers": "6.18.4",
+    "@next/bundle-analyzer": "^14.2.3",
     "@react-google-maps/api": "^2.19.3",
     "@react-oauth/google": "^0.12.1",
     "@stripe/stripe-js": "^3.3.0",

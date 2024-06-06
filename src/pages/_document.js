@@ -12,16 +12,16 @@ const Favicon = () => (
   </>
 );
 
-const Fonts = () => (
-  <>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap"
-    />
-  </>
-);
+// const Fonts = () => (
+//   <>
+//     <link rel="preconnect" href="https://fonts.googleapis.com" />
+//     <link rel="preconnect" href="https://fonts.gstatic.com" />
+//     <link
+//       rel="stylesheet"
+//       href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap"
+//     />
+//   </>
+// );
 
 class CustomDocument extends Document {
   render() {
@@ -29,7 +29,7 @@ class CustomDocument extends Document {
       <Html lang="en">
         <Head>
           <Favicon />
-          <Fonts />
+          {/* <Fonts /> */}
         </Head>
         <body>
           <Main />

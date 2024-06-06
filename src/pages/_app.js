@@ -6,6 +6,7 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Roboto } from 'next/font/google'
 
 import { AuthConsumer, AuthProvider } from "src/contexts/auth-context";
 import { useNProgress } from "src/hooks/use-nprogress";
@@ -23,6 +24,12 @@ const SplashScreen = () => null;
 
 const queryClient = new QueryClient();
 
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+})
+ 
+
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
@@ -33,7 +40,7 @@ const App = (props) => {
   const theme = createTheme();
 
   return (
-    <CacheProvider value={emotionCache}>
+    <CacheProvider value={emotionCache} className={roboto.className}>
       <Head>
         <title>Prodbot</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />

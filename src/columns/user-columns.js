@@ -1,10 +1,10 @@
 import { Typography, IconButton, Tooltip, Box, Avatar, Chip } from "@mui/material";
 import {
   EditOutlined as EditIcon,
-  AccountCircle as UserCircleIcon,
   Clear as ClearIcon,
 } from "@mui/icons-material";
 import { useCallback } from "react";
+import Image from "next/image";
 
 const RenderAction = (props) => {
   const { handleEdit, handleRemove, row } = props;
@@ -65,14 +65,11 @@ export const UserColumns = ({ handleEdit, handleRemove }) => {
       width: 80,
       renderCell: (params) => (
         <Avatar
-          src={params.value || "/assets/avatars/no-profile1.png"}
           sx={{
-            height: 35,
-            width: 35,
             outline: "1px solid lightgray",
           }}
         >
-          <UserCircleIcon fontSize="small" />
+          <Image height={35} width={35} src={params.value || "/assets/avatars/no-profile1.png"} />
         </Avatar>
       ),
     },

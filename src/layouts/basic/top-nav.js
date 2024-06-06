@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
+import Image from "next/image";
 
 import { Avatar, Box, IconButton, Stack, SvgIcon, useMediaQuery, Badge } from "@mui/material";
 import { Help as HelpIcon } from "@mui/icons-material";
@@ -105,12 +106,16 @@ export const TopNav = (props) => {
                 ref={accountPopover.anchorRef}
                 sx={{
                   cursor: "pointer",
-                  height: 40,
-                  width: 40,
+
                   outline: "0.5px solid lightgray",
                 }}
-                src={user?.avatar || "/assets/avatars/no-profile1.png"}
-              />
+              >
+                <Image
+                  height={40}
+                  width={40}
+                  src={user?.avatar || "/assets/avatars/no-profile1.png"}
+                />
+              </Avatar>
             </StyledBadge>
           </Stack>
         </Stack>
