@@ -13,6 +13,27 @@ const SCOPES =
 export const GoogleCalendar = () => {
   const [events, setEvents] = useState(null);
 
+  const listUpcomingEvents = () => {
+    window.gapi.client.calendar.events
+      .list({
+        calendarId: "primary",
+        // timeMin: new Date().toISOString(),
+        showDeleted: true,
+        singleEvents: true,
+        // maxResults: 10,
+        // orderBy: "startTime",
+      })
+      .then(function (response) {
+        var events = response.result.items;
+
+        console.log(events);
+
+        if (events.length > 0) {
+          setEvents(formatEvents(events));
+        }
+      });
+  };
+
   const openSignInPopup = useCallback(() => {
     window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {
       console.log(res);
@@ -30,7 +51,7 @@ export const GoogleCalendar = () => {
         window.gapi.client.load("calendar", "v3", listUpcomingEvents);
       }
     });
-  }, [])
+  }, [listUpcomingEvents]);
 
   /**
    *  On load, called to load the auth2 library and API client library.
@@ -93,26 +114,7 @@ export const GoogleCalendar = () => {
    * the authorized user's calendar. If no events are found an
    * appropriate message is printed.
    */
-  const listUpcomingEvents = () => {
-    window.gapi.client.calendar.events
-      .list({
-        calendarId: "primary",
-        // timeMin: new Date().toISOString(),
-        showDeleted: true,
-        singleEvents: true,
-        // maxResults: 10,
-        // orderBy: "startTime",
-      })
-      .then(function (response) {
-        var events = response.result.items;
-
-        console.log(events);
-
-        if (events.length > 0) {
-          setEvents(formatEvents(events));
-        }
-      });
-  };
+  
 
   const formatEvents = (list) => {
     return list.map((item) => ({

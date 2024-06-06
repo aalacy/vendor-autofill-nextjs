@@ -93,7 +93,7 @@ export const AutocompleteField = (props) => {
       const place_id = values.data[index][`${key}_place_id`];
       if (place_id && description) setValue({ place_id, description });
     }
-  }, [index, manageDefaultValueForSecondItem, name, values?.data]);
+  }, [index, manageDefaultValueForSecondItem, name, values?.data, setFieldValue]);
 
   useEffect(() => {
     let active = true;
