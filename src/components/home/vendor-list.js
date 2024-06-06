@@ -181,7 +181,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       setShowPDFModal(false);
     };
 
-    
     const handleDeleteCOI = () => {
       showConfirmDlg({
         open: true,
@@ -193,7 +192,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
               data: { detail },
             } = await VendorService.deleteCOI(vendor.id);
             queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
-  
+
             // setVendors((prev) => ({
             //   ...prev,
             //   items: [
@@ -241,7 +240,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         </Tooltip>
       </Stack>
     );
-  }, []);
+  }, [hideConfirm, queryClient, showConfirmDlg, vendor]);
 
   return (
     <>

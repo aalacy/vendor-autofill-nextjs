@@ -8,10 +8,6 @@ import { InputField, DatePickerField, AutocompleteField } from "src/components/w
 export const MileageMainForm = (props) => {
   const { values, setFieldValue, setEmpty } = props;
 
-
-
-  
-
   useEffect(() => {
     const manageDateDefaultValue = () => {
       const prevDate = values.data.at(-2).date;
@@ -48,7 +44,7 @@ export const MileageMainForm = (props) => {
     // select date in the present and past vs date in the present and future.
 
     manageDateDefaultValue();
-  }, [values?.week_of, values?.data, setFieldValue]);
+  }, [values?.week_of, values?.data, setFieldValue, setEmpty, values]);
 
   return (
     <>

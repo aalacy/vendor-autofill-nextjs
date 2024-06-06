@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
@@ -13,12 +13,10 @@ const SCOPES =
 export const GoogleCalendar = () => {
   const [events, setEvents] = useState(null);
 
-  const openSignInPopup = () => {
+  const openSignInPopup = useCallback(() => {
     window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {
       console.log(res);
       if (res) {
-        console.log(window.gapi.client, res);
-
         if (res.access_token) localStorage.setItem("access_token", res.access_token);
 
         // fetch(
@@ -32,7 +30,7 @@ export const GoogleCalendar = () => {
         window.gapi.client.load("calendar", "v3", listUpcomingEvents);
       }
     });
-  };
+  }, [])
 
   /**
    *  On load, called to load the auth2 library and API client library.

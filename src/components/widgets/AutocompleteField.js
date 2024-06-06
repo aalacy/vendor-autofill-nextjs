@@ -64,8 +64,6 @@ export const AutocompleteField = (props) => {
     setFieldValue(`data.${index}.mileage_reimbursement`, distance * 0.67);
   }, [values, index, setFieldValue]);
 
-  
-
   useEffect(() => {
     if (!values?.data || values.data.length === 0) return;
     if (!values.data[index].from_address || !values.data[index].to_address) return;
@@ -78,7 +76,7 @@ export const AutocompleteField = (props) => {
     const manageDefaultValueForSecondItem = () => {
       if (!values?.data || values.data.length < 2) return;
       if (!name.includes("from_address")) return;
-  
+
       // "From" address of new milage entry autofills with the "To" address of the previous entry
       const curFrom = values.data.at(-1).from_address;
       const curFromPlaceId = values.data.at(-1).from_address_place_id;
