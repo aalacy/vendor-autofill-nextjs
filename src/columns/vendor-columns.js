@@ -33,7 +33,7 @@ const FormCell = (params) => {
   return (
     <Stack direction="row" justifyContent="center" spacing={1}>
       {row.vendor.forms?.map((form) => (
-        <Tooltip key={form.template_key} title={form.title}>
+        <Tooltip key={form.name} title={form.title}>
           <span>
             <IconButton
               color="info"
@@ -110,13 +110,13 @@ const COICell = (params) => {
 };
 
 const InvoiceCell = (params) => {
-  const { value, row, handleInvoice } = params;
+  const { row, handleInvoice } = params;
 
   return (
     <Tooltip title="Manage Forms">
       <span>
         <IconButton onClick={() => handleInvoice(row.vendor)}>
-          {!value || value.length === 0 ? (
+          {!row.vendor?.invoices || row.vendor?.invoices.length === 0 ? (
             <AddIcon color="primary" />
           ) : (
             <Badge badgeContent={row.vendor.invoices.length} color="info" max={99}>

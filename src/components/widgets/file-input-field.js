@@ -1,22 +1,24 @@
 import toast from "react-hot-toast";
+import { at } from "lodash";
 import { ErrorCode } from "react-dropzone";
+import { useField } from "formik";
 
-import { FileDropzone } from "src/components/account/file-dropzone";
+import { FileInput } from "./file-input";
 
-export const FileInput = (props) => {
-  const {
-    maxFileLimit,
-    onUpload,
-    loading,
-    files,
-    setFiles,
-    canUpload,
-    children,
-    name,
-    disabled,
-    helperText,
-    error
-  } = props;
+export const FileInputField = (props) => {
+  const { maxFileLimit, onUpload, loading, files, setFiles, canUpload, children, name, disabled } =
+    props;
+  const [, meta] = useField(props);
+
+  function _renderHelperText() {
+    const [, error] = at(meta, "touched", "error");
+    if (!canUpload) {
+      return "Please input the vendor name";
+    }
+    if (error) {
+      return error;
+    }
+  }
 
   const onDrop = (newFiles, fileRejections) => {
     setFiles(() => [...newFiles]);
@@ -40,7 +42,7 @@ export const FileInput = (props) => {
 
   return (
     <>
-      <FileDropzone
+    <FileInput
         maxFiles={maxFileLimit || 10}
         accept={{ "application/pdf": [".pdf"] }}
         files={files}
@@ -50,14 +52,15 @@ export const FileInput = (props) => {
         onUpload={onUpload}
         type="PDF"
         loading={loading}
-        error={error}
-        helperText={helperText}
+        error={!!meta.error || !canUpload}
+        helperText={_renderHelperText()}
         canUpload={canUpload}
         name={name}
         disabled={disabled}
       >
         {children}
-      </FileDropzone>
+      </FileInput>
+
     </>
   );
 };

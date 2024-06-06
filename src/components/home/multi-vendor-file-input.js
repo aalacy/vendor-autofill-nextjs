@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { Button } from "@mui/material";
 
 import { VendorService } from "src/services";
-import { FileInput } from "../widgets/file-input";
+import { FileInputField } from "../widgets/file-input-field";
 
 export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => {
   const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
   }, [values?.name]);
 
   return (
-    <FileInput
+    <FileInputField
       setFiles={setFiles}
       files={files}
       maxFileLimit={1}
@@ -69,6 +69,6 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
           Remove File
         </Button>
       ) : null}
-    </FileInput>
+    </FileInputField>
   );
 };

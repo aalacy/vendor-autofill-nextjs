@@ -62,6 +62,7 @@ export const ManageInvoice = ({
       {open && (
         <Modal open={true} onClose={onClose} title={title} subTitle={subTitle} size="sm">
           <FileInput
+            canUpload
             files={files}
             setFiles={setFiles}
             maxFileLimit={maxFileLimit}

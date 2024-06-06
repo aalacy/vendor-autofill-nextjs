@@ -43,6 +43,7 @@ export const ManageCOI = ({ title, vendor, open, setOpen }) => {
       {open && (
         <Modal open={true} onClose={onClose} title={title} subTitle={subTitle} size="sm">
           <FileInput
+            canUpload
             files={files}
             setFiles={setFiles}
             maxFileLimit={1}

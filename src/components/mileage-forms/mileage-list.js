@@ -20,7 +20,7 @@ export const MileageList = ({
   handleEdit,
   setRowCountState,
   filterModel,
-  paginationModel
+  paginationModel,
 }) => {
   const { showConfirmDlg, hideConfirm } = useAuth();
 

@@ -111,6 +111,7 @@ export const TopNav = (props) => {
                 }}
               >
                 <Image
+                  alt="Profile"
                   height={40}
                   width={40}
                   src={user?.avatar || "/assets/avatars/no-profile1.png"}

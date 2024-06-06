@@ -66,7 +66,7 @@ export const UserColumns = ({ handleEdit, handleRemove }) => {
             outline: "1px solid lightgray",
           }}
         >
-          <Image height={35} width={35} src={params.value || "/assets/avatars/no-profile1.png"} />
+          <Image alt="Profile" height={35} width={35} src={params.value || "/assets/avatars/no-profile1.png"} />
         </Avatar>
       ),
     },

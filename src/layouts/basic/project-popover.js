@@ -78,7 +78,14 @@ export const ProjectPopover = (props) => {
             <ListItemText>{project.name}</ListItemText>
           </MenuItem>
         ))}
-        <MenuItem onClick={handleNewProject} sx={{ textTransform: "capitalize", mt: 1 }}>
+        <MenuItem
+          onClick={handleNewProject}
+          sx={{
+            textTransform: "capitalize",
+            mt: 1,
+            display: auth.isAuthenticated ? "flex" : "none",
+          }}
+        >
           <ListItemIcon>
             <AddIcon color="primary" fontSize="small" />
           </ListItemIcon>
