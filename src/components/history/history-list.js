@@ -30,11 +30,11 @@ export const HistoryList = ({ histories, setHistories }) => {
     } finally {
       setLoading(false);
     }
-  }, [paginationModel, filterModel, logicOperator]);
+  }, [paginationModel, filterModel, logicOperator, setHistories]);
 
   useEffect(() => {
     getData();
-  }, [paginationModel, filterModel, logicOperator]);
+  }, [paginationModel, filterModel, logicOperator, getData]);
 
   const handleView = (url, item, type) => {
     setUrl(url);

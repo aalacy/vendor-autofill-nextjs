@@ -32,7 +32,7 @@ export const ContactList = ({ contacts, setContacts, handleEdit }) => {
 
   useEffect(() => {
     getData();
-  }, [paginationModel, filterModel, logicOperator, shouldRefresh]);
+  }, [paginationModel, filterModel, logicOperator, shouldRefresh, getData]);
 
   const removeContact = async (id) => {
     try {

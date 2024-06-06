@@ -18,11 +18,11 @@ export const TrackingInfo = ({ data, setData }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [setData]);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   return (
     <div style={{ height: 400, width: "100%" }}>

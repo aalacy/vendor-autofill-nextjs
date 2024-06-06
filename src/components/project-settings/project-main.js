@@ -39,7 +39,7 @@ export const ProjectMain = () => {
         }
       },
     });
-  }, [queryClient, project, hideConfirm, setProject, setProjects, showConfirmDlg]);
+  }, [project, hideConfirm, setProject, setProjects, showConfirmDlg]);
 
   return (
     <>

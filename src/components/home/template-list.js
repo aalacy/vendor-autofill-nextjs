@@ -34,7 +34,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
       ({ name, address }) =>
         name.match(new RegExp(query, "i")) || address.match(new RegExp(query, "i")),
     );
-  }, [query]);
+  }, [query, templates]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);

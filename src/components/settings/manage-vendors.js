@@ -68,7 +68,7 @@ export const ManageVendors = () => {
         },
       });
     },
-    [showConfirmDlg, hideConfirm, queryClient, toast, VendorService],
+    [showConfirmDlg, hideConfirm, queryClient],
   );
 
   const handleAdd = useCallback(() => {
@@ -90,7 +90,7 @@ export const ManageVendors = () => {
         setGLoading(false);
       }
     },
-    [setTitle, setShowPDFModal, setUrl, setGLoading, VendorService],
+    [setTitle, setShowPDFModal, setUrl, setGLoading],
   );
 
   return (

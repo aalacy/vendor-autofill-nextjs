@@ -95,14 +95,14 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
     (selected) => {
       return CreditAuthList.find(({ script }) => script === selected);
     },
-    [CreditAuthList],
+    [],
   );
 
   const selectedRentalAgreemtn = useCallback(
     (selected) => {
       return RentalAgreementList.find(({ script }) => script === selected);
     },
-    [RentalAgreementList],
+    [],
   );
 
   return (

@@ -45,12 +45,12 @@ export const MileageList = ({ mileages, setMileages, handleEdit }) => {
     } finally {
       setLoading(false);
     }
-  }, [paginationModel, filterModel, logicOperator, identifier]);
+  }, [paginationModel, filterModel, logicOperator, identifier, setMileages]);
 
   useEffect(() => {
     if (!identifier) return;
     getData();
-  }, [paginationModel, filterModel, logicOperator, shouldRefresh, identifier]);
+  }, [paginationModel, filterModel, logicOperator, shouldRefresh, identifier, getData]);
 
   const removeMileage = async (id) => {
     try {

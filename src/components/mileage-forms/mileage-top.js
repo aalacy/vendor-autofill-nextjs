@@ -4,41 +4,10 @@ import { useEffect } from "react";
 import { DatePickerField, InputField } from "src/components/widgets";
 import { thisSunday } from "src/utils";
 
-const Weeks = [
-  {
-    value: "Mon",
-    label: "Mon",
-  },
-  {
-    value: "Tue",
-    label: "Tue",
-  },
-  {
-    value: "Wed",
-    label: "",
-  },
-  {
-    value: "Thu",
-    label: "Thu",
-  },
-  {
-    value: "Fri",
-    label: "Fri",
-  },
-  {
-    value: "Sat",
-    label: "Sat",
-  },
-  {
-    value: "Sun",
-    label: "Sun",
-  },
-];
-
 export const MileageTop = ({ values, setFieldValue }) => {
   useEffect(() => {
     setFieldValue("week_of", values.week_of || thisSunday());
-  }, []);
+  }, [setFieldValue]);
 
   return (
     <>

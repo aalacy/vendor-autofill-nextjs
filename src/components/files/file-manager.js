@@ -42,25 +42,22 @@ export const FileManager = ({}) => {
     },
   });
 
-  const downloadFiles = useCallback(
-    async (folders) => {
-      setLoading(true);
-      const keys = folders.map(({ files }) => files.map((key) => key.key));
-      try {
-        const {
-          data: { result },
-        } = await FileService.download(keys.flat());
-        for (const item of result) {
-          downloadMedia("", item);
-        }
-      } catch (error) {
-        toast.error(error.message || error.response.data);
-      } finally {
-        setLoading(false);
+  const downloadFiles = useCallback(async (folders) => {
+    setLoading(true);
+    const keys = folders.map(({ files }) => files.map((key) => key.key));
+    try {
+      const {
+        data: { result },
+      } = await FileService.download(keys.flat());
+      for (const item of result) {
+        downloadMedia("", item);
       }
-    },
-    [],
-  );
+    } catch (error) {
+      toast.error(error.message || error.response.data);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const removeItem = (key) => {
     showConfirmDlg({

@@ -24,7 +24,7 @@ export const GoogleCalendar = () => {
     script.addEventListener("load", () => {
       if (window.gapi) handleClientLoad();
     });
-  }, []);
+  }, [handleClientLoad]);
 
   const openSignInPopup = () => {
     window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {

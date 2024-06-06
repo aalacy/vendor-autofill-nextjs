@@ -77,7 +77,7 @@ export const EDataGrid = (props) => {
           resolve(oldRow); // Nothing was changed
         }
       }),
-    [],
+    [setPromiseArguments],
   );
 
   const handleProcessRowUpdateError = useCallback((error) => {
@@ -88,7 +88,7 @@ export const EDataGrid = (props) => {
     // Here you save the data you need from the filter model
     setLogicOperator(filterModel.logicOperator);
     setFilterModel(filterModel.items);
-  }, []);
+  }, [setFilterModel, setLogicOperator]);
 
   const handleCellClick = useCallback((params, event) => {
     const { field, row } = params;
@@ -103,7 +103,7 @@ export const EDataGrid = (props) => {
       navigator.clipboard.writeText(value);
       toast.success(`Copied: ${value}`);
     }
-  }, []);
+  }, [enableClipboardCopy]);
 
   useEffect(() => {
     if (!promiseArguments) return;
@@ -114,7 +114,7 @@ export const EDataGrid = (props) => {
         close: handleNo,
         callback: handleOk,
       });
-  }, [promiseArguments]);
+  }, [promiseArguments, handleNo, handleOk, noConfirm, showConfirmDlg]);
 
   return (
     <StripedDataGrid

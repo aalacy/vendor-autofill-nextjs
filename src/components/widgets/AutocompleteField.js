@@ -62,7 +62,7 @@ export const AutocompleteField = (props) => {
     // const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
     setFieldValue(`data.${index}.number_of_miles`, distance);
     setFieldValue(`data.${index}.mileage_reimbursement`, distance * 0.67);
-  }, [value, values]);
+  }, [value, values, index, setFieldValue]);
 
   const manageDefaultValueForSecondItem = () => {
     if (!values?.data || values.data.length < 2) return;
@@ -84,7 +84,7 @@ export const AutocompleteField = (props) => {
     if (!window.google?.maps?.Geocoder) return;
 
     calculateMiles();
-  }, [values?.data]);
+  }, [values?.data, calculateMiles, index]);
 
   useEffect(() => {
     manageDefaultValueForSecondItem();
@@ -94,7 +94,7 @@ export const AutocompleteField = (props) => {
       const place_id = values.data[index][`${key}_place_id`];
       if (place_id && description) setValue({ place_id, description });
     }
-  }, []);
+  }, [index, manageDefaultValueForSecondItem, name]);
 
   useEffect(() => {
     let active = true;
@@ -139,7 +139,7 @@ export const AutocompleteField = (props) => {
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetch]);
+  }, [value, inputValue, fetch, name, setFieldValue]);
 
   function _renderHelperText() {
     const [touched, error] = at(meta, "touched", "error");

@@ -5,17 +5,6 @@ import { useEffect } from "react";
 
 import { InputField, DatePickerField, AutocompleteField } from "src/components/widgets";
 
-const BusinessOptions = [
-  {
-    value: "Fedex",
-    label: "Fedex",
-  },
-  {
-    value: "UPS",
-    label: "UPS",
-  },
-];
-
 export const MileageMainForm = (props) => {
   const { values, setFieldValue, setEmpty } = props;
 
@@ -55,7 +44,7 @@ export const MileageMainForm = (props) => {
     // select date in the present and past vs date in the present and future.
 
     manageDateDefaultValue();
-  }, [values]);
+  }, [values?.week_of, setFieldValue, checkFormEmpty, manageDateDefaultValue]);
 
   return (
     <>
