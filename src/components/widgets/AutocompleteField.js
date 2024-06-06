@@ -62,21 +62,9 @@ export const AutocompleteField = (props) => {
     // const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
     setFieldValue(`data.${index}.number_of_miles`, distance);
     setFieldValue(`data.${index}.mileage_reimbursement`, distance * 0.67);
-  }, [value, values, index, setFieldValue]);
+  }, [values, index, setFieldValue]);
 
-  const manageDefaultValueForSecondItem = () => {
-    if (!values?.data || values.data.length < 2) return;
-    if (!name.includes("from_address")) return;
-
-    // "From" address of new milage entry autofills with the "To" address of the previous entry
-    const curFrom = values.data.at(-1).from_address;
-    const curFromPlaceId = values.data.at(-1).from_address_place_id;
-    const prevTo = values.data.at(-2).to_address;
-    const prevToPlaceId = values.data.at(-2).to_address_place_id;
-    setFieldValue(`data.${index}.from_address`, curFrom || prevTo);
-    setFieldValue(`data.${index}.from_address_place_id`, curFromPlaceId || prevToPlaceId);
-    setValue({ place_id: curFromPlaceId || prevToPlaceId, description: curFrom || prevTo });
-  };
+  
 
   useEffect(() => {
     if (!values?.data || values.data.length === 0) return;
@@ -87,7 +75,20 @@ export const AutocompleteField = (props) => {
   }, [values?.data, calculateMiles, index]);
 
   useEffect(() => {
-    manageDefaultValueForSecondItem();
+    const manageDefaultValueForSecondItem = () => {
+      if (!values?.data || values.data.length < 2) return;
+      if (!name.includes("from_address")) return;
+  
+      // "From" address of new milage entry autofills with the "To" address of the previous entry
+      const curFrom = values.data.at(-1).from_address;
+      const curFromPlaceId = values.data.at(-1).from_address_place_id;
+      const prevTo = values.data.at(-2).to_address;
+      const prevToPlaceId = values.data.at(-2).to_address_place_id;
+      setFieldValue(`data.${index}.from_address`, curFrom || prevTo);
+      setFieldValue(`data.${index}.from_address_place_id`, curFromPlaceId || prevToPlaceId);
+      setValue({ place_id: curFromPlaceId || prevToPlaceId, description: curFrom || prevTo });
+    };
+
     const key = name.split(".").at(-1);
     if (values.data[index].hasOwnProperty(key)) {
       const description = values.data[index][key];
@@ -139,7 +140,7 @@ export const AutocompleteField = (props) => {
     return () => {
       active = false;
     };
-  }, [inputValue, fetch, name, setFieldValue]);
+  }, [inputValue, fetch, name, setFieldValue, value]);
 
   function _renderHelperText() {
     const [touched, error] = at(meta, "touched", "error");

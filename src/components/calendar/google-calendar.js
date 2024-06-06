@@ -13,8 +13,6 @@ const SCOPES =
 export const GoogleCalendar = () => {
   const [events, setEvents] = useState(null);
 
- 
-
   const openSignInPopup = () => {
     window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {
       console.log(res);
@@ -45,7 +43,6 @@ export const GoogleCalendar = () => {
    *  listeners.
    */
 
-
   useEffect(() => {
     const initClient = () => {
       if (!localStorage.getItem("access_token")) {
@@ -64,7 +61,7 @@ export const GoogleCalendar = () => {
               return res.json();
             } else {
               localStorage.removeItem("access_token");
-  
+
               openSignInPopup();
             }
           })
@@ -76,7 +73,7 @@ export const GoogleCalendar = () => {
           });
       }
     };
-    
+
     const handleClientLoad = () => {
       window.gapi.load("client:auth2", initClient);
     };
@@ -91,7 +88,7 @@ export const GoogleCalendar = () => {
     script.addEventListener("load", () => {
       if (window.gapi) handleClientLoad();
     });
-  }, []);
+  }, [openSignInPopup]);
 
   /**
    * Print the summary and start datetime/date of the next ten events in

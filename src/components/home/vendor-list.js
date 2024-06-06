@@ -174,46 +174,47 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     }
   };
 
-  const handleReplaceCOI = () => {
-    setTitle(`Replace COI for ${vendor.name}`);
-    setShowCOI(true);
-    setShowPDFModal(false);
-  };
-
-  const handleDeleteCOI = () => {
-    showConfirmDlg({
-      open: true,
-      close: hideConfirm,
-      callback: async () => {
-        hideConfirm();
-        try {
-          const {
-            data: { detail },
-          } = await VendorService.deleteCOI(vendor.id);
-          queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
-
-          // setVendors((prev) => ({
-          //   ...prev,
-          //   items: [
-          //     ...prev.items.filter((p) => p.id !== vendor.id),
-          //     ...prev.items
-          //       .filter((p) => p.id === vendor.id)
-          //       .map((p) => {
-          //         const { coi, ...rest } = p;
-          //         return { ...rest };
-          //       }),
-          //   ],
-          // }));
-          setShowPDFModal(false);
-          toast.success(detail);
-        } catch (err) {
-          toast.error(err?.response?.message);
-        }
-      },
-    });
-  };
-
   const topActions = useMemo(() => {
+    const handleReplaceCOI = () => {
+      setTitle(`Replace COI for ${vendor.name}`);
+      setShowCOI(true);
+      setShowPDFModal(false);
+    };
+
+    
+    const handleDeleteCOI = () => {
+      showConfirmDlg({
+        open: true,
+        close: hideConfirm,
+        callback: async () => {
+          hideConfirm();
+          try {
+            const {
+              data: { detail },
+            } = await VendorService.deleteCOI(vendor.id);
+            queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+  
+            // setVendors((prev) => ({
+            //   ...prev,
+            //   items: [
+            //     ...prev.items.filter((p) => p.id !== vendor.id),
+            //     ...prev.items
+            //       .filter((p) => p.id === vendor.id)
+            //       .map((p) => {
+            //         const { coi, ...rest } = p;
+            //         return { ...rest };
+            //       }),
+            //   ],
+            // }));
+            setShowPDFModal(false);
+            toast.success(detail);
+          } catch (err) {
+            toast.error(err?.response?.message);
+          }
+        },
+      });
+    };
+
     return (
       <Stack direction="row" spacing={1}>
         <Tooltip title="Replace COI">

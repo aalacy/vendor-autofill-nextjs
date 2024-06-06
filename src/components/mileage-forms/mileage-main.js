@@ -8,29 +8,33 @@ import { InputField, DatePickerField, AutocompleteField } from "src/components/w
 export const MileageMainForm = (props) => {
   const { values, setFieldValue, setEmpty } = props;
 
-  const manageDateDefaultValue = () => {
-    const prevDate = values.data.at(-2).date;
-    const curDate = values.data.at(-1).date;
-    const index = values.data.length - 1;
-    setFieldValue(`data.${index}.date`, curDate || prevDate);
-  };
 
-  const checkFormEmpty = () => {
-    const { data, ...others } = values;
-    // check if the values is empty object
-    if (Object.values(others).some((v) => v)) {
-      setEmpty(false);
-    } else {
-      for (const item of data) {
-        if (Object.values(item).some((v) => v)) {
-          setEmpty(false);
-          break;
-        }
-      }
-    }
-  };
+
+  
 
   useEffect(() => {
+    const manageDateDefaultValue = () => {
+      const prevDate = values.data.at(-2).date;
+      const curDate = values.data.at(-1).date;
+      const index = values.data.length - 1;
+      setFieldValue(`data.${index}.date`, curDate || prevDate);
+    };
+
+    const checkFormEmpty = () => {
+      const { data, ...others } = values;
+      // check if the values is empty object
+      if (Object.values(others).some((v) => v)) {
+        setEmpty(false);
+      } else {
+        for (const item of data) {
+          if (Object.values(item).some((v) => v)) {
+            setEmpty(false);
+            break;
+          }
+        }
+      }
+    };
+
     checkFormEmpty();
 
     // populate week_of date into first date of the mileage form
@@ -44,7 +48,7 @@ export const MileageMainForm = (props) => {
     // select date in the present and past vs date in the present and future.
 
     manageDateDefaultValue();
-  }, [values?.week_of, values?.data, setFieldValue, checkFormEmpty, manageDateDefaultValue]);
+  }, [values?.week_of, values?.data, setFieldValue]);
 
   return (
     <>
