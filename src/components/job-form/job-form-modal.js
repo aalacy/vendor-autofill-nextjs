@@ -111,11 +111,7 @@ export const JobFormModal = () => {
   return (
     <>
       <Modal
-        title={
-          <Typography  variant="h5">
-            Job Form
-          </Typography>
-        }
+        title={<Typography variant="h5">Job Form</Typography>}
         open={openJobForm}
         onClose={onClose}
       >

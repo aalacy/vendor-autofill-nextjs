@@ -1,8 +1,5 @@
 import { Typography, IconButton, Tooltip, Box, Avatar, Chip } from "@mui/material";
-import {
-  EditOutlined as EditIcon,
-  Clear as ClearIcon,
-} from "@mui/icons-material";
+import { EditOutlined as EditIcon, Clear as ClearIcon } from "@mui/icons-material";
 import { useCallback } from "react";
 import Image from "next/image";
 

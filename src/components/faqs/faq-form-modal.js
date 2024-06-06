@@ -60,11 +60,7 @@ export const FaqFormModal = ({ curFaq, open, setOpen }) => {
   return (
     <>
       <Modal
-        title={
-          <Typography  variant="h5">
-            Faq Form
-          </Typography>
-        }
+        title={<Typography variant="h5">Faq Form</Typography>}
         open={open}
         onClose={onClose}
         size="md"

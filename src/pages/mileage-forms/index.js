@@ -37,9 +37,7 @@ export const MileageFormsPage = () => {
           <Box
             sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 5 }}
           >
-            <Typography  variant="h5">
-              Mileage Forms
-            </Typography>
+            <Typography variant="h5">Mileage Forms</Typography>
             <Box sx={{ display: "flex", gap: 2 }}>
               <Tooltip title="Add New Form">
                 <Button

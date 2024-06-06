@@ -17,7 +17,7 @@ const Page = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography  variant="h5" marginBottom={10}>
+          <Typography variant="h5" marginBottom={10}>
             Faqs
           </Typography>
           <FaqList />
