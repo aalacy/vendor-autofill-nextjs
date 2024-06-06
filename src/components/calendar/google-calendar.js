@@ -13,7 +13,7 @@ const SCOPES =
 export const GoogleCalendar = () => {
   const [events, setEvents] = useState(null);
 
-  const listUpcomingEvents = () => {
+  const listUpcomingEvents = useCallback(() => {
     window.gapi.client.calendar.events
       .list({
         calendarId: "primary",
@@ -26,13 +26,11 @@ export const GoogleCalendar = () => {
       .then(function (response) {
         var events = response.result.items;
 
-        console.log(events);
-
         if (events.length > 0) {
           setEvents(formatEvents(events));
         }
       });
-  };
+  }, [setEvents, formatEvents])
 
   const openSignInPopup = useCallback(() => {
     window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {
@@ -114,7 +112,6 @@ export const GoogleCalendar = () => {
    * the authorized user's calendar. If no events are found an
    * appropriate message is printed.
    */
-  
 
   const formatEvents = (list) => {
     return list.map((item) => ({
