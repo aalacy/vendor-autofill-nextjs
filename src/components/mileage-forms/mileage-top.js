@@ -7,7 +7,7 @@ import { thisSunday } from "src/utils";
 export const MileageTop = ({ values, setFieldValue }) => {
   useEffect(() => {
     setFieldValue("week_of", values.week_of || thisSunday());
-  }, [setFieldValue]);
+  }, [setFieldValue, values.week_of]);
 
   return (
     <>

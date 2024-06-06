@@ -44,7 +44,7 @@ export const MileageMainForm = (props) => {
     // select date in the present and past vs date in the present and future.
 
     manageDateDefaultValue();
-  }, [values?.week_of, setFieldValue, checkFormEmpty, manageDateDefaultValue]);
+  }, [values?.week_of, values?.data, setFieldValue, checkFormEmpty, manageDateDefaultValue]);
 
   return (
     <>

@@ -15,7 +15,7 @@ export const HomeMain = () => {
   useEffect(() => {
     if (user?.has_job_submitted) return;
     showJobForm(true);
-  }, [user]);
+  }, [user, showJobForm]);
 
   const { isLoading, data: vendors } = useQuery({
     queryKey: ["getAllVendors"],

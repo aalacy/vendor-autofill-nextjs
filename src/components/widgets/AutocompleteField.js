@@ -94,7 +94,7 @@ export const AutocompleteField = (props) => {
       const place_id = values.data[index][`${key}_place_id`];
       if (place_id && description) setValue({ place_id, description });
     }
-  }, [index, manageDefaultValueForSecondItem, name]);
+  }, [index, manageDefaultValueForSecondItem, name, values?.data]);
 
   useEffect(() => {
     let active = true;
@@ -139,7 +139,7 @@ export const AutocompleteField = (props) => {
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetch, name, setFieldValue]);
+  }, [inputValue, fetch, name, setFieldValue]);
 
   function _renderHelperText() {
     const [touched, error] = at(meta, "touched", "error");

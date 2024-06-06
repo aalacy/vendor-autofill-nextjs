@@ -91,19 +91,13 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
     onClose();
   };
 
-  const selectedCreditAuth = useCallback(
-    (selected) => {
-      return CreditAuthList.find(({ script }) => script === selected);
-    },
-    [],
-  );
+  const selectedCreditAuth = useCallback((selected) => {
+    return CreditAuthList.find(({ script }) => script === selected);
+  }, []);
 
-  const selectedRentalAgreemtn = useCallback(
-    (selected) => {
-      return RentalAgreementList.find(({ script }) => script === selected);
-    },
-    [],
-  );
+  const selectedRentalAgreemtn = useCallback((selected) => {
+    return RentalAgreementList.find(({ script }) => script === selected);
+  }, []);
 
   return (
     <>

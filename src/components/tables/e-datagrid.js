@@ -84,26 +84,32 @@ export const EDataGrid = (props) => {
     toast.error(error.message);
   }, []);
 
-  const onFilterChange = useCallback((filterModel) => {
-    // Here you save the data you need from the filter model
-    setLogicOperator(filterModel.logicOperator);
-    setFilterModel(filterModel.items);
-  }, [setFilterModel, setLogicOperator]);
+  const onFilterChange = useCallback(
+    (filterModel) => {
+      // Here you save the data you need from the filter model
+      setLogicOperator(filterModel.logicOperator);
+      setFilterModel(filterModel.items);
+    },
+    [setFilterModel, setLogicOperator],
+  );
 
-  const handleCellClick = useCallback((params, event) => {
-    const { field, row } = params;
-    if (["department", "id"].includes(field)) return;
-    let value = row[field];
-    if (field === "phone_email") {
-      value = `phone: ${row["phone"]}, email: ${row["email"]}`;
-    } else if (field === "name_position") {
-      value = `name: ${row["first_name"]} ${row["last_name"]}, position: ${row["position"]}`;
-    }
-    if (value && enableClipboardCopy) {
-      navigator.clipboard.writeText(value);
-      toast.success(`Copied: ${value}`);
-    }
-  }, [enableClipboardCopy]);
+  const handleCellClick = useCallback(
+    (params, event) => {
+      const { field, row } = params;
+      if (["department", "id"].includes(field)) return;
+      let value = row[field];
+      if (field === "phone_email") {
+        value = `phone: ${row["phone"]}, email: ${row["email"]}`;
+      } else if (field === "name_position") {
+        value = `name: ${row["first_name"]} ${row["last_name"]}, position: ${row["position"]}`;
+      }
+      if (value && enableClipboardCopy) {
+        navigator.clipboard.writeText(value);
+        toast.success(`Copied: ${value}`);
+      }
+    },
+    [enableClipboardCopy],
+  );
 
   useEffect(() => {
     if (!promiseArguments) return;

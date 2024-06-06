@@ -15,9 +15,12 @@ const MyGoogleMap = ({ address }) => {
 
   const [center, setCenter] = useState();
 
-  const onLoad = useCallback(function callback(map) {
-    geocodeByAddress(address).then((latLng) => setCenter(latLng));
-  }, [address]);
+  const onLoad = useCallback(
+    function callback(map) {
+      geocodeByAddress(address).then((latLng) => setCenter(latLng));
+    },
+    [address],
+  );
 
   return isLoaded ? (
     <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} onLoad={onLoad}>

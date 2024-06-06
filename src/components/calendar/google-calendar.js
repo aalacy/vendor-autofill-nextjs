@@ -13,18 +13,7 @@ const SCOPES =
 export const GoogleCalendar = () => {
   const [events, setEvents] = useState(null);
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.async = true;
-    script.defer = true;
-    script.src = "https://apis.google.com/js/api.js";
-
-    document.body.appendChild(script);
-
-    script.addEventListener("load", () => {
-      if (window.gapi) handleClientLoad();
-    });
-  }, [handleClientLoad]);
+ 
 
   const openSignInPopup = () => {
     window.gapi.auth2.authorize({ client_id: CLIENT_ID, scope: SCOPES }, (res) => {
@@ -50,43 +39,59 @@ export const GoogleCalendar = () => {
   /**
    *  On load, called to load the auth2 library and API client library.
    */
-  const handleClientLoad = () => {
-    window.gapi.load("client:auth2", initClient);
-  };
 
   /**
    *  Initializes the API client library and sets up sign-in state
    *  listeners.
    */
-  const initClient = () => {
-    if (!localStorage.getItem("access_token")) {
-      openSignInPopup();
-    } else {
-      fetch(
-        `https://www.googleapis.com/calendar/v3/calendars/primary/events?key=${API_KEY}&orderBy=startTime&singleEvents=true`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        },
-      )
-        .then((res) => {
-          if (res.status !== 401) {
-            return res.json();
-          } else {
-            localStorage.removeItem("access_token");
 
-            openSignInPopup();
-          }
-        })
-        .then((data) => {
-          if (data?.items) {
-            console.log(data);
-            setEvents(formatEvents(data.items));
-          }
-        });
-    }
-  };
+
+  useEffect(() => {
+    const initClient = () => {
+      if (!localStorage.getItem("access_token")) {
+        openSignInPopup();
+      } else {
+        fetch(
+          `https://www.googleapis.com/calendar/v3/calendars/primary/events?key=${API_KEY}&orderBy=startTime&singleEvents=true`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+          },
+        )
+          .then((res) => {
+            if (res.status !== 401) {
+              return res.json();
+            } else {
+              localStorage.removeItem("access_token");
+  
+              openSignInPopup();
+            }
+          })
+          .then((data) => {
+            if (data?.items) {
+              console.log(data);
+              setEvents(formatEvents(data.items));
+            }
+          });
+      }
+    };
+    
+    const handleClientLoad = () => {
+      window.gapi.load("client:auth2", initClient);
+    };
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.defer = true;
+    script.src = "https://apis.google.com/js/api.js";
+
+    document.body.appendChild(script);
+
+    script.addEventListener("load", () => {
+      if (window.gapi) handleClientLoad();
+    });
+  }, []);
 
   /**
    * Print the summary and start datetime/date of the next ten events in

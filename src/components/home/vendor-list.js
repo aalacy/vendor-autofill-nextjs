@@ -240,7 +240,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         </Tooltip>
       </Stack>
     );
-  }, [handleDeleteCOI, handleReplaceCOI]);
+  }, []);
 
   return (
     <>
