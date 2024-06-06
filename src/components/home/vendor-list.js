@@ -193,18 +193,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
             } = await VendorService.deleteCOI(vendor.id);
             queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
 
-            // setVendors((prev) => ({
-            //   ...prev,
-            //   items: [
-            //     ...prev.items.filter((p) => p.id !== vendor.id),
-            //     ...prev.items
-            //       .filter((p) => p.id === vendor.id)
-            //       .map((p) => {
-            //         const { coi, ...rest } = p;
-            //         return { ...rest };
-            //       }),
-            //   ],
-            // }));
             setShowPDFModal(false);
             toast.success(detail);
           } catch (err) {

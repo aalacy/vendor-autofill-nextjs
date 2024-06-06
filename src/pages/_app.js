@@ -25,9 +25,9 @@ const SplashScreen = () => null;
 const queryClient = new QueryClient();
 
 const roboto = Roboto({
-  weight: ['400', '700'],
+  weight: ["400", "700"],
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
 });
 
 const App = (props) => {
