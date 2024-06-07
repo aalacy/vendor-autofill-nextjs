@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Bars3Icon from '@mui/icons-material/Menu';
+import Bars3Icon from "@mui/icons-material/Menu";
 import Image from "next/image";
 
 import { Avatar, Box, IconButton, Stack, SvgIcon, useMediaQuery, Badge } from "@mui/material";

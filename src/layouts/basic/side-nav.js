@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import PropTypes from "prop-types";
-import ChevronUpDownIcon from '@mui/icons-material/UnfoldLess';
+import ChevronUpDownIcon from "@mui/icons-material/UnfoldLess";
 import {
   Box,
   Button,

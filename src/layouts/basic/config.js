@@ -1,5 +1,5 @@
-import ChartBarIcon from '@mui/icons-material/BarChart';
-import UserIcon from '@mui/icons-material/Person';
+import ChartBarIcon from "@mui/icons-material/BarChart";
+import UserIcon from "@mui/icons-material/Person";
 import { SvgIcon } from "@mui/material";
 import {
   GroupOutlined as ContactIcon,
