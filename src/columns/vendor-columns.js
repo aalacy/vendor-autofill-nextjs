@@ -31,12 +31,9 @@ const EditSwitchCell = (params) => {
 const FormCell = (params) => {
   const { row, handleGeneratePDF } = params;
   return (
-    <Stack direction="row"
-justifyContent="center"
-spacing={1}>
+    <Stack direction="row" justifyContent="center" spacing={1}>
       {row.vendor.forms?.map((form) => (
-        <Tooltip key={form.name}
-title={form.title}>
+        <Tooltip key={form.name} title={form.title}>
           <span>
             <IconButton
               color="info"
@@ -90,8 +87,7 @@ const W9Cell = (params) => {
   return (
     <Tooltip title="Show W9">
       <span>
-        <IconButton onClick={() => handleW9(row.vendor)}
-disabled={!!!row.vendor.w9}>
+        <IconButton onClick={() => handleW9(row.vendor)} disabled={!!!row.vendor.w9}>
           <W9Icon color={row.w9 ? "primary" : "inherit"} />
         </IconButton>
       </span>
@@ -123,9 +119,7 @@ const InvoiceCell = (params) => {
           {!row.vendor?.invoices || row.vendor?.invoices.length === 0 ? (
             <AddIcon color="primary" />
           ) : (
-            <Badge badgeContent={row.vendor.invoices.length}
-color="info"
-max={99}>
+            <Badge badgeContent={row.vendor.invoices.length} color="info" max={99}>
               <InvoiceIcon color="primary" />
             </Badge>
           )}
@@ -153,8 +147,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       align: "center",
       resizable: true,
       width: 80,
-      renderCell: (params) => <W9Cell {...params}
-handleW9={handleW9} />,
+      renderCell: (params) => <W9Cell {...params} handleW9={handleW9} />,
     },
     {
       field: "vendor_coi",
@@ -162,8 +155,7 @@ handleW9={handleW9} />,
       type: "string",
       resizable: true,
       width: 80,
-      renderCell: (params) => <COICell {...params}
-handleCOI={handleCOI} />,
+      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
     },
     {
       field: "vendor_invoices",
@@ -171,8 +163,7 @@ handleCOI={handleCOI} />,
       type: "string",
       resizable: true,
       width: 80,
-      renderCell: (params) => <InvoiceCell {...params}
-handleInvoice={handleInvoice} />,
+      renderCell: (params) => <InvoiceCell {...params} handleInvoice={handleInvoice} />,
     },
     {
       field: "vendor_forms",
@@ -182,8 +173,7 @@ handleInvoice={handleInvoice} />,
       align: "center",
       resizable: true,
       width: 200,
-      renderCell: (params) => <FormCell {...params}
-handleGeneratePDF={handleGeneratePDF} />,
+      renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />,
     },
     {
       field: "vendor_total",

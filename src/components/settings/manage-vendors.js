@@ -10,8 +10,8 @@ import { VendorDetailPanelContent } from "../home/vendor-detail";
 import { useAuth } from "src/hooks/use-auth";
 import { VendorForm1 } from "../home/vendor-form1";
 import { Modal } from "../common/modal";
-import dynamic from 'next/dynamic';
-const PdfViewer = dynamic(() => import("../history/pdf-viewer"), {ssr: false});
+import dynamic from "next/dynamic";
+const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 import LoadingOverlay from "../common/loading-overlay";
 
 const ManageVendors = () => {
@@ -112,19 +112,13 @@ const ManageVendors = () => {
         getDetailPanelContent={getDetailPanelContent}
       />
 
-      {show && <VendorForm1 noThankYou
-vendor={curVendor}
-show={true}
-setShow={setShow} />}
+      {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
 
-      <Modal title={title}
-open={showPDFModal}
-onClose={() => setShowPDFModal(false)}>
+      <Modal title={title} open={showPDFModal} onClose={() => setShowPDFModal(false)}>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
 
-      <LoadingOverlay setOpen={setGLoading}
-open={gLoading} />
+      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
     </>
   );
 };

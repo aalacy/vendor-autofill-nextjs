@@ -1,15 +1,15 @@
 import toast from "react-hot-toast";
 import { useCallback, useState } from "react";
+import dynamic from "next/dynamic";
 
 import { EDataGrid } from "src/components/tables/e-datagrid";
 import { MileageService } from "src/services";
 import { downloadMedia } from "src/utils";
 import { MileagesColumns } from "src/columns";
 import { useAuth } from "src/hooks/use-auth";
-import { MileageDetailContent } from "./mileage-detail";
 import { Modal } from "../common/modal";
-import dynamic from 'next/dynamic';
-const PdfViewer = dynamic(() => import("../history/pdf-viewer"), {ssr: false});
+const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
+const MileageDetailContent = dynamic(() => import("./mileage-detail"), { ssr: false });
 
 export const MileageList = ({
   mileages,
@@ -132,10 +132,7 @@ export const MileageList = ({
         handleNo={handleNo}
       />
 
-      <Modal title={`${mileage?.name}`}
-open={open}
-onClose={() => setOpen(false)}
-size="md">
+      <Modal title={`${mileage?.name}`} open={open} onClose={() => setOpen(false)} size="md">
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
     </>

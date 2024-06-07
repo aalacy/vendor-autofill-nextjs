@@ -1,5 +1,5 @@
-import ChartBarIcon from "@heroicons/react/24/solid/ChartBarIcon";
-import UserIcon from "@heroicons/react/24/solid/UserIcon";
+import ChartBarIcon from '@mui/icons-material/BarChart';
+import UserIcon from '@mui/icons-material/Person';
 import { SvgIcon } from "@mui/material";
 import {
   GroupOutlined as ContactIcon,
@@ -27,12 +27,6 @@ export const items = [
       </SvgIcon>
     ),
   },
-  // {
-  //   title: "Job Files",
-  //   path: "/view",
-  //   icon: <PageviewIcon />,
-  // },
-
   {
     title: "Crew",
     path: "/crew",
@@ -42,15 +36,6 @@ export const items = [
       </SvgIcon>
     ),
   },
-  // {
-  //   title: "Job Form",
-  //   path: "/job-form",
-  //   icon: (
-  //     <SvgIcon fontSize="small">
-  //       <JobFormIcon />
-  //     </SvgIcon>
-  //   ),
-  // },
   {
     title: "Files",
     path: "/files",

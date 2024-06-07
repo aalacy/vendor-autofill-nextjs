@@ -40,12 +40,10 @@ const App = (props) => {
   const theme = createTheme();
 
   return (
-    <CacheProvider value={emotionCache}
-className={roboto.className}>
+    <CacheProvider value={emotionCache} className={roboto.className}>
       <Head>
         <title>Prodbot</title>
-        <meta name="viewport"
-content="initial-scale=1, width=device-width" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <QueryClientProvider client={queryClient}>

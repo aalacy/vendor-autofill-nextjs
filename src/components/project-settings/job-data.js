@@ -75,8 +75,7 @@ export const JobDataTable = () => {
 
   return (
     <>
-      <Paper raised="true"
-sx={{ mb: 2 }}>
+      <Paper raised="true" sx={{ mb: 2 }}>
         <List
           sx={{
             width: "100%",
@@ -89,9 +88,7 @@ sx={{ mb: 2 }}>
             Object.keys(myJob).map((key) => (
               <>
                 {key !== "buyers" ? (
-                  <ListItem divider
-key={`item-${key}`}
-onDoubleClick={() => setEditingItemId(key)}>
+                  <ListItem divider key={`item-${key}`} onDoubleClick={() => setEditingItemId(key)}>
                     {editingItemId === key ? (
                       <TextField
                         ref={inputRef}
@@ -103,8 +100,7 @@ onDoubleClick={() => setEditingItemId(key)}>
                         onBlur={handleBlur}
                       />
                     ) : (
-                      <ListItemText primary={splitCamelCase(key)}
-secondary={myJob[key]} />
+                      <ListItemText primary={splitCamelCase(key)} secondary={myJob[key]} />
                     )}
                   </ListItem>
                 ) : null}

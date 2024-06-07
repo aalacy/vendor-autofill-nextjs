@@ -1,6 +1,6 @@
 import Head from "next/head";
 import NextLink from "next/link";
-import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
+import ArrowLeftIcon from "@mui/icons-material/ArrowBack";
 import { Box, Button, Container, SvgIcon, Typography } from "@mui/material";
 import Image from "next/image";
 

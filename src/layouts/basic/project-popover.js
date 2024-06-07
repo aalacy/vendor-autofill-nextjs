@@ -53,8 +53,7 @@ export const ProjectPopover = (props) => {
           px: 2,
         }}
       >
-        <Typography color="text.secondary"
-variant="body2">
+        <Typography color="text.secondary" variant="body2">
           Projects
         </Typography>
       </Box>
@@ -88,8 +87,7 @@ variant="body2">
           }}
         >
           <ListItemIcon>
-            <AddIcon color="primary"
-fontSize="small" />
+            <AddIcon color="primary" fontSize="small" />
           </ListItemIcon>
           <ListItemText>New Project</ListItemText>
         </MenuItem>

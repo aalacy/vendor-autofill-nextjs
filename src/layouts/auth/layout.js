@@ -25,8 +25,7 @@ export const Layout = (props) => {
           },
         }}
       >
-        <Card elevation={16}
-sx={{ p: 4 }}>
+        <Card elevation={16} sx={{ p: 4 }}>
           <Box
             component="header"
             sx={{

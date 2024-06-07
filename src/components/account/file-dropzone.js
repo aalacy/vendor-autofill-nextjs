@@ -91,9 +91,7 @@ export const FileDropzone = (props) => {
         }}
         {...getRootProps()}
       >
-        <input {...getInputProps()}
-required={false}
-name={name} />
+        <input {...getInputProps()} required={false} name={name} />
 
         {children ? (
           <>{children}</>
@@ -106,8 +104,7 @@ name={name} />
           >
             <Box sx={{ p: 2 }}>
               {loading && <LinearProgress />}
-              <Typography variant="h6"
-textAlign="center">
+              <Typography variant="h6" textAlign="center">
                 {`Select ${type} file${maxFiles && maxFiles === 1 ? "" : "s"}`}
               </Typography>
               <Box sx={{ mt: 2 }}>
@@ -120,8 +117,7 @@ textAlign="center">
           </Box>
         )}
       </Box>
-      <FormControl error={error}
-variant="standard">
+      <FormControl error={error} variant="standard">
         <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
       {files.length > 0 && (
@@ -151,10 +147,8 @@ variant="standard">
                   secondary={bytesToSize(file.size)}
                 />
                 <Tooltip title="Remove">
-                  <IconButton edge="end"
-onClick={() => onRemove && onRemove(file)}>
-                    <XIcon color="error"
-fontSize="small" />
+                  <IconButton edge="end" onClick={() => onRemove && onRemove(file)}>
+                    <XIcon color="error" fontSize="small" />
                   </IconButton>
                 </Tooltip>
               </ListItem>
@@ -167,10 +161,7 @@ fontSize="small" />
               mt: 2,
             }}
           >
-            <Button onClick={onRemoveAll}
-variant="outlined"
-size="small"
-type="button">
+            <Button onClick={onRemoveAll} variant="outlined" size="small" type="button">
               Remove All
             </Button>
             <Button

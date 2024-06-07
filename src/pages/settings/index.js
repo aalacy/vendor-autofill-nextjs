@@ -1,13 +1,15 @@
 import Head from "next/head";
 import { Box, Container, Typography } from "@mui/material";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { ManageUsers } from "src/components/settings/manage-users";
 import TabComponent from "src/components/tab/tab-component";
 
-const ManageVendors = dynamic(() => import("src/components/settings/manage-vendors"), {ssr: false});
-const ManageFaqs = dynamic(() => import("src/components/settings/manage-faq"), {ssr: false});
+const ManageVendors = dynamic(() => import("src/components/settings/manage-vendors"), {
+  ssr: false,
+});
+const ManageFaqs = dynamic(() => import("src/components/settings/manage-faq"), { ssr: false });
 
 const Page = () => {
   return (
@@ -22,8 +24,7 @@ const Page = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography variant="h5"
-marginBottom={5}>
+          <Typography variant="h5" marginBottom={5}>
             Settings
           </Typography>
           <TabComponent

@@ -1,13 +1,13 @@
 import { TablePagination } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 
 import { FileSearch } from "./file-search";
 import { FileService } from "src/services";
 import { FileList } from "./file-list";
 import { useAuth } from "src/hooks/use-auth";
 import { downloadMedia } from "src/utils";
-import { useQuery } from "@tanstack/react-query";
 
 export const FileManager = ({}) => {
   const [page, setPage] = useState(0);

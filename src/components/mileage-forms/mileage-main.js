@@ -57,17 +57,12 @@ export const MileageMainForm = (props) => {
             <Box mb={3}>
               {data?.length > 0
                 ? data.map((mileage, index) => (
-                    <Box key={index}
-sx={{ mb: 2, border: 1, borderRadius: 1, p: 1 }}>
-                      <Typography fontWeight="medium"
-gutterBottom>
+                    <Box key={index} sx={{ mb: 2, border: 1, borderRadius: 1, p: 1 }}>
+                      <Typography fontWeight="medium" gutterBottom>
                         Mileage #{index + 1}
                       </Typography>
-                      <Grid container
-spacing={3}>
-                        <Grid item
-xs={12}
-sm={6}>
+                      <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
                           <DatePickerField
                             name={`data.${index}.date`}
                             label={`Date`}
@@ -76,9 +71,7 @@ sm={6}>
                             fullWidth
                           />
                         </Grid>
-                        <Grid item
-xs={12}
-sm={6}>
+                        <Grid item xs={12} sm={6}>
                           <AutocompleteField
                             name={`data.${index}.from_address`}
                             label={`From Address`}
@@ -89,9 +82,7 @@ sm={6}>
                             values={values}
                           />
                         </Grid>
-                        <Grid item
-xs={12}
-sm={6}>
+                        <Grid item xs={12} sm={6}>
                           <AutocompleteField
                             name={`data.${index}.to_address`}
                             label={`To Address`}
@@ -102,9 +93,7 @@ sm={6}>
                             values={values}
                           />
                         </Grid>
-                        <Grid item
-xs={12}
-sm={6}>
+                        <Grid item xs={12} sm={6}>
                           <InputField
                             name={`data.${index}.business_purpose`}
                             label={`Business Purpose`}
@@ -112,9 +101,7 @@ sm={6}>
                             size="small"
                           />
                         </Grid>
-                        <Grid item
-xs={12}
-sm={6}>
+                        <Grid item xs={12} sm={6}>
                           <InputField
                             name={`data.${index}.number_of_miles`}
                             label={`# of Miles`}
@@ -123,9 +110,7 @@ sm={6}>
                             inputProps={{ readOnly: true }}
                           />
                         </Grid>
-                        <Grid item
-xs={12}
-sm={6}>
+                        <Grid item xs={12} sm={6}>
                           <InputField
                             name={`data.${index}.mileage_reimbursement`}
                             label={`Mileage Reimbursement $`}

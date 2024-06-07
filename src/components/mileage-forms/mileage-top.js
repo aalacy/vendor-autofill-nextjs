@@ -11,20 +11,11 @@ export const MileageTop = ({ values, setFieldValue }) => {
 
   return (
     <>
-      <Grid container
-spacing={3}
-mb={3}>
-        <Grid item
-xs={12}
-sm={6}>
-          <InputField name="name"
-label="Name"
-fullWidth
-size="small" />
+      <Grid container spacing={3} mb={3}>
+        <Grid item xs={12} sm={6}>
+          <InputField name="name" label="Name" fullWidth size="small" />
         </Grid>
-        <Grid item
-xs={12}
-sm={6}>
+        <Grid item xs={12} sm={6}>
           <DatePickerField
             name="week_of"
             maxDate={new Date()}

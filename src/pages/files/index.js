@@ -17,8 +17,7 @@ export const FilesPage = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography variant="h5"
-mb={5}>
+          <Typography variant="h5" mb={5}>
             File Manager
           </Typography>
           <FileManager />

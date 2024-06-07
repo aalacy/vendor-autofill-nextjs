@@ -89,4 +89,4 @@ const MileageAddModal = ({ mileage, open, setOpen }) => {
   );
 };
 
-export default MileageAddModal
+export default MileageAddModal;
