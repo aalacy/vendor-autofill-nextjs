@@ -38,7 +38,7 @@ const FormCell = (params) => {
             <IconButton
               color="info"
               size="small"
-              onClick={() => handleGeneratePDF(row.vendor, form)}
+              onClick={() => handleGeneratePDF(row, form)}
             >
               <ViewIcon />
             </IconButton>
@@ -46,38 +46,6 @@ const FormCell = (params) => {
         </Tooltip>
       ))}
     </Stack>
-    // <Box sx={{ display: "flex" }}>
-    //   <Tooltip title="Credit Auth">
-    //     <span>
-    //       <IconButton
-    //         onClick={() => handleGeneratePDF(row.vendor, "credit_auth")}
-    //         disabled={disabledStatus("credit_auth")}
-    //       >
-    //         <ViewIcon color={iconColor("credit_auth")} />
-    //       </IconButton>
-    //     </span>
-    //   </Tooltip>
-    //   <Tooltip title="Rental Agreement">
-    //     <span>
-    //       <IconButton
-    //         onClick={() => handleGeneratePDF(row.vendor, "rental_agreement")}
-    //         disabled={disabledStatus("rental_agreement")}
-    //       >
-    //         <ViewIcon color={iconColor("rental_agreement")} />
-    //       </IconButton>
-    //     </span>
-    //   </Tooltip>
-    //   <Tooltip title="Addition">
-    //     <span>
-    //       <IconButton
-    //         onClick={() => handleGeneratePDF(row.vendor, "addition")}
-    //         disabled={disabledStatus("addition")}
-    //       >
-    //         <InvoiceIcon color={iconColor("addition")} />
-    //       </IconButton>
-    //     </span>
-    //   </Tooltip>
-    // </Box>
   );
 };
 
@@ -96,13 +64,13 @@ const W9Cell = (params) => {
 };
 
 const COICell = (params) => {
-  const { row, handleCOI } = params;
+  const { value, row, handleCOI } = params;
 
   return (
     <Tooltip title="Manage COI">
       <span>
-        <IconButton onClick={() => handleCOI(row.vendor)}>
-          {!!!row.vendor.coi ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
+        <IconButton onClick={() => handleCOI(row)}>
+          {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
         </IconButton>
       </span>
     </Tooltip>
@@ -110,16 +78,16 @@ const COICell = (params) => {
 };
 
 const InvoiceCell = (params) => {
-  const { row, handleInvoice } = params;
+  const { value, row, handleInvoice } = params;
 
   return (
     <Tooltip title="Manage Forms">
       <span>
-        <IconButton onClick={() => handleInvoice(row.vendor)}>
-          {!row.vendor?.invoices || row.vendor?.invoices.length === 0 ? (
+        <IconButton onClick={() => handleInvoice(row, value)}>
+          {!value || value.length === 0 ? (
             <AddIcon color="primary" />
           ) : (
-            <Badge badgeContent={row.vendor.invoices.length} color="info" max={99}>
+            <Badge badgeContent={value.length} color="info" max={99}>
               <InvoiceIcon color="primary" />
             </Badge>
           )}
@@ -150,7 +118,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       renderCell: (params) => <W9Cell {...params} handleW9={handleW9} />,
     },
     {
-      field: "vendor_coi",
+      field: "coi",
       headerName: "COI",
       type: "string",
       resizable: true,
@@ -158,7 +126,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
     },
     {
-      field: "vendor_invoices",
+      field: "invoices",
       headerName: "Invoices",
       type: "string",
       resizable: true,

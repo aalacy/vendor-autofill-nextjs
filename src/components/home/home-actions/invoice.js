@@ -10,7 +10,7 @@ import { Modal } from "src/components/common/modal";
 export const ManageInvoice = ({
   title,
   subTitle,
-  vendor,
+  myVendor,
   open,
   setOpen,
   maxFileLimit,
@@ -35,8 +35,8 @@ export const ManageInvoice = ({
       const {
         data: { result },
       } = await VendorService.uploadInvoices(
-        vendor.id,
-        vendor.name,
+        myVendor.id,
+        myVendor.vendor.name,
         project?.id,
         files,
         uploadedFile,

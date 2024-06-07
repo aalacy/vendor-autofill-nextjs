@@ -34,7 +34,7 @@ import { currencyFormatter, sum } from "src/utils";
 import { useAuth } from "src/hooks/use-auth";
 
 export const InvoiceView = ({
-  vendor,
+  myVendor,
   invoices,
   setInvoices,
   open,
@@ -51,10 +51,10 @@ export const InvoiceView = ({
   const [loading, setLoading] = useState(false);
   const [curInvoice, setCurInvoice] = useState();
   const [uploadTitle, setUploadTitle] = useState({
-    title: `Upload Invoices for ${vendor?.name}`,
+    title: `Upload Invoices for ${myVendor.vendor?.name}`,
     subTitle: "",
   });
-  const [maxFileLimit, setMaxFileLimit] = useState(10 - vendor.invoices.length);
+  const [maxFileLimit, setMaxFileLimit] = useState(10 - invoices.length);
 
   const queryClient = useQueryClient();
 
@@ -153,7 +153,7 @@ export const InvoiceView = ({
 
   const handleReplace = async (id, total) => {
     setUploadTitle({
-      title: `Replace Invoice for ${vendor.name}`,
+      title: `Replace Invoice for ${myVendor.vendor.name}`,
       subTitle: "Invoice amount will remain same after replaced.",
     });
     setCurInvoice({ id, total });
@@ -185,7 +185,7 @@ export const InvoiceView = ({
   return (
     <>
       <Modal
-        title={`${vendor?.name} - Invoices (${invoices.length})`}
+        title={`${myVendor.vendor?.name} - Invoices (${invoices.length})`}
         subTitle={currencyFormatter(sum(invoices.map((i) => i.total).filter((v) => v)))}
         open={open}
         onClose={onClose}
@@ -260,7 +260,7 @@ export const InvoiceView = ({
           maxFileLimit={maxFileLimit}
           title={uploadTitle.title}
           subTitle={uploadTitle.subTitle}
-          vendor={vendor}
+          myVendor={myVendor}
           open={true}
           setOpen={setShowInvoice}
           replaceInvoice={replaceInvoice}

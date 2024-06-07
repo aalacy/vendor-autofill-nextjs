@@ -52,7 +52,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
   const [showInvoice, setShowInvoice] = useState(false);
   const [pdfUrl, setUrl] = useState("");
   const [vendorKey, setVendorKey] = useState("");
-  const [vendor, setVendor] = useState("");
+  const [myVendor, setMyVendor] = useState("");
   const [invoice, setInvoice] = useState("");
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
@@ -71,12 +71,12 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     [],
   );
 
-  const handleGeneratePDF = async (vendor, form) => {
+  const handleGeneratePDF = async (myVendor, form) => {
     if (!project) {
       return toast.error("Please add a project.");
     }
     setInvoice(form.title);
-    setVendor(vendor);
+    setMyVendor(myVendor)
     setGLoading(true);
     setCanSendEmail(true);
     try {
@@ -84,7 +84,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         data: {
           result: { presigned_url, key },
         },
-      } = await VendorService.generateFormPDF(vendor.id, project?.id, form.template_key);
+      } = await VendorService.generateFormPDF(myVendor.id, project?.id, form.template_key);
       setShowPDFModal(true);
       setUrl(presigned_url);
       setVendorKey(key);
@@ -95,9 +95,9 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     }
   };
 
-  const handleW9 = async (vendor) => {
+  const handleW9 = async (myVendor) => {
     setInvoice("W9");
-    setVendor(vendor);
+    setMyVendor(myVendor);
     setGLoading(true);
     try {
       const {
@@ -112,16 +112,16 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     }
   };
 
-  const handleInvoice = async (vendor) => {
-    setVendor(vendor);
+  const handleInvoice = async (myVendor, invoices) => {
+    setMyVendor(myVendor);
     setInvoice("Invoices");
-    if (vendor.invoices.length > 0) {
+    if (invoices.length > 0) {
       try {
         const {
           data: { result },
-        } = await VendorService.readInvoices(vendor.id);
-        setShowInvoiceModal(true);
+        } = await VendorService.readInvoices(myVendor.id);
         setInvoices(result);
+        setShowInvoiceModal(true);
       } catch (error) {
         console.log("handleCOI", error);
       } finally {
@@ -153,14 +153,14 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     }),
   });
 
-  const handleCOI = async (vendor) => {
-    setVendor(vendor);
+  const handleCOI = async (myVendor) => {
+    setMyVendor(myVendor);
     setInvoice("COI");
-    if (vendor.coi) {
+    if (myVendor.coi) {
       try {
         const {
           data: { result },
-        } = await VendorService.readPDF(vendor.coi);
+        } = await VendorService.readPDF(myVendor.coi);
         setShowPDFModal(true);
         setUrl(result);
       } catch (error) {
@@ -169,14 +169,14 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         setGLoading(false);
       }
     } else {
-      setTitle(`Upload COI for ${vendor?.name}`);
+      setTitle(`Upload COI for ${myVendor.vendor?.name}`);
       setShowCOI(true);
     }
   };
 
   const topActions = useMemo(() => {
     const handleReplaceCOI = () => {
-      setTitle(`Replace COI for ${vendor.name}`);
+      setTitle(`Replace COI for ${myVendor.vendor.name}`);
       setShowCOI(true);
       setShowPDFModal(false);
     };
@@ -190,7 +190,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
           try {
             const {
               data: { detail },
-            } = await VendorService.deleteCOI(vendor.id);
+            } = await VendorService.deleteCOI(myVendor.id);
             queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
 
             setShowPDFModal(false);
@@ -228,7 +228,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         </Tooltip>
       </Stack>
     );
-  }, [hideConfirm, queryClient, showConfirmDlg, vendor]);
+  }, [hideConfirm, queryClient, showConfirmDlg, myVendor]);
 
   return (
     <>
@@ -258,7 +258,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       {/* PDF Modal */}
       {showPDFModal && (
         <Modal
-          title={`${vendor?.name} - ${invoice || ""}`}
+          title={`${myVendor.vendor?.name} - ${invoice || ""}`}
           subTitle={subTitle}
           open={true}
           onClose={() => setShowPDFModal(false)}
@@ -304,7 +304,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
               <IconButton
                 color="primary"
                 variant="contained"
-                onClick={() => downloadMedia(`${vendor?.name} - ${invoice || ""}`, pdfUrl)}
+                onClick={() => downloadMedia(`${myVendor.vendor?.name} - ${invoice || ""}`, pdfUrl)}
               >
                 <Download />
               </IconButton>
@@ -328,14 +328,14 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       )}
 
       {/* COI Modal */}
-      {showCOI && <ManageCOI title={title} vendor={vendor} open={true} setOpen={setShowCOI} />}
+      {showCOI && <ManageCOI title={title} myVendor={myVendor} open={true} setOpen={setShowCOI} />}
 
       {/* Manage Invoice Modal */}
       {showInvoice && (
         <ManageInvoice
-          title={`Upload Invoices for ${vendor.name}`}
-          vendor={vendor}
-          maxFileLimit={10 - vendor.invoices.length}
+          title={`Upload Invoices for ${myVendor.vendor?.name}`}
+          myVendor={myVendor}
+          maxFileLimit={10 - (myVendor.invoices?.length || 0)}
           open={true}
           setOpen={setShowInvoice}
         />
@@ -346,7 +346,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         <InvoiceView
           open={true}
           onClose={() => setShowInvoiceModal(false)}
-          vendor={vendor}
+          myVendor={myVendor}
           invoices={invoices}
           setInvoices={setInvoices}
           setShowPDFModal={setShowPDFModal}

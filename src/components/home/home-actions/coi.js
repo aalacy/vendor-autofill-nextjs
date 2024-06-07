@@ -7,7 +7,7 @@ import { useAuth } from "src/hooks/use-auth";
 import { FileInput } from "src/components/widgets/file-input";
 import { Modal } from "src/components/common/modal";
 
-export const ManageCOI = ({ title, vendor, open, setOpen }) => {
+export const ManageCOI = ({ title, myVendor, open, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
 
@@ -24,7 +24,7 @@ export const ManageCOI = ({ title, vendor, open, setOpen }) => {
     setFiles([]);
     setLoading(true);
     try {
-      await VendorService.uploadCOI(vendor.id, vendor.name, project?.id, files[0], uploadedFile);
+      await VendorService.uploadCOI(myVendor.id, myVendor.vendor.name, project?.id, files[0], uploadedFile);
       toast.success("Successfully uploaded.");
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
     } catch (err) {

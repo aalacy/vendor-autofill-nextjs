@@ -60,7 +60,7 @@ export class VendorService {
   }
 
   static readW9(vendor_id) {
-    return http.post("/vendors/generate_w9", vendor_id);
+    return http.post("/vendors/generate-w9", vendor_id);
   }
 
   static sendEmail(vendor_id, key, email, invoice_name) {
@@ -72,11 +72,11 @@ export class VendorService {
     });
   }
 
-  static uploadCOI(vendor_id, vendor_name, job_id, file, onUploadProgress = undefined) {
+  static uploadCOI(my_vendor_id, vendor_name, job_id, file, onUploadProgress = undefined) {
     let formData = new FormData();
 
     formData.append("file", file);
-    formData.append("vendor_id", vendor_id);
+    formData.append("my_vendor_id", my_vendor_id);
     formData.append("vendor_name", vendor_name);
     formData.append("job_id", job_id);
 
@@ -110,17 +110,17 @@ export class VendorService {
     return http.post(`/vendors/read-pdf`, key);
   }
 
-  static deleteCOI(vendor_id) {
-    return http.delete(`/vendors/delete-coi/${vendor_id}`);
+  static deleteCOI(my_vendor_id) {
+    return http.delete(`/vendors/delete-coi/${my_vendor_id}`);
   }
 
-  static uploadInvoices(vendor_id, vendor_name, job_id, files, onUploadProgress = undefined) {
+  static uploadInvoices(my_vendor_id, vendor_name, job_id, files, onUploadProgress = undefined) {
     let formData = new FormData();
 
     Array.from(files).forEach((file) => {
       formData.append("files", file);
     });
-    formData.append("vendor_id", vendor_id);
+    formData.append("my_vendor_id", my_vendor_id);
     formData.append("vendor_name", vendor_name);
     formData.append("job_id", job_id);
 
@@ -132,8 +132,8 @@ export class VendorService {
     });
   }
 
-  static readInvoices(vendor_id) {
-    return http.post(`/vendors/get-invoices`, vendor_id);
+  static readInvoices(my_vendor_id) {
+    return http.post(`/vendors/get-invoices`, my_vendor_id);
   }
 
   static addTotal2Invoice(invoice_id, total) {
