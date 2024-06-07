@@ -93,6 +93,8 @@ export const AutocompleteField = (props) => {
       const place_id = values.data[index][`${key}_place_id`];
       if (place_id && description) setValue({ place_id, description });
     }
+
+    manageDefaultValueForSecondItem()
   }, [index, name, values?.data, setFieldValue]);
 
   useEffect(() => {
