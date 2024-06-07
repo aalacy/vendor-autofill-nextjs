@@ -66,9 +66,7 @@ export const SideNav = (props) => {
                   variant="contained"
                   onClick={projectPopover.handleOpen}
                   ref={projectPopover.anchorRef}
-                  endIcon={
-                    <ChevronUpDownIcon sx={{ color: "neutral.500" }}/>
-                  }
+                  endIcon={<ChevronUpDownIcon sx={{ color: "neutral.500" }} />}
                   sx={{ backgroundColor: "rgba(255, 255, 255, 0.04)", mt: 2 }}
                 >
                   {project ? (

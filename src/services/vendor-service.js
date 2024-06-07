@@ -15,7 +15,7 @@ export class VendorService {
       take: -1,
       filterModel: [],
       logicOperator: "",
-      job_id
+      job_id,
     });
   }
 

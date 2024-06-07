@@ -12,23 +12,17 @@ export const items = [
   {
     title: "Account",
     path: "/account",
-    icon: (
-      <UserIcon />
-    ),
+    icon: <UserIcon />,
   },
   {
     title: "Vendor",
     path: "/vendor",
-    icon: (
-      <ChartBarIcon />
-    ),
+    icon: <ChartBarIcon />,
   },
   {
     title: "Crew",
     path: "/crew",
-    icon: (
-      <ContactIcon />
-    ),
+    icon: <ContactIcon />,
   },
   {
     title: "Files",

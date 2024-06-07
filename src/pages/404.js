@@ -54,9 +54,7 @@ const Page = () => (
           <Button
             component={NextLink}
             href="/"
-            startIcon={
-              <ArrowLeftIcon />
-            }
+            startIcon={<ArrowLeftIcon />}
             sx={{ mt: 3 }}
             variant="contained"
           >

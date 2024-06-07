@@ -184,9 +184,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       resizable: true,
       width: 120,
       renderCell: (params) => (
-        <Typography>
-          {currencyFormatter(sum(params.row.invoices.map((r) => r.total)))}
-        </Typography>
+        <Typography>{currencyFormatter(sum(params.row.invoices.map((r) => r.total)))}</Typography>
       ),
     },
     // {
