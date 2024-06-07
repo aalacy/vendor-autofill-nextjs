@@ -76,7 +76,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       return toast.error("Please add a project.");
     }
     setInvoice(form.title);
-    setMyVendor(myVendor)
+    setMyVendor(myVendor);
     setGLoading(true);
     setCanSendEmail(true);
     try {

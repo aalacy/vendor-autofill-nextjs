@@ -35,11 +35,7 @@ const FormCell = (params) => {
       {row.vendor.forms?.map((form) => (
         <Tooltip key={form.name} title={form.title}>
           <span>
-            <IconButton
-              color="info"
-              size="small"
-              onClick={() => handleGeneratePDF(row, form)}
-            >
+            <IconButton color="info" size="small" onClick={() => handleGeneratePDF(row, form)}>
               <ViewIcon />
             </IconButton>
           </span>
