@@ -10,7 +10,7 @@ export const HomeMain = () => {
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const [selectedData, setSelectedData] = useState([]);
 
-  const { user, showJobForm } = useAuth();
+  const { user, showJobForm, project } = useAuth();
 
   useEffect(() => {
     if (user?.has_job_submitted) return;
@@ -18,11 +18,11 @@ export const HomeMain = () => {
   }, [user, showJobForm]);
 
   const { isLoading, data: vendors } = useQuery({
-    queryKey: ["getAllVendors"],
+    queryKey: ["getAllVendors", project],
     queryFn: async () => {
       const {
         data: { result },
-      } = await VendorService.all();
+      } = await VendorService.all(project?.id);
       return result.items;
     },
   });

@@ -4,7 +4,6 @@ import {
   Button,
   TextField,
   InputAdornment,
-  CircularProgress,
   Stack,
   Tooltip,
   IconButton,
@@ -192,7 +191,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
             const {
               data: { detail },
             } = await VendorService.deleteCOI(vendor.id);
-            queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+            queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
 
             setShowPDFModal(false);
             toast.success(detail);
@@ -257,61 +256,63 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       <LoadingOverlay setOpen={setGLoading} open={gLoading || isLoading} />
 
       {/* PDF Modal */}
-      <Modal
-        title={`${vendor?.name} - ${invoice || ""}`}
-        subTitle={subTitle}
-        open={showPDFModal}
-        onClose={() => setShowPDFModal(false)}
-        size="md"
-        topActions={invoice === "COI" ? topActions : null}
-      >
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <form onSubmit={formik.handleSubmit}>
-            <Box
-              sx={{
-                display: canSendEmail ? "flex" : "none",
-                flexWrap: "wrap",
-                alignItems: "center",
-                gap: 2,
-                mb: 2,
-              }}
-            >
-              <TextField
-                type="text"
-                size="small"
-                label="Email"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.email}
-                name="email"
-                error={!!formik.touched.email && !!formik.errors.email}
-                helperText={formik.touched.email && formik.errors.email}
-                sx={{ gridColumn: "span 2" }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <EmailIcon />
-                    </InputAdornment>
-                  ),
+      {showPDFModal && (
+        <Modal
+          title={`${vendor?.name} - ${invoice || ""}`}
+          subTitle={subTitle}
+          open={true}
+          onClose={() => setShowPDFModal(false)}
+          size="md"
+          topActions={invoice === "COI" ? topActions : null}
+        >
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <form onSubmit={formik.handleSubmit}>
+              <Box
+                sx={{
+                  display: canSendEmail ? "flex" : "none",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  gap: 2,
+                  mb: 2,
                 }}
-              />
-              <Button type="submit" variant="contained">
-                Send
-              </Button>
-            </Box>
-          </form>
-          <Tooltip title="Download PDF">
-            <IconButton
-              color="primary"
-              variant="contained"
-              onClick={() => downloadMedia(`${vendor?.name} - ${invoice || ""}`, pdfUrl)}
-            >
-              <Download />
-            </IconButton>
-          </Tooltip>
-        </Stack>
-        <PdfViewer pdfUrl={pdfUrl} />
-      </Modal>
+              >
+                <TextField
+                  type="text"
+                  size="small"
+                  label="Email"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                  name="email"
+                  error={!!formik.touched.email && !!formik.errors.email}
+                  helperText={formik.touched.email && formik.errors.email}
+                  sx={{ gridColumn: "span 2" }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <Button type="submit" variant="contained">
+                  Send
+                </Button>
+              </Box>
+            </form>
+            <Tooltip title="Download PDF">
+              <IconButton
+                color="primary"
+                variant="contained"
+                onClick={() => downloadMedia(`${vendor?.name} - ${invoice || ""}`, pdfUrl)}
+              >
+                <Download />
+              </IconButton>
+            </Tooltip>
+          </Stack>
+          <PdfViewer pdfUrl={pdfUrl} />
+        </Modal>
+      )}
 
       {/* Thank you modal */}
       {showThankYou && (

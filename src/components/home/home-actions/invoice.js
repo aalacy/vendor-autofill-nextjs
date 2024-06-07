@@ -42,7 +42,7 @@ export const ManageInvoice = ({
         uploadedFile,
       );
       toast.success("Successfully uploaded.");
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
       if (replaceInvoice) {
         await replaceInvoice(result[0]);
       }

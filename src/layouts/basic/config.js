@@ -13,27 +13,21 @@ export const items = [
     title: "Account",
     path: "/account",
     icon: (
-      <SvgIcon fontSize="small">
-        <UserIcon />
-      </SvgIcon>
+      <UserIcon />
     ),
   },
   {
     title: "Vendor",
     path: "/vendor",
     icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
+      <ChartBarIcon />
     ),
   },
   {
     title: "Crew",
     path: "/crew",
     icon: (
-      <SvgIcon fontSize="small">
-        <ContactIcon />
-      </SvgIcon>
+      <ContactIcon />
     ),
   },
   {

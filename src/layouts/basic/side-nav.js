@@ -8,7 +8,6 @@ import {
   Divider,
   Drawer,
   Stack,
-  SvgIcon,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -68,9 +67,7 @@ export const SideNav = (props) => {
                   onClick={projectPopover.handleOpen}
                   ref={projectPopover.anchorRef}
                   endIcon={
-                    <SvgIcon fontSize="small" sx={{ color: "neutral.500" }}>
-                      <ChevronUpDownIcon />
-                    </SvgIcon>
+                    <ChevronUpDownIcon sx={{ color: "neutral.500" }}/>
                   }
                   sx={{ backgroundColor: "rgba(255, 255, 255, 0.04)", mt: 2 }}
                 >

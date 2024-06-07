@@ -13,6 +13,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { VendorService } from "src/services";
 import { SearchBox } from "../widgets/search-box";
+import { useAuth } from "src/hooks/use-auth";
 
 export const TemplateList = ({ templates, vendors, onClose }) => {
   const [checked, setChecked] = useState([]);
@@ -20,6 +21,8 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
   const [query, setQuery] = useState("");
 
   const queryClient = useQueryClient();
+
+  const { project } = useAuth();
 
   useEffect(() => {
     if (!vendors) return;
@@ -72,9 +75,9 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
         .map(({ id }) => id);
       const {
         data: { detail },
-      } = await VendorService.addMyVendors(created, removed_vendors);
+      } = await VendorService.addMyVendors(created, removed_vendors, project.id);
       toast.success(detail);
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
       onClose();
     } catch (error) {
       console.log("error", error);

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import NextLink from "next/link";
 import ArrowLeftIcon from "@mui/icons-material/ArrowBack";
-import { Box, Button, Container, SvgIcon, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import Image from "next/image";
 
 const Page = () => (
@@ -55,9 +55,7 @@ const Page = () => (
             component={NextLink}
             href="/"
             startIcon={
-              <SvgIcon fontSize="small">
-                <ArrowLeftIcon />
-              </SvgIcon>
+              <ArrowLeftIcon />
             }
             sx={{ mt: 3 }}
             variant="contained"

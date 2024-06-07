@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import Bars3Icon from "@mui/icons-material/Menu";
 import Image from "next/image";
-
-import { Avatar, Box, IconButton, Stack, SvgIcon, useMediaQuery, Badge } from "@mui/material";
+import { Avatar, Box, IconButton, Stack, useMediaQuery, Badge } from "@mui/material";
 import { Help as HelpIcon } from "@mui/icons-material";
 import { styled, alpha } from "@mui/material/styles";
+
 import { usePopover } from "src/hooks/use-popover";
 import { AccountPopover } from "./account-popover";
 import { useAuth } from "src/hooks/use-auth";
@@ -81,9 +81,7 @@ export const TopNav = (props) => {
           <Stack alignItems="center" direction="row" spacing={2}>
             {!lgUp && (
               <IconButton onClick={onNavOpen}>
-                <SvgIcon fontSize="small">
-                  <Bars3Icon />
-                </SvgIcon>
+                <Bars3Icon />
               </IconButton>
             )}
           </Stack>

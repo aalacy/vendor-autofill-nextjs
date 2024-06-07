@@ -5,44 +5,45 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import parse from "autosuggest-highlight/parse";
 import { debounce } from "@mui/material/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Script from 'next/script'
 
 import { calculateDistanceByRoute, geocodeByPlaceID } from "./geocoder";
 
-const loadScript = (src, position, id) => {
-  if (!position) {
-    return;
-  }
+// const loadScript = (src, position, id) => {
+//   if (!position) {
+//     return;
+//   }
 
-  const script = document.createElement("script");
-  script.setAttribute("async", "");
-  script.setAttribute("id", id);
-  script.src = src;
-  position.appendChild(script);
-};
+//   const script = document.createElement("script");
+//   script.setAttribute("async", "");
+//   script.setAttribute("id", id);
+//   script.src = src;
+//   position.appendChild(script);
+// };
 
 const autocompleteService = { current: null };
 
 export const AutocompleteField = (props) => {
   const { errorText, setFieldValue, name, index, values, ...rest } = props;
-  const [field, meta] = useField(props);
+  const [, meta] = useField(props);
 
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
-  const loaded = useRef(false);
+  // const loaded = useRef(false);
   const inputRef = useRef(null);
 
-  if (typeof window !== "undefined" && !loaded.current) {
-    if (!document.querySelector("#google-maps")) {
-      loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places,geometry&loading=async`,
-        document.querySelector("head"),
-        "google-maps",
-      );
-    }
+  // if (typeof window !== "undefined" && !loaded.current) {
+  //   if (!document.querySelector("#google-maps")) {
+  //     loadScript(
+  //       `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places,geometry&loading=async`,
+  //       document.querySelector("head"),
+  //       "google-maps",
+  //     );
+  //   }
 
-    loaded.current = true;
-  }
+  //   loaded.current = true;
+  // }
 
   const fetch = useMemo(
     () =>
@@ -150,7 +151,8 @@ export const AutocompleteField = (props) => {
   }
 
   return (
-    <Autocomplete
+   <>
+     <Autocomplete
       autoComplete
       getOptionLabel={(option) => (typeof option === "string" ? option : option.description)}
       filterOptions={(x) => x}
@@ -217,5 +219,12 @@ export const AutocompleteField = (props) => {
         touchAction: "manipulation",
       }}
     />
+
+<Script
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}&libraries=places,geometry&loading=async`}
+        id="google-maps"
+      />
+
+   </>
   );
 };

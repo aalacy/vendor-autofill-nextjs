@@ -5,16 +5,17 @@ export class VendorService {
     return http.post("/vendors/add", { ...values });
   }
 
-  static addMyVendors(vendor_ids, removed_ids) {
-    return http.post("/vendors/add-my-vendor", { vendor_ids, removed_ids });
+  static addMyVendors(vendor_ids, removed_ids, job_id) {
+    return http.post("/vendors/add-my-vendor", { vendor_ids, removed_ids, job_id });
   }
 
-  static all() {
+  static all(job_id) {
     return http.post(`/vendors/all`, {
       page: 1,
       take: -1,
       filterModel: [],
       logicOperator: "",
+      job_id
     });
   }
 

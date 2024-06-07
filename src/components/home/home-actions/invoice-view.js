@@ -58,7 +58,7 @@ export const InvoiceView = ({
 
   const queryClient = useQueryClient();
 
-  const { showConfirmDlg, hideConfirm } = useAuth();
+  const { showConfirmDlg, hideConfirm, project } = useAuth();
 
   const handleView = async (id, key, total) => {
     if (!total) {
@@ -105,7 +105,7 @@ export const InvoiceView = ({
             return invoice;
           }),
         );
-        queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+        queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
       } catch (error) {
         toast.error(error.message);
       } finally {
@@ -143,7 +143,7 @@ export const InvoiceView = ({
           } = await VendorService.deleteInvoice(id);
           toast.success(detail);
           setInvoices((prev) => prev.filter((invoice) => invoice.id !== id));
-          queryClient.invalidateQueries({ queryKey: ["getAllVendors"] });
+          queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
         } catch (err) {
           toast.error(err?.response?.message);
         }
