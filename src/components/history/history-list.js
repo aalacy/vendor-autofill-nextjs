@@ -6,7 +6,8 @@ import { EDataGrid } from "src/components/tables/e-datagrid";
 import { initialPage } from "src/utils";
 import { HistoryColumns } from "src/columns/history-columns";
 import { Modal } from "../common/modal";
-import { PdfViewer } from "./pdf-viewer";
+import dynamic from 'next/dynamic';
+const PdfViewer = dynamic(() => import("./pdf-viewer"), {ssr: false});
 
 export const HistoryList = ({ histories, setHistories }) => {
   const [loading, setLoading] = useState(false);

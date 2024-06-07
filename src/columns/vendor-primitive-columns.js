@@ -29,7 +29,9 @@ const RenderAction = (props) => {
       </Tooltip>
       <Tooltip title="Remove Vendor">
         <span>
-          <IconButton onClick={() => handleRemove(row)} color="error" size="small">
+          <IconButton onClick={() => handleRemove(row)}
+color="error"
+size="small">
             <ClearIcon />
           </IconButton>
         </span>
@@ -44,7 +46,10 @@ const RenderActionHeader = (props) => {
   return (
     <Tooltip title="Add Vendor">
       <span>
-        <Button onClick={() => handleAdd(row)} size="small" color="info" startIcon={<AddIcon />}>
+        <Button onClick={() => handleAdd(row)}
+size="small"
+color="info"
+startIcon={<AddIcon />}>
           Add
         </Button>
       </span>
@@ -69,9 +74,11 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, h
       filterable: false,
       align: "center",
       renderCell: (params) => (
-        <Stack direction="row" justifyContent="center">
+        <Stack direction="row"
+justifyContent="center">
           {params.value?.map((form) => (
-            <Tooltip key={form.template_key} title={form.title}>
+            <Tooltip key={form.template_key}
+title={form.title}>
               <span>
                 <IconButton
                   color="info"
@@ -156,11 +163,14 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, h
       type: "actions",
       align: "center",
       description: "Action Column",
-      renderHeader: (params) => <RenderActionHeader {...params} handleAdd={handleAdd} />,
+      renderHeader: (params) => <RenderActionHeader {...params}
+handleAdd={handleAdd} />,
       sortable: false,
       width: 100,
       renderCell: (params) => (
-        <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} />
+        <RenderAction {...params}
+handleRemove={handleRemove}
+handleEdit={handleEdit} />
       ),
     },
   ];

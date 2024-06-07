@@ -2,6 +2,7 @@ import Head from "next/head";
 import NextLink from "next/link";
 import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 import { Box, Button, Container, SvgIcon, Typography } from "@mui/material";
+import Image from "next/image";
 
 const Page = () => (
   <>
@@ -31,13 +32,15 @@ const Page = () => (
               textAlign: "center",
             }}
           >
-            <img
-              alt="Under development"
+            <Image
+              priority
+              height={400}
+              width={400}
+              alt="404 page"
               src="/assets/errors/error-404.png"
-              style={{
+              sx={{
                 display: "inline-block",
                 maxWidth: "100%",
-                width: 400,
               }}
             />
           </Box>

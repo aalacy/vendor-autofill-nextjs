@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { at } from "lodash";
+import at from "lodash/at";
 import { ErrorCode } from "react-dropzone";
 import { useField } from "formik";
 

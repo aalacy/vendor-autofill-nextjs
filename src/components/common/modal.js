@@ -33,12 +33,15 @@ export const Modal = (props) => {
         <div>
           <Typography variant="h6">{title}</Typography>
           {subTitle && (
-            <Typography variant="caption" color="GrayText">
+            <Typography variant="caption"
+color="GrayText">
               {subTitle}
             </Typography>
           )}
         </div>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row"
+alignItems="center"
+spacing={1}>
           {topActions}
           <IconButton
             aria-label="close"

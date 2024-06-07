@@ -19,7 +19,8 @@ const Page = () => {
         }}
       >
         <Container maxWidth="xl">
-          <HistoryList histories={histories} setHistories={setHistories} />
+          <HistoryList histories={histories}
+setHistories={setHistories} />
         </Container>
       </Box>
     </>

@@ -20,8 +20,11 @@ export const Step6 = (props) => {
 
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+      <Grid container
+spacing={3}>
+        <Grid item
+xs={12}
+sm={6}>
           <SelectField
             name={shippingAccount.name}
             label={shippingAccount.label}
@@ -29,7 +32,9 @@ export const Step6 = (props) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item
+xs={12}
+sm={6}>
           <InputField
             name={shippingAccountNumber.name}
             label={shippingAccountNumber.label}

@@ -12,10 +12,11 @@ import {
   Download as DownloadIcon,
 } from "@mui/icons-material";
 import { useState } from "react";
+import dynamic from 'next/dynamic';
 
 import { Modal } from "../common/modal";
 import { beautyDateTime, bytesToSize, downloadMedia } from "src/utils";
-import { PdfViewer } from "../history/pdf-viewer";
+const PdfViewer = dynamic(() => import("../history/pdf-viewer"), {ssr: false});
 import { FileService } from "src/services";
 
 export const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
@@ -64,19 +65,24 @@ export const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
       >
         <List sx={{ height: "100vh", overflow: "auto" }}>
           {folder?.files?.map(({ key, file_name, size, created_at }) => (
-            <ListItem key={file_name} sx={{ mb: 2, boxShadow: 4 }}>
+            <ListItem key={file_name}
+sx={{ mb: 2, boxShadow: 4 }}>
               <ListItemText
                 primary={<Typography noWrap>{file_name}</Typography>}
                 secondary={`${bytesToSize(size)}`}
               />
-              <ListItemText primary="Created at" secondary={beautyDateTime(created_at)} />
-              <IconButton color="primary" onClick={() => showPDF({ key, file_name })}>
+              <ListItemText primary="Created at"
+secondary={beautyDateTime(created_at)} />
+              <IconButton color="primary"
+onClick={() => showPDF({ key, file_name })}>
                 {loading ? <CircularProgress /> : <PDFIcon />}
               </IconButton>
-              <IconButton color="info" onClick={() => downloadPDF({ key, file_name })}>
+              <IconButton color="info"
+onClick={() => downloadPDF({ key, file_name })}>
                 {loading ? <CircularProgress /> : <DownloadIcon />}
               </IconButton>
-              <IconButton color="error" onClick={() => removeItem(key)}>
+              <IconButton color="error"
+onClick={() => removeItem(key)}>
                 <RemoveIcon />
               </IconButton>
             </ListItem>
@@ -84,7 +90,10 @@ export const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
         </List>
       </Modal>
 
-      <Modal title={file?.file_name} open={openPDF} onClose={() => setOpenPDF(false)} size="md">
+      <Modal title={file?.file_name}
+open={openPDF}
+onClose={() => setOpenPDF(false)}
+size="md">
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
     </>

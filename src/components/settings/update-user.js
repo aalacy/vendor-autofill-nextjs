@@ -108,8 +108,12 @@ export const UpdateUser = ({ user, roles, open, onClose }) => {
 
   return (
     <>
-      <Modal size="sm" open={open} onClose={handleClose} title="Update User">
-        <form noValidate onSubmit={formik.handleSubmit}>
+      <Modal size="sm"
+open={open}
+onClose={handleClose}
+title="Update User">
+        <form noValidate
+onSubmit={formik.handleSubmit}>
           <Box>
             <TextField
               autoFocus
@@ -188,7 +192,10 @@ export const UpdateUser = ({ user, roles, open, onClose }) => {
                 ),
               }}
             />
-            <FormControl fullWidth margin="normal" size="small" error={formik.errors.roles}>
+            <FormControl fullWidth
+margin="normal"
+size="small"
+error={formik.errors.roles}>
               <InputLabel>Roles</InputLabel>
               <Select
                 multiple
@@ -212,7 +219,8 @@ export const UpdateUser = ({ user, roles, open, onClose }) => {
                 )}
               >
                 {roles?.map(({ id, role_name }) => (
-                  <MenuItem key={id} value={id}>
+                  <MenuItem key={id}
+value={id}>
                     <Checkbox checked={formik.values.roles.indexOf(id) > -1} />
                     <Typography textTransform="capitalize">{role_name}</Typography>
                   </MenuItem>
@@ -222,10 +230,15 @@ export const UpdateUser = ({ user, roles, open, onClose }) => {
             </FormControl>
           </Box>
           <Box sx={{ my: 3, textAlign: "center" }}>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+size="small"
+sx={{ mr: 2 }}>
               Update
             </Button>
-            <Button onClick={handleClose} variant="outlined" size="small">
+            <Button onClick={handleClose}
+variant="outlined"
+size="small">
               Cancel
             </Button>
           </Box>

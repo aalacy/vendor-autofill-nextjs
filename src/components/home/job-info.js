@@ -21,7 +21,10 @@ export const JobInfo = ({ open, setOpen, data, setData }) => {
 
   return (
     <>
-      <Modal open={open} onClose={onClose} title="Upload Job Info" size="sm">
+      <Modal open={open}
+onClose={onClose}
+title="Upload Job Info"
+size="sm">
         <CSVReader
           config={{ header: true }}
           onUploadAccepted={(results) => {
@@ -86,11 +89,13 @@ export const JobInfo = ({ open, setOpen, data, setData }) => {
         </CSVReader>
       </Modal>
 
-      <Typography variant="h6" mb={2}>
+      <Typography variant="h6"
+mb={2}>
         Job Info
       </Typography>
 
-      <ClientDataGrid data={data} columns={JobInfoColumns(data?.length > 0 ? data[0] : {})} />
+      <ClientDataGrid data={data}
+columns={JobInfoColumns(data?.length > 0 ? data[0] : {})} />
     </>
   );
 };

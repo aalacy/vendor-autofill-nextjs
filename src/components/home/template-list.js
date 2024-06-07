@@ -88,7 +88,9 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
 
   return (
     <>
-      <SearchBox query={query} setQuery={setQuery} handleClick={handleSearchClick} />
+      <SearchBox query={query}
+setQuery={setQuery}
+handleClick={handleSearchClick} />
       <FormControlLabel
         label="Select All"
         control={
@@ -104,8 +106,11 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
           const labelId = `template-list-item-${id}`;
 
           return (
-            <ListItem key={id} disablePadding>
-              <ListItemButton role={undefined} onClick={handleToggle(id)} dense>
+            <ListItem key={id}
+disablePadding>
+              <ListItemButton role={undefined}
+onClick={handleToggle(id)}
+dense>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -115,15 +120,21 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
                     inputProps={{ "aria-labelledby": labelId }}
                   />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={name} secondary={address} />
+                <ListItemText id={labelId}
+primary={name}
+secondary={address} />
               </ListItemButton>
             </ListItem>
           );
         })}
       </List>
 
-      <Stack direction="row" alignItems="center" mt={3}>
-        <Stack direction="row" spacing={2} mr="auto">
+      <Stack direction="row"
+alignItems="center"
+mt={3}>
+        <Stack direction="row"
+spacing={2}
+mr="auto">
           <Button
             startIcon={loading ? <CircularProgress size={20} /> : null}
             disabled={!!!checked?.length}
@@ -132,14 +143,18 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
           >
             Save
           </Button>
-          <Button variant="outlined" onClick={onClose}>
+          <Button variant="outlined"
+onClick={onClose}>
             Close
           </Button>
         </Stack>
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row"
+spacing={2}
+alignItems="center">
           {checked?.length > 0 && <Typography>{checked?.length} Selected</Typography>}
           <Tooltip title="Clear Selection">
-            <IconButton color="success" onClick={handleClear}>
+            <IconButton color="success"
+onClick={handleClear}>
               <Clear />
             </IconButton>
           </Tooltip>

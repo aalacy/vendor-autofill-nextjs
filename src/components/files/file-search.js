@@ -45,9 +45,16 @@ export const FileSearch = ({
 
   return (
     <Card sx={{ p: 2 }}>
-      <Stack useFlexGap flexWrap="wrap" justifyContent="space-between" direction="row" spacing={2}>
-        <SearchBox query={query} setQuery={setQuery} handleClick={handleClick} />
-        <Stack direction="row" spacing={2}>
+      <Stack useFlexGap
+flexWrap="wrap"
+justifyContent="space-between"
+direction="row"
+spacing={2}>
+        <SearchBox query={query}
+setQuery={setQuery}
+handleClick={handleClick} />
+        <Stack direction="row"
+spacing={2}>
           <Tooltip title="Download All Files">
             <Button
               disabled={folders?.length > 0}
@@ -66,12 +73,14 @@ export const FileSearch = ({
             aria-label="text alignment"
           >
             <Tooltip title="Grid View">
-              <ToggleButton value="card" aria-label="card view">
+              <ToggleButton value="card"
+aria-label="card view">
                 <GridViewIcon />
               </ToggleButton>
             </Tooltip>
             <Tooltip title="List View">
-              <ToggleButton value="list" aria-label="list view">
+              <ToggleButton value="list"
+aria-label="list view">
                 <ListIcon />
               </ToggleButton>
             </Tooltip>

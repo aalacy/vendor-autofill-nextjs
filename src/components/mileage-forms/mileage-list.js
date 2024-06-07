@@ -8,7 +8,8 @@ import { MileagesColumns } from "src/columns";
 import { useAuth } from "src/hooks/use-auth";
 import { MileageDetailContent } from "./mileage-detail";
 import { Modal } from "../common/modal";
-import { PdfViewer } from "../history/pdf-viewer";
+import dynamic from 'next/dynamic';
+const PdfViewer = dynamic(() => import("../history/pdf-viewer"), {ssr: false});
 
 export const MileageList = ({
   mileages,
@@ -131,7 +132,10 @@ export const MileageList = ({
         handleNo={handleNo}
       />
 
-      <Modal title={`${mileage?.name}`} open={open} onClose={() => setOpen(false)} size="md">
+      <Modal title={`${mileage?.name}`}
+open={open}
+onClose={() => setOpen(false)}
+size="md">
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
     </>

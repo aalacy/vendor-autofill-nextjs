@@ -10,10 +10,11 @@ import { VendorDetailPanelContent } from "../home/vendor-detail";
 import { useAuth } from "src/hooks/use-auth";
 import { VendorForm1 } from "../home/vendor-form1";
 import { Modal } from "../common/modal";
-import { PdfViewer } from "../history/pdf-viewer";
+import dynamic from 'next/dynamic';
+const PdfViewer = dynamic(() => import("../history/pdf-viewer"), {ssr: false});
 import LoadingOverlay from "../common/loading-overlay";
 
-export const ManageVendors = () => {
+const ManageVendors = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
   const [filterModel, setFilterModel] = useState([]);
   const [rowCountState, setRowCountState] = useState(0);
@@ -111,13 +112,21 @@ export const ManageVendors = () => {
         getDetailPanelContent={getDetailPanelContent}
       />
 
-      {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
+      {show && <VendorForm1 noThankYou
+vendor={curVendor}
+show={true}
+setShow={setShow} />}
 
-      <Modal title={title} open={showPDFModal} onClose={() => setShowPDFModal(false)}>
+      <Modal title={title}
+open={showPDFModal}
+onClose={() => setShowPDFModal(false)}>
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
 
-      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
+      <LoadingOverlay setOpen={setGLoading}
+open={gLoading} />
     </>
   );
 };
+
+export default ManageVendors;

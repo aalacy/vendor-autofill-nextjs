@@ -31,7 +31,8 @@ export const AccountLastName = ({ onSubmit }) => {
   });
 
   return (
-    <form noValidate onSubmit={formikLastName.handleSubmit}>
+    <form noValidate
+onSubmit={formikLastName.handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -73,15 +74,22 @@ export const AccountLastName = ({ onSubmit }) => {
         />
         {showLastName ? (
           <Box>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+size="small"
+sx={{ mr: 2 }}>
               Update
             </Button>
-            <Button onClick={cancelLastName} variant="outlined" size="small">
+            <Button onClick={cancelLastName}
+variant="outlined"
+size="small">
               Cancel
             </Button>
           </Box>
         ) : (
-          <Button onClick={() => setShowLastName(!showLastName)} variant="outlined" size="small">
+          <Button onClick={() => setShowLastName(!showLastName)}
+variant="outlined"
+size="small">
             Edit
           </Button>
         )}

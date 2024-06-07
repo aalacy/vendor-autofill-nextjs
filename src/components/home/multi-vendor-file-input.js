@@ -65,7 +65,9 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
       disabled={!!template_key}
     >
       {template_key ? (
-        <Button onClick={handleDelete} variant="outlined" color="error">
+        <Button onClick={handleDelete}
+variant="outlined"
+color="error">
           Remove File
         </Button>
       ) : null}

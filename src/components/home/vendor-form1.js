@@ -111,7 +111,10 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
 
   return (
     <>
-      <Modal size="sm" open={show} onClose={handleClose} title="Add Vendor">
+      <Modal size="sm"
+open={show}
+onClose={handleClose}
+title="Add Vendor">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -127,7 +130,10 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                   gap: 2,
                 }}
               >
-                <InputField name="name" label="Name*" sx={{ gridColumn: "span 2" }} fullWidth />
+                <InputField name="name"
+label="Name*"
+sx={{ gridColumn: "span 2" }}
+fullWidth />
 
                 <InputField
                   type="email"
@@ -169,7 +175,10 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                   sx={{ gridColumn: "span 2" }}
                   fullWidth
                 />
-                <InputField name="w9" label="W9" sx={{ gridColumn: "span 4" }} fullWidth />
+                <InputField name="w9"
+label="W9"
+sx={{ gridColumn: "span 4" }}
+fullWidth />
                 <InputField
                   name="website"
                   label="Website"
@@ -194,9 +203,12 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                   sx={{ gridColumn: "span 4" }}
                   fullWidth
                 />
-                <VendorMultiForm values={values} setFieldValue={setFieldValue} />
+                <VendorMultiForm values={values}
+setFieldValue={setFieldValue} />
               </Box>
-              <Stack direction="row" spacing={2} mt={2}>
+              <Stack direction="row"
+spacing={2}
+mt={2}>
                 <Button
                   disabled={isSubmitting || loading}
                   type="submit"
@@ -206,7 +218,8 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                 >
                   Submit
                 </Button>
-                <Button onClick={handleClose} variant="outlined">
+                <Button onClick={handleClose}
+variant="outlined">
                   Cancel
                 </Button>
               </Stack>

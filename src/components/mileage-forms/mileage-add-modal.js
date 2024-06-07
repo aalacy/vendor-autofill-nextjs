@@ -7,7 +7,7 @@ import { MileageAddForm } from "./mileage-add-form";
 import { MileageService } from "src/services";
 import { useIndentifier } from "src/hooks/use-identifier";
 
-export const MileageAddModal = ({ mileage, open, setOpen }) => {
+const MileageAddModal = ({ mileage, open, setOpen }) => {
   const { refresh, showConfirmDlg, hideConfirm } = useAuth();
   const [loading, setLoading] = useState(false);
   const [isEmpty, setEmpty] = useState(true);
@@ -88,3 +88,5 @@ export const MileageAddModal = ({ mileage, open, setOpen }) => {
     </Modal>
   );
 };
+
+export default MileageAddModal

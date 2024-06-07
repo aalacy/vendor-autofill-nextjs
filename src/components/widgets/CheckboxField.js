@@ -1,5 +1,5 @@
 import React from "react";
-import { at } from "lodash";
+import at from "lodash/at";
 import { useField } from "formik";
 import { Checkbox, FormControl, FormControlLabel, FormHelperText } from "@mui/material";
 
@@ -24,7 +24,8 @@ export const CheckboxField = (props) => {
       <FormControlLabel
         value={field.checked}
         checked={field.checked}
-        control={<Checkbox {...field} onChange={_onChange} />}
+        control={<Checkbox {...field}
+onChange={_onChange} />}
         label={label}
       />
       {_renderHelperText()}

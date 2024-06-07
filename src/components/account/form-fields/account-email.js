@@ -36,7 +36,8 @@ export const AccountEmail = ({ onSubmit }) => {
   });
 
   return (
-    <form noValidate onSubmit={formikEmail.handleSubmit}>
+    <form noValidate
+onSubmit={formikEmail.handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -86,15 +87,22 @@ export const AccountEmail = ({ onSubmit }) => {
         />
         {showEmail ? (
           <Box>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+size="small"
+sx={{ mr: 2 }}>
               Update
             </Button>
-            <Button onClick={cancelEmail} variant="outlined" size="small">
+            <Button onClick={cancelEmail}
+variant="outlined"
+size="small">
               Cancel
             </Button>
           </Box>
         ) : (
-          <IconButton onClick={() => setShowEmail(!showEmail)} variant="outlined" size="small">
+          <IconButton onClick={() => setShowEmail(!showEmail)}
+variant="outlined"
+size="small">
             <PencilIcon color="primary" />
           </IconButton>
         )}

@@ -3,13 +3,14 @@ import Head from "next/head";
 import { Add } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import dynamic from 'next/dynamic';
 
-import { MileageAddModal } from "src/components/mileage-forms/mileage-add-modal";
 import { MileageList } from "src/components/mileage-forms/mileage-list";
 import { GuestLayout } from "src/layouts/guest/layout";
 import { useIndentifier } from "src/hooks/use-identifier";
 import { initialPage } from "src/utils";
 import { MileageService } from "src/services";
+const MileageAddModal = dynamic(() => import("src/components/mileage-forms/mileage-add-modal"), {ssr: false});
 
 export const MileageFormsPage = () => {
   const [open, setOpen] = useState(false);
@@ -89,7 +90,9 @@ export const MileageFormsPage = () => {
             setLogicOperator={setLogicOperator}
           />
         </Container>
-        {open ? <MileageAddModal open={true} setOpen={setOpen} mileage={mileage} /> : null}
+        {open ? <MileageAddModal open={true}
+setOpen={setOpen}
+mileage={mileage} /> : null}
       </Box>
     </>
   );

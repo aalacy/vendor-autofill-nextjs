@@ -51,20 +51,26 @@ export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen
 
   return (
     <>
-      <ListItemButton sx={{ mb: 2, boxShadow: 4 }} onClick={handleFolder}>
+      <ListItemButton sx={{ mb: 2, boxShadow: 4 }}
+onClick={handleFolder}>
         <ListItemAvatar>
-          <FolderIcon color="warning" fontSize="large" />
+          <FolderIcon color="warning"
+fontSize="large" />
         </ListItemAvatar>
         <ListItemText
           primary={<Typography noWrap>{folder_name}</Typography>}
           secondary={`${bytesToSize(size)} • ${files.length} items`}
         />
-        <ListItemText primary="Created at" secondary={beautyDateTime(created_at)} />
-        <IconButton aria-describedby={id} onClick={handleMore}>
+        <ListItemText primary="Created at"
+secondary={beautyDateTime(created_at)} />
+        <IconButton aria-describedby={id}
+onClick={handleMore}>
           <MoreVertIcon />
         </IconButton>
       </ListItemButton>
-      <Popper id={id} open={open} anchorEl={anchorEl}>
+      <Popper id={id}
+open={open}
+anchorEl={anchorEl}>
         <ClickAwayListener onClickAway={handleClose}>
           <Box
             sx={{
@@ -76,10 +82,16 @@ export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen
               alignItems: "flex-start",
             }}
           >
-            <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
+            <Button color="info"
+onClick={handleDownload}
+startIcon={<DownloadIcon />}
+size="small">
               Download
             </Button>
-            <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
+            <Button color="error"
+onClick={handleRemove}
+startIcon={<RemoveIcon />}
+size="small">
               Delete
             </Button>
           </Box>

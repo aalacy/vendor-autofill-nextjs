@@ -15,28 +15,36 @@ const RenderAction = (props) => {
     <Box>
       <Tooltip title="Edit Mileage">
         <span>
-          <IconButton onClick={() => handleEdit(value)} size="small" color="info">
+          <IconButton onClick={() => handleEdit(value)}
+size="small"
+color="info">
             <EditIcon />
           </IconButton>
         </span>
       </Tooltip>
       <Tooltip title="View PDF">
         <span>
-          <IconButton size="small" color="primary" onClick={() => handleView(row)}>
+          <IconButton size="small"
+color="primary"
+onClick={() => handleView(row)}>
             {loadingGet ? <CircularProgress /> : <ViewIcon />}
           </IconButton>
         </span>
       </Tooltip>
       <Tooltip title="Download PDF">
         <span>
-          <IconButton size="small" color="secondary" onClick={() => handleDownload(row)}>
+          <IconButton size="small"
+color="secondary"
+onClick={() => handleDownload(row)}>
             {loadingGet ? <CircularProgress /> : <DownloadIcon />}
           </IconButton>
         </span>
       </Tooltip>
       <Tooltip title="Delete Mileage">
         <span>
-          <IconButton onClick={() => handleRemove(value)} color="error" size="small">
+          <IconButton onClick={() => handleRemove(value)}
+color="error"
+size="small">
             <ClearIcon />
           </IconButton>
         </span>

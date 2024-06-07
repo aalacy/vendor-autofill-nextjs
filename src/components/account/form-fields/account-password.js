@@ -56,7 +56,8 @@ export const AccountPassword = ({ onSubmit }) => {
   });
 
   return (
-    <form noValidate onSubmit={formikPassword.handleSubmit}>
+    <form noValidate
+onSubmit={formikPassword.handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -148,7 +149,10 @@ export const AccountPassword = ({ onSubmit }) => {
         />
         {displayPassword ? (
           <Box>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+size="small"
+sx={{ mr: 2 }}>
               Update
             </Button>
             <Button

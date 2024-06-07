@@ -24,7 +24,9 @@ const RenderAction = (props) => {
       </Tooltip>
       <Tooltip title="Remove User">
         <span>
-          <IconButton onClick={() => handleRemove(row)} color="error" size="small">
+          <IconButton onClick={() => handleRemove(row)}
+color="error"
+size="small">
             <ClearIcon />
           </IconButton>
         </span>
@@ -67,6 +69,7 @@ export const UserColumns = ({ handleEdit, handleRemove }) => {
           }}
         >
           <Image
+            priority
             alt="Profile"
             height={35}
             width={35}
@@ -158,7 +161,9 @@ export const UserColumns = ({ handleEdit, handleRemove }) => {
       sortable: false,
       width: 100,
       renderCell: (params) => (
-        <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} />
+        <RenderAction {...params}
+handleRemove={handleRemove}
+handleEdit={handleEdit} />
       ),
     },
   ];

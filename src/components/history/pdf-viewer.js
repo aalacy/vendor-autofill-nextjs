@@ -7,7 +7,7 @@ import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
-export const PdfViewer = ({ pdfUrl }) => {
+const PdfViewer = ({ pdfUrl }) => {
   const [numPages, setNumPages] = useState();
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -21,10 +21,16 @@ export const PdfViewer = ({ pdfUrl }) => {
 
   return (
     <Paper elevation={3}>
-      <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} wrap={false}>
-        <Pagination count={numPages || 0} page={pageNumber} onChange={handlePageChange} />
+      <Document file={pdfUrl}
+onLoadSuccess={onDocumentLoadSuccess}
+wrap={false}>
+        <Pagination count={numPages || 0}
+page={pageNumber}
+onChange={handlePageChange} />
         <Page pageNumber={pageNumber} />
       </Document>
     </Paper>
   );
 };
+
+export default PdfViewer;

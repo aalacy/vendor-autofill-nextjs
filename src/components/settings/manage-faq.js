@@ -8,7 +8,7 @@ import { FaqFormModal } from "../faqs/faq-form-modal";
 import { EDataGrid } from "../tables/e-datagrid";
 import { useAuth } from "src/hooks/use-auth";
 
-export const ManageFaqs = () => {
+const ManageFaqs = () => {
   const [open, setOpen] = useState(false);
   const [curFaq, setFaq] = useState();
 
@@ -65,7 +65,11 @@ export const ManageFaqs = () => {
           columns={FaqColumns({ handleRemove, handleEdit, handleAdd })}
         />
       </div>
-      {open && <FaqFormModal curFaq={curFaq} open={true} setOpen={setOpen} />}
+      {open && <FaqFormModal curFaq={curFaq}
+open={true}
+setOpen={setOpen} />}
     </>
   );
 };
+
+export default ManageFaqs;
