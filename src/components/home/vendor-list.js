@@ -84,12 +84,12 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         data: {
           result: { presigned_url, key },
         },
-      } = await VendorService.generateFormPDF(myVendor.id, project?.id, form.template_key);
+      } = await VendorService.generateFormPDF(myVendor.vendor.id, project?.id, form.template_key);
       setShowPDFModal(true);
       setUrl(presigned_url);
       setVendorKey(key);
     } catch (error) {
-      console.log("handleGeneratePDF", error);
+      toast.error(error.message);
     } finally {
       setGLoading(false);
     }
@@ -244,7 +244,9 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         <Typography variant="h6" mb={2}>
           My Vendors: &nbsp;(<small>{vendors?.length || "-"}</small>)
         </Typography>
-        <Typography><b>Total:</b> ${total}</Typography>
+        <Typography>
+          <b>Total:</b> ${total}
+        </Typography>
       </Box>
       <div style={{ height: 550, width: "100%" }}>
         <ClientDataGrid
