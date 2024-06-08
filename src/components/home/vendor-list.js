@@ -230,12 +230,21 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     );
   }, [hideConfirm, queryClient, showConfirmDlg, myVendor]);
 
+  const total = useMemo(() => {
+    if (!vendors) return 0;
+    return vendors
+      .map(({ invoices }) => invoices.map(({ total }) => total))
+      .flat()
+      .reduce((a, c) => a + c, 0);
+  }, [vendors]);
+
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", px: 1 }}>
         <Typography variant="h6" mb={2}>
           My Vendors: &nbsp;(<small>{vendors?.length || "-"}</small>)
         </Typography>
+        <Typography><b>Total:</b> ${total}</Typography>
       </Box>
       <div style={{ height: 550, width: "100%" }}>
         <ClientDataGrid
