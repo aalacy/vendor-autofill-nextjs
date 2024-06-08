@@ -89,7 +89,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       setUrl(presigned_url);
       setVendorKey(key);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message || error.response?.message);
     } finally {
       setGLoading(false);
     }
@@ -102,11 +102,11 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     try {
       const {
         data: { result },
-      } = await VendorService.readW9(vendor.id);
+      } = await VendorService.readW9(myVendor.vendor.id);
       setShowPDFModal(true);
       setUrl(result);
     } catch (error) {
-      console.log("handleW9", error);
+      toast.error(error.message || error.response?.message);
     } finally {
       setGLoading(false);
     }
@@ -123,7 +123,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         setInvoices(result);
         setShowInvoiceModal(true);
       } catch (error) {
-        console.log("handleCOI", error);
+        toast.error(error.message || error.response?.message);
       } finally {
         setGLoading(false);
       }
@@ -164,7 +164,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         setShowPDFModal(true);
         setUrl(result);
       } catch (error) {
-        console.log("handleCOI", error);
+        toast.error(error.message || error.response?.message);
       } finally {
         setGLoading(false);
       }

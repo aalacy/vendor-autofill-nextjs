@@ -49,10 +49,10 @@ const W9Cell = (params) => {
   const { row, handleW9 } = params;
 
   return (
-    <Tooltip title="Show W9">
+    <Tooltip title={row.vendor.w9 ? "Show" : "Empty"}>
       <span>
-        <IconButton onClick={() => handleW9(row.vendor)} disabled={!!!row.vendor.w9}>
-          <W9Icon color={row.w9 ? "primary" : "inherit"} />
+        <IconButton onClick={() => handleW9(row)} disabled={!!!row.vendor.w9}>
+          <W9Icon color={row.vendor.w9 ? "primary" : "inherit"} />
         </IconButton>
       </span>
     </Tooltip>
