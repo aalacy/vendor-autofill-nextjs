@@ -15,6 +15,7 @@ export const ManageInvoice = ({
   setOpen,
   maxFileLimit,
   replaceInvoice,
+  showReplace
 }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
@@ -43,7 +44,7 @@ export const ManageInvoice = ({
       );
       toast.success("Successfully uploaded.");
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
-      if (replaceInvoice) {
+      if (showReplace) {
         await replaceInvoice(result[0]);
       }
     } catch (err) {

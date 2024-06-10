@@ -49,6 +49,7 @@ export const InvoiceView = ({
   const [showPrompt, setShowPrompt] = useState(false);
   const [loading, setLoading] = useState(false);
   const [curInvoice, setCurInvoice] = useState();
+  const [showReplace, setShowReplace] = useState(false);
   const [uploadTitle, setUploadTitle] = useState({
     title: `Upload Invoices for ${myVendor.vendor?.name}`,
     subTitle: "",
@@ -148,6 +149,7 @@ export const InvoiceView = ({
     setCurInvoice({ id, total });
     setMaxFileLimit(1);
     setShowInvoice(true);
+    setShowReplace(true);
   };
 
   const replaceInvoice = async () => {
@@ -245,6 +247,7 @@ export const InvoiceView = ({
           open={true}
           setOpen={setShowInvoice}
           replaceInvoice={replaceInvoice}
+          showReplace={showReplace}
         />
       )}
       {showPrompt && (
