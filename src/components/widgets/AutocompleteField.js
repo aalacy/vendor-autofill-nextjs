@@ -75,7 +75,8 @@ export const AutocompleteField = (props) => {
 
   useEffect(() => {
     const manageDefaultValueForSecondItem = () => {
-      if (!values?.data || values.data.length < 2) return;
+      console.log(index , values.data.length)
+      if (!values?.data || values.data.length < 2 || index !== values.data.length - 1) return;
       if (!name.includes("from_address")) return;
 
       // "From" address of new milage entry autofills with the "To" address of the previous entry

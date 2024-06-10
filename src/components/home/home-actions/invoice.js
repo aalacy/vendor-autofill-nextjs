@@ -15,7 +15,7 @@ export const ManageInvoice = ({
   setOpen,
   maxFileLimit,
   replaceInvoice,
-  showReplace
+  showReplace,
 }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
