@@ -174,7 +174,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
 
   const invoices = useMemo(() => {
     return myVendor.invoices;
-  }, [myVendor])
+  }, [myVendor]);
 
   const topActions = useMemo(() => {
     const handleReplaceCOI = () => {
