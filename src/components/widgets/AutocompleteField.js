@@ -75,7 +75,6 @@ export const AutocompleteField = (props) => {
 
   useEffect(() => {
     const manageDefaultValueForSecondItem = () => {
-      console.log(index , values.data.length)
       if (!values?.data || values.data.length < 2 || index !== values.data.length - 1) return;
       if (!name.includes("from_address")) return;
 
