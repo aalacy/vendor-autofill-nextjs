@@ -56,7 +56,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
   const [invoice, setInvoice] = useState("");
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
-  const [invoices, setInvoices] = useState([]);
   const [canSendEmail, setCanSendEmail] = useState(false);
   const [showThankYou, setShowThankyou] = useState(false);
   const [subTitle, setSubTitle] = useState("");
@@ -120,7 +119,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
         const {
           data: { result },
         } = await VendorService.readInvoices(myVendor.id);
-        setInvoices(result);
         setShowInvoiceModal(true);
       } catch (error) {
         toast.error(error.message || error.response?.message);
@@ -174,6 +172,10 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     }
   };
 
+  const invoices = useMemo(() => {
+    return myVendor.invoices;
+  }, [myVendor])
+
   const topActions = useMemo(() => {
     const handleReplaceCOI = () => {
       setTitle(`Replace COI for ${myVendor.vendor.name}`);
@@ -191,7 +193,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
             const {
               data: { detail },
             } = await VendorService.deleteCOI(myVendor.id);
-            queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
+            queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
 
             setShowPDFModal(false);
             toast.success(detail);
@@ -359,7 +361,6 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
           onClose={() => setShowInvoiceModal(false)}
           myVendor={myVendor}
           invoices={invoices}
-          setInvoices={setInvoices}
           setShowPDFModal={setShowPDFModal}
           setInvoice={setInvoice}
           setUrl={setUrl}

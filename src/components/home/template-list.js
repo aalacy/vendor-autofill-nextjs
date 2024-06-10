@@ -77,7 +77,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
         data: { detail },
       } = await VendorService.addMyVendors(created, removed_vendors, project.id);
       toast.success(detail);
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
       onClose();
     } catch (error) {
       console.log("error", error);

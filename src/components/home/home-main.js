@@ -18,7 +18,7 @@ export const HomeMain = () => {
   }, [user, showJobForm]);
 
   const { isLoading, data: vendors } = useQuery({
-    queryKey: ["getAllVendors", project],
+    queryKey: ["getAllVendors", project.id],
     queryFn: async () => {
       const {
         data: { result },

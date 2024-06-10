@@ -36,7 +36,6 @@ import { useAuth } from "src/hooks/use-auth";
 export const InvoiceView = ({
   myVendor,
   invoices,
-  setInvoices,
   open,
   onClose,
   setShowPDFModal,
@@ -93,19 +92,9 @@ export const InvoiceView = ({
         const {
           data: { detail },
         } = await VendorService.addTotal2Invoice(curInvoice.id, values.total);
-        handleClose();
         toast.success(detail);
-        setInvoices((prev) =>
-          prev.map((invoice) => {
-            if (invoice.id === curInvoice.id)
-              return {
-                ...invoice,
-                total: values.total,
-              };
-            return invoice;
-          }),
-        );
-        queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
+        queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+        onClose();
       } catch (error) {
         toast.error(error.message);
       } finally {
@@ -142,10 +131,10 @@ export const InvoiceView = ({
             data: { detail },
           } = await VendorService.deleteInvoice(id);
           toast.success(detail);
-          setInvoices((prev) => prev.filter((invoice) => invoice.id !== id));
-          queryClient.invalidateQueries({ queryKey: ["getAllVendors", project] });
+          onClose();
+          queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
         } catch (err) {
-          toast.error(err?.response?.message);
+          toast.error(err.response?.message || err.message);
         }
       },
     });
@@ -161,22 +150,14 @@ export const InvoiceView = ({
     setShowInvoice(true);
   };
 
-  const replaceInvoice = async (newInvoice) => {
+  const replaceInvoice = async () => {
     try {
       await VendorService.deleteInvoice(curInvoice.id);
       if (curInvoice.total) {
         await VendorService.addTotal2Invoice(curInvoice.id, curInvoice.total);
       }
-      setInvoices((prev) =>
-        prev.map((invoice) => {
-          if (invoice.id === curInvoice.id)
-            return {
-              ...newInvoice,
-              total: curInvoice.total,
-            };
-          return invoice;
-        }),
-      );
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+      onClose();
     } catch (err) {
       toast.error(err?.message || err?.response?.message);
     }
