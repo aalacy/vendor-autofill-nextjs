@@ -7,7 +7,11 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useEffect, useMemo, useState } from "react";
 import { Button, CircularProgress, IconButton, Stack, Tooltip, Typography } from "@mui/material";
-import { Clear } from "@mui/icons-material";
+import {
+  Clear,
+  DocumentScanner as ViewIcon,
+  VerifiedOutlined as W9Icon,
+} from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -103,11 +107,14 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
         }
       />
       <List sx={{ width: "100%", maxHeight: 450, overflow: "auto" }}>
-        {filteredTemplates.map(({ id, name, address }) => {
+        {filteredTemplates.map(({ id, name, address, w9, forms }) => {
           const labelId = `template-list-item-${id}`;
 
           return (
-            <ListItem key={id} disablePadding>
+            <ListItem key={id} disablePadding secondaryAction={<Stack direction="row" spacing={1}>
+              <Tooltip title="W9"><W9Icon color={w9 ? "primary" : "inherit"}/></Tooltip>
+              <Tooltip title={`${forms?.length || 0} Forms`} color={forms ? "primary" : "inherit"}><ViewIcon /></Tooltip>
+            </Stack>}>
               <ListItemButton role={undefined} onClick={handleToggle(id)} dense>
                 <ListItemIcon>
                   <Checkbox
