@@ -136,7 +136,7 @@ export const VendorList = ({ isLoading, vendors }) => {
     onSubmit: async (values) => {
       setGLoading(true);
       try {
-        await VendorService.sendEmail(vendor.id, vendorKey, values.email, invoice);
+        await VendorService.sendEmail(myVendor.vendor.id, vendorKey, values.email, invoice);
         setShowThankyou(true);
       } catch (error) {
         toast.error(error.message || error.response?.message);
@@ -242,10 +242,8 @@ export const VendorList = ({ isLoading, vendors }) => {
   }, [vendors]);
 
   const onRowClick = useCallback(
-    (params, event, details) => {
-      if (event.target.dataset.field === "vendor_name") {
-        apiRef.current.toggleDetailPanel(params.id);
-      }
+    (params, event) => {
+      apiRef.current.toggleDetailPanel(params.id);
     },
     [apiRef],
   );

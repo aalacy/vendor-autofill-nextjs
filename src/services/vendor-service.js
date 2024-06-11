@@ -72,6 +72,13 @@ export class VendorService {
     });
   }
 
+  static sendEmailForCOI(my_vendor_id, email) {
+    return http.post("/vendors/send-vendor-info-via-email", {
+      my_vendor_id,
+      email,
+    });
+  }
+
   static uploadCOI(my_vendor_id, vendor_name, job_id, file, onUploadProgress = undefined) {
     let formData = new FormData();
 
