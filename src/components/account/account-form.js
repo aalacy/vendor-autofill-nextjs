@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import toast from "react-hot-toast";
-import { useState } from "react";
 
 import { useAuth } from "src/hooks/use-auth";
 import { useMounted } from "src/hooks/use-mounted";
@@ -11,8 +10,6 @@ import { AccountPassword } from "./form-fields/account-password";
 export const AccountForm = () => {
   const { user, showConfirmDlg, hideConfirm, setUser } = useAuth();
   const isMounted = useMounted();
-
-  const [open, setOpen] = useState(false);
 
   const handleSubmit = async (values, helpers) => {
     hideConfirm();
@@ -46,21 +43,9 @@ export const AccountForm = () => {
 
   return (
     <>
-      <Box maxWidth="sm">
+      <Box sx={{ minWidth: 300 }}>
         <AccountEmail onSubmit={onSubmit} />
         <AccountPassword onSubmit={onSubmit} />
-        {/* <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-          <Typography fontWeight="bold" color="GrayText">More Fields</Typography>
-          <IconButton onClick={handleCollapseClick}>
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </IconButton>
-        </Box> */}
-        {/* <Collapse in={open} timeout="auto" unmountOnExit sx={{ pl: 2 }}>
-          <AccountFirstName onSubmit={onSubmitPerson} />
-          <AccountLastName onSubmit={onSubmitPerson} />
-          <AccountTitle onSubmit={onSubmitPerson} />
-          <AccountPhone onSubmit={onSubmitPerson} />
-        </Collapse> */}
       </Box>
     </>
   );

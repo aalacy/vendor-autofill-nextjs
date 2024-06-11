@@ -1,5 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import { UserService } from "src/services";
 import { EDataGrid } from "../tables/e-datagrid";
@@ -7,13 +8,12 @@ import { UserColumns } from "src/columns/user-columns";
 import { initialPage } from "src/utils";
 import { UpdateUser } from "./update-user";
 import { useAuth } from "src/hooks/use-auth";
-import toast from "react-hot-toast";
 
 export const ManageUsers = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
   const [filterModel, setFilterModel] = useState([]);
   const [rowCountState, setRowCountState] = useState(0);
-  const [logicOperator, setLogicOperator] = useState("");
+  const [logicOperator, setLogicOperator] = useState("or");
   const [curUser, setUser] = useState();
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();

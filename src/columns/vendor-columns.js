@@ -96,14 +96,6 @@ const InvoiceCell = (params) => {
 export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleInvoice }) => {
   return [
     {
-      field: "vendor_name",
-      headerName: "Name",
-      type: "string",
-      resizable: true,
-      valueGetter: (params) => params.row.vendor.name,
-      width: 200,
-    },
-    {
       field: "vendor_w9",
       headerName: "W9",
       type: "string",
@@ -114,12 +106,12 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       renderCell: (params) => <W9Cell {...params} handleW9={handleW9} />,
     },
     {
-      field: "coi",
-      headerName: "COI",
+      field: "vendor_name",
+      headerName: "Vendor Name",
       type: "string",
       resizable: true,
-      width: 80,
-      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
+      valueGetter: (params) => params.row.vendor.name,
+      width: 200,
     },
     {
       field: "invoices",
@@ -128,6 +120,26 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       resizable: true,
       width: 80,
       renderCell: (params) => <InvoiceCell {...params} handleInvoice={handleInvoice} />,
+    },
+    {
+      field: "invoices_total",
+      headerName: "Total",
+      type: "string",
+      headerAlign: "center",
+      align: "center",
+      resizable: true,
+      width: 120,
+      renderCell: (params) => (
+        <Typography>{currencyFormatter(sum(params.row.invoices.map((r) => r.total)))}</Typography>
+      ),
+    },
+    {
+      field: "coi",
+      headerName: "COI",
+      type: "string",
+      resizable: true,
+      width: 80,
+      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
     },
     {
       field: "vendor_forms",
@@ -139,18 +151,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       width: 200,
       renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />,
     },
-    {
-      field: "vendor_total",
-      headerName: "Total",
-      type: "string",
-      headerAlign: "center",
-      align: "center",
-      resizable: true,
-      width: 120,
-      renderCell: (params) => (
-        <Typography>{currencyFormatter(sum(params.row.invoices.map((r) => r.total)))}</Typography>
-      ),
-    },
+    
     // {
     //   field: "credit_auth",
     //   headerName: "Credit Auth",

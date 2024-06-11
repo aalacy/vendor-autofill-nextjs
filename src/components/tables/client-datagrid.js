@@ -16,6 +16,8 @@ export const ClientDataGrid = (props) => {
     toolbar,
     slots,
     onStateChange,
+    onRowClick,
+    apiRef
   } = props;
 
   const [detailPanelExpandedRowIds, setDetailPanelExpandedRowIds] = useState([]);
@@ -27,6 +29,7 @@ export const ClientDataGrid = (props) => {
 
   return (
     <StripedDataGrid
+      apiRef={apiRef}
       disableColumnFilter
       disableColumnSelector
       disableDensitySelector
@@ -45,6 +48,7 @@ export const ClientDataGrid = (props) => {
         setRowSelectionModel && setRowSelectionModel(newRowSelectionModel);
       }}
       rowSelectionModel={rowSelectionModel}
+      onRowClick={onRowClick}
       rowThreshold={0}
       columnBuffer={2}
       columnThreshold={2}

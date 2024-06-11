@@ -8,7 +8,7 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
-import { GridToolbarContainer, GridToolbarQuickFilter } from "@mui/x-data-grid-pro";
+import { GridToolbarContainer, GridToolbarQuickFilter, useGridApiRef } from "@mui/x-data-grid-pro";
 import {
   EmailOutlined as EmailIcon,
   DeleteOutline as DeleteIcon,
@@ -46,7 +46,7 @@ const ReportRenderToolbar = () => {
 
 const Footer = () => <></>;
 
-export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading, vendors }) => {
+export const VendorList = ({ isLoading, vendors }) => {
   const [gLoading, setGLoading] = useState(false);
   const [showCOI, setShowCOI] = useState(false);
   const [showInvoice, setShowInvoice] = useState(false);
@@ -60,6 +60,9 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
   const [showThankYou, setShowThankyou] = useState(false);
   const [subTitle, setSubTitle] = useState("");
   const [title, setTitle] = useState("");
+  const [rowSelectionModel, setRowSelectionModel] = useState([]);
+
+  const apiRef = useGridApiRef(null);
 
   const { showConfirmDlg, hideConfirm, project } = useAuth();
 
@@ -116,9 +119,7 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
     setInvoice("Invoices");
     if (invoices.length > 0) {
       try {
-        const {
-          data: { result },
-        } = await VendorService.readInvoices(myVendor.id);
+        await VendorService.readInvoices(myVendor.id);
         setShowInvoiceModal(true);
       } catch (error) {
         toast.error(error.message || error.response?.message);
@@ -240,6 +241,15 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
       .reduce((a, c) => a + c, 0);
   }, [vendors]);
 
+  const onRowClick = useCallback(
+    (params, event, details) => {
+      if (event.target.dataset.field === "vendor_name") {
+        apiRef.current.toggleDetailPanel(params.id);
+      }
+    },
+    [apiRef]
+  );
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", px: 1 }}>
@@ -259,9 +269,11 @@ export const VendorList = ({ setRowSelectionModel, rowSelectionModel, isLoading,
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
           toolbar={ReportRenderToolbar}
+          onRowClick={onRowClick}
           slots={{
             footer: Footer,
           }}
+          apiRef={apiRef}
         />
       </div>
 

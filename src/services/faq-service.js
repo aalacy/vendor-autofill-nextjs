@@ -1,8 +1,11 @@
 import http from "./http";
 
 export class FaqService {
-  static all() {
-    return http.get(`/faqs/all`);
+  static all(filterModel, logicOperator) {
+    return http.post(`/faqs/all`, {
+      filterModel: filterModel,
+      logicOperator: logicOperator,
+    });
   }
 
   static add(data) {

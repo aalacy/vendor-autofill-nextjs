@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { useCallback, useState } from "react";
-import { Avatar, Box, CircularProgress, IconButton, Typography, Button } from "@mui/material";
+import { Avatar, Box, CircularProgress, IconButton, Typography, Button, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { AccountCircle as UserCircleIcon, Edit as PencilIcon } from "@mui/icons-material";
 
@@ -10,6 +10,7 @@ import { UserService } from "src/services";
 import { FileDropzone } from "./file-dropzone";
 import { formatPhoneNumber } from "src/utils";
 import { AccountPerson } from "./form-fields/account-person";
+import { AccountForm } from "./account-form";
 
 const HoverBox = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -90,7 +91,8 @@ export const AvatarUpload = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", position: "relative", gap: 4, mb: 4 }}>
+    <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" useFlexGap >
+      <Box sx={{ display: "flex", alignItems: "center", position: "relative", gap: 4, mb: 4, flex: 1 }}>
         <IconButton onClick={() => setOpen(true)}>
           {loading ? (
             <CircularProgress size={85} />
@@ -129,6 +131,8 @@ export const AvatarUpload = () => {
           </Button>
         </HoverBox>
       </Box>
+      <AccountForm />
+      </Stack>
       {open && (
         <Modal open={true} onClose={onClose} title="Upload Avatar" size="sm">
           <FileDropzone

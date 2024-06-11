@@ -18,6 +18,9 @@ export const InputField = (props) => {
       type="text"
       error={meta.touched && meta.error && true}
       helperText={_renderHelperText()}
+      inputProps = {{
+        autoComplete: "off"
+      }}
       {...field}
       {...rest}
     />

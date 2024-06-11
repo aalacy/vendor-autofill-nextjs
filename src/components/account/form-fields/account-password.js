@@ -6,7 +6,15 @@ import {
   VisibilityOff as EyeOffIcon,
   Edit as PencilIcon,
 } from "@mui/icons-material";
-import { Box, IconButton, Button, InputAdornment, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Button,
+  InputAdornment,
+  TextField,
+  Typography,
+  Stack,
+} from "@mui/material";
 
 import { useAuth } from "src/hooks/use-auth";
 
@@ -80,19 +88,27 @@ export const AccountPassword = ({ onSubmit }) => {
             ******************
           </Typography>
         </Box>
+        <IconButton
+          onClick={() => setDisplayPassword(!displayPassword)}
+          variant="outlined"
+          size="small"
+        >
+          <PencilIcon color="primary" />
+        </IconButton>
+      </Box>
+      <Stack sx={{ display: displayPassword ? "inherit" : "none" }} spacing={2} alignItems="center">
         <TextField
           error={Boolean(formikPassword.touched.password && formikPassword.errors.password)}
-          fullWidth
           helperText={formikPassword.touched.password && formikPassword.errors.password}
           label="Password *"
           margin="dense"
           name="password"
           size="small"
+          fullWidth
           onBlur={formikPassword.handleBlur}
           onChange={formikPassword.handleChange}
           type={showPassword ? "text" : "password"}
           value={formikPassword.values.password}
-          sx={{ display: displayPassword ? "inherit" : "none" }}
           inputProps={{
             autoComplete: "new-password", // disable autocomplete and autofill
           }}
@@ -115,10 +131,10 @@ export const AccountPassword = ({ onSubmit }) => {
           error={Boolean(
             formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword,
           )}
-          fullWidth
           helperText={
             formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword
           }
+          fullWidth
           label="Confirm Password *"
           margin="dense"
           name="confirmPassword"
@@ -127,7 +143,6 @@ export const AccountPassword = ({ onSubmit }) => {
           onChange={formikPassword.handleChange}
           type={showPassword1 ? "text" : "password"}
           value={formikPassword.values.confirmPassword}
-          sx={{ display: displayPassword ? "inherit" : "none" }}
           inputProps={{
             autoComplete: "new-password", // disable autocomplete and autofill
           }}
@@ -146,30 +161,20 @@ export const AccountPassword = ({ onSubmit }) => {
             ),
           }}
         />
-        {displayPassword ? (
-          <Box>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
-              Update
-            </Button>
-            <Button
-              type="button"
-              onClick={() => setDisplayPassword(false)}
-              variant="outlined"
-              size="small"
-            >
-              Cancel
-            </Button>
-          </Box>
-        ) : (
-          <IconButton
-            onClick={() => setDisplayPassword(!displayPassword)}
+        <Box>
+          <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            Update
+          </Button>
+          <Button
+            type="button"
+            onClick={() => setDisplayPassword(false)}
             variant="outlined"
             size="small"
           >
-            <PencilIcon color="primary" />
-          </IconButton>
-        )}
-      </Box>
+            Cancel
+          </Button>
+        </Box>
+      </Stack>
     </form>
   );
 };

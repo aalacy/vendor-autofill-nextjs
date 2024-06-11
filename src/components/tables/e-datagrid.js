@@ -87,7 +87,7 @@ export const EDataGrid = (props) => {
   const onFilterChange = useCallback(
     (filterModel) => {
       // Here you save the data you need from the filter model
-      setLogicOperator(filterModel.logicOperator);
+      setLogicOperator("or");
       setFilterModel(filterModel.items);
     },
     [setFilterModel, setLogicOperator],

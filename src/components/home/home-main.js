@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { VendorList } from "src/components/home/vendor-list";
@@ -7,8 +7,6 @@ import { useAuth } from "src/hooks/use-auth";
 import { VendorService } from "src/services";
 
 export const HomeMain = () => {
-  const [rowSelectionModel, setRowSelectionModel] = useState([]);
-  const [selectedData, setSelectedData] = useState([]);
 
   const { user, showJobForm, project } = useAuth();
 
@@ -30,15 +28,9 @@ export const HomeMain = () => {
   return (
     <>
       <HeaderForm
-        rowSelectionModel={rowSelectionModel}
-        setRowSelectionModel={setRowSelectionModel}
-        selectedData={selectedData}
-        setSelectedData={setSelectedData}
         vendors={vendors}
       />
       <VendorList
-        rowSelectionModel={rowSelectionModel}
-        setRowSelectionModel={setRowSelectionModel}
         vendors={vendors}
         isLoading={isLoading}
       />

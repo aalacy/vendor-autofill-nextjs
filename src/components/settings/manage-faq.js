@@ -11,17 +11,18 @@ import { useAuth } from "src/hooks/use-auth";
 const ManageFaqs = () => {
   const [open, setOpen] = useState(false);
   const [curFaq, setFaq] = useState();
-
+  const [logicOperator, setLogicOperator] = useState("or");
+  const [filterModel, setFilterModel] = useState([]);
   const { showConfirmDlg, hideConfirm } = useAuth();
 
   const queryClient = useQueryClient();
 
   const { isLoading, data } = useQuery({
-    queryKey: ["getAllFaqs"],
+    queryKey: ["getAllFaqs", filterModel, logicOperator],
     queryFn: async () => {
       const {
         data: { result },
-      } = await FaqService.all();
+      } = await FaqService.all(filterModel, logicOperator);
       return result;
     },
   });
@@ -63,6 +64,9 @@ const ManageFaqs = () => {
           loading={isLoading}
           data={data || []}
           columns={FaqColumns({ handleRemove, handleEdit, handleAdd })}
+          filterModel={filterModel}
+          setFilterModel={setFilterModel}
+          setLogicOperator={setLogicOperator}
         />
       </div>
       {open && <FaqFormModal curFaq={curFaq} open={true} setOpen={setOpen} />}

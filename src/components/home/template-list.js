@@ -111,10 +111,23 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
           const labelId = `template-list-item-${id}`;
 
           return (
-            <ListItem key={id} disablePadding secondaryAction={<Stack direction="row" spacing={1}>
-              <Tooltip title="W9"><W9Icon color={w9 ? "primary" : "inherit"}/></Tooltip>
-              <Tooltip title={`${forms?.length || 0} Forms`} color={forms ? "primary" : "inherit"}><ViewIcon /></Tooltip>
-            </Stack>}>
+            <ListItem
+              key={id}
+              disablePadding
+              secondaryAction={
+                <Stack direction="row" spacing={1}>
+                  <Tooltip title="W9">
+                    <W9Icon color={w9 ? "primary" : "inherit"} />
+                  </Tooltip>
+                  <Tooltip
+                    title={`${forms?.length || 0} Forms`}
+                    color={forms ? "primary" : "inherit"}
+                  >
+                    <ViewIcon />
+                  </Tooltip>
+                </Stack>
+              }
+            >
               <ListItemButton role={undefined} onClick={handleToggle(id)} dense>
                 <ListItemIcon>
                   <Checkbox

@@ -30,7 +30,7 @@ const ManageAccount = () => {
           </Box>
           <Box sx={{ ml: 4 }}>
             <AvatarUpload />
-            <AccountForm />
+            
           </Box>
           <Divider sx={{ my: 1 }} />
 
