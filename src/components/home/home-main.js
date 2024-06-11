@@ -7,7 +7,6 @@ import { useAuth } from "src/hooks/use-auth";
 import { VendorService } from "src/services";
 
 export const HomeMain = () => {
-
   const { user, showJobForm, project } = useAuth();
 
   useEffect(() => {
@@ -27,13 +26,8 @@ export const HomeMain = () => {
 
   return (
     <>
-      <HeaderForm
-        vendors={vendors}
-      />
-      <VendorList
-        vendors={vendors}
-        isLoading={isLoading}
-      />
+      <HeaderForm vendors={vendors} />
+      <VendorList vendors={vendors} isLoading={isLoading} />
     </>
   );
 };

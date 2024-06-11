@@ -247,7 +247,7 @@ export const VendorList = ({ isLoading, vendors }) => {
         apiRef.current.toggleDetailPanel(params.id);
       }
     },
-    [apiRef]
+    [apiRef],
   );
 
   return (

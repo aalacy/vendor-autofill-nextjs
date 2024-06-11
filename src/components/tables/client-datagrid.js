@@ -17,7 +17,7 @@ export const ClientDataGrid = (props) => {
     slots,
     onStateChange,
     onRowClick,
-    apiRef
+    apiRef,
   } = props;
 
   const [detailPanelExpandedRowIds, setDetailPanelExpandedRowIds] = useState([]);

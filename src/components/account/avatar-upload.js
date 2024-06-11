@@ -1,6 +1,14 @@
 import toast from "react-hot-toast";
 import { useCallback, useState } from "react";
-import { Avatar, Box, CircularProgress, IconButton, Typography, Button, Stack } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  CircularProgress,
+  IconButton,
+  Typography,
+  Button,
+  Stack,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { AccountCircle as UserCircleIcon, Edit as PencilIcon } from "@mui/icons-material";
 
@@ -91,47 +99,62 @@ export const AvatarUpload = () => {
 
   return (
     <>
-    <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" useFlexGap >
-      <Box sx={{ display: "flex", alignItems: "center", position: "relative", gap: 4, mb: 4, flex: 1 }}>
-        <IconButton onClick={() => setOpen(true)}>
-          {loading ? (
-            <CircularProgress size={85} />
-          ) : (
-            <Avatar
-              src={user?.avatar || "/assets/avatars/no-profile1.png"}
-              sx={{
-                height: 85,
-                width: 85,
-                outline: "1px solid lightgray",
-              }}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        flexWrap="wrap"
+        useFlexGap
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+            gap: 4,
+            mb: 4,
+            flex: 1,
+          }}
+        >
+          <IconButton onClick={() => setOpen(true)}>
+            {loading ? (
+              <CircularProgress size={85} />
+            ) : (
+              <Avatar
+                src={user?.avatar || "/assets/avatars/no-profile1.png"}
+                sx={{
+                  height: 85,
+                  width: 85,
+                  outline: "1px solid lightgray",
+                }}
+              >
+                <UserCircleIcon fontSize="small" />
+              </Avatar>
+            )}
+            <PencilIcon color="primary" sx={{ position: "absolute", top: 13, right: 5 }} />
+          </IconButton>
+          <HoverBox>
+            <Typography variant="h6" textTransform="capitalize">
+              {user?.person?.first_name} {user?.person?.last_name}
+            </Typography>
+            <Typography variant="body2" textTransform="capitalize">
+              {user?.person?.title}
+            </Typography>
+            <Typography fontStyle="italic" variant="caption">
+              {formatPhoneNumber(user?.person?.phone_number)}
+            </Typography>
+            <Button
+              variant="outlined"
+              size="small"
+              className="update-btn"
+              startIcon={<PencilIcon color="primary" />}
+              onClick={onUpdateContact}
             >
-              <UserCircleIcon fontSize="small" />
-            </Avatar>
-          )}
-          <PencilIcon color="primary" sx={{ position: "absolute", top: 13, right: 5 }} />
-        </IconButton>
-        <HoverBox>
-          <Typography variant="h6" textTransform="capitalize">
-            {user?.person?.first_name} {user?.person?.last_name}
-          </Typography>
-          <Typography variant="body2" textTransform="capitalize">
-            {user?.person?.title}
-          </Typography>
-          <Typography fontStyle="italic" variant="caption">
-            {formatPhoneNumber(user?.person?.phone_number)}
-          </Typography>
-          <Button
-            variant="outlined"
-            size="small"
-            className="update-btn"
-            startIcon={<PencilIcon color="primary" />}
-            onClick={onUpdateContact}
-          >
-            Update
-          </Button>
-        </HoverBox>
-      </Box>
-      <AccountForm />
+              Update
+            </Button>
+          </HoverBox>
+        </Box>
+        <AccountForm />
       </Stack>
       {open && (
         <Modal open={true} onClose={onClose} title="Upload Avatar" size="sm">

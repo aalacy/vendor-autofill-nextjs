@@ -151,7 +151,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       width: 200,
       renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />,
     },
-    
+
     // {
     //   field: "credit_auth",
     //   headerName: "Credit Auth",
