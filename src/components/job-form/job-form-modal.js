@@ -83,7 +83,7 @@ export const JobFormModal = () => {
     if (isLastStep) {
       _submitForm(values, actions);
     } else {
-      console.log(values)
+      console.log(values);
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);

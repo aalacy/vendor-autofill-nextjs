@@ -39,13 +39,13 @@ const {
 
 export default [
   Yup.object().shape({
-    [preferredEmailAddress.name]: Yup.string().email("Invalid email!").required(`${preferredEmailAddress.requiredErrorMsg}`),
+    [preferredEmailAddress.name]: Yup.string()
+      .email("Invalid email!")
+      .required(`${preferredEmailAddress.requiredErrorMsg}`),
     [jobName.name]: Yup.string().required(`${jobName.requiredErrorMsg}`),
     [contactName.name]: Yup.string().required(`${contactName.requiredErrorMsg}`),
     [jobNumber.name]: Yup.string().required(`${jobNumber.requiredErrorMsg}`),
-    [prodCoName.name]: Yup.string().required(
-      `${prodCoName.requiredErrorMsg}`,
-    ),
+    [prodCoName.name]: Yup.string().required(`${prodCoName.requiredErrorMsg}`),
     [billAddress.name]: Yup.string().required(`${billAddress.requiredErrorMsg}`),
     [billCity.name]: Yup.string().required(`${billCity.requiredErrorMsg}`),
     [billState.name]: Yup.string().required(`${billState.requiredErrorMsg}`),
@@ -57,26 +57,16 @@ export default [
     [shipAccountNumber.name]: Yup.string(),
   }),
   Yup.object().shape({
-    [authSignName.name]: Yup.string().required(
-      `${authSignName.requiredErrorMsg}`,
-    ),
-    [authSignTitle.name]: Yup.string().required(
-      `${authSignTitle.requiredErrorMsg}`,
-    ),
+    [authSignName.name]: Yup.string().required(`${authSignName.requiredErrorMsg}`),
+    [authSignTitle.name]: Yup.string().required(`${authSignTitle.requiredErrorMsg}`),
   }),
   Yup.object().shape({
     // [cardholderInfo.name]: Yup.string().required(`${cardholderInfo.requiredErrorMsg}`),
     [cardName.name]: Yup.string().required(`${cardName.requiredErrorMsg}`),
     [cardPhone.name]: Yup.string().required(`${cardPhone.requiredErrorMsg}`),
-    [DLNumber.name]: Yup.string().required(
-      `${DLNumber.requiredErrorMsg}`,
-    ),
-    [DLState.name]: Yup.string().required(
-      `${DLState.requiredErrorMsg}`,
-    ),
-    [DLExpiry.name]: Yup.string()
-      .nullable()
-      .required(`${DLExpiry.requiredErrorMsg}`),
+    [DLNumber.name]: Yup.string().required(`${DLNumber.requiredErrorMsg}`),
+    [DLState.name]: Yup.string().required(`${DLState.requiredErrorMsg}`),
+    [DLExpiry.name]: Yup.string().nullable().required(`${DLExpiry.requiredErrorMsg}`),
   }),
   Yup.object().shape({
     [acctType.name]: Yup.string().required(`${acctType.requiredErrorMsg}`),
@@ -115,6 +105,5 @@ export default [
   Yup.object().shape({
     // [shipDetails.name]: Yup.string().required(`${shipDetails.requiredErrorMsg}`),
     [shipAccount.name]: Yup.string(),
-    
   }),
 ];

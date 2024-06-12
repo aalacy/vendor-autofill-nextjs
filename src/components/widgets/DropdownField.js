@@ -148,7 +148,7 @@ export const DropdownField = (props) => {
     setFieldValue(name, item);
   };
 
-  console.log('itemValue', itemValue)
+  console.log("itemValue", itemValue);
 
   useEffect(() => {
     if (!selectedValue) setFieldValue(name, itemValue || "Business");

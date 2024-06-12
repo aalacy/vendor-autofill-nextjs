@@ -9,9 +9,7 @@ export const Step6 = (props) => {
 
   return (
     <>
-      <Grid container spacing={3}>
-        
-      </Grid>
+      <Grid container spacing={3}></Grid>
     </>
   );
 };

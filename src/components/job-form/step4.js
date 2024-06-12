@@ -38,33 +38,20 @@ const cardTypes = [
 
 export const Step4 = (props) => {
   const {
-    formField: {
-      acctType,
-      bank,
-      cardType,
-      cardNumber,
-      expDate,
-      cvv,
-      CID,
-    },
+    formField: { acctType, bank, cardType, cardNumber, expDate, cvv, CID },
     values,
   } = props;
 
   return (
     <>
       <Grid container spacing={3}>
-      <Grid item xs={12}>
+        <Grid item xs={12}>
           <Typography variant="subtitle1" fontWeight="bold">
-          Payment Information
+            Payment Information
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <SelectField
-            name={acctType.name}
-            label={acctType.label}
-            data={acctTypes}
-            fullWidth
-          />
+          <SelectField name={acctType.name} label={acctType.label} data={acctTypes} fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputField name={bank.name} label={bank.label} fullWidth />
