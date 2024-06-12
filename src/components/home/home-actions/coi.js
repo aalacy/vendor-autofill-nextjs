@@ -52,15 +52,15 @@ export const ManageCOI = ({ title, myVendor, open, setOpen }) => {
 
   const formik = useFormik({
     enableReinitialize: true,
-    onSubmit: async (values) => {
+    onSubmit: async (values) => { 
       setGLoading(true);
       try {
         const {
           data: { detail },
         } = await VendorService.sendEmailForCOI(myVendor.id, values.email);
         toast.success(detail);
-      } catch (error) {
-        toast.error(error.message || error.response?.message);
+      } catch (err) {
+        toast.error(err.response?.data || err.message);
       } finally {
         setGLoading(false);
       }

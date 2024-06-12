@@ -42,7 +42,7 @@ export const FaqFormModal = ({ curFaq, open, setOpen }) => {
       toast.success("Successfully submitted");
       onClose();
     } catch (error) {
-      toast.error(error.message);
+      toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);
     }

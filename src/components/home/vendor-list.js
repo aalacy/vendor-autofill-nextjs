@@ -91,7 +91,7 @@ export const VendorList = ({ isLoading, vendors }) => {
       setUrl(presigned_url);
       setVendorKey(key);
     } catch (error) {
-      toast.error(error.message || error.response?.message);
+      toast.error(err.response?.data || err.message);
     } finally {
       setGLoading(false);
     }
@@ -108,7 +108,7 @@ export const VendorList = ({ isLoading, vendors }) => {
       setShowPDFModal(true);
       setUrl(result);
     } catch (error) {
-      toast.error(error.message || error.response?.message);
+      toast.error(err.response?.data || err.message);
     } finally {
       setGLoading(false);
     }
@@ -122,7 +122,7 @@ export const VendorList = ({ isLoading, vendors }) => {
         await VendorService.readInvoices(myVendor.id);
         setShowInvoiceModal(true);
       } catch (error) {
-        toast.error(error.message || error.response?.message);
+        toast.error(err.response?.data || err.message);
       } finally {
         setGLoading(false);
       }
@@ -139,7 +139,7 @@ export const VendorList = ({ isLoading, vendors }) => {
         await VendorService.sendEmail(myVendor.vendor.id, vendorKey, values.email, invoice);
         setShowThankyou(true);
       } catch (error) {
-        toast.error(error.message || error.response?.message);
+        toast.error(err.response?.data || err.message);
       } finally {
         setGLoading(false);
       }
@@ -163,7 +163,7 @@ export const VendorList = ({ isLoading, vendors }) => {
         setShowPDFModal(true);
         setUrl(result);
       } catch (error) {
-        toast.error(error.message || error.response?.message);
+        toast.error(err.response?.data || err.message);
       } finally {
         setGLoading(false);
       }
@@ -199,7 +199,7 @@ export const VendorList = ({ isLoading, vendors }) => {
             setShowPDFModal(false);
             toast.success(detail);
           } catch (err) {
-            toast.error(err?.response?.message);
+            toast.error(err.response?.data || err.message);
           }
         },
       });

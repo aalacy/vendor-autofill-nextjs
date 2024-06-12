@@ -154,6 +154,18 @@ export class VendorService {
     return http.delete(`/vendors/delete-invoice/${invoice_id}`);
   }
 
+  static getBusinessPurposes() {
+    return http.get("/vendors/get-business-purposes")
+  }
+
+  static addBusinessPurpose(purpose) {
+    return http.post("/vendors/add-business-purposes", { purpose })
+  }
+
+  static removeBusinessPurpose(purpose) {
+    return http.delete(`/vendors/delete-purpose/${purpose}`);
+  }
+
   static updateVendor(id, data) {
     return http.put(`/vendors/${id}`, data);
   }

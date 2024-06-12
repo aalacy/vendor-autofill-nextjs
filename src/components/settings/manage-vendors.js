@@ -1,18 +1,18 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
 
 import { VendorService } from "src/services";
 import { EDataGrid } from "../tables/e-datagrid";
 import { initialPage } from "src/utils";
 import { PrimitiveVendorsColumns } from "src/columns";
-import { VendorDetailPanelContent } from "../home/vendor-detail";
 import { useAuth } from "src/hooks/use-auth";
 import { VendorForm1 } from "../home/vendor-form1";
 import { Modal } from "../common/modal";
-import dynamic from "next/dynamic";
-const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 import LoadingOverlay from "../common/loading-overlay";
+const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
+const VendorDetailPanelContent = dynamic(() => import("../home/vendor-detail"), { ssr: false }); 
 
 const ManageVendors = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
@@ -62,7 +62,7 @@ const ManageVendors = () => {
             toast.success("Successfully Deleted");
             queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
           } catch (error) {
-            toast.error(error?.response?.data?.message || error.message);
+            toast.error(error?.response?.data || error.message);
           } finally {
             hideConfirm();
           }
@@ -114,9 +114,9 @@ const ManageVendors = () => {
 
       {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
 
-      <Modal title={title} open={showPDFModal} onClose={() => setShowPDFModal(false)}>
+      {showPDFModal && <Modal title={title} open={true} onClose={() => setShowPDFModal(false)}>
         <PdfViewer pdfUrl={pdfUrl} />
-      </Modal>
+      </Modal> }
 
       <LoadingOverlay setOpen={setGLoading} open={gLoading} />
     </>

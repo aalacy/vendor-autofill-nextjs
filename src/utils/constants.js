@@ -1,3 +1,14 @@
+import {
+  ApartmentOutlined,
+  BusinessCenterOutlined,
+  CallOutlined,
+  LocalAirportOutlined,
+  NotListedLocationOutlined,
+  PlaceOutlined,
+  RestaurantOutlined,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
+
 const GREY = "#CCC";
 const GREY_LIGHT = "rgba(255, 255, 255, 0.4)";
 const GREY_DIM = "#686868";
@@ -54,7 +65,7 @@ export const csvUploadStyles = {
   zoneHover: {
     borderColor: GREY_DIM,
   },
-  default: {
+  isDefault: {
     borderColor: GREY,
   },
   remove: {
@@ -141,5 +152,48 @@ export const RentalAgreementList = [
     name: "ec props",
     script: "ec_props_rental_agreement",
     link: "https://ecprops.com/includes/rental_agreement_revised_wm_20230424.pdf",
+  },
+];
+
+export const BUSINESS_PURPOSES = [
+  {
+    value: "Business",
+    icon: <BusinessCenterOutlined />,
+    isDefault: true
+  },
+  {
+    value: "Between Offices",
+    icon: <ApartmentOutlined />,
+    isDefault: true
+  },
+  {
+    value: "Customer Visit",
+    icon: <PlaceOutlined />,
+    isDefault: true
+  },
+  {
+    value: "Meeting",
+    icon: <CallOutlined />,
+    isDefault: true
+  },
+  {
+    value: "Errand/Supplies",
+    icon: <ShoppingCartOutlined />,
+    isDefault: true
+  },
+  {
+    value: "Meal/Entertain",
+    icon: <RestaurantOutlined />,
+    isDefault: true
+  },
+  {
+    value: "Temporary Site",
+    icon: <NotListedLocationOutlined />,
+    isDefault: true
+  },
+  {
+    value: "Airport/Travel",
+    icon: <LocalAirportOutlined />,
+    isDefault: true
   },
 ];

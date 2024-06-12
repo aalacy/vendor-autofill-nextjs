@@ -27,7 +27,7 @@ export const HistoryList = ({ histories, setHistories }) => {
       setHistories(data.result);
       setRowCountState(data.result.total_count);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);
     }

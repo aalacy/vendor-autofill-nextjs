@@ -6,13 +6,16 @@ import { Modal } from "../common/modal";
 import { MileageAddForm } from "./mileage-add-form";
 import { MileageService } from "src/services";
 import { useIndentifier } from "src/hooks/use-identifier";
+import { useQueryClient } from "@tanstack/react-query";
 
 const MileageAddModal = ({ mileage, open, setOpen }) => {
-  const { refresh, showConfirmDlg, hideConfirm } = useAuth();
+  const { showConfirmDlg, hideConfirm } = useAuth();
   const [loading, setLoading] = useState(false);
   const [isEmpty, setEmpty] = useState(true);
 
   const visitorId = useIndentifier();
+
+  const queryClient = useQueryClient();
 
   const _handleSubmit = async (values, helpers) => {
     setLoading(true);
@@ -38,7 +41,7 @@ const MileageAddModal = ({ mileage, open, setOpen }) => {
     } else {
       await _handleSubmit(values, helpers);
     }
-    refresh();
+    queryClient.invalidateQueries({ queryKey: ["getAllMileages"] });
   };
 
   const handleUpdate = async (id, values, helpers) => {

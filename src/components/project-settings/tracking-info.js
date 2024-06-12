@@ -13,8 +13,8 @@ export const TrackingInfo = ({ data, setData }) => {
       setLoading(true);
       const { data } = await VendorService.readGSheet();
       setData(data.result);
-    } catch (error) {
-      toast.error(error.message);
+    } catch (err) {
+      toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);
     }

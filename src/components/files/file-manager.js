@@ -53,7 +53,7 @@ export const FileManager = ({}) => {
         downloadMedia("", item);
       }
     } catch (error) {
-      toast.error(error.message || error.response.data);
+      toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,7 @@ export const FileManager = ({}) => {
           FileService.remove(key);
           toast.success("Successfully deleted");
         } catch (error) {
-          toast.error(error.message);
+          toast.error(err.response?.data || err.message);
         }
       },
     });

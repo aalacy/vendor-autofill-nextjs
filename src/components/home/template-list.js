@@ -83,9 +83,8 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
       toast.success(detail);
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
       onClose();
-    } catch (error) {
-      console.log("error", error);
-      toast.error(error.message);
+    } catch (err) {
+      toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);
     }

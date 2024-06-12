@@ -1,12 +1,26 @@
-import { Grid, Button, Box, Typography } from "@mui/material";
+import { Grid, Button, Box, Typography, Stack } from "@mui/material";
 import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
 import { FieldArray } from "formik";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { InputField, DatePickerField, AutocompleteField } from "src/components/widgets";
+import { DropdownField } from "../widgets/DropdownField";
+import { BUSINESS_PURPOSES } from "src/utils/constants";
+import { useQuery } from "@tanstack/react-query";
+import { VendorService } from "src/services";
 
 export const MileageMainForm = (props) => {
   const { values, setFieldValue, setEmpty } = props;
+
+  const { data: purposes } = useQuery({
+    queryKey: ["getBusinessPurposes"],
+    queryFn: async () => {
+      const {
+        data: { result },
+      } = await VendorService.getBusinessPurposes();
+      return result;
+    },
+  });
 
   useEffect(() => {
     const manageDateDefaultValue = () => {
@@ -45,6 +59,11 @@ export const MileageMainForm = (props) => {
 
     manageDateDefaultValue();
   }, [values?.week_of, values?.data, setFieldValue, setEmpty, values]);
+
+  const businessPurposes = useMemo(() => {
+    if (!purposes) return BUSINESS_PURPOSES;
+    return BUSINESS_PURPOSES.concat(purposes?.map(({ purpose }) => ({ value: purpose })));
+  }, [BUSINESS_PURPOSES, purposes]);
 
   return (
     <>
@@ -94,12 +113,25 @@ export const MileageMainForm = (props) => {
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                          <InputField
-                            name={`data.${index}.business_purpose`}
-                            label={`Business Purpose`}
-                            fullWidth
-                            size="small"
-                          />
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="space-between"
+                            border={1}
+                            borderRadius={1}
+                            p={1}
+                          >
+                            <Typography fontWeight="medium">Business Purpose</Typography>
+                            <DropdownField
+                              name={`data.${index}.business_purpose`}
+                              label={`Business Purpose`}
+                              data={businessPurposes}
+                              size="small"
+                              setFieldValue={setFieldValue}
+                              index={index}
+                              itemValue={mileage.business_purpose}
+                            />
+                          </Stack>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                           <InputField

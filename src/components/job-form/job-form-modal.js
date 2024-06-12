@@ -78,8 +78,8 @@ export const JobFormModal = () => {
       }
       toast.success("Successfully submitted");
       showJobForm(false);
-    } catch (error) {
-      toast.error(error.message);
+    } catch (err) {
+      toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);
     }

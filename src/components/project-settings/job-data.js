@@ -40,7 +40,7 @@ export const JobDataTable = () => {
         setProjects(projects);
         queryClient.invalidateQueries({ queryKey: ["getAllJobs", job.id] });
       } catch (error) {
-        toast.error(error?.response?.message || "Something went wrong");
+        toast.error(err.response?.data || err.message);
       }
     },
     [setProjects, queryClient, setJob],

@@ -37,7 +37,7 @@ const ManageFaqs = () => {
           toast.success("Successfully Deleted");
           queryClient.invalidateQueries({ queryKey: ["getAllFaqs"] });
         } catch (error) {
-          toast.error(error?.response?.data?.message || error.message);
+          toast.error(error?.response?.data || error.message);
         } finally {
           hideConfirm();
         }

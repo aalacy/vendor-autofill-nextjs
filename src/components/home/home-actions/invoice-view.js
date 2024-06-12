@@ -96,8 +96,8 @@ export const InvoiceView = ({
         toast.success(detail);
         queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
         onClose();
-      } catch (error) {
-        toast.error(error.message);
+      } catch (err) {
+        toast.error(err.response?.data || err.message);
       } finally {
         setLoading(false);
       }
@@ -135,7 +135,7 @@ export const InvoiceView = ({
           onClose();
           queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
         } catch (err) {
-          toast.error(err.response?.message || err.message);
+          toast.error(err.response?.data || err.message);
         }
       },
     });
@@ -161,7 +161,7 @@ export const InvoiceView = ({
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
       onClose();
     } catch (err) {
-      toast.error(err?.message || err?.response?.message);
+      toast.error(err.response?.data || err.message);
     }
   };
 
