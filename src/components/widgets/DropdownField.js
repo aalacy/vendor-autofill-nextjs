@@ -148,8 +148,10 @@ export const DropdownField = (props) => {
     setFieldValue(name, item);
   };
 
+  console.log('itemValue', itemValue)
+
   useEffect(() => {
-    if (!selectedValue) setFieldValue(name, itemValue ?? "Business");
+    if (!selectedValue) setFieldValue(name, itemValue || "Business");
   }, [selectedValue]);
 
   const isError = touched && error && true;

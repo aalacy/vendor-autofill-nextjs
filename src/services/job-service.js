@@ -7,8 +7,8 @@ export class JobService {
   }
 
   static add(data) {
-    data.cardholderDriversLicenseExpiry = beautyExpiry(data.cardholderDriversLicenseExpiry);
-    data.expirationDate = beautyExpiry(data.expirationDate);
+    data.DLExpiry = beautyExpiry(data.DLExpiry);
+    data.expDate = beautyExpiry(data.expDate);
     return http.post("/job/add", { data });
   }
 

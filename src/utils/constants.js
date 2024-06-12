@@ -197,3 +197,14 @@ export const BUSINESS_PURPOSES = [
     isDefault: true,
   },
 ];
+
+export const SHIP_ACCOUNTS = [
+  {
+    value: "Fedex",
+    label: "Fedex",
+  },
+  {
+    value: "UPS",
+    label: "UPS",
+  },
+];

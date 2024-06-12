@@ -16,8 +16,6 @@ import { Step1 } from "src/components/job-form/step1";
 import { Step2 } from "src/components/job-form/step2";
 import { Step3 } from "src/components/job-form/step3";
 import { Step4 } from "src/components/job-form/step4";
-import { Step5 } from "src/components/job-form/step5";
-import { Step6 } from "src/components/job-form/step6";
 import checkoutFormModel from "src/components/job-form/FormModel/checkoutFormModel";
 import validationSchema from "src/components/job-form/FormModel/validationSchema";
 import formInitialValues from "src/components/job-form/FormModel/formInitialValues";
@@ -26,7 +24,7 @@ import { useAuth } from "src/hooks/use-auth";
 import { Modal } from "../common/modal";
 import { useQueryClient } from "@tanstack/react-query";
 
-const steps = ["1", "2", "3", "4", "5", "6"];
+const steps = ["1", "2", "3", "4"];
 const { formId, formField } = checkoutFormModel;
 
 const _renderStepContent = (step, values) => {
@@ -39,10 +37,6 @@ const _renderStepContent = (step, values) => {
       return <Step3 formField={formField} />;
     case 3:
       return <Step4 formField={formField} values={values} />;
-    case 4:
-      return <Step5 formField={formField} values={values} />;
-    case 5:
-      return <Step6 formField={formField} />;
     default:
       return (
         <Typography variant="h6" p={3}>
@@ -89,6 +83,7 @@ export const JobFormModal = () => {
     if (isLastStep) {
       _submitForm(values, actions);
     } else {
+      console.log(values)
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);
@@ -111,7 +106,7 @@ export const JobFormModal = () => {
   return (
     <>
       <Modal
-        title={<Typography variant="h5">Job Form</Typography>}
+        title={<Typography variant="h6">Job Form</Typography>}
         open={openJobForm}
         onClose={onClose}
       >

@@ -3,33 +3,35 @@ import * as Yup from "yup";
 import checkoutFormModel from "./checkoutFormModel";
 const {
   formField: {
-    email,
+    preferredEmailAddress,
+    contactName,
     jobName,
     jobNumber,
-    productionCompanyName,
-    billingAddress,
-    billingCity,
-    billingState,
-    billingZipCode,
-    billingPhoneNumber,
-    emailAddressToReceiveInvoices,
-    nameOfAuthorizedSignatory,
-    titleOfAuthorizedSignatory,
+    prodCoName,
+    billAddress,
+    billCity,
+    billState,
+    billZip,
+    billPhone,
+    invoiceEmail,
+    authSignName,
+    authSignTitle,
     cardholderInfo,
-    cardholderName,
-    cardholderDriversLicenseNumber,
-    cardholderDriversLicenseState,
-    cardholderDriversLicenseExpiry,
-    accountType,
-    issuingBank,
+    cardName,
+    cardPhone,
+    DLNumber,
+    DLState,
+    DLExpiry,
+    acctType,
+    bank,
     cardType,
     cardNumber,
-    expirationDate,
+    expDate,
     cvv,
-    fourDigitCID,
+    CID,
     buyers,
-    shippingAccount,
-    shippingAccountNumber,
+    shipAccount,
+    shipAccountNumber,
   },
 } = checkoutFormModel;
 
@@ -37,72 +39,51 @@ const {
 
 export default [
   Yup.object().shape({
-    [email.name]: Yup.string().email("Invalid email!").required(`${email.requiredErrorMsg}`),
+    [preferredEmailAddress.name]: Yup.string().email("Invalid email!").required(`${preferredEmailAddress.requiredErrorMsg}`),
     [jobName.name]: Yup.string().required(`${jobName.requiredErrorMsg}`),
+    [contactName.name]: Yup.string().required(`${contactName.requiredErrorMsg}`),
     [jobNumber.name]: Yup.string().required(`${jobNumber.requiredErrorMsg}`),
-  }),
-  Yup.object().shape({
-    // [productionCompanyInfo.name]: Yup.string().required(
-    //   `${productionCompanyInfo.requiredErrorMsg}`
-    // ),
-    [productionCompanyName.name]: Yup.string().required(
-      `${productionCompanyName.requiredErrorMsg}`,
+    [prodCoName.name]: Yup.string().required(
+      `${prodCoName.requiredErrorMsg}`,
     ),
-    [billingAddress.name]: Yup.string().required(`${billingAddress.requiredErrorMsg}`),
-    [billingCity.name]: Yup.string().required(`${billingCity.requiredErrorMsg}`),
-    [billingState.name]: Yup.string().required(`${billingState.requiredErrorMsg}`),
-    [billingZipCode.name]: Yup.string().required(`${billingZipCode.requiredErrorMsg}`),
-    [billingPhoneNumber.name]: Yup.string().required(`${billingPhoneNumber.requiredErrorMsg}`),
-    [emailAddressToReceiveInvoices.name]: Yup.string()
+    [billAddress.name]: Yup.string().required(`${billAddress.requiredErrorMsg}`),
+    [billCity.name]: Yup.string().required(`${billCity.requiredErrorMsg}`),
+    [billState.name]: Yup.string().required(`${billState.requiredErrorMsg}`),
+    [billZip.name]: Yup.string().required(`${billZip.requiredErrorMsg}`),
+    [billPhone.name]: Yup.string().required(`${billPhone.requiredErrorMsg}`),
+    [invoiceEmail.name]: Yup.string()
       .email("Invalid email!")
-      .required(`${emailAddressToReceiveInvoices.requiredErrorMsg}`),
-    [nameOfAuthorizedSignatory.name]: Yup.string().required(
-      `${nameOfAuthorizedSignatory.requiredErrorMsg}`,
+      .required(`${invoiceEmail.requiredErrorMsg}`),
+    [shipAccountNumber.name]: Yup.string(),
+  }),
+  Yup.object().shape({
+    [authSignName.name]: Yup.string().required(
+      `${authSignName.requiredErrorMsg}`,
     ),
-    [titleOfAuthorizedSignatory.name]: Yup.string().required(
-      `${titleOfAuthorizedSignatory.requiredErrorMsg}`,
+    [authSignTitle.name]: Yup.string().required(
+      `${authSignTitle.requiredErrorMsg}`,
     ),
   }),
   Yup.object().shape({
-    [cardholderInfo.name]: Yup.string().required(`${cardholderInfo.requiredErrorMsg}`),
-    [cardholderName.name]: Yup.string().required(`${cardholderName.requiredErrorMsg}`),
-    [cardholderDriversLicenseNumber.name]: Yup.string().required(
-      `${cardholderDriversLicenseNumber.requiredErrorMsg}`,
+    // [cardholderInfo.name]: Yup.string().required(`${cardholderInfo.requiredErrorMsg}`),
+    [cardName.name]: Yup.string().required(`${cardName.requiredErrorMsg}`),
+    [cardPhone.name]: Yup.string().required(`${cardPhone.requiredErrorMsg}`),
+    [DLNumber.name]: Yup.string().required(
+      `${DLNumber.requiredErrorMsg}`,
     ),
-    [cardholderDriversLicenseState.name]: Yup.string().required(
-      `${cardholderDriversLicenseState.requiredErrorMsg}`,
+    [DLState.name]: Yup.string().required(
+      `${DLState.requiredErrorMsg}`,
     ),
-    [cardholderDriversLicenseExpiry.name]: Yup.string()
+    [DLExpiry.name]: Yup.string()
       .nullable()
-      .required(`${cardholderDriversLicenseExpiry.requiredErrorMsg}`),
-    // .test("expDate", cardholderDriversLicenseExpiry.invalidErrorMsg, (val) => {
-    //   if (val) {
-    //     const startDate = new Date();
-    //     if (moment(val, moment.ISO_8601).isValid()) {
-    //       return moment(val).isAfter(startDate);
-    //     }
-    //     return false;
-    //   }
-    //   return false;
-    // }),
+      .required(`${DLExpiry.requiredErrorMsg}`),
   }),
   Yup.object().shape({
-    // [creditCardInfo.name]: Yup.string().required(`${creditCardInfo.requiredErrorMsg}`),
-    [accountType.name]: Yup.string().required(`${accountType.requiredErrorMsg}`),
-    [issuingBank.name]: Yup.string().required(`${issuingBank.requiredErrorMsg}`),
+    [acctType.name]: Yup.string().required(`${acctType.requiredErrorMsg}`),
+    [bank.name]: Yup.string().required(`${bank.requiredErrorMsg}`),
     [cardType.name]: Yup.string().required(`${cardType.requiredErrorMsg}`),
     [cardNumber.name]: Yup.string().required(`${cardNumber.requiredErrorMsg}`),
-    [expirationDate.name]: Yup.string().nullable().required(`${expirationDate.requiredErrorMsg}`),
-    // .test("expDate", expirationDate.invalidErrorMsg, (val) => {
-    //   if (val) {
-    //     const startDate = new Date();
-    //     if (moment(val, moment.ISO_8601).isValid()) {
-    //       return moment(val).isAfter(startDate);
-    //     }
-    //     return false;
-    //   }
-    //   return false;
-    // }),
+    [expDate.name]: Yup.string().nullable().required(`${expDate.requiredErrorMsg}`),
     [cvv.name]: Yup.string().when("cardType", {
       is: (val) => val !== "Amex",
       then: (schema) =>
@@ -115,9 +96,9 @@ export default [
           ),
       otherwise: (schema) => schema.notRequired(),
     }),
-    [fourDigitCID.name]: Yup.string().when("cardType", {
+    [CID.name]: Yup.string().when("cardType", {
       is: (val) => val === "Amex",
-      then: (schema) => schema.required(`${fourDigitCID.requiredErrorMsg}`).length(4),
+      then: (schema) => schema.required(`${CID.requiredErrorMsg}`).length(4),
       otherwise: (schema) => schema.notRequired(),
     }),
   }),
@@ -132,8 +113,8 @@ export default [
     ),
   }),
   Yup.object().shape({
-    // [shippingDetails.name]: Yup.string().required(`${shippingDetails.requiredErrorMsg}`),
-    [shippingAccount.name]: Yup.string(),
-    [shippingAccountNumber.name]: Yup.string(),
+    // [shipDetails.name]: Yup.string().required(`${shipDetails.requiredErrorMsg}`),
+    [shipAccount.name]: Yup.string(),
+    
   }),
 ];

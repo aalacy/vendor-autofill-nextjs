@@ -3,10 +3,15 @@
 export default {
   formId: "jobForm",
   formField: {
-    email: {
-      name: "email",
-      label: "Email*",
-      requiredErrorMsg: "Email is required",
+    preferredEmailAddress: {
+      name: "preferredEmailAddress",
+      label: "Preferred Email Address*",
+      requiredErrorMsg: "Preferred Email Address is required",
+    },
+    contactName: {
+      name: "contactName",
+      label: "Contact Name*",
+      requiredErrorMsg: "Contact Name is required",
     },
     jobName: {
       name: "jobName",
@@ -23,90 +28,95 @@ export default {
       label: "Production Company Information*",
       requiredErrorMsg: "Production Company Information is required",
     },
-    productionCompanyName: {
-      name: "productionCompanyName",
-      label: "Production Company Name*",
+    prodCoName: {
+      name: "prodCoName",
+      label: "Prod Co Name*",
       requiredErrorMsg: "Production Company Name is required",
     },
-    billingAddress: {
-      name: "billingAddress",
-      label: "Billing Address*",
-      requiredErrorMsg: "Billing Address is required",
+    billAddress: {
+      name: "billAddress",
+      label: "Bill Address*",
+      requiredErrorMsg: "Bill Address is required",
     },
-    billingCity: {
-      name: "billingCity",
-      label: "Billing City*",
-      requiredErrorMsg: "Billing City is required",
+    billCity: {
+      name: "billCity",
+      label: "Bill City*",
+      requiredErrorMsg: "Bill City is required",
     },
-    billingState: {
-      name: "billingState",
-      label: "Billing State*",
-      requiredErrorMsg: "Billing State is required",
+    billState: {
+      name: "billState",
+      label: "Bill State*",
+      requiredErrorMsg: "Bill State is required",
     },
-    billingZipCode: {
-      name: "billingZipCode",
-      label: "Billing ZipCode*",
-      requiredErrorMsg: "Billing ZipCode is required",
+    billZip: {
+      name: "billZip",
+      label: "Bill Zip*",
+      requiredErrorMsg: "Bill Zip is required",
     },
-    billingPhoneNumber: {
-      name: "billingPhoneNumber",
-      label: "Billing Phone Number*",
-      requiredErrorMsg: "Billing Phone Number is required",
+    billPhone: {
+      name: "billPhone",
+      label: "Bill Phone*",
+      requiredErrorMsg: "Bill Phone is required",
     },
-    emailAddressToReceiveInvoices: {
-      name: "emailAddressToReceiveInvoices",
-      label: "Email Address to Receive Invoices*",
-      requiredErrorMsg: "Email Address to Receive Invoices is required",
+    invoiceEmail: {
+      name: "invoiceEmail",
+      label: "Invoice Email*",
+      requiredErrorMsg: "Invoice Email is required",
     },
-    nameOfAuthorizedSignatory: {
-      name: "nameOfAuthorizedSignatory",
-      label: "Name of Authorized Signatory*",
-      requiredErrorMsg: "Name of Authorized Signatory is required",
+    authSignName: {
+      name: "authSignName",
+      label: "Auth Sign Name*",
+      requiredErrorMsg: "Auth Sign Name is required",
     },
-    titleOfAuthorizedSignatory: {
-      name: "titleOfAuthorizedSignatory",
-      label: "Title of Authorized Signatory*",
-      requiredErrorMsg: "Title of Authorized Signatory is required",
+    authSignTitle: {
+      name: "authSignTitle",
+      label: "Auth Sign Title*",
+      requiredErrorMsg: "Auth Sign Title is required",
     },
     cardholderInfo: {
       name: "cardholderInfo",
       label: "Cardholder Information*",
       requiredErrorMsg: "Cardholder Information is required",
     },
-    cardholderName: {
-      name: "cardholderName",
-      label: "Cardholder Name*",
-      requiredErrorMsg: "Cardholder Name is required",
+    cardName: {
+      name: "cardName",
+      label: "Card Name*",
+      requiredErrorMsg: "Card Name is required",
     },
-    cardholderDriversLicenseNumber: {
-      name: "cardholderDriversLicenseNumber",
-      label: "Cardholder Drivers License Number*",
-      requiredErrorMsg: "Cardholder Drivers License Number is required",
+    DLNumber: {
+      name: "DLNumber",
+      label: "DL Number*",
+      requiredErrorMsg: "DL Number is required",
     },
-    cardholderDriversLicenseState: {
-      name: "cardholderDriversLicenseState",
-      label: "Cardholder Drivers License State*",
-      requiredErrorMsg: "Cardholder Drivers License State is required",
+    DLState: {
+      name: "DLState",
+      label: "DL State*",
+      requiredErrorMsg: "DL State is required",
     },
-    cardholderDriversLicenseExpiry: {
-      name: "cardholderDriversLicenseExpiry",
-      label: "Cardholder Drivers License Expiry*",
-      requiredErrorMsg: "Cardholder Drivers License Expiry is required",
+    DLExpiry: {
+      name: "DLExpiry",
+      label: "DL Expiry*",
+      requiredErrorMsg: "DL Expiry is required",
+    },
+    cardPhone: {
+      name: "cardPhone",
+      label: "Card Phone*",
+      requiredErrorMsg: "Card Phone is required",
     },
     creditCardInfo: {
       name: "creditCardInfo",
       label: "Credit Card Information*",
       requiredErrorMsg: "Credit Card Information is required",
     },
-    accountType: {
-      name: "accountType",
-      label: "accountType*",
-      requiredErrorMsg: " is required",
+    acctType: {
+      name: "acctType",
+      label: "Acct Type*",
+      requiredErrorMsg: "Acct Type is required",
     },
-    issuingBank: {
-      name: "issuingBank",
-      label: "Issuing Bank*",
-      requiredErrorMsg: "Issuing Bank is required",
+    bank: {
+      name: "bank",
+      label: "Bank*",
+      requiredErrorMsg: "Bank is required",
     },
     cardType: {
       name: "cardType",
@@ -118,10 +128,10 @@ export default {
       label: "Card Number*",
       requiredErrorMsg: "Card Number is required",
     },
-    expirationDate: {
-      name: "expirationDate",
-      label: "Expiration Date*",
-      requiredErrorMsg: "Expiration Date is required",
+    expDate: {
+      name: "expDate",
+      label: "Exp Date*",
+      requiredErrorMsg: "Exp Date is required",
     },
     cvv: {
       name: "cvv",
@@ -129,10 +139,10 @@ export default {
       requiredErrorMsg: "CVV is required",
       invalidErrorMsg: "CVV must be 3 digit",
     },
-    fourDigitCID: {
-      name: "fourDigitCID",
-      label: "4 Digit CID*",
-      requiredErrorMsg: "4 Digit CID is required",
+    CID: {
+      name: "CID",
+      label: "CID*",
+      requiredErrorMsg: "CID is required",
     },
     buyers: {
       name: "buyers",
@@ -158,18 +168,18 @@ export default {
       label: "Buyer Email*",
       requiredErrorMsg: "Buyer Email is required",
     },
-    shippingDetails: {
-      name: "shippingDetails",
-      label: "Shipping Details (if Applicable)*",
-      requiredErrorMsg: "Shipping Details is required",
+    shipDetails: {
+      name: "shipDetails",
+      label: "Ship Details (if Applicable)*",
+      requiredErrorMsg: "Ship Details is required",
     },
-    shippingAccount: {
-      name: "shippingAccount",
-      label: "Shipping Account",
+    shipAccount: {
+      name: "shipAccount",
+      label: "FedEx / UPS",
     },
-    shippingAccountNumber: {
-      name: "shippingAccountNumber",
-      label: "Shipping Account Number",
+    shipAccountNumber: {
+      name: "shipAccountNumber",
+      label: "Ship Account Number",
     },
   },
 };
