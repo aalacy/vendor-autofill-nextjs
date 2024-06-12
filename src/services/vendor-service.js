@@ -155,11 +155,11 @@ export class VendorService {
   }
 
   static getBusinessPurposes() {
-    return http.get("/vendors/get-business-purposes")
+    return http.get("/vendors/get-business-purposes");
   }
 
   static addBusinessPurpose(purpose) {
-    return http.post("/vendors/add-business-purposes", { purpose })
+    return http.post("/vendors/add-business-purposes", { purpose });
   }
 
   static removeBusinessPurpose(purpose) {

@@ -12,7 +12,7 @@ import { VendorForm1 } from "../home/vendor-form1";
 import { Modal } from "../common/modal";
 import LoadingOverlay from "../common/loading-overlay";
 const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
-const VendorDetailPanelContent = dynamic(() => import("../home/vendor-detail"), { ssr: false }); 
+const VendorDetailPanelContent = dynamic(() => import("../home/vendor-detail"), { ssr: false });
 
 const ManageVendors = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
@@ -114,9 +114,11 @@ const ManageVendors = () => {
 
       {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
 
-      {showPDFModal && <Modal title={title} open={true} onClose={() => setShowPDFModal(false)}>
-        <PdfViewer pdfUrl={pdfUrl} />
-      </Modal> }
+      {showPDFModal && (
+        <Modal title={title} open={true} onClose={() => setShowPDFModal(false)}>
+          <PdfViewer pdfUrl={pdfUrl} />
+        </Modal>
+      )}
 
       <LoadingOverlay setOpen={setGLoading} open={gLoading} />
     </>

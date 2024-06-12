@@ -52,7 +52,7 @@ export const ManageCOI = ({ title, myVendor, open, setOpen }) => {
 
   const formik = useFormik({
     enableReinitialize: true,
-    onSubmit: async (values) => { 
+    onSubmit: async (values) => {
       setGLoading(true);
       try {
         const {

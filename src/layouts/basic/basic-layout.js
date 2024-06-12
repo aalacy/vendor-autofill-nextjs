@@ -53,7 +53,7 @@ export const BasicLayout = (props) => {
           <LayoutContainer>
             {children}
             <JobFormModal />
-            </LayoutContainer>
+          </LayoutContainer>
         </GoogleOAuthProvider>
       </LayoutRoot>
     </>

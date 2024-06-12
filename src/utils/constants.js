@@ -159,41 +159,41 @@ export const BUSINESS_PURPOSES = [
   {
     value: "Business",
     icon: <BusinessCenterOutlined />,
-    isDefault: true
+    isDefault: true,
   },
   {
     value: "Between Offices",
     icon: <ApartmentOutlined />,
-    isDefault: true
+    isDefault: true,
   },
   {
     value: "Customer Visit",
     icon: <PlaceOutlined />,
-    isDefault: true
+    isDefault: true,
   },
   {
     value: "Meeting",
     icon: <CallOutlined />,
-    isDefault: true
+    isDefault: true,
   },
   {
     value: "Errand/Supplies",
     icon: <ShoppingCartOutlined />,
-    isDefault: true
+    isDefault: true,
   },
   {
     value: "Meal/Entertain",
     icon: <RestaurantOutlined />,
-    isDefault: true
+    isDefault: true,
   },
   {
     value: "Temporary Site",
     icon: <NotListedLocationOutlined />,
-    isDefault: true
+    isDefault: true,
   },
   {
     value: "Airport/Travel",
     icon: <LocalAirportOutlined />,
-    isDefault: true
+    isDefault: true,
   },
 ];
