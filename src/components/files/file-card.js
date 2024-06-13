@@ -10,6 +10,7 @@ import {
   Button,
   CardActionArea,
   ClickAwayListener,
+  Paper,
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
@@ -17,8 +18,9 @@ import {
   Delete as RemoveIcon,
   FolderOutlined as FolderIcon,
 } from "@mui/icons-material";
-import { beautyDateTime, bytesToSize } from "src/utils";
 import { useState } from "react";
+
+import { beautyDateTime, bytesToSize } from "src/utils";
 
 export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen }) => {
   const { folder_name, size, created_at, files } = folder;
@@ -81,23 +83,30 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
       </Card>
       <Popper id={id} open={open} anchorEl={anchorEl}>
         <ClickAwayListener onClickAway={handleClose}>
-          <Box
-            sx={{
-              p: 1,
-              border: 1,
-              borderRadius: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-            }}
-          >
-            <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
-              Download
-            </Button>
-            <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
-              Delete
-            </Button>
-          </Box>
+          <Paper>
+            <Box
+              sx={{
+                p: 1,
+                border: 1,
+                borderRadius: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <Button
+                color="info"
+                onClick={handleDownload}
+                startIcon={<DownloadIcon />}
+                size="small"
+              >
+                Download
+              </Button>
+              <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
+                Delete
+              </Button>
+            </Box>
+          </Paper>
         </ClickAwayListener>
       </Popper>
     </>

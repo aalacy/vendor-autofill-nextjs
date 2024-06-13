@@ -19,7 +19,7 @@ import { beautyDateTime, bytesToSize, downloadMedia } from "src/utils";
 const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 import { FileService } from "src/services";
 
-export const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
+const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
   const [pdfUrl, setUrl] = useState("");
   const [file, setFile] = useState("");
   const [openPDF, setOpenPDF] = useState(false);
@@ -55,6 +55,10 @@ export const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
     }
   };
 
+  const handleRemove = (key) => {
+    removeItem(key, onClose);
+  };
+
   return (
     <>
       <Modal
@@ -77,7 +81,7 @@ export const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
               <IconButton color="info" onClick={() => downloadPDF({ key, file_name })}>
                 {loading ? <CircularProgress /> : <DownloadIcon />}
               </IconButton>
-              <IconButton color="error" onClick={() => removeItem(key)}>
+              <IconButton color="error" onClick={() => handleRemove(key)}>
                 <RemoveIcon />
               </IconButton>
             </ListItem>
@@ -91,3 +95,5 @@ export const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
     </>
   );
 };
+
+export default FolderDetail;

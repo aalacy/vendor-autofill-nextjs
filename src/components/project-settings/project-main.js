@@ -1,20 +1,14 @@
 import { Box, Typography, IconButton, Tooltip } from "@mui/material";
-import {
-  Refresh as RefreshIcon,
-  Add as AddIcon,
-  DeleteOutline as DeleteIcon,
-} from "@mui/icons-material";
+import { Add as AddIcon, DeleteOutline as DeleteIcon } from "@mui/icons-material";
+import { useCallback } from "react";
+import toast from "react-hot-toast";
 
 import { JobDataTable } from "src/components/project-settings/job-data";
 import { useAuth } from "src/hooks/use-auth";
-import { useCallback } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { JobService } from "src/services";
-import toast from "react-hot-toast";
 
 export const ProjectMain = () => {
   const { showJobForm, project, showConfirmDlg, hideConfirm, setProjects, setProject } = useAuth();
-  const queryClient = useQueryClient();
 
   const deleteJob = useCallback(() => {
     showConfirmDlg({
@@ -43,9 +37,11 @@ export const ProjectMain = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
-        <Typography variant="h5" mb={5}>
-          Project Settings
+      <Box
+        sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", p: 1 }}
+      >
+        <Typography variant="h5" mb={5} textTransform="capitalize">
+          {project ? `${project?.name} - ${project?.jobNumber}` : "No Job"}
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
           <Tooltip title="Add new Job">

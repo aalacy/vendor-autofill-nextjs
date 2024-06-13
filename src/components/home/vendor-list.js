@@ -30,9 +30,9 @@ import LoadingOverlay from "../common/loading-overlay";
 import { Modal } from "../common/modal";
 const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 import { ThankYou } from "./thank-you";
-import { ManageCOI } from "./home-actions/coi";
-import { ManageInvoice } from "./home-actions/invoice";
-import { InvoiceView } from "./home-actions/invoice-view";
+const ManageCOI = dynamic(() => import("./home-actions/coi"), { ssr: false });
+const ManageInvoice = dynamic(() => import("./home-actions/invoice"), { ssr: false });
+const InvoiceView = dynamic(() => import("./home-actions/invoice-view"), { ssr: false });
 import { useAuth } from "src/hooks/use-auth";
 import { downloadMedia } from "src/utils";
 
@@ -104,10 +104,10 @@ export const VendorList = ({ isLoading, vendors }) => {
     try {
       const {
         data: { result },
-      } = await VendorService.readW9(myVendor.vendor.id);
+      } = await VendorService.readW9(myVendor.vendor.id, project.id);
       setShowPDFModal(true);
       setUrl(result);
-    } catch (error) {
+    } catch (err) {
       toast.error(err.response?.data || err.message);
     } finally {
       setGLoading(false);
@@ -242,7 +242,7 @@ export const VendorList = ({ isLoading, vendors }) => {
   }, [vendors]);
 
   const onRowClick = useCallback(
-    (params, event) => {
+    (params) => {
       apiRef.current.toggleDetailPanel(params.id);
     },
     [apiRef],
@@ -360,7 +360,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           myVendor={myVendor}
           maxFileLimit={10 - (myVendor.invoices?.length || 0)}
           open={true}
-          setOpen={setShowInvoice}
+          onClose={() => setShowInvoice(false)}
         />
       )}
 

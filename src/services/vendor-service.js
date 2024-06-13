@@ -59,8 +59,11 @@ export class VendorService {
     return http.get("/vendors/read_g_sheet");
   }
 
-  static readW9(vendor_id) {
-    return http.post("/vendors/generate-w9", vendor_id);
+  static readW9(vendor_id, job_id) {
+    return http.post("/vendors/generate-w9", {
+      vendor_id, 
+      job_id
+    });
   }
 
   static sendEmail(vendor_id, key, email, invoice_name) {
@@ -95,11 +98,12 @@ export class VendorService {
     });
   }
 
-  static uploadFormPDF(vendor_name, file, onUploadProgress = undefined) {
+  static uploadFormPDF(vendor_name, job_id, file, onUploadProgress = undefined) {
     let formData = new FormData();
 
     formData.append("file", file);
     formData.append("vendor_name", vendor_name);
+    formData.append("job_id", job_id);
 
     return http.post("/vendors/upload-form-pdf", formData, {
       headers: {

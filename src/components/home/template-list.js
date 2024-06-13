@@ -95,7 +95,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
   return (
     <>
       <SearchBox query={query} setQuery={setQuery} handleClick={handleSearchClick} />
-      <FormControlLabel
+      {/* <FormControlLabel
         label="Select All"
         control={
           <Checkbox
@@ -104,7 +104,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
             onChange={handleSelectAll}
           />
         }
-      />
+      /> */}
       <List sx={{ width: "100%", maxHeight: 450, overflow: "auto" }}>
         {filteredTemplates.map(({ id, name, address, w9, forms }) => {
           const labelId = `template-list-item-${id}`;

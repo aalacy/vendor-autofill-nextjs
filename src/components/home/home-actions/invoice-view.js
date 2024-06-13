@@ -26,14 +26,16 @@ import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useQueryClient } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 
 import { Modal } from "src/components/common/modal";
 import { VendorService } from "src/services";
-import { ManageInvoice } from "./invoice";
+const ManageInvoice = dynamic(() => import("./invoice"), { ssr: false });
+
 import { currencyFormatter, sum } from "src/utils";
 import { useAuth } from "src/hooks/use-auth";
 
-export const InvoiceView = ({
+const InvoiceView = ({
   myVendor,
   invoices,
   open,
@@ -245,7 +247,10 @@ export const InvoiceView = ({
           subTitle={uploadTitle.subTitle}
           myVendor={myVendor}
           open={true}
-          setOpen={setShowInvoice}
+          onClose={() => {
+            setShowInvoice(false);
+            onClose()
+          }}
           replaceInvoice={replaceInvoice}
           showReplace={showReplace}
         />
@@ -295,3 +300,5 @@ export const InvoiceView = ({
     </>
   );
 };
+
+export default InvoiceView;

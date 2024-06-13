@@ -1,12 +1,13 @@
 import { Box, List, IconButton } from "@mui/material";
 import { MoreHoriz as MoreVertIcon } from "@mui/icons-material";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 
 import { FileCard } from "./file-card";
 import { CardSkeleton } from "../skeleton/card-skeleton";
 import { FileItem } from "./file-item";
-import { FolderDetail } from "./folder-detail";
 import CustomNoRowsOverlay from "../tables/custom-no-rows";
+const FolderDetail = dynamic(() => import("./folder-detail"), { ssr: false });
 
 export const FileList = ({ downloadFiles, loading, folders, alignment, removeItem }) => {
   const [curFolder, setFolder] = useState();
@@ -70,7 +71,9 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
         </>
       )}
 
-      <FolderDetail removeItem={removeItem} open={open} setOpen={setOpen} folder={curFolder} />
+      {open && (
+        <FolderDetail removeItem={removeItem} open={true} setOpen={setOpen} folder={curFolder} />
+      )}
     </>
   );
 };

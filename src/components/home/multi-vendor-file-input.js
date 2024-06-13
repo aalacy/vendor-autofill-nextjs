@@ -4,11 +4,14 @@ import { Button } from "@mui/material";
 
 import { VendorService } from "src/services";
 import { FileInputField } from "../widgets/file-input-field";
+import { useAuth } from "src/hooks/use-auth";
 
 export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [template_key, setTemplateKey] = useState(value);
+
+  const { project } = useAuth();
 
   const onUpload = async () => {
     if (!files || files?.length < 1) return;
@@ -17,7 +20,7 @@ export const MultiVendorFileInput = ({ name, setFieldValue, values, value }) => 
     try {
       const {
         data: { result },
-      } = await VendorService.uploadFormPDF(values.name, files[0]);
+      } = await VendorService.uploadFormPDF(values.name, project.id, files[0]);
       console.log(result);
       setTemplateKey(result);
       setFieldValue(name, result);

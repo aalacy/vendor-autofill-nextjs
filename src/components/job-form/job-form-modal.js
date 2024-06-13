@@ -23,8 +23,9 @@ import { JobService } from "src/services";
 import { useAuth } from "src/hooks/use-auth";
 import { Modal } from "../common/modal";
 import { useQueryClient } from "@tanstack/react-query";
+import { Step5 } from "./step5";
 
-const steps = ["1", "2", "3", "4"];
+const steps = ["1", "2", "3", "4", "5", "6"];
 const { formId, formField } = checkoutFormModel;
 
 const _renderStepContent = (step, values) => {
@@ -37,6 +38,8 @@ const _renderStepContent = (step, values) => {
       return <Step3 formField={formField} />;
     case 3:
       return <Step4 formField={formField} values={values} />;
+    case 4:
+      return <Step5 values={values} />;
     default:
       return (
         <Typography variant="h6" p={3}>
@@ -83,7 +86,6 @@ export const JobFormModal = () => {
     if (isLastStep) {
       _submitForm(values, actions);
     } else {
-      console.log(values);
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);

@@ -20,10 +20,6 @@ export const FaqFormModal = ({ curFaq, open, setOpen }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const {
-    formField: { question, answer },
-  } = faqFormModel;
-
   const faqFormInitialValues = {
     [question.name]: curFaq?.question || "",
     [answer.name]: curFaq?.answer || "",

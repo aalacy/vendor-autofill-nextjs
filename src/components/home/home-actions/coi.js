@@ -12,7 +12,7 @@ import { FileInput } from "src/components/widgets/file-input";
 import { Modal } from "src/components/common/modal";
 import LoadingOverlay from "src/components/common/loading-overlay";
 
-export const ManageCOI = ({ title, myVendor, open, setOpen }) => {
+const ManageCOI = ({ title, myVendor, open, setOpen }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [gLoading, setGLoading] = useState(false);
@@ -125,3 +125,5 @@ export const ManageCOI = ({ title, myVendor, open, setOpen }) => {
     </>
   );
 };
+
+export default ManageCOI;

@@ -1,7 +1,7 @@
 import { TablePagination } from "@mui/material";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { FileSearch } from "./file-search";
 import { FileService } from "src/services";
@@ -19,6 +19,8 @@ export const FileManager = ({}) => {
   const [total, setTotal] = useState(0);
 
   const { showConfirmDlg, hideConfirm, project } = useAuth();
+
+  const queryClient = useQueryClient();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -59,7 +61,7 @@ export const FileManager = ({}) => {
     }
   }, []);
 
-  const removeItem = (key) => {
+  const removeItem = (key, cb) => {
     showConfirmDlg({
       open: true,
       close: hideConfirm,
@@ -68,6 +70,8 @@ export const FileManager = ({}) => {
         try {
           FileService.remove(key);
           toast.success("Successfully deleted");
+          queryClient.invalidateQueries({ queryKey: ["getAllFiles"] });
+          if (cb) cb()
         } catch (error) {
           toast.error(err.response?.data || err.message);
         }

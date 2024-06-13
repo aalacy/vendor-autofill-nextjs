@@ -8,6 +8,7 @@ import {
   IconButton,
   Typography,
   ClickAwayListener,
+  Paper,
 } from "@mui/material";
 import {
   MoreHoriz as MoreVertIcon,
@@ -66,23 +67,30 @@ export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen
       </ListItemButton>
       <Popper id={id} open={open} anchorEl={anchorEl}>
         <ClickAwayListener onClickAway={handleClose}>
-          <Box
-            sx={{
-              p: 1,
-              border: 1,
-              borderRadius: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-            }}
-          >
-            <Button color="info" onClick={handleDownload} startIcon={<DownloadIcon />} size="small">
-              Download
-            </Button>
-            <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
-              Delete
-            </Button>
-          </Box>
+          <Paper>
+            <Box
+              sx={{
+                p: 1,
+                border: 1,
+                borderRadius: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <Button
+                color="info"
+                onClick={handleDownload}
+                startIcon={<DownloadIcon />}
+                size="small"
+              >
+                Download
+              </Button>
+              <Button color="error" onClick={handleRemove} startIcon={<RemoveIcon />} size="small">
+                Delete
+              </Button>
+            </Box>
+          </Paper>
         </ClickAwayListener>
       </Popper>
     </>

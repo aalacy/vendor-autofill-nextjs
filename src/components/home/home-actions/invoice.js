@@ -7,15 +7,15 @@ import { useAuth } from "src/hooks/use-auth";
 import { FileInput } from "src/components/widgets/file-input";
 import { Modal } from "src/components/common/modal";
 
-export const ManageInvoice = ({
+const ManageInvoice = ({
   title,
   subTitle,
   myVendor,
   open,
-  setOpen,
   maxFileLimit,
   replaceInvoice,
   showReplace,
+  onClose
 }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
@@ -23,8 +23,6 @@ export const ManageInvoice = ({
   const { project } = useAuth();
 
   const queryClient = useQueryClient();
-
-  const onClose = () => setOpen(false);
 
   const uploadedFile = (event) => {};
 
@@ -75,3 +73,5 @@ export const ManageInvoice = ({
     </>
   );
 };
+
+export default ManageInvoice;

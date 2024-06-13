@@ -15,11 +15,14 @@ export const Step5 = (props) => {
           const buyers = values?.buyers;
           return (
             <Box>
+              <Typography variant="subtitle1" fontWeight="bold" paddingBottom>
+                Buyers
+              </Typography>
               {buyers?.length > 0
                 ? buyers.map((user, index) => (
                     <Box key={index} sx={{ mb: 2, border: 1, borderRadius: 1, p: 1 }}>
                       <Typography fontWeight="medium" gutterBottom>
-                        Buyer #{index + 1}
+                        Buyer {index + 1}
                       </Typography>
                       <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
