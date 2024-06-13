@@ -61,8 +61,8 @@ export class VendorService {
 
   static readW9(vendor_id, job_id) {
     return http.post("/vendors/generate-w9", {
-      vendor_id, 
-      job_id
+      vendor_id,
+      job_id,
     });
   }
 

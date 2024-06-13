@@ -71,7 +71,7 @@ export const FileManager = ({}) => {
           FileService.remove(key);
           toast.success("Successfully deleted");
           queryClient.invalidateQueries({ queryKey: ["getAllFiles"] });
-          if (cb) cb()
+          if (cb) cb();
         } catch (error) {
           toast.error(err.response?.data || err.message);
         }

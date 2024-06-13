@@ -16,10 +16,14 @@ const FormCell = (params) => {
       {row.vendor.forms?.map((form) => (
         <Tooltip key={form.name} title={form.title}>
           <span>
-            <IconButton color="info" size="small" onClick={(e) => {
-              e.stopPropagation();
-              handleGeneratePDF(row, form)
-            }}>
+            <IconButton
+              color="info"
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleGeneratePDF(row, form);
+              }}
+            >
               <ViewIcon />
             </IconButton>
           </span>
@@ -35,10 +39,13 @@ const W9Cell = (params) => {
   return (
     <Tooltip title={row.vendor.w9 ? "Show" : "Empty"}>
       <span>
-        <IconButton onClick={(e) => {
-          e.stopPropagation()
-          handleW9(row)
-        }} disabled={!!!row.vendor.w9}>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleW9(row);
+          }}
+          disabled={!!!row.vendor.w9}
+        >
           <W9Icon color={row.vendor.w9 ? "primary" : "inherit"} />
         </IconButton>
       </span>
@@ -52,10 +59,12 @@ const COICell = (params) => {
   return (
     <Tooltip title="Manage COI">
       <span>
-        <IconButton onClick={(e) => {
-          e.stopPropagation();
-          handleCOI(row)
-        }}>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCOI(row);
+          }}
+        >
           {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
         </IconButton>
       </span>
@@ -70,10 +79,12 @@ const InvoiceCell = (params) => {
     <Stack direction="row" alignItems="center" spacing={1}>
       <Tooltip title="Manage Forms">
         <span>
-          <IconButton onClick={(e) => {
-            e.stopPropagation();
-            handleInvoice(row, value)
-          }}>
+          <IconButton
+            onClick={(e) => {
+              e.stopPropagation();
+              handleInvoice(row, value);
+            }}
+          >
             {!value || value.length === 0 ? (
               <AddIcon color="primary" />
             ) : (
@@ -84,7 +95,9 @@ const InvoiceCell = (params) => {
           </IconButton>
         </span>
       </Tooltip>
-      <Typography title="Total">{currencyFormatter(sum(row.invoices.map((r) => r.total)))}</Typography>
+      <Typography title="Total">
+        {currencyFormatter(sum(row.invoices.map((r) => r.total)))}
+      </Typography>
     </Stack>
   );
 };

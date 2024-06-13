@@ -15,7 +15,7 @@ const ManageInvoice = ({
   maxFileLimit,
   replaceInvoice,
   showReplace,
-  onClose
+  onClose,
 }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);

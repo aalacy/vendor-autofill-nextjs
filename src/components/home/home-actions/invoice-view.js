@@ -249,7 +249,7 @@ const InvoiceView = ({
           open={true}
           onClose={() => {
             setShowInvoice(false);
-            onClose()
+            onClose();
           }}
           replaceInvoice={replaceInvoice}
           showReplace={showReplace}
