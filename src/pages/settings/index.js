@@ -6,7 +6,7 @@ import { Layout as DashboardLayout } from "src/layouts/dashboard/layout";
 import { ManageUsers } from "src/components/settings/manage-users";
 import TabComponent from "src/components/tab/tab-component";
 
-const ManageVendors = dynamic(() => import("src/components/settings/manage-vendors"), {
+const ManageVendors = dynamic(() => import("src/components/settings/vendors/manage-vendors"), {
   ssr: false,
 });
 const ManageFaqs = dynamic(() => import("src/components/settings/manage-faq"), { ssr: false });

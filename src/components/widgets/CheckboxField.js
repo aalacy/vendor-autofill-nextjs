@@ -6,6 +6,7 @@ import { Checkbox, FormControl, FormControlLabel, FormHelperText } from "@mui/ma
 export const CheckboxField = (props) => {
   const { label, ...rest } = props;
   const [field, meta, helper] = useField(props);
+  const { value: selectedValue } = field;
   const { setValue } = helper;
 
   function _renderHelperText() {
@@ -22,8 +23,7 @@ export const CheckboxField = (props) => {
   return (
     <FormControl {...rest}>
       <FormControlLabel
-        value={field.checked}
-        checked={field.checked}
+        checked={selectedValue}
         control={<Checkbox {...field} onChange={_onChange} />}
         label={label}
       />

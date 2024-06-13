@@ -4,7 +4,6 @@ import "yup-phone-lite";
 import {
   Box,
   Button,
-  TextField,
   InputAdornment,
   useMediaQuery,
   CircularProgress,
@@ -20,10 +19,10 @@ import { Modal } from "src/components/common/modal";
 import { InputPhone } from "src/components/widgets/input-phone";
 import { VendorService } from "src/services";
 import { ThankYou } from "./thank-you";
-import { InputField } from "../widgets";
+import { CheckboxField, InputField } from "../widgets";
 import { VendorMultiForm } from "./multi-form";
 
-export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
+const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
   const { showConfirmDlg, hideConfirm } = useAuth();
   const queryClient = useQueryClient();
 
@@ -38,7 +37,7 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
     const { submit, ...other } = values;
     let submitData = { ...other };
     if (noThankYou) {
-      submitData = { ...other, active: true, is_template: true };
+      submitData = { ...other, is_template: true };
     }
     try {
       if (vendor) {
@@ -88,6 +87,7 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
     category: vendor?.category ?? "",
     notes: vendor?.notes ?? "",
     forms: vendor?.forms ?? [{ name: "", title: "", template_key: "" }],
+    active: vendor?.active || false,
     submit: null,
   };
 
@@ -194,6 +194,11 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                   sx={{ gridColumn: "span 4" }}
                   fullWidth
                 />
+                <CheckboxField 
+                  name="active"
+                  label="Active"
+                  fullWidth
+                />
                 <VendorMultiForm values={values} setFieldValue={setFieldValue} />
               </Box>
               <Stack direction="row" spacing={2} mt={2}>
@@ -225,3 +230,5 @@ export const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
     </>
   );
 };
+
+export default VendorForm1

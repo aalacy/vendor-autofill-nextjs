@@ -31,7 +31,8 @@ function a11yProps(index) {
   };
 }
 
-export default function TabComponent({ nodes }) {
+export default function TabComponent(props) {
+  const { nodes } = props;
   const [value, setValue] = useState(0);
   const orientation = "horizontal";
 

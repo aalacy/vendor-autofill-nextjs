@@ -4,23 +4,32 @@ import {
   Clear as ClearIcon,
   AddCircleOutline as AddIcon,
   DocumentScanner as ViewIcon,
+  ChangeCircleOutlined as ConvertIcon
 } from "@mui/icons-material";
 
 import { beautyDateTime } from "src/utils";
 
 const RenderAction = (props) => {
-  const { handleEdit, handleRemove, row } = props;
+  const { handleEdit, handleRemove, handleConvert, row } = props;
 
   return (
-    <Box>
+    <Stack direction="row" spacing={1}>
+       <Tooltip title="Convert Vendor">
+        <span>
+          <IconButton
+            onClick={() => handleConvert(row)}
+            size="small"
+            color="success"
+          >
+            <ConvertIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
       <Tooltip title="Edit Vendor">
         <span>
           <IconButton
             onClick={() => handleEdit(row)}
             size="small"
-            sx={{
-              ml: 3,
-            }}
             color="secondary"
           >
             <EditIcon />
@@ -34,7 +43,7 @@ const RenderAction = (props) => {
           </IconButton>
         </span>
       </Tooltip>
-    </Box>
+    </Stack>
   );
 };
 
@@ -52,7 +61,7 @@ const RenderActionHeader = (props) => {
   );
 };
 
-export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, handleOpenPDF }) => {
+export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, handleOpenPDF, handleConvert }) => {
   return [
     {
       field: "name",
@@ -86,36 +95,6 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, h
         </Stack>
       ),
     },
-    // {
-    //   field: "rental_agreement",
-    //   headerName: "Rental Agreement",
-    //   resizable: true,
-    //   filterable: false,
-    //   align: "center",
-    //   width: 140,
-    //   renderCell: (params) => (
-    //     <Tooltip title={selectedRentalAgreement(params.value) ? "Show template" : "No template"}>
-    //       <span>
-    //         <IconButton
-    //           disabled={!!!selectedRentalAgreement(params.value)}
-    //           color="info"
-    //           size="small"
-    //           href={selectedRentalAgreement(params.value)?.link}
-    //         >
-    //           <LaunchOutlined />{" "}
-    //         </IconButton>
-    //       </span>
-    //     </Tooltip>
-    //   ),
-    // },
-    // {
-    //   field: "addition",
-    //   headerName: "Addition",
-    //   resizable: true,
-    //   filterable: false,
-    //   align: "center",
-    //   width: 100,
-    // },
     {
       field: "created_at",
       headerName: "Created At",
@@ -158,9 +137,9 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, h
       description: "Action Column",
       renderHeader: (params) => <RenderActionHeader {...params} handleAdd={handleAdd} />,
       sortable: false,
-      width: 100,
+      width: 130,
       renderCell: (params) => (
-        <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} />
+        <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} handleConvert={handleConvert}/>
       ),
     },
   ];

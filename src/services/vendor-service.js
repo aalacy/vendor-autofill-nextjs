@@ -23,12 +23,13 @@ export class VendorService {
     return http.get(`/vendors/templates`);
   }
 
-  static allByPage(paginationModel, filterModel, logicOperator) {
+  static allByPage(paginationModel, filterModel, logicOperator, is_active) {
     return http.post(`/vendors/all-by-page`, {
       page: paginationModel.page + 1,
       take: paginationModel.pageSize,
       filterModel,
       logicOperator,
+      is_active
     });
   }
 
@@ -176,5 +177,9 @@ export class VendorService {
 
   static removeVendor(id) {
     return http.delete(`/vendors/${id}`);
+  }
+
+  static convertVendor(vendor_id) {
+    return http.post(`/vendors/convert-vendor`, { vendor_id });
   }
 }
