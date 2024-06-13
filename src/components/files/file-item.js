@@ -34,7 +34,8 @@ export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen
 
   const handleRemove = () => {
     setAnchorEl(null);
-    removeItem(folder_name);
+    const keys = files.map(({ key }) => key)
+    removeItem(folder_name, true, keys);
   };
 
   const handleDownload = () => {

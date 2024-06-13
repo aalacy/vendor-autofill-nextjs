@@ -36,7 +36,8 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
 
   const handleRemove = () => {
     handleClose();
-    removeItem(folder_name);
+    const keys = files.map(({ key }) => key)
+    removeItem(folder_name, true, keys);
   };
 
   const handleDownload = () => {

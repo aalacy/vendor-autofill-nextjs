@@ -8,6 +8,7 @@ import { FileService } from "src/services";
 import { FileList } from "./file-list";
 import { useAuth } from "src/hooks/use-auth";
 import { downloadMedia } from "src/utils";
+import LoadingOverlay from "../common/loading-overlay";
 
 export const FileManager = ({}) => {
   const [page, setPage] = useState(0);
@@ -61,19 +62,22 @@ export const FileManager = ({}) => {
     }
   }, []);
 
-  const removeItem = (key, cb) => {
+  const removeItem = (key, isFolder, keys, cb) => {
     showConfirmDlg({
       open: true,
       close: hideConfirm,
-      callback: () => {
+      callback: async () => {
         showConfirmDlg({ open: false });
+        setLoading(true);
         try {
-          FileService.remove(key);
-          toast.success("Successfully deleted");
+          await FileService.remove(key, isFolder, keys);
           queryClient.invalidateQueries({ queryKey: ["getAllFiles"] });
+          toast.success("Successfully deleted");
           if (cb) cb();
-        } catch (error) {
+        } catch (err) {
           toast.error(err.response?.data || err.message);
+        } finally {
+          setLoading(false);
         }
       },
     });
@@ -108,6 +112,8 @@ export const FileManager = ({}) => {
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+      <LoadingOverlay setOpen={setLoading} open={loading} />
     </>
   );
 };
