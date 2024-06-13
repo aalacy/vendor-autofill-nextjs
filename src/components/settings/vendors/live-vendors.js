@@ -8,7 +8,13 @@ import { VendorService } from "src/services";
 import { initialPage } from "src/utils";
 import { EDataGrid } from "src/components/tables/e-datagrid";
 
-export const LiveVendors = ({ handleEdit, handleRemove, handleAdd, handleOpenPDF, handleConvert }) => {
+export const LiveVendors = ({
+  handleEdit,
+  handleRemove,
+  handleAdd,
+  handleOpenPDF,
+  handleConvert,
+}) => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
   const [filterModel, setFilterModel] = useState([]);
   const [rowCountState, setRowCountState] = useState(0);
@@ -36,7 +42,13 @@ export const LiveVendors = ({ handleEdit, handleRemove, handleAdd, handleOpenPDF
       initialState={{ pinnedColumns: { right: ["id"] } }}
       loading={isLoading}
       data={vendors}
-      columns={PrimitiveVendorsColumns({ handleEdit, handleRemove, handleAdd, handleOpenPDF, handleConvert })}
+      columns={PrimitiveVendorsColumns({
+        handleEdit,
+        handleRemove,
+        handleAdd,
+        handleOpenPDF,
+        handleConvert,
+      })}
       paginationModel={paginationModel}
       setPaginationModel={setPaginationModel}
       rowCountState={rowCountState}

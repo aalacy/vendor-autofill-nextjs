@@ -16,9 +16,7 @@ export const PendingVendors = ({
   handleConvert,
 }) => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
-  const [filterModel, setFilterModel] = useState([
-    
-  ]);
+  const [filterModel, setFilterModel] = useState([]);
   const [rowCountState, setRowCountState] = useState(0);
   const [logicOperator, setLogicOperator] = useState("");
 

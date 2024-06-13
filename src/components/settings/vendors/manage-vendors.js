@@ -82,7 +82,9 @@ const ManageVendors = () => {
         close: hideConfirm,
         callback: async () => {
           try {
-            const { data: { result }} = await VendorService.convertVendor(vendor.id);
+            const {
+              data: { result },
+            } = await VendorService.convertVendor(vendor.id);
             queryClient.invalidateQueries({ queryKey: ["getAdminVendors"] });
             toast.success(result);
           } catch (error) {

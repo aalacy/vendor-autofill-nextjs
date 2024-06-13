@@ -4,7 +4,7 @@ import {
   Clear as ClearIcon,
   AddCircleOutline as AddIcon,
   DocumentScanner as ViewIcon,
-  ChangeCircleOutlined as ConvertIcon
+  ChangeCircleOutlined as ConvertIcon,
 } from "@mui/icons-material";
 
 import { beautyDateTime } from "src/utils";
@@ -14,24 +14,16 @@ const RenderAction = (props) => {
 
   return (
     <Stack direction="row" spacing={1}>
-       <Tooltip title="Convert Vendor">
+      <Tooltip title="Convert Vendor">
         <span>
-          <IconButton
-            onClick={() => handleConvert(row)}
-            size="small"
-            color="success"
-          >
+          <IconButton onClick={() => handleConvert(row)} size="small" color="success">
             <ConvertIcon />
           </IconButton>
         </span>
       </Tooltip>
       <Tooltip title="Edit Vendor">
         <span>
-          <IconButton
-            onClick={() => handleEdit(row)}
-            size="small"
-            color="secondary"
-          >
+          <IconButton onClick={() => handleEdit(row)} size="small" color="secondary">
             <EditIcon />
           </IconButton>
         </span>
@@ -61,7 +53,13 @@ const RenderActionHeader = (props) => {
   );
 };
 
-export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, handleOpenPDF, handleConvert }) => {
+export const PrimitiveVendorsColumns = ({
+  handleRemove,
+  handleEdit,
+  handleAdd,
+  handleOpenPDF,
+  handleConvert,
+}) => {
   return [
     {
       field: "name",
@@ -139,7 +137,12 @@ export const PrimitiveVendorsColumns = ({ handleRemove, handleEdit, handleAdd, h
       sortable: false,
       width: 130,
       renderCell: (params) => (
-        <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} handleConvert={handleConvert}/>
+        <RenderAction
+          {...params}
+          handleRemove={handleRemove}
+          handleEdit={handleEdit}
+          handleConvert={handleConvert}
+        />
       ),
     },
   ];

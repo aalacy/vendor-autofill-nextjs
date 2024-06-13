@@ -1,14 +1,7 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "yup-phone-lite";
-import {
-  Box,
-  Button,
-  InputAdornment,
-  useMediaQuery,
-  CircularProgress,
-  Stack,
-} from "@mui/material";
+import { Box, Button, InputAdornment, useMediaQuery, CircularProgress, Stack } from "@mui/material";
 import { Phone as PhoneIcon, Mail as MailIcon } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -194,11 +187,7 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                   sx={{ gridColumn: "span 4" }}
                   fullWidth
                 />
-                <CheckboxField 
-                  name="active"
-                  label="Active"
-                  fullWidth
-                />
+                <CheckboxField name="active" label="Active" fullWidth />
                 <VendorMultiForm values={values} setFieldValue={setFieldValue} />
               </Box>
               <Stack direction="row" spacing={2} mt={2}>
@@ -231,4 +220,4 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
   );
 };
 
-export default VendorForm1
+export default VendorForm1;

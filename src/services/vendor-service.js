@@ -29,7 +29,7 @@ export class VendorService {
       take: paginationModel.pageSize,
       filterModel,
       logicOperator,
-      is_active
+      is_active,
     });
   }
 
