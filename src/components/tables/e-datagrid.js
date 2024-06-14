@@ -58,7 +58,7 @@ export const EDataGrid = (props) => {
     getDetailPanelContent,
     enableClipboardCopy,
     initialState,
-    showQuickFilter
+    showQuickFilter,
   } = props;
 
   const { showConfirmDlg } = useAuth();
@@ -170,7 +170,7 @@ export const EDataGrid = (props) => {
         noResultsOverlay: CustomNoRowsOverlay,
         loadingOverlay: TableSkeleton,
         columnMenu: CustomColumnMenuComponent,
-        toolbar: ReportRenderToolbar
+        toolbar: ReportRenderToolbar,
       }}
       slotProps={{
         toolbar: {
