@@ -46,6 +46,7 @@ export const FileInputField = (props) => {
         maxFiles={maxFileLimit || 10}
         accept={{ "application/pdf": [".pdf"] }}
         files={files}
+        setFiles={setFiles}
         onDrop={onDrop}
         onRemove={handleRemove}
         onRemoveAll={handleRemoveAll}

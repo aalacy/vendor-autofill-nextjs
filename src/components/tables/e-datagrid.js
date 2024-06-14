@@ -4,6 +4,8 @@ import {
   GridColumnMenuContainer,
   GridColumnMenuFilterItem,
   GridColumnMenuSortItem,
+  GridToolbarContainer,
+  GridToolbarQuickFilter,
   gridClasses,
 } from "@mui/x-data-grid-pro";
 import { toast } from "react-hot-toast";
@@ -23,6 +25,14 @@ export function CustomColumnMenuComponent(props) {
     </GridColumnMenuContainer>
   );
 }
+
+const ReportRenderToolbar = () => {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarQuickFilter debounceMs={200} />
+    </GridToolbarContainer>
+  );
+};
 
 export const EDataGrid = (props) => {
   const {
@@ -48,6 +58,7 @@ export const EDataGrid = (props) => {
     getDetailPanelContent,
     enableClipboardCopy,
     initialState,
+    showQuickFilter
   } = props;
 
   const { showConfirmDlg } = useAuth();
@@ -88,7 +99,7 @@ export const EDataGrid = (props) => {
     (filterModel) => {
       // Here you save the data you need from the filter model
       setLogicOperator("or");
-      setFilterModel(filterModel.items);
+      setFilterModel(filterModel);
     },
     [setFilterModel, setLogicOperator],
   );
@@ -159,6 +170,12 @@ export const EDataGrid = (props) => {
         noResultsOverlay: CustomNoRowsOverlay,
         loadingOverlay: TableSkeleton,
         columnMenu: CustomColumnMenuComponent,
+        toolbar: ReportRenderToolbar
+      }}
+      slotProps={{
+        toolbar: {
+          showQuickFilter: true,
+        },
       }}
       getRowClassName={(params) => (params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd")}
       processRowUpdate={processRowUpdate}

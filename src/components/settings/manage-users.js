@@ -11,7 +11,7 @@ import { useAuth } from "src/hooks/use-auth";
 
 export const ManageUsers = () => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
-  const [filterModel, setFilterModel] = useState([]);
+  const [filterModel, setFilterModel] = useState({});
   const [rowCountState, setRowCountState] = useState(0);
   const [logicOperator, setLogicOperator] = useState("or");
   const [curUser, setUser] = useState();

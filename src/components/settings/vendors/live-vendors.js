@@ -16,7 +16,7 @@ export const LiveVendors = ({
   handleConvert,
 }) => {
   const [paginationModel, setPaginationModel] = useState(initialPage);
-  const [filterModel, setFilterModel] = useState([]);
+  const [filterModel, setFilterModel] = useState({});
   const [rowCountState, setRowCountState] = useState(0);
   const [logicOperator, setLogicOperator] = useState("");
 
@@ -39,6 +39,7 @@ export const LiveVendors = ({
   return (
     <EDataGrid
       hideCheckbox
+      showQuickFilter
       initialState={{ pinnedColumns: { right: ["id"] } }}
       loading={isLoading}
       data={vendors}

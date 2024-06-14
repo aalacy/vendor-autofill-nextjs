@@ -12,7 +12,7 @@ const PdfViewer = dynamic(() => import("./pdf-viewer"), { ssr: false });
 export const HistoryList = ({ histories, setHistories }) => {
   const [loading, setLoading] = useState(false);
   const [paginationModel, setPaginationModel] = useState(initialPage);
-  const [filterModel, setFilterModel] = useState([]);
+  const [filterModel, setFilterModel] = useState({});
   const [rowCountState, setRowCountState] = useState(0);
   const [logicOperator, setLogicOperator] = useState("");
   const [open, setOpen] = useState(false);

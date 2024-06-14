@@ -12,7 +12,7 @@ const ManageFaqs = () => {
   const [open, setOpen] = useState(false);
   const [curFaq, setFaq] = useState();
   const [logicOperator, setLogicOperator] = useState("or");
-  const [filterModel, setFilterModel] = useState([]);
+  const [filterModel, setFilterModel] = useState({});
   const { showConfirmDlg, hideConfirm } = useAuth();
 
   const queryClient = useQueryClient();

@@ -18,7 +18,7 @@ export const MileageFormsPage = () => {
   const [open, setOpen] = useState(false);
   const [mileage, setMileage] = useState();
   const [paginationModel, setPaginationModel] = useState(initialPage);
-  const [filterModel, setFilterModel] = useState([]);
+  const [filterModel, setFilterModel] = useState({});
   const [rowCountState, setRowCountState] = useState(0);
   const [logicOperator, setLogicOperator] = useState("");
 

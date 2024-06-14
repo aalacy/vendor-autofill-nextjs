@@ -12,7 +12,7 @@ export const ContactList = ({ contacts, setContacts, handleEdit }) => {
 
   const [loading, setLoading] = useState(false);
   const [paginationModel, setPaginationModel] = useState(initialPage);
-  const [filterModel, setFilterModel] = useState([]);
+  const [filterModel, setFilterModel] = useState({});
   const [rowCountState, setRowCountState] = useState(0);
   const [logicOperator, setLogicOperator] = useState("");
   const [promiseArguments, setPromiseArguments] = useState(null);
@@ -23,7 +23,7 @@ export const ContactList = ({ contacts, setContacts, handleEdit }) => {
       const { data } = await ContactService.all(paginationModel, filterModel, logicOperator);
       setContacts(data.result);
       setRowCountState(data.result.total_count);
-    } catch (error) {
+    } catch (err) {
       toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);

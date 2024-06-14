@@ -54,7 +54,7 @@ const ManageVendors = () => {
   );
 
   const handleAdd = useCallback(() => {
-    setVendor(null)
+    setVendor(null);
     setShow(true);
   }, []);
 

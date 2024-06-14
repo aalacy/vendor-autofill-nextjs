@@ -39,7 +39,7 @@ import { downloadMedia } from "src/utils";
 const ReportRenderToolbar = () => {
   return (
     <GridToolbarContainer>
-      <GridToolbarQuickFilter />
+      <GridToolbarQuickFilter debounceMs={200} />
     </GridToolbarContainer>
   );
 };
