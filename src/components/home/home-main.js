@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { VendorList } from "src/components/home/vendor-list";
@@ -7,15 +6,10 @@ import { useAuth } from "src/hooks/use-auth";
 import { VendorService } from "src/services";
 
 export const HomeMain = () => {
-  const { user, showJobForm, project } = useAuth();
-
-  useEffect(() => {
-    if (user?.has_job_submitted) return;
-    showJobForm(true);
-  }, [user, showJobForm]);
+  const {project } = useAuth();
 
   const { isLoading, data: vendors } = useQuery({
-    queryKey: ["getAllVendors", project.id],
+    queryKey: ["getAllVendors", project?.id],
     queryFn: async () => {
       const {
         data: { result },

@@ -56,7 +56,7 @@ const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
   };
 
   const handleRemove = (key) => {
-    removeItem(key, onClose);
+    removeItem(key, false, [], onClose);
   };
 
   return (

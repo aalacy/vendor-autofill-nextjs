@@ -96,7 +96,7 @@ const InvoiceView = ({
           data: { detail },
         } = await VendorService.addTotal2Invoice(curInvoice.id, values.total);
         toast.success(detail);
-        queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+        queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
         onClose();
       } catch (err) {
         toast.error(err.response?.data || err.message);
@@ -135,7 +135,7 @@ const InvoiceView = ({
           } = await VendorService.deleteInvoice(id);
           toast.success(detail);
           onClose();
-          queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+          queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
         } catch (err) {
           toast.error(err.response?.data || err.message);
         }
@@ -160,7 +160,7 @@ const InvoiceView = ({
       if (curInvoice.total) {
         await VendorService.addTotal2Invoice(curInvoice.id, curInvoice.total);
       }
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       onClose();
     } catch (err) {
       toast.error(err.response?.data || err.message);

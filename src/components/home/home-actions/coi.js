@@ -38,7 +38,7 @@ const ManageCOI = ({ title, myVendor, open, setOpen }) => {
         uploadedFile,
       );
       toast.success("Successfully uploaded.");
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
     } catch (err) {
       console.log("err", err);
       const { message } = err?.response?.data;

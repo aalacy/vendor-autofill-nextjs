@@ -2,10 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { styled } from "@mui/material/styles";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import dynamic from "next/dynamic";
 
 import { SideNav } from "./side-nav";
 import { TopNav } from "./top-nav";
-import { JobFormModal } from "src/components/job-form/job-form-modal";
+const JobFormModal = dynamic(() => import("src/components/job-form/job-form-modal"), { ssr: false });
 
 const SIDE_NAV_WIDTH = 280;
 

@@ -86,11 +86,11 @@ export const VendorList = ({ isLoading, vendors }) => {
         data: {
           result: { presigned_url, key },
         },
-      } = await VendorService.generateFormPDF(myVendor.vendor.id, project?.id, form.template_key);
+      } = await VendorService.generateFormPDF(myVendor.vendor.id, project?.id, form.template_key, form.title);
       setShowPDFModal(true);
       setUrl(presigned_url);
       setVendorKey(key);
-    } catch (error) {
+    } catch (err) {
       toast.error(err.response?.data || err.message);
     } finally {
       setGLoading(false);
@@ -104,7 +104,7 @@ export const VendorList = ({ isLoading, vendors }) => {
     try {
       const {
         data: { result },
-      } = await VendorService.readW9(myVendor.vendor.id, project.id);
+      } = await VendorService.readW9(myVendor.vendor.id, project?.id);
       setShowPDFModal(true);
       setUrl(result);
     } catch (err) {
@@ -194,7 +194,7 @@ export const VendorList = ({ isLoading, vendors }) => {
             const {
               data: { detail },
             } = await VendorService.deleteCOI(myVendor.id);
-            queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+            queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
 
             setShowPDFModal(false);
             toast.success(detail);

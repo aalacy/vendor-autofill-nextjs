@@ -180,8 +180,7 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const signIn = async (email, password) => {
-    const { data } = await AuthService.login(email, password);
+  const dispatchLogin = (data) => {
     const {
       result: { access_token, user, projects },
     } = data;
@@ -198,10 +197,16 @@ export const AuthProvider = (props) => {
       type: HANDLERS.SIGN_IN,
       payload: { user, projects },
     });
+  }
+
+  const signIn = async (email, password) => {
+    const { data } = await AuthService.login(email, password);
+    dispatchLogin(data)
   };
 
   const signUp = async ({ ...values }) => {
     const { data } = await AuthService.register(values);
+    dispatchLogin(data)
   };
 
   const signOut = () => {

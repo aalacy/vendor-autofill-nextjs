@@ -27,6 +27,10 @@ export const AuthGuard = (props) => {
       return;
     }
 
+    if (!FREE_PATHS.includes(pathname)) {
+      if (needSubscribed && pathname !== "/pricing") router.push("/pricing");
+    }
+
     // Prevent from calling twice in development mode with React.StrictMode enabled
     if (ignore.current) {
       return;
@@ -35,7 +39,6 @@ export const AuthGuard = (props) => {
     ignore.current = true;
 
     if (!isAuthenticated) {
-      console.log("Not authenticated, redirecting");
       router
         .replace({
           pathname: "/auth/login",
@@ -43,9 +46,6 @@ export const AuthGuard = (props) => {
         })
         .catch(console.error);
     } else {
-      if (!FREE_PATHS.includes(pathname)) {
-        if (needSubscribed) router.replace("/pricing");
-      }
       setChecked(true);
     }
   }, [user, ignore?.current, pathname, router.isReady, isAuthenticated, needSubscribed, router]);

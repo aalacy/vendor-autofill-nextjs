@@ -79,9 +79,9 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
         .map(({ id }) => id);
       const {
         data: { detail },
-      } = await VendorService.addMyVendors(created, removed_vendors, project.id);
+      } = await VendorService.addMyVendors(created, removed_vendors, project?.id);
       toast.success(detail);
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       onClose();
     } catch (err) {
       toast.error(err.response?.data || err.message);

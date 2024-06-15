@@ -48,11 +48,12 @@ export class VendorService {
     });
   }
 
-  static generateFormPDF(vendor_id, job_id, template_key) {
+  static generateFormPDF(vendor_id, job_id, template_key, form_title) {
     return http.post("/vendors/generate-form-pdf", {
       vendor_id,
       job_id,
       template_key,
+      form_title
     });
   }
 

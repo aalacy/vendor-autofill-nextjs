@@ -24,7 +24,7 @@ export const ProjectPopover = (props) => {
     (project) => {
       onClose?.();
       auth.setProject(project);
-      queryClient.invalidateQueries({ queryKey: ["getAllJobs", project.id] });
+      queryClient.invalidateQueries({ queryKey: ["getAllJobs", project?.id] });
     },
     [onClose, auth, queryClient],
   );
@@ -70,8 +70,8 @@ export const ProjectPopover = (props) => {
       >
         {auth?.projects?.map((project) => (
           <MenuItem
-            selected={project.id === auth?.project?.id}
-            key={project.id}
+            selected={project?.id === auth?.project?.id}
+            key={project?.id}
             onClick={() => handleProject(project)}
             sx={{ textTransform: "capitalize" }}
           >

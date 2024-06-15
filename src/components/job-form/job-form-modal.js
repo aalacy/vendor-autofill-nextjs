@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import {
   Stepper,
@@ -49,8 +49,8 @@ const _renderStepContent = (step, values) => {
   }
 };
 
-export const JobFormModal = () => {
-  const { showJobForm, openJobForm, project, setProjects, setProject } = useAuth();
+const JobFormModal = () => {
+  const { showJobForm, openJobForm, project, setProjects, isAuthenticated, setProject, user } = useAuth();
   const queryClient = useQueryClient();
 
   const [activeStep, setActiveStep] = useState(0);
@@ -104,6 +104,11 @@ export const JobFormModal = () => {
     queryClient.invalidateQueries({ queryKey: ["getAllJobs", project?.id] });
     showJobForm(false);
   };
+
+  useEffect(() => {
+    if (!isAuthenticated || user?.has_job_submitted) return;
+    showJobForm(true);
+  }, [user, showJobForm]);
 
   return (
     <>
@@ -166,3 +171,5 @@ export const JobFormModal = () => {
     </>
   );
 };
+
+export default JobFormModal;

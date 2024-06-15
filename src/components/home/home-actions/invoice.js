@@ -41,7 +41,7 @@ const ManageInvoice = ({
         uploadedFile,
       );
       toast.success("Successfully uploaded.");
-      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project.id] });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       if (showReplace) {
         await replaceInvoice(result[0]);
       }
