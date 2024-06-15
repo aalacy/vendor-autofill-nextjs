@@ -124,7 +124,7 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
     },
     {
       field: "invoices",
-      headerName: "Invoices",
+      headerName: "Orders",
       type: "string",
       resizable: true,
       width: 150,

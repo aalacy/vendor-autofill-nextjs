@@ -1,4 +1,4 @@
-import { Box, List, IconButton } from "@mui/material";
+import { Box, List, IconButton, Grid } from "@mui/material";
 import { MoreHoriz as MoreVertIcon } from "@mui/icons-material";
 import { useState } from "react";
 import dynamic from "next/dynamic";
@@ -26,27 +26,32 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
           ) : null}
 
           {alignment === "card" ? (
-            <Box
+            <Grid
+              spacing={1}
+              container
               sx={{
-                display: "flex",
                 flexWrap: "wrap",
-                gap: 2,
-                alignItems: "center",
-                justifyContent: "flex-start",
                 my: 5,
               }}
             >
               {folders?.map((folder) => (
-                <FileCard
+                <Grid
+                  item
+                  xs={6}
+                  sm={4}
+                  md={3}
                   key={folder.folder_name}
-                  setFolder={setFolder}
-                  folder={folder}
-                  removeItem={removeItem}
-                  setOpen={setOpen}
-                  downloadFiles={downloadFiles}
-                />
+                >
+                  <FileCard
+                    setFolder={setFolder}
+                    folder={folder}
+                    removeItem={removeItem}
+                    setOpen={setOpen}
+                    downloadFiles={downloadFiles}
+                  />
+                </Grid>
               ))}
-            </Box>
+            </Grid>
           ) : (
             <List
               sx={{ width: 1 }}

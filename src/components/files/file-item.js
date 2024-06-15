@@ -59,9 +59,8 @@ export const FileItem = ({ downloadFiles, folder, removeItem, setFolder, setOpen
         </ListItemAvatar>
         <ListItemText
           primary={<Typography noWrap>{folder_name}</Typography>}
-          secondary={`${bytesToSize(size)} • ${files.length} items`}
+          secondary={`${bytesToSize(size)} • ${files.length} items • ${beautyDateTime(created_at)}`}
         />
-        <ListItemText primary="Created at" secondary={beautyDateTime(created_at)} />
         <IconButton aria-describedby={id} onClick={handleMore}>
           <MoreVertIcon />
         </IconButton>

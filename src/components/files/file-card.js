@@ -55,7 +55,7 @@ export const FileCard = ({ downloadFiles, folder, removeItem, setFolder, setOpen
 
   return (
     <>
-      <Card raised sx={{ width: 235, height: 235 }}>
+      <Card raised>
         <CardActionArea onClick={handleFolder}>
           <CardHeader
             avatar={<FolderIcon color="warning" fontSize="large" />}
