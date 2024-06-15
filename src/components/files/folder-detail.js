@@ -72,9 +72,8 @@ const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
             <ListItem key={file_name} sx={{ mb: 2, boxShadow: 4 }}>
               <ListItemText
                 primary={<Typography noWrap>{file_name}</Typography>}
-                secondary={`${bytesToSize(size)}`}
+                secondary={`${bytesToSize(size)} • ${beautyDateTime(created_at)}`}
               />
-              <ListItemText primary="Created at" secondary={beautyDateTime(created_at)} />
               <IconButton color="primary" onClick={() => showPDF({ key, file_name })}>
                 {loading ? <CircularProgress /> : <PDFIcon />}
               </IconButton>

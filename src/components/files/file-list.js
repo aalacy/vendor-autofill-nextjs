@@ -35,13 +35,7 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
               }}
             >
               {folders?.map((folder) => (
-                <Grid
-                  item
-                  xs={6}
-                  sm={4}
-                  md={3}
-                  key={folder.folder_name}
-                >
+                <Grid item xs={6} sm={4} md={3} key={folder.folder_name}>
                   <FileCard
                     setFolder={setFolder}
                     folder={folder}
