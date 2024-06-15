@@ -6,7 +6,9 @@ import dynamic from "next/dynamic";
 
 import { SideNav } from "./side-nav";
 import { TopNav } from "./top-nav";
-const JobFormModal = dynamic(() => import("src/components/job-form/job-form-modal"), { ssr: false });
+const JobFormModal = dynamic(() => import("src/components/job-form/job-form-modal"), {
+  ssr: false,
+});
 
 const SIDE_NAV_WIDTH = 280;
 

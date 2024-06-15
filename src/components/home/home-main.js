@@ -6,7 +6,7 @@ import { useAuth } from "src/hooks/use-auth";
 import { VendorService } from "src/services";
 
 export const HomeMain = () => {
-  const {project } = useAuth();
+  const { project } = useAuth();
 
   const { isLoading, data: vendors } = useQuery({
     queryKey: ["getAllVendors", project?.id],

@@ -197,16 +197,16 @@ export const AuthProvider = (props) => {
       type: HANDLERS.SIGN_IN,
       payload: { user, projects },
     });
-  }
+  };
 
   const signIn = async (email, password) => {
     const { data } = await AuthService.login(email, password);
-    dispatchLogin(data)
+    dispatchLogin(data);
   };
 
   const signUp = async ({ ...values }) => {
     const { data } = await AuthService.register(values);
-    dispatchLogin(data)
+    dispatchLogin(data);
   };
 
   const signOut = () => {

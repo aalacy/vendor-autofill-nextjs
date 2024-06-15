@@ -50,7 +50,8 @@ const _renderStepContent = (step, values) => {
 };
 
 const JobFormModal = () => {
-  const { showJobForm, openJobForm, project, setProjects, isAuthenticated, setProject, user } = useAuth();
+  const { showJobForm, openJobForm, project, setProjects, isAuthenticated, setProject, user } =
+    useAuth();
   const queryClient = useQueryClient();
 
   const [activeStep, setActiveStep] = useState(0);

@@ -8,7 +8,8 @@ import { useAuth } from "src/hooks/use-auth";
 import { JobService } from "src/services";
 
 export const ProjectMain = () => {
-  const { showJobForm, project, setUser, showConfirmDlg, hideConfirm, setProjects, setProject } = useAuth();
+  const { showJobForm, project, setUser, showConfirmDlg, hideConfirm, setProjects, setProject } =
+    useAuth();
 
   const deleteJob = useCallback(() => {
     showConfirmDlg({
@@ -17,11 +18,13 @@ export const ProjectMain = () => {
       callback: async () => {
         try {
           const {
-            data: { result: { projects, user } },
+            data: {
+              result: { projects, user },
+            },
           } = await JobService.remove(project?.id);
           toast.success("Successfully Deleted");
           setProjects(projects);
-          setUser(user)
+          setUser(user);
           if (projects.length > 0) {
             setProject(projects[0]);
           } else {

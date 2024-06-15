@@ -53,7 +53,7 @@ export class VendorService {
       vendor_id,
       job_id,
       template_key,
-      form_title
+      form_title,
     });
   }
 

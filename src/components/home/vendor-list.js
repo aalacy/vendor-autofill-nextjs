@@ -86,7 +86,12 @@ export const VendorList = ({ isLoading, vendors }) => {
         data: {
           result: { presigned_url, key },
         },
-      } = await VendorService.generateFormPDF(myVendor.vendor.id, project?.id, form.template_key, form.title);
+      } = await VendorService.generateFormPDF(
+        myVendor.vendor.id,
+        project?.id,
+        form.template_key,
+        form.title,
+      );
       setShowPDFModal(true);
       setUrl(presigned_url);
       setVendorKey(key);
