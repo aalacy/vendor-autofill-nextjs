@@ -1,10 +1,11 @@
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+
 import { FaqService } from "src/services";
 import { FaqItem } from "./faq-item";
 
 export const FaqList = () => {
-  const { isLoading, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["getAllFaqs"],
     queryFn: async () => {
       const {
