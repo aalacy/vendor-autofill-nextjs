@@ -1,5 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 
+import { ACCOUNT_TYPES, CARD_TYPES, SHIP_ACCOUNTS } from "src/utils/constants";
+
 export default {
   formId: "jobForm",
   formField: {
@@ -12,11 +14,6 @@ export default {
       name: "contactName",
       label: "Contact Name*",
       requiredErrorMsg: "Contact Name is required",
-    },
-    incorporationStatus: {
-      name: "incorporationStatus",
-      label: "Incorporation Status*",
-      requiredErrorMsg: "Incorporation Status is required",
     },
     jobName: {
       name: "jobName",
@@ -63,6 +60,21 @@ export default {
       label: "Invoice Email*",
       requiredErrorMsg: "Invoice Email is required",
     },
+    shipAccount: {
+      name: "shipAccount",
+      label: "FedEx / UPS",
+      type: "SelectField",
+      data: SHIP_ACCOUNTS
+    },
+    shipAccountNumber: {
+      name: "shipAccountNumber",
+      label: "Ship Account Number",
+    },
+    incorporationStatus: {
+      name: "incorporationStatus",
+      label: "Incorporation Status",
+      type: "CheckboxField"
+    },
     authSignName: {
       name: "authSignName",
       label: "Auth Sign Name*",
@@ -92,6 +104,7 @@ export default {
       name: "DLExpiry",
       label: "DL Expiry*",
       requiredErrorMsg: "DL Expiry is required",
+      type: "DateField"
     },
     cardPhone: {
       name: "cardPhone",
@@ -107,6 +120,8 @@ export default {
       name: "acctType",
       label: "Acct Type*",
       requiredErrorMsg: "Acct Type is required",
+      type: "SelectField",
+      data: ACCOUNT_TYPES
     },
     bank: {
       name: "bank",
@@ -117,6 +132,8 @@ export default {
       name: "cardType",
       label: "Card Type*",
       requiredErrorMsg: "Card Type is required",
+      type: "SelectField",
+      data: CARD_TYPES
     },
     cardNumber: {
       name: "cardNumber",
@@ -127,6 +144,7 @@ export default {
       name: "expDate",
       label: "Exp Date*",
       requiredErrorMsg: "Exp Date is required",
+      type: "DateField"
     },
     cvv: {
       name: "cvv",
@@ -162,14 +180,6 @@ export default {
       name: "buyerEmail",
       label: "Buyer Email*",
       requiredErrorMsg: "Buyer Email is required",
-    },
-    shipAccount: {
-      name: "shipAccount",
-      label: "FedEx / UPS",
-    },
-    shipAccountNumber: {
-      name: "shipAccountNumber",
-      label: "Ship Account Number",
     },
   },
 };

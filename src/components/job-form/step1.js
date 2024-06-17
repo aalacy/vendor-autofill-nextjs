@@ -1,8 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 
 import { CheckboxField, InputField, SelectField } from "src/components/widgets";
-import { SwitchField } from "../widgets/SwitchField";
-import { SHIP_ACCOUNTS } from "src/utils/constants";
 
 export const Step1 = (props) => {
   const {
@@ -66,7 +64,7 @@ export const Step1 = (props) => {
           <SelectField
             name={shipAccount.name}
             label={shipAccount.label}
-            data={SHIP_ACCOUNTS}
+            data={shipAccount.data}
             fullWidth
           />
           {/* <SwitchField name={shipAccount.name} label={shipAccount.label} /> */}

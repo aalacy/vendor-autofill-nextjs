@@ -15,9 +15,6 @@ export const Step3 = (props) => {
             Cardholder Information
           </Typography>
         </Grid>
-        {/* <Grid item xs={12} sm={6}>
-          <InputField name={cardholderInfo.name} label={cardholderInfo.label} fullWidth />
-        </Grid> */}
         <Grid item xs={12} sm={6}>
           <InputField name={cardName.name} label={cardName.label} fullWidth />
         </Grid>
@@ -34,7 +31,7 @@ export const Step3 = (props) => {
           <DatePickerField
             name={DLExpiry.name}
             label={DLExpiry.label}
-            format="MM/yy"
+            format="yyyy/MM"
             views={["year", "month"]}
             minDate={new Date()}
             fullWidth

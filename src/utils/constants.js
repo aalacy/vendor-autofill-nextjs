@@ -208,3 +208,37 @@ export const SHIP_ACCOUNTS = [
     label: "UPS",
   },
 ];
+
+export const ACCOUNT_TYPES = [
+  {
+    value: "Debit",
+    label: "Debit",
+  },
+  {
+    value: "Credit",
+    label: "Credit",
+  },
+];
+
+export const CARD_TYPES = [
+  {
+    value: "Visa",
+    label: "Visa",
+  },
+  {
+    value: "Mastercard",
+    label: "Mastercard",
+  },
+  {
+    value: "Amex",
+    label: "Amex",
+  },
+  {
+    value: "Discover",
+    label: "Discover",
+  },
+  {
+    value: "Other",
+    label: "Other",
+  },
+];

@@ -1,12 +1,12 @@
 import { useCallback, useRef, useState } from "react";
-import { List, Paper, ListItem, ListItemText, TextField } from "@mui/material";
+import { Paper } from "@mui/material";
 import toast from "react-hot-toast";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useAuth } from "src/hooks/use-auth";
-import { splitCamelCase } from "src/utils";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { JobService } from "src/services";
 import LoadingOverlay from "../common/loading-overlay";
+import { JobDataAccordions } from "./job-items";
 
 export const JobDataTable = () => {
   const { showConfirmDlg, hideConfirm, project, setProject, setProjects } = useAuth();
@@ -48,13 +48,14 @@ export const JobDataTable = () => {
 
   const handleChange = useCallback(
     (e, key) => {
-      const newJob = { ...myJob, [key]: e.target.value };
+      const newJob = { ...myJob, [key]: e };
       setJob(newJob);
     },
     [myJob],
   );
 
   const handleBlur = useCallback(() => {
+    console.log('document.activeElement', document.activeElement)
     if (document.activeElement !== inputRef.current) {
       setEditingItemId(null);
       showConfirmDlg({
@@ -69,49 +70,21 @@ export const JobDataTable = () => {
         },
       });
     }
-  }, [job, myJob, hideConfirm, showConfirmDlg, updateJob]);
+  }, [job, myJob, hideConfirm, showConfirmDlg, updateJob, document.activeElement]);
 
   if (!job) return <></>;
 
   return (
     <>
       <Paper raised="true" sx={{ mb: 2 }}>
-        <List
-          sx={{
-            width: "100%",
-            position: "relative",
-            overflow: "auto",
-            maxHeight: 300,
-          }}
-        >
-          {myJob ? (
-            Object.keys(myJob).map((key) => (
-              <>
-                {key !== "buyers" ? (
-                  <ListItem divider key={`item-${key}`} onDoubleClick={() => setEditingItemId(key)}>
-                    {editingItemId === key ? (
-                      <TextField
-                        ref={inputRef}
-                        autoFocus={true}
-                        label={splitCamelCase(key)}
-                        variant="standard"
-                        value={myJob[key]}
-                        onChange={(e) => handleChange(e, key)}
-                        onBlur={handleBlur}
-                      />
-                    ) : (
-                      <ListItemText primary={splitCamelCase(key)} secondary={myJob[key]} />
-                    )}
-                  </ListItem>
-                ) : null}
-              </>
-            ))
-          ) : (
-            <ListItem>
-              <ListItemText primary="Empty Project" />
-            </ListItem>
-          )}
-        </List>
+        <JobDataAccordions
+          myJob={myJob}
+          inputRef={inputRef}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          editingItemId={editingItemId}
+          setEditingItemId={setEditingItemId}
+        />
       </Paper>
       <LoadingOverlay open={isLoading} />
     </>

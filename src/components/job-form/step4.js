@@ -2,39 +2,6 @@ import { Grid, Typography } from "@mui/material";
 
 import { DatePickerField, InputField, SelectField } from "src/components/widgets";
 
-const acctTypes = [
-  {
-    value: "Debit",
-    label: "Debit",
-  },
-  {
-    value: "Credit",
-    label: "Credit",
-  },
-];
-
-const cardTypes = [
-  {
-    value: "Visa",
-    label: "Visa",
-  },
-  {
-    value: "Mastercard",
-    label: "Mastercard",
-  },
-  {
-    value: "Amex",
-    label: "Amex",
-  },
-  {
-    value: "Discover",
-    label: "Discover",
-  },
-  {
-    value: "Other",
-    label: "Other",
-  },
-];
 
 export const Step4 = (props) => {
   const {
@@ -51,13 +18,13 @@ export const Step4 = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <SelectField name={acctType.name} label={acctType.label} data={acctTypes} fullWidth />
+          <SelectField name={acctType.name} label={acctType.label} data={acctType.data} fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputField name={bank.name} label={bank.label} fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <SelectField name={cardType.name} label={cardType.label} data={cardTypes} fullWidth />
+          <SelectField name={cardType.name} label={cardType.label} data={cardType.data} fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <InputField name={cardNumber.name} label={cardNumber.label} fullWidth />
@@ -66,7 +33,7 @@ export const Step4 = (props) => {
           <DatePickerField
             name={expDate.name}
             label={expDate.label}
-            format="MM/yy"
+            format="yyyy/MM"
             views={["year", "month"]}
             minDate={new Date()}
             fullWidth
