@@ -26,7 +26,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
 
   const queryClient = useQueryClient();
 
-  const { project } = useAuth();
+  const { project, showJobForm } = useAuth();
 
   useEffect(() => {
     if (!vendors) return;
@@ -69,6 +69,10 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
   };
 
   const handleSubmit = async () => {
+    if (!project?.id) {
+      toast.error("Please add your job first");
+      return showJobForm(true)
+    }
     try {
       setLoading(true);
       const vendorIds = vendors.map(({ vendor_id }) => vendor_id);

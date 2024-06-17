@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 
-import { InputField, SelectField } from "src/components/widgets";
+import { CheckboxField, InputField, SelectField } from "src/components/widgets";
 import { SwitchField } from "../widgets/SwitchField";
 import { SHIP_ACCOUNTS } from "src/utils/constants";
 
@@ -20,6 +20,7 @@ export const Step1 = (props) => {
       invoiceEmail,
       shipAccount,
       shipAccountNumber,
+      incorporationStatus
     },
   } = props;
 
@@ -79,6 +80,9 @@ export const Step1 = (props) => {
             label={preferredEmailAddress.label}
             fullWidth
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <CheckboxField name={incorporationStatus.name} label={incorporationStatus.label} fullWidth />
         </Grid>
       </Grid>
     </>

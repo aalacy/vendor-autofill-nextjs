@@ -16,7 +16,7 @@ const {
     invoiceEmail,
     authSignName,
     authSignTitle,
-    cardholderInfo,
+    incorporationStatus,
     cardName,
     cardPhone,
     DLNumber,
@@ -55,6 +55,7 @@ export default [
       .email("Invalid email!")
       .required(`${invoiceEmail.requiredErrorMsg}`),
     [shipAccountNumber.name]: Yup.string(),
+    [incorporationStatus.name]: Yup.bool().oneOf([true], `${incorporationStatus.requiredErrorMsg}`)
   }),
   Yup.object().shape({
     [authSignName.name]: Yup.string().required(`${authSignName.requiredErrorMsg}`),

@@ -13,6 +13,11 @@ export default {
       label: "Contact Name*",
       requiredErrorMsg: "Contact Name is required",
     },
+    incorporationStatus: {
+      name: "incorporationStatus",
+      label: "Incorporation Status*",
+      requiredErrorMsg: "Incorporation Status is required",
+    },
     jobName: {
       name: "jobName",
       label: "Job Name*",
