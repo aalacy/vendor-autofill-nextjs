@@ -20,12 +20,25 @@ const PdfViewer = ({ pdfUrl }) => {
   };
 
   return (
-    <Paper elevation={3}>
-      <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} wrap={false}>
-        <Pagination count={numPages || 0} page={pageNumber} onChange={handlePageChange} />
-        <Page pageNumber={pageNumber} />
-      </Document>
-    </Paper>
+    <>
+      <Pagination
+        count={numPages || 0}
+        page={pageNumber}
+        onChange={handlePageChange}
+        color="primary"
+        shape="rounded"
+        variant="outlined"
+        size="large"
+        hidePrevButton 
+        hideNextButton 
+        sx={{ mb: 1 }}
+      />
+      <Paper elevation={3} style={{ overflow: "auto" }}>
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} wrap={true}>
+          <Page pageNumber={pageNumber} />
+        </Document>
+      </Paper>
+    </>
   );
 };
 
