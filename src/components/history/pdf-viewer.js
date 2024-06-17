@@ -29,8 +29,8 @@ const PdfViewer = ({ pdfUrl }) => {
         shape="rounded"
         variant="outlined"
         size="large"
-        hidePrevButton 
-        hideNextButton 
+        hidePrevButton
+        hideNextButton
         sx={{ mb: 1 }}
       />
       <Paper elevation={3} style={{ overflow: "auto" }}>
