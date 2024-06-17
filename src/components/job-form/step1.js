@@ -20,7 +20,7 @@ export const Step1 = (props) => {
       invoiceEmail,
       shipAccount,
       shipAccountNumber,
-      incorporationStatus
+      incorporationStatus,
     },
   } = props;
 
@@ -82,7 +82,11 @@ export const Step1 = (props) => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <CheckboxField name={incorporationStatus.name} label={incorporationStatus.label} fullWidth />
+          <CheckboxField
+            name={incorporationStatus.name}
+            label={incorporationStatus.label}
+            fullWidth
+          />
         </Grid>
       </Grid>
     </>

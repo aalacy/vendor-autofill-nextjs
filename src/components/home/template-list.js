@@ -71,7 +71,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
   const handleSubmit = async () => {
     if (!project?.id) {
       toast.error("Please add your job first");
-      return showJobForm(true)
+      return showJobForm(true);
     }
     try {
       setLoading(true);
