@@ -11,19 +11,19 @@ import {
   Container,
 } from "@mui/material";
 import { Formik, Form } from "formik";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { Step1 } from "src/components/job-form/step1";
 import { Step2 } from "src/components/job-form/step2";
 import { Step3 } from "src/components/job-form/step3";
 import { Step4 } from "src/components/job-form/step4";
+import { Step5 } from "src/components/job-form/step5";
 import checkoutFormModel from "src/components/job-form/FormModel/checkoutFormModel";
 import validationSchema from "src/components/job-form/FormModel/validationSchema";
 import formInitialValues from "src/components/job-form/FormModel/formInitialValues";
 import { JobService } from "src/services";
 import { useAuth } from "src/hooks/use-auth";
 import { Modal } from "../common/modal";
-import { useQueryClient } from "@tanstack/react-query";
-import { Step5 } from "./step5";
 
 const steps = ["1", "2", "3", "4", "5", "6"];
 const { formId, formField } = checkoutFormModel;

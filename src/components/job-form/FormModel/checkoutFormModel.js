@@ -28,11 +28,6 @@ export default {
       label: "Job Number*",
       requiredErrorMsg: "Job Number is required",
     },
-    productionCompanyInfo: {
-      name: "productionCompanyInfo",
-      label: "Production Company Information*",
-      requiredErrorMsg: "Production Company Information is required",
-    },
     prodCoName: {
       name: "prodCoName",
       label: "Prod Co Name*",
@@ -77,11 +72,6 @@ export default {
       name: "authSignTitle",
       label: "Auth Sign Title*",
       requiredErrorMsg: "Auth Sign Title is required",
-    },
-    cardholderInfo: {
-      name: "cardholderInfo",
-      label: "Cardholder Information*",
-      requiredErrorMsg: "Cardholder Information is required",
     },
     cardName: {
       name: "cardName",
@@ -172,11 +162,6 @@ export default {
       name: "buyerEmail",
       label: "Buyer Email*",
       requiredErrorMsg: "Buyer Email is required",
-    },
-    shipDetails: {
-      name: "shipDetails",
-      label: "Ship Details (if Applicable)*",
-      requiredErrorMsg: "Ship Details is required",
     },
     shipAccount: {
       name: "shipAccount",
