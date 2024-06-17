@@ -2,7 +2,6 @@ import { Grid, Typography } from "@mui/material";
 
 import { DatePickerField, InputField, SelectField } from "src/components/widgets";
 
-
 export const Step4 = (props) => {
   const {
     formField: { acctType, bank, cardType, cardNumber, expDate, cvv, CID },

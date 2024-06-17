@@ -55,7 +55,7 @@ export const JobDataTable = () => {
   );
 
   const handleBlur = useCallback(() => {
-    console.log('document.activeElement', document.activeElement)
+    console.log("document.activeElement", document.activeElement);
     if (document.activeElement !== inputRef.current) {
       setEditingItemId(null);
       showConfirmDlg({

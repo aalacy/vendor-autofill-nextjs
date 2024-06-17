@@ -64,7 +64,7 @@ export default {
       name: "shipAccount",
       label: "FedEx / UPS",
       type: "SelectField",
-      data: SHIP_ACCOUNTS
+      data: SHIP_ACCOUNTS,
     },
     shipAccountNumber: {
       name: "shipAccountNumber",
@@ -73,7 +73,7 @@ export default {
     incorporationStatus: {
       name: "incorporationStatus",
       label: "Incorporation Status",
-      type: "CheckboxField"
+      type: "CheckboxField",
     },
     authSignName: {
       name: "authSignName",
@@ -104,7 +104,7 @@ export default {
       name: "DLExpiry",
       label: "DL Expiry*",
       requiredErrorMsg: "DL Expiry is required",
-      type: "DateField"
+      type: "DateField",
     },
     cardPhone: {
       name: "cardPhone",
@@ -121,7 +121,7 @@ export default {
       label: "Acct Type*",
       requiredErrorMsg: "Acct Type is required",
       type: "SelectField",
-      data: ACCOUNT_TYPES
+      data: ACCOUNT_TYPES,
     },
     bank: {
       name: "bank",
@@ -133,7 +133,7 @@ export default {
       label: "Card Type*",
       requiredErrorMsg: "Card Type is required",
       type: "SelectField",
-      data: CARD_TYPES
+      data: CARD_TYPES,
     },
     cardNumber: {
       name: "cardNumber",
@@ -144,7 +144,7 @@ export default {
       name: "expDate",
       label: "Exp Date*",
       requiredErrorMsg: "Exp Date is required",
-      type: "DateField"
+      type: "DateField",
     },
     cvv: {
       name: "cvv",
