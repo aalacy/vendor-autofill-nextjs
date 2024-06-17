@@ -31,7 +31,7 @@ export const ProjectMain = () => {
             setProject(null);
           }
         } catch (error) {
-          console.log('error', error)
+          console.log("error", error);
           toast.error(error?.response?.data || error.message);
         } finally {
           hideConfirm();

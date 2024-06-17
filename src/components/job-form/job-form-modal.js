@@ -50,8 +50,16 @@ const _renderStepContent = (step, values) => {
 };
 
 const JobFormModal = () => {
-  const { showJobForm, openJobForm, project, setProjects, isAuthenticated, setProject, user, setUser } =
-    useAuth();
+  const {
+    showJobForm,
+    openJobForm,
+    project,
+    setProjects,
+    isAuthenticated,
+    setProject,
+    user,
+    setUser,
+  } = useAuth();
   const queryClient = useQueryClient();
 
   const [activeStep, setActiveStep] = useState(0);
@@ -68,10 +76,12 @@ const JobFormModal = () => {
     try {
       setLoading(true);
       const {
-        data: { result: { projects, user } },
+        data: {
+          result: { projects, user },
+        },
       } = await JobService.add(values);
       setProjects(projects);
-      setUser(user)
+      setUser(user);
       if (projects.length > 0) {
         setProject(projects[0]);
       }
