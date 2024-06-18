@@ -46,9 +46,7 @@ export const HistoryColumns = ({ handleView }) => {
       resizable: true,
       width: 150,
       renderCell: (params) => (
-        <PDFCell type="Credit Auth"
-params={params}
-handleView={handleView} />
+        <PDFCell type="Credit Auth" params={params} handleView={handleView} />
       ),
     },
     {
@@ -58,9 +56,7 @@ handleView={handleView} />
       resizable: true,
       width: 150,
       renderCell: (params) => (
-        <PDFCell type="Rental Agreement"
-params={params}
-handleView={handleView} />
+        <PDFCell type="Rental Agreement" params={params} handleView={handleView} />
       ),
     },
     {

@@ -68,12 +68,8 @@ export const AccountPerson = ({ show, setShow }) => {
   };
 
   return (
-    <Modal size="sm"
-open={show}
-onClose={handleClose}
-title="Update Contact">
-      <form noValidate
-onSubmit={formik.handleSubmit}>
+    <Modal size="sm" open={show} onClose={handleClose} title="Update Contact">
+      <form noValidate onSubmit={formik.handleSubmit}>
         <Box>
           <TextField
             autoFocus
@@ -137,15 +133,10 @@ onSubmit={formik.handleSubmit}>
           />
         </Box>
         <Box sx={{ my: 2, textAlign: "center" }}>
-          <Button type="submit"
-variant="contained"
-size="small"
-sx={{ mr: 2 }}>
+          <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
             Update
           </Button>
-          <Button onClick={handleClose}
-variant="outlined"
-size="small">
+          <Button onClick={handleClose} variant="outlined" size="small">
             Cancel
           </Button>
         </Box>

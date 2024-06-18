@@ -23,10 +23,7 @@ const MyGoogleMap = ({ address }) => {
   );
 
   return isLoaded ? (
-    <GoogleMap mapContainerStyle={containerStyle}
-center={center}
-zoom={10}
-onLoad={onLoad}>
+    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} onLoad={onLoad}>
       <MarkerF position={center} />
     </GoogleMap>
   ) : (

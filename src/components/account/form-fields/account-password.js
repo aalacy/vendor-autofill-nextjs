@@ -64,8 +64,7 @@ export const AccountPassword = ({ onSubmit }) => {
   });
 
   return (
-    <form noValidate
-onSubmit={formikPassword.handleSubmit}>
+    <form noValidate onSubmit={formikPassword.handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -97,9 +96,7 @@ onSubmit={formikPassword.handleSubmit}>
           <PencilIcon color="primary" />
         </IconButton>
       </Box>
-      <Stack sx={{ display: displayPassword ? "inherit" : "none" }}
-spacing={2}
-alignItems="center">
+      <Stack sx={{ display: displayPassword ? "inherit" : "none" }} spacing={2} alignItems="center">
         <TextField
           error={Boolean(formikPassword.touched.password && formikPassword.errors.password)}
           helperText={formikPassword.touched.password && formikPassword.errors.password}
@@ -165,10 +162,7 @@ alignItems="center">
           }}
         />
         <Box>
-          <Button type="submit"
-variant="contained"
-size="small"
-sx={{ mr: 2 }}>
+          <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
             Update
           </Button>
           <Button

@@ -76,10 +76,7 @@ const ManageCOI = ({ title, myVendor, open, setOpen }) => {
   return (
     <>
       {open && (
-        <Modal open={true}
-onClose={onClose}
-title={title}
-size="sm">
+        <Modal open={true} onClose={onClose} title={title} size="sm">
           <form onSubmit={formik.handleSubmit}>
             <Box
               sx={{
@@ -109,8 +106,7 @@ size="sm">
                   ),
                 }}
               />
-              <Button type="submit"
-variant="contained">
+              <Button type="submit" variant="contained">
                 Send
               </Button>
             </Box>
@@ -125,8 +121,7 @@ variant="contained">
           />
         </Modal>
       )}
-      <LoadingOverlay setOpen={setGLoading}
-open={gLoading} />
+      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
     </>
   );
 };

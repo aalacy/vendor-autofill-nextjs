@@ -7,7 +7,7 @@ import LoadingOverlay from "../common/loading-overlay";
 import { JobDataAccordions } from "./job-items";
 
 export const JobDataTable = () => {
-  const {  project, setProject } = useAuth();
+  const { project, setProject } = useAuth();
 
   const { isLoading, data: job } = useQuery({
     queryKey: ["getAllJobs", project?.id],
@@ -20,16 +20,12 @@ export const JobDataTable = () => {
     },
   });
 
-
   if (!job) return <></>;
 
   return (
     <>
-      <Paper raised="true"
-sx={{ mb: 2 }}>
-        <JobDataAccordions
-          job={job}
-        />
+      <Paper raised="true" sx={{ mb: 2 }}>
+        <JobDataAccordions job={job} />
       </Paper>
       <LoadingOverlay open={isLoading} />
     </>

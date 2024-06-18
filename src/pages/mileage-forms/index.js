@@ -92,9 +92,7 @@ export const MileageFormsPage = () => {
             setLogicOperator={setLogicOperator}
           />
         </Container>
-        {open ? <MileageAddModal open={true}
-setOpen={setOpen}
-mileage={mileage} /> : null}
+        {open ? <MileageAddModal open={true} setOpen={setOpen} mileage={mileage} /> : null}
       </Box>
     </>
   );

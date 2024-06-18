@@ -33,11 +33,8 @@ const PdfViewer = ({ pdfUrl }) => {
         hideNextButton
         sx={{ mb: 1 }}
       />
-      <Paper elevation={3}
-style={{ overflow: "auto" }}>
-        <Document file={pdfUrl}
-onLoadSuccess={onDocumentLoadSuccess}
-wrap={true}>
+      <Paper elevation={3} style={{ overflow: "auto" }}>
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess} wrap={true}>
           <Page pageNumber={pageNumber} />
         </Document>
       </Paper>

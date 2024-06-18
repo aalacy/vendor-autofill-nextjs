@@ -20,13 +20,9 @@ export const SwitchField = (props) => {
   }
 
   return (
-    <FormControl {...rest}
-sx={{ border: 1, borderRadius: 1, p: 1 }}
-fullWidth>
+    <FormControl {...rest} sx={{ border: 1, borderRadius: 1, p: 1 }} fullWidth>
       <FormControlLabel
-        control={<Switch {...field}
-checked={field.checked}
-onChange={_onChange} />}
+        control={<Switch {...field} checked={field.checked} onChange={_onChange} />}
         label={label}
       />
       {_renderHelperText()}

@@ -28,7 +28,6 @@ export const JobDataAccordions = ({ job }) => {
     .concat(validationSchema[2])
     .concat(validationSchema[3]);
 
-
   const handleExpand = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -53,7 +52,7 @@ export const JobDataAccordions = ({ job }) => {
         formikRef.current.setStatus({ success: false });
         formikRef.current.setSubmitting(false);
         formikRef.current.resetForm();
-        return formikRef.current.setErrors(errors)
+        return formikRef.current.setErrors(errors);
       }
       showConfirmDlg({
         open: true,

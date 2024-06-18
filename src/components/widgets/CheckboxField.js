@@ -21,12 +21,10 @@ export const CheckboxField = (props) => {
   }
 
   return (
-    <FormControl {...rest}
-error={meta.touched && meta.error && true}>
+    <FormControl {...rest} error={meta.touched && meta.error && true}>
       <FormControlLabel
         checked={selectedValue}
-        control={<Checkbox {...field}
-onChange={_onChange} />}
+        control={<Checkbox {...field} onChange={_onChange} />}
         label={label}
       />
       {_renderHelperText()}

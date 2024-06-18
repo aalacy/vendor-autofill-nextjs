@@ -27,9 +27,7 @@ const RenderAction = (props) => {
       </Tooltip>
       <Tooltip title="Remove Faq">
         <span>
-          <IconButton onClick={() => handleRemove(value)}
-color="error"
-size="small">
+          <IconButton onClick={() => handleRemove(value)} color="error" size="small">
             <ClearIcon />
           </IconButton>
         </span>
@@ -44,10 +42,7 @@ const RenderActionHeader = (props) => {
   return (
     <Tooltip title="Add Faq">
       <span>
-        <Button onClick={() => handleAdd(row)}
-size="small"
-color="info"
-startIcon={<AddIcon />}>
+        <Button onClick={() => handleAdd(row)} size="small" color="info" startIcon={<AddIcon />}>
           Add
         </Button>
       </span>
@@ -85,16 +80,13 @@ export const FaqColumns = ({ handleEdit, handleAdd, handleRemove }) => {
       type: "actions",
       headerName: "",
       headerAlign: "center",
-      renderHeader: (params) => <RenderActionHeader {...params}
-handleAdd={handleAdd} />,
+      renderHeader: (params) => <RenderActionHeader {...params} handleAdd={handleAdd} />,
       align: "center",
       description: "Action Column",
       sortable: false,
       width: 100,
       renderCell: (params) => (
-        <RenderAction {...params}
-handleRemove={handleRemove}
-handleEdit={handleEdit} />
+        <RenderAction {...params} handleRemove={handleRemove} handleEdit={handleEdit} />
       ),
     },
   ];

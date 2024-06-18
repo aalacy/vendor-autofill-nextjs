@@ -80,11 +80,7 @@ export default [
       then: (schema) =>
         schema
           .required(`${cvv.requiredErrorMsg}`)
-          .test(
-            "len",
-            `${cvv.invalidErrorMsg}`,
-            (val) => val && val.length == 3,
-          ),
+          .test("len", `${cvv.invalidErrorMsg}`, (val) => val && val.length == 3),
       otherwise: (schema) => schema.notRequired(),
     }),
     [CID.name]: Yup.string().when("cardType", {

@@ -47,8 +47,7 @@ export const HeaderForm = ({ vendors }) => {
         </Button>
       </Box>
 
-      <AlertJob open={openJobAlert}
-onClose={() => setOpenJobAlert(false)} />
+      <AlertJob open={openJobAlert} onClose={() => setOpenJobAlert(false)} />
       {show && (
         <Modal
           size="sm"
@@ -56,9 +55,7 @@ onClose={() => setOpenJobAlert(false)} />
           open={show}
           onClose={onClose}
         >
-          <TemplateList vendors={vendors}
-templates={templates}
-onClose={onClose} />
+          <TemplateList vendors={vendors} templates={templates} onClose={onClose} />
         </Modal>
       )}
     </>

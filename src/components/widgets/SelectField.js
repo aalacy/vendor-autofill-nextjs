@@ -37,8 +37,7 @@ export const SelectField = (props) => {
       {...rest}
     >
       {data.map((item, index) => (
-        <MenuItem key={index}
-value={item.value || item.role_name}>
+        <MenuItem key={index} value={item.value || item.role_name}>
           {item.label || item.role_name}
         </MenuItem>
       ))}

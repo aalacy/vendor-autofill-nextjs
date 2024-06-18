@@ -35,11 +35,7 @@ export const FileList = ({ downloadFiles, loading, folders, alignment, removeIte
               }}
             >
               {folders?.map((folder) => (
-                <Grid item
-xs={6}
-sm={4}
-md={3}
-key={folder.folder_name}>
+                <Grid item xs={6} sm={4} md={3} key={folder.folder_name}>
                   <FileCard
                     setFolder={setFolder}
                     folder={folder}
@@ -54,8 +50,7 @@ key={folder.folder_name}>
             <List
               sx={{ width: 1 }}
               secondaryAction={
-                <IconButton edge="end"
-aria-label="more">
+                <IconButton edge="end" aria-label="more">
                   <MoreVertIcon />
                 </IconButton>
               }
@@ -76,10 +71,7 @@ aria-label="more">
       )}
 
       {open && (
-        <FolderDetail removeItem={removeItem}
-open={true}
-setOpen={setOpen}
-folder={curFolder} />
+        <FolderDetail removeItem={removeItem} open={true} setOpen={setOpen} folder={curFolder} />
       )}
     </>
   );

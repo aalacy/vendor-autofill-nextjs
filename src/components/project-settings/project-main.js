@@ -45,23 +45,18 @@ export const ProjectMain = () => {
       <Box
         sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", p: 1 }}
       >
-        <Typography variant="h5"
-mb={5}
-textTransform="capitalize">
+        <Typography variant="h5" mb={5} textTransform="capitalize">
           {project ? `${project?.name} - ${project?.jobNumber}` : "No Job"}
         </Typography>
         <Box sx={{ display: "flex", gap: 1 }}>
           <Tooltip title="Add new Job">
-            <IconButton onClick={() => showJobForm(true)}
-color="primary">
+            <IconButton onClick={() => showJobForm(true)} color="primary">
               <AddIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete this Job">
             <span>
-              <IconButton disabled={!!!project}
-onClick={deleteJob}
-color="error">
+              <IconButton disabled={!!!project} onClick={deleteJob} color="error">
                 <DeleteIcon />
               </IconButton>
             </span>

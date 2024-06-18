@@ -131,20 +131,16 @@ export const AvatarUpload = () => {
                 <UserCircleIcon fontSize="small" />
               </Avatar>
             )}
-            <PencilIcon color="primary"
-sx={{ position: "absolute", top: 13, right: 5 }} />
+            <PencilIcon color="primary" sx={{ position: "absolute", top: 13, right: 5 }} />
           </IconButton>
           <HoverBox>
-            <Typography variant="h6"
-textTransform="capitalize">
+            <Typography variant="h6" textTransform="capitalize">
               {user?.person?.first_name} {user?.person?.last_name}
             </Typography>
-            <Typography variant="body2"
-textTransform="capitalize">
+            <Typography variant="body2" textTransform="capitalize">
               {user?.person?.title}
             </Typography>
-            <Typography fontStyle="italic"
-variant="caption">
+            <Typography fontStyle="italic" variant="caption">
               {formatPhoneNumber(user?.person?.phone_number)}
             </Typography>
             <Button
@@ -161,10 +157,7 @@ variant="caption">
         <AccountForm />
       </Stack>
       {open && (
-        <Modal open={true}
-onClose={onClose}
-title="Upload Avatar"
-size="sm">
+        <Modal open={true} onClose={onClose} title="Upload Avatar" size="sm">
           <FileDropzone
             maxFiles={1}
             accept={{ "image/jpeg": [".jpeg", ".png"] }}
@@ -177,8 +170,7 @@ size="sm">
           />
         </Modal>
       )}
-      {show && <AccountPerson show={true}
-setShow={setShow} />}
+      {show && <AccountPerson show={true} setShow={setShow} />}
     </>
   );
 };

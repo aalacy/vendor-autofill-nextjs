@@ -113,15 +113,10 @@ const Pricing = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Typography variant="h5"
-marginBottom={7}>
+          <Typography variant="h5" marginBottom={7}>
             Pricing Plan
           </Typography>
-          <Stack direction="row"
-spacing={3}
-justifyContent="center"
-useFlexGap
-flexWrap="wrap">
+          <Stack direction="row" spacing={3} justifyContent="center" useFlexGap flexWrap="wrap">
             {products &&
               products.map(({ id, name, prices }) => (
                 <PricingPlan

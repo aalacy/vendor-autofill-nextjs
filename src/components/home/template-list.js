@@ -98,9 +98,7 @@ export const TemplateList = ({ templates, vendors, onClose }) => {
 
   return (
     <>
-      <SearchBox query={query}
-setQuery={setQuery}
-handleClick={handleSearchClick} />
+      <SearchBox query={query} setQuery={setQuery} handleClick={handleSearchClick} />
       {/* <FormControlLabel
         label="Select All"
         control={
@@ -120,8 +118,7 @@ handleClick={handleSearchClick} />
               key={id}
               disablePadding
               secondaryAction={
-                <Stack direction="row"
-spacing={1}>
+                <Stack direction="row" spacing={1}>
                   <Tooltip title="W9">
                     <W9Icon color={w9 ? "primary" : "inherit"} />
                   </Tooltip>
@@ -134,9 +131,7 @@ spacing={1}>
                 </Stack>
               }
             >
-              <ListItemButton role={undefined}
-onClick={handleToggle(id)}
-dense>
+              <ListItemButton role={undefined} onClick={handleToggle(id)} dense>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
@@ -146,21 +141,15 @@ dense>
                     inputProps={{ "aria-labelledby": labelId }}
                   />
                 </ListItemIcon>
-                <ListItemText id={labelId}
-primary={name}
-secondary={address} />
+                <ListItemText id={labelId} primary={name} secondary={address} />
               </ListItemButton>
             </ListItem>
           );
         })}
       </List>
 
-      <Stack direction="row"
-alignItems="center"
-mt={3}>
-        <Stack direction="row"
-spacing={2}
-mr="auto">
+      <Stack direction="row" alignItems="center" mt={3}>
+        <Stack direction="row" spacing={2} mr="auto">
           <Button
             startIcon={loading ? <CircularProgress size={20} /> : null}
             disabled={!!!checked?.length}
@@ -169,18 +158,14 @@ mr="auto">
           >
             Save
           </Button>
-          <Button variant="outlined"
-onClick={onClose}>
+          <Button variant="outlined" onClick={onClose}>
             Close
           </Button>
         </Stack>
-        <Stack direction="row"
-spacing={2}
-alignItems="center">
+        <Stack direction="row" spacing={2} alignItems="center">
           {checked?.length > 0 && <Typography>{checked?.length} Selected</Typography>}
           <Tooltip title="Clear Selection">
-            <IconButton color="success"
-onClick={handleClear}>
+            <IconButton color="success" onClick={handleClear}>
               <Clear />
             </IconButton>
           </Tooltip>

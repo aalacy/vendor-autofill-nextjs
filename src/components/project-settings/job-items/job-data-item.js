@@ -11,10 +11,7 @@ import { CheckboxField, DatePickerField, InputField, SelectField } from "src/com
 import { beautyExpiry } from "src/utils";
 
 const Accordion = styled((props) => (
-  <MuiAccordion disableGutters
-elevation={0}
-square
-{...props} />
+  <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(() => ({
   "&:not(:last-child)": {
     borderBottom: 0,
@@ -76,22 +73,16 @@ export const JobDataItem = ({
   };
 
   const hasError = useMemo(() => {
-    return !!formikRef.current?.errors?.CID
-  }, [formikRef.current])
+    return !!formikRef.current?.errors?.CID;
+  }, [formikRef.current]);
 
   return (
-    <Accordion expanded={expanded === `${item.name}`}
-onChange={handleExpand(item.name)}>
-      <AccordionSummary aria-controls={`${item.title}-content`}
-id={`${item.title}-header`}>
+    <Accordion expanded={expanded === `${item.name}`} onChange={handleExpand(item.name)}>
+      <AccordionSummary aria-controls={`${item.title}-content`} id={`${item.title}-header`}>
         <Typography variant="subtitle1">{item.title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <FormHelperText
-          error={hasError}
-        >
-          {formikRef.current?.errors?.CID || ""}
-        </FormHelperText>
+        <FormHelperText error={hasError}>{formikRef.current?.errors?.CID || ""}</FormHelperText>
         <List
           sx={{
             width: "100%",
@@ -99,9 +90,7 @@ id={`${item.title}-header`}>
           }}
         >
           {item.keys.map((key) => (
-            <ListItem key={key}
-divider
-onDoubleClick={() => handleItemClick(key)}>
+            <ListItem key={key} divider onDoubleClick={() => handleItemClick(key)}>
               {editingItemId === key ? (
                 <>
                   {checkoutFormModel.formField[key].type === "SelectField" && (

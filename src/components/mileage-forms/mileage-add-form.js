@@ -33,11 +33,8 @@ export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
       >
         {({ isSubmitting, values, setFieldValue, errors }) => (
           <Form>
-            <MileageTop values={values}
-setFieldValue={setFieldValue} />
-            <MileageMainForm setEmpty={setEmpty}
-values={values}
-setFieldValue={setFieldValue} />
+            <MileageTop values={values} setFieldValue={setFieldValue} />
+            <MileageMainForm setEmpty={setEmpty} values={values} setFieldValue={setFieldValue} />
             {totalValues(values?.data)}
             {errors.submit && (
               <Box sx={{ mt: 3 }}>

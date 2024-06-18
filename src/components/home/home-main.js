@@ -21,8 +21,7 @@ export const HomeMain = () => {
   return (
     <>
       <HeaderForm vendors={vendors} />
-      <VendorList vendors={vendors}
-isLoading={isLoading} />
+      <VendorList vendors={vendors} isLoading={isLoading} />
     </>
   );
 };

@@ -12,7 +12,7 @@ export const InputField = (props) => {
       return error;
     }
   }
-  
+
   return (
     <TextField
       type="text"

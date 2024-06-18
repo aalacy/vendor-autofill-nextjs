@@ -26,9 +26,7 @@ export const TrackingInfo = ({ data, setData }) => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <ClientDataGrid loading={loading}
-data={data || []}
-columns={TrackingColumns()} />
+      <ClientDataGrid loading={loading} data={data || []} columns={TrackingColumns()} />
     </div>
   );
 };

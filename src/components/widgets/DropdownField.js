@@ -94,8 +94,7 @@ const AddPurposeForm = ({ setGLoading, handleCloseShow }) => {
       >
         {() => (
           <Form>
-            <Stack spacing={2}
-p={2}>
+            <Stack spacing={2} p={2}>
               <InputField
                 type="text"
                 fullWidth
@@ -107,15 +106,11 @@ p={2}>
                   e.stopPropagation();
                 }}
               />
-              <Stack direction="row"
-spacing={2}>
-                <Button size="small"
-variant="contained"
-type="submit">
+              <Stack direction="row" spacing={2}>
+                <Button size="small" variant="contained" type="submit">
                   Save
                 </Button>
-                <Button size="small"
-onClick={handleCloseShow}>
+                <Button size="small" onClick={handleCloseShow}>
                   Cancel
                 </Button>
               </Stack>
@@ -225,8 +220,7 @@ export const DropdownField = (props) => {
                 <ListItemText>{value}</ListItemText>
                 {!isDefault ? (
                   <Tooltip title="Delete purpose">
-                    <IconButton size="small"
-onClick={() => handleDeletePurpose(value)}>
+                    <IconButton size="small" onClick={() => handleDeletePurpose(value)}>
                       <DeleteOutline color="error" />
                     </IconButton>
                   </Tooltip>
@@ -242,15 +236,13 @@ onClick={() => handleDeletePurpose(value)}>
                 </MenuItem>
               </>
             ) : (
-              <AddPurposeForm setGLoading={setGLoading}
-handleCloseShow={handleCloseShow} />
+              <AddPurposeForm setGLoading={setGLoading} handleCloseShow={handleCloseShow} />
             )}
           </MenuList>
         </StyledMenu>
         {_renderHelperText()}
       </FormControl>
-      <LoadingOverlay setOpen={setGLoading}
-open={gLoading} />
+      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
     </>
   );
 };

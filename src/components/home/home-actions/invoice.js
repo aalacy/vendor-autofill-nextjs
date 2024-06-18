@@ -59,11 +59,7 @@ const ManageInvoice = ({
   return (
     <>
       {open && (
-        <Modal open={true}
-onClose={onClose}
-title={title}
-subTitle={subTitle}
-size="sm">
+        <Modal open={true} onClose={onClose} title={title} subTitle={subTitle} size="sm">
           <FileInput
             canUpload
             files={files}
