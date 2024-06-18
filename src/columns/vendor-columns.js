@@ -12,9 +12,12 @@ import { currencyFormatter, sum } from "src/utils";
 const FormCell = (params) => {
   const { row, handleGeneratePDF } = params;
   return (
-    <Stack direction="row" justifyContent="center" spacing={1}>
+    <Stack direction="row"
+justifyContent="center"
+spacing={1}>
       {row.vendor.forms?.map((form) => (
-        <Tooltip key={form.name} title={form.title}>
+        <Tooltip key={form.name}
+title={form.title}>
           <span>
             <IconButton
               color="info"
@@ -76,7 +79,9 @@ const InvoiceCell = (params) => {
   const { value, row, handleInvoice } = params;
 
   return (
-    <Stack direction="row" alignItems="center" spacing={1}>
+    <Stack direction="row"
+alignItems="center"
+spacing={1}>
       <Tooltip title="Manage Forms">
         <span>
           <IconButton
@@ -88,7 +93,9 @@ const InvoiceCell = (params) => {
             {!value || value.length === 0 ? (
               <AddIcon color="primary" />
             ) : (
-              <Badge badgeContent={value.length} color="info" max={99}>
+              <Badge badgeContent={value.length}
+color="info"
+max={99}>
                 <InvoiceIcon color="primary" />
               </Badge>
             )}
@@ -112,7 +119,8 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       align: "center",
       resizable: true,
       width: 80,
-      renderCell: (params) => <W9Cell {...params} handleW9={handleW9} />,
+      renderCell: (params) => <W9Cell {...params}
+handleW9={handleW9} />,
     },
     {
       field: "vendor_name",
@@ -128,7 +136,8 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       type: "string",
       resizable: true,
       width: 150,
-      renderCell: (params) => <InvoiceCell {...params} handleInvoice={handleInvoice} />,
+      renderCell: (params) => <InvoiceCell {...params}
+handleInvoice={handleInvoice} />,
     },
     {
       field: "coi",
@@ -136,7 +145,8 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       type: "string",
       resizable: true,
       width: 80,
-      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
+      renderCell: (params) => <COICell {...params}
+handleCOI={handleCOI} />,
     },
     {
       field: "vendor_forms",
@@ -146,7 +156,8 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       align: "center",
       resizable: true,
       width: 150,
-      renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />,
+      renderCell: (params) => <FormCell {...params}
+handleGeneratePDF={handleGeneratePDF} />,
     },
 
     // {

@@ -69,18 +69,22 @@ const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
       >
         <List sx={{ height: "100vh", overflow: "auto" }}>
           {folder?.files?.map(({ key, file_name, size, created_at }) => (
-            <ListItem key={file_name} sx={{ mb: 2, boxShadow: 4 }}>
+            <ListItem key={file_name}
+sx={{ mb: 2, boxShadow: 4 }}>
               <ListItemText
                 primary={<Typography noWrap>{file_name}</Typography>}
                 secondary={`${bytesToSize(size)} • ${beautyDateTime(created_at)}`}
               />
-              <IconButton color="primary" onClick={() => showPDF({ key, file_name })}>
+              <IconButton color="primary"
+onClick={() => showPDF({ key, file_name })}>
                 {loading ? <CircularProgress /> : <PDFIcon />}
               </IconButton>
-              <IconButton color="info" onClick={() => downloadPDF({ key, file_name })}>
+              <IconButton color="info"
+onClick={() => downloadPDF({ key, file_name })}>
                 {loading ? <CircularProgress /> : <DownloadIcon />}
               </IconButton>
-              <IconButton color="error" onClick={() => handleRemove(key)}>
+              <IconButton color="error"
+onClick={() => handleRemove(key)}>
                 <RemoveIcon />
               </IconButton>
             </ListItem>
@@ -88,7 +92,10 @@ const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
         </List>
       </Modal>
 
-      <Modal title={file?.file_name} open={openPDF} onClose={() => setOpenPDF(false)} size="md">
+      <Modal title={file?.file_name}
+open={openPDF}
+onClose={() => setOpenPDF(false)}
+size="md">
         <PdfViewer pdfUrl={pdfUrl} />
       </Modal>
     </>

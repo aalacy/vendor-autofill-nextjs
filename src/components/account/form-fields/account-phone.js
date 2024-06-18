@@ -31,7 +31,8 @@ export const AccountPhone = ({ onSubmit }) => {
   });
 
   return (
-    <form noValidate onSubmit={formikPhone.handleSubmit}>
+    <form noValidate
+onSubmit={formikPhone.handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -73,15 +74,22 @@ export const AccountPhone = ({ onSubmit }) => {
         />
         {showPhone ? (
           <Box>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+size="small"
+sx={{ mr: 2 }}>
               Update
             </Button>
-            <Button onClick={cancelPhone} variant="outlined" size="small">
+            <Button onClick={cancelPhone}
+variant="outlined"
+size="small">
               Cancel
             </Button>
           </Box>
         ) : (
-          <Button onClick={() => setShowPhone(!showPhone)} variant="outlined" size="small">
+          <Button onClick={() => setShowPhone(!showPhone)}
+variant="outlined"
+size="small">
             Edit
           </Button>
         )}

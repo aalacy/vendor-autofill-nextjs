@@ -50,7 +50,8 @@ export const BasicLayout = (props) => {
   return (
     <>
       <TopNav onNavOpen={() => setOpenNav(true)} />
-      <SideNav onClose={() => setOpenNav(false)} open={openNav} />
+      <SideNav onClose={() => setOpenNav(false)}
+open={openNav} />
       <LayoutRoot>
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
           <LayoutContainer>

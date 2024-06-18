@@ -44,6 +44,7 @@ export const DatePickerField = (props) => {
             error: isError && error,
             helperText: isError && error,
             size: "small",
+            autoFocus: true,
           },
         }}
         sx={{

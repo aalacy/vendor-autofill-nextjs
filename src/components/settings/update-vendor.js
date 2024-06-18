@@ -108,7 +108,8 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
         title="Update Vendor"
         subTitle={vendor?.user?.email}
       >
-        <form noValidate onSubmit={formik.handleSubmit}>
+        <form noValidate
+onSubmit={formik.handleSubmit}>
           <Stack spacing={2}>
             <TextField
               autoFocus
@@ -121,7 +122,10 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
               onChange={formik.handleChange}
               value={formik.values.name}
             />
-            <FormControl fullWidth margin="normal" size="small" error={formik.errors.credit_auth}>
+            <FormControl fullWidth
+margin="normal"
+size="small"
+error={formik.errors.credit_auth}>
               <InputLabel>Credit Auth</InputLabel>
               <Select
                 name="credit_auth"
@@ -152,9 +156,13 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
                 )}
               >
                 {CreditAuthList?.map(({ name, script }) => (
-                  <MenuItem key={script} value={script} sx={{ justifyContent: "space-between" }}>
+                  <MenuItem key={script}
+value={script}
+sx={{ justifyContent: "space-between" }}>
                     <Typography textTransform="uppercase">{name}</Typography>
-                    <IconButton color="info" size="small" href={selectedCreditAuth(script)?.link}>
+                    <IconButton color="info"
+size="small"
+href={selectedCreditAuth(script)?.link}>
                       <LaunchOutlined />{" "}
                     </IconButton>
                   </MenuItem>
@@ -200,7 +208,9 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
                 )}
               >
                 {RentalAgreementList?.map(({ name, script }) => (
-                  <MenuItem key={script} value={script} sx={{ justifyContent: "space-between" }}>
+                  <MenuItem key={script}
+value={script}
+sx={{ justifyContent: "space-between" }}>
                     <Typography textTransform="uppercase">{name}</Typography>
                     <IconButton
                       color="info"
@@ -306,7 +316,10 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
               onChange={formik.handleChange}
               value={formik.values.hours}
             />
-            <FormControl fullWidth margin="normal" size="small" error={formik.errors.active}>
+            <FormControl fullWidth
+margin="normal"
+size="small"
+error={formik.errors.active}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -319,7 +332,10 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
               />
               <FormHelperText>{formik.errors.active || formik.errors.active}</FormHelperText>
             </FormControl>
-            <FormControl fullWidth margin="normal" size="small" error={formik.errors.is_template}>
+            <FormControl fullWidth
+margin="normal"
+size="small"
+error={formik.errors.is_template}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -336,10 +352,15 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
             </FormControl>
           </Stack>
           <Box sx={{ my: 3, textAlign: "center" }}>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+size="small"
+sx={{ mr: 2 }}>
               Update
             </Button>
-            <Button onClick={handleClose} variant="outlined" size="small">
+            <Button onClick={handleClose}
+variant="outlined"
+size="small">
               Cancel
             </Button>
           </Box>

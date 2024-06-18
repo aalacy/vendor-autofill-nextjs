@@ -194,7 +194,8 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
                 sx={{ gridColumn: "span 2" }}
               >
                 {DepartmentType.map((key) => (
-                  <MenuItem key={key} value={key}>
+                  <MenuItem key={key}
+value={key}>
                     {key}
                   </MenuItem>
                 ))}
@@ -234,7 +235,8 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
                 sx={{ gridColumn: "span 2" }}
               >
                 {ContractOptions.map((key) => (
-                  <MenuItem key={key} value={key}>
+                  <MenuItem key={key}
+value={key}>
                     {key}
                   </MenuItem>
                 ))}
@@ -280,7 +282,8 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
                 sx={{ gridColumn: "span 2" }}
               >
                 {ContractTypes.map((key) => (
-                  <MenuItem key={key} value={key}>
+                  <MenuItem key={key}
+value={key}>
                     {key}
                   </MenuItem>
                 ))}
@@ -291,12 +294,19 @@ export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) =
                 <FormHelperText error>{errors.submit}</FormHelperText>
               </Box>
             )}
-            <Box display="flex" justifyContent="end" mt="4em" gap={2}>
-              <Button type="submit" variant="contained">
-                {isSubmitting && <CircularProgress sx={{ mr: 1 }} color="inherit" size={20} />}{" "}
+            <Box display="flex"
+justifyContent="end"
+mt="4em"
+gap={2}>
+              <Button type="submit"
+variant="contained">
+                {isSubmitting && <CircularProgress sx={{ mr: 1 }}
+color="inherit"
+size={20} />}{" "}
                 {contact ? "Update" : "Add"}
               </Button>
-              <Button onClick={onClose} variant="outlined">
+              <Button onClick={onClose}
+variant="outlined">
                 Close
               </Button>
             </Box>

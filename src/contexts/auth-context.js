@@ -232,24 +232,6 @@ export const AuthProvider = (props) => {
     });
   };
 
-  const updateJob = async (id, data) => {
-    try {
-      const {
-        data: { result },
-      } = await JobService.update(id, data);
-
-      dispatch({
-        type: HANDLERS.FETCH_JOB,
-        payload: result,
-      });
-    } catch (err) {
-      dispatch({
-        type: HANDLERS.FETCH_JOB,
-        payload: state.job,
-      });
-    }
-  };
-
   const refresh = async () => {
     dispatch({
       type: HANDLERS.REFRESH,
@@ -295,7 +277,6 @@ export const AuthProvider = (props) => {
         setUser,
         showConfirmDlg,
         hideConfirm,
-        updateJob,
         refresh,
         showJobForm,
         setProject,

@@ -181,7 +181,8 @@ const InvoiceView = ({
             <ListItem
               key={key}
               secondaryAction={
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row"
+spacing={1}>
                   {total && (
                     <Tooltip title="Edit Total">
                       <IconButton
@@ -222,9 +223,11 @@ const InvoiceView = ({
               }
               disablePadding
             >
-              <ListItemButton key={id} onClick={() => handleView(id, key, total)}>
+              <ListItemButton key={id}
+onClick={() => handleView(id, key, total)}>
                 <ListItemAvatar>
-                  <ViewIcon color="warning" fontSize="large" />
+                  <ViewIcon color="warning"
+fontSize="large" />
                 </ListItemAvatar>
                 <ListItemText
                   primary={key.split("/").at(-1)}
@@ -235,7 +238,10 @@ const InvoiceView = ({
           ))}
         </List>
         {invoices.length < 10 && (
-          <Button onClick={handleMore} variant="outlined" startIcon={<UploadFile />} sx={{ mt: 2 }}>
+          <Button onClick={handleMore}
+variant="outlined"
+startIcon={<UploadFile />}
+sx={{ mt: 2 }}>
             Upload More Invoices
           </Button>
         )}
@@ -256,7 +262,11 @@ const InvoiceView = ({
         />
       )}
       {showPrompt && (
-        <Modal noFullWidth title="Input Total Price" open={true} onClose={handleClose} size="xs">
+        <Modal noFullWidth
+title="Input Total Price"
+open={true}
+onClose={handleClose}
+size="xs">
           <form onSubmit={formik.handleSubmit}>
             <Box
               sx={{

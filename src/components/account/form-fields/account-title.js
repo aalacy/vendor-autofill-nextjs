@@ -31,7 +31,8 @@ export const AccountTitle = ({ onSubmit }) => {
   });
 
   return (
-    <form noValidate onSubmit={formikTitle.handleSubmit}>
+    <form noValidate
+onSubmit={formikTitle.handleSubmit}>
       <Box
         sx={{
           display: "flex",
@@ -73,15 +74,22 @@ export const AccountTitle = ({ onSubmit }) => {
         />
         {showTitle ? (
           <Box>
-            <Button type="submit" variant="contained" size="small" sx={{ mr: 2 }}>
+            <Button type="submit"
+variant="contained"
+size="small"
+sx={{ mr: 2 }}>
               Update
             </Button>
-            <Button onClick={cancelTitle} variant="outlined" size="small">
+            <Button onClick={cancelTitle}
+variant="outlined"
+size="small">
               Cancel
             </Button>
           </Box>
         ) : (
-          <Button onClick={() => setShowTitle(!showTitle)} variant="outlined" size="small">
+          <Button onClick={() => setShowTitle(!showTitle)}
+variant="outlined"
+size="small">
             Edit
           </Button>
         )}

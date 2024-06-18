@@ -57,11 +57,15 @@ export default function TabComponent(props) {
         sx={{ px: 3 }}
       >
         {nodes.map(({ title }, i) => (
-          <Tab key={i} label={title} {...a11yProps(i)} />
+          <Tab key={i}
+label={title}
+{...a11yProps(i)} />
         ))}
       </Tabs>
       {nodes.map(({ node }, i) => (
-        <TabPanel key={i} value={value} index={i}>
+        <TabPanel key={i}
+value={value}
+index={i}>
           {node}
         </TabPanel>
       ))}

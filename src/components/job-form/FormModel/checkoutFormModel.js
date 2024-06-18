@@ -105,6 +105,7 @@ export default {
       label: "DL Expiry*",
       requiredErrorMsg: "DL Expiry is required",
       type: "DateField",
+      format: "yyyy/MM"
     },
     cardPhone: {
       name: "cardPhone",
@@ -145,6 +146,7 @@ export default {
       label: "Exp Date*",
       requiredErrorMsg: "Exp Date is required",
       type: "DateField",
+      format: "yyyy/MM"
     },
     cvv: {
       name: "cvv",

@@ -83,7 +83,7 @@ export default [
           .test(
             "len",
             `${cvv.invalidErrorMsg}`,
-            (val) => val && val.length >= 3 && val.length <= 4,
+            (val) => val && val.length == 3,
           ),
       otherwise: (schema) => schema.notRequired(),
     }),

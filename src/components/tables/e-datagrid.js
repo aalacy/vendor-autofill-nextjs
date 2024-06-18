@@ -19,9 +19,13 @@ export function CustomColumnMenuComponent(props) {
   const { hideMenu, colDef, ...other } = props;
 
   return (
-    <GridColumnMenuContainer hideMenu={hideMenu} colDef={colDef} {...other}>
-      <GridColumnMenuSortItem onClick={hideMenu} colDef={colDef} />
-      <GridColumnMenuFilterItem onClick={hideMenu} colDef={colDef} />
+    <GridColumnMenuContainer hideMenu={hideMenu}
+colDef={colDef}
+{...other}>
+      <GridColumnMenuSortItem onClick={hideMenu}
+colDef={colDef} />
+      <GridColumnMenuFilterItem onClick={hideMenu}
+colDef={colDef} />
     </GridColumnMenuContainer>
   );
 }

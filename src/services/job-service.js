@@ -13,7 +13,7 @@ export class JobService {
   }
 
   static update(id, data) {
-    return http.put(`/job/${id}`, data);
+    return http.put(`/job/${id}`, { data });
   }
 
   static remove(id) {

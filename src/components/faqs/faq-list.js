@@ -18,7 +18,8 @@ export const FaqList = () => {
   return (
     <Container maxWidth="md">
       {data?.map((item) => (
-        <FaqItem key={item.id} item={item} />
+        <FaqItem key={item.id}
+item={item} />
       ))}
     </Container>
   );

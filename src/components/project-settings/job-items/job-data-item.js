@@ -1,31 +1,20 @@
-import {
-  Checkbox,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemText,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { FormHelperText, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import { useCallback, useMemo } from "react";
 
 import checkoutFormModel from "src/components/job-form/FormModel/checkoutFormModel";
-import { SelectField } from "src/components/widgets";
-import { useCallback, useMemo } from "react";
-import { DatePicker } from "@mui/x-date-pickers";
+import { CheckboxField, DatePickerField, InputField, SelectField } from "src/components/widgets";
 import { beautyExpiry } from "src/utils";
 
 const Accordion = styled((props) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
+  <MuiAccordion disableGutters
+elevation={0}
+square
+{...props} />
 ))(() => ({
   "&:not(:last-child)": {
     borderBottom: 0,
@@ -59,14 +48,13 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const JobDataItem = ({
   myJob,
-  inputRef,
-  handleChange,
-  handleBlur,
-  editingItemId,
-  setEditingItemId,
   item,
   expanded,
   handleExpand,
+  handleBlur,
+  editingItemId,
+  setEditingItemId,
+  formikRef,
 }) => {
   const secondaryLabel = useCallback(
     (key) => {
@@ -74,17 +62,36 @@ export const JobDataItem = ({
         if (myJob[key]) return "Yes";
         return "No";
       }
+      if (checkoutFormModel.formField[key].type === "DateField") {
+        return beautyExpiry(myJob[key]);
+      }
       return myJob[key];
     },
     [myJob, checkoutFormModel],
   );
 
+  const handleItemClick = (key) => {
+    setEditingItemId(key);
+    formikRef.current.setErrors({});
+  };
+
+  const hasError = useMemo(() => {
+    return !!formikRef.current?.errors?.CID
+  }, [formikRef.current])
+
   return (
-    <Accordion expanded={expanded === `${item.name}`} onChange={handleExpand(item.name)}>
-      <AccordionSummary aria-controls={`${item.title}-content`} id={`${item.title}-header`}>
+    <Accordion expanded={expanded === `${item.name}`}
+onChange={handleExpand(item.name)}>
+      <AccordionSummary aria-controls={`${item.title}-content`}
+id={`${item.title}-header`}>
         <Typography variant="subtitle1">{item.title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
+        <FormHelperText
+          error={hasError}
+        >
+          {formikRef.current?.errors?.CID || ""}
+        </FormHelperText>
         <List
           sx={{
             width: "100%",
@@ -92,73 +99,44 @@ export const JobDataItem = ({
           }}
         >
           {item.keys.map((key) => (
-            <ListItem
-              key={key}
-              divider={<Divider variant="middle" />}
-              onDoubleClick={() => setEditingItemId(key)}
-            >
+            <ListItem key={key}
+divider
+onDoubleClick={() => handleItemClick(key)}>
               {editingItemId === key ? (
                 <>
                   {checkoutFormModel.formField[key].type === "SelectField" && (
-                    <TextField
-                      select
-                      ref={inputRef}
+                    <SelectField
+                      name={key}
                       label={checkoutFormModel.formField[key].label}
-                      autoFocus={true}
-                      value={myJob[key]}
-                      variant="standard"
-                      onChange={(e) => handleChange(e.target.value, key)}
+                      data={checkoutFormModel.formField[key].data}
                       onBlur={handleBlur}
-                      sx={{ minWidth: 120 }}
-                    >
-                      {checkoutFormModel.formField[key].data.map(({ label, value }) => (
-                        <MenuItem key={value} value={value}>
-                          {label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      size="small"
+                      fullWidth
+                    />
                   )}
                   {checkoutFormModel.formField[key].type === "CheckboxField" && (
-                    <FormControl>
-                      <FormControlLabel
-                        checked={!!myJob[key]}
-                        control={
-                          <Checkbox
-                            ref={inputRef}
-                            autoFocus={true}
-                            onChange={(e) => handleChange(e.target.value, key)}
-                            onBlur={handleBlur}
-                          />
-                        }
-                        label={checkoutFormModel.formField[key].label}
-                      />
-                    </FormControl>
+                    <CheckboxField
+                      name={key}
+                      label={checkoutFormModel.formField[key].label}
+                      onBlur={handleBlur}
+                    />
                   )}
                   {checkoutFormModel.formField[key].type === "DateField" && (
-                    <DatePicker
-                      ref={inputRef}
-                      value={new Date(myJob[key])}
-                      onChange={(e) => handleChange(beautyExpiry(e), key)}
+                    <DatePickerField
+                      name={key}
+                      label={checkoutFormModel.formField[key].label}
                       onAccept={handleBlur}
-                      format="yyyy/MM"
-                      variant="filled"
-                      views={["year", "month"]}
                       minDate={new Date()}
-                      slotProps={{
-                        textField: {
-                          autoFocus: true,
-                        },
-                      }}
+                      format={checkoutFormModel.formField[key].format}
+                      views={["year", "month"]}
                     />
                   )}
                   {checkoutFormModel.formField[key].type === undefined && (
-                    <TextField
-                      ref={inputRef}
-                      autoFocus={true}
+                    <InputField
+                      name={key}
                       label={checkoutFormModel.formField[key].label}
-                      variant="standard"
-                      value={myJob[key]}
-                      onChange={(e) => handleChange(e.target.value, key)}
+                      fullWidth
+                      autoFocus
                       onBlur={handleBlur}
                     />
                   )}

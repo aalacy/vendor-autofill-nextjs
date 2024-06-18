@@ -132,15 +132,21 @@ const ManageVendors = () => {
         />
       </Paper>
 
-      {show && <VendorForm1 noThankYou vendor={curVendor} show={true} setShow={setShow} />}
+      {show && <VendorForm1 noThankYou
+vendor={curVendor}
+show={true}
+setShow={setShow} />}
 
       {showPDFModal && (
-        <Modal title={title} open={true} onClose={() => setShowPDFModal(false)}>
+        <Modal title={title}
+open={true}
+onClose={() => setShowPDFModal(false)}>
           <PdfViewer pdfUrl={pdfUrl} />
         </Modal>
       )}
 
-      <LoadingOverlay setOpen={setGLoading} open={gLoading} />
+      <LoadingOverlay setOpen={setGLoading}
+open={gLoading} />
     </>
   );
 };

@@ -113,7 +113,8 @@ export const FileManager = ({}) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
-      <LoadingOverlay setOpen={setLoading} open={loading} />
+      <LoadingOverlay setOpen={setLoading}
+open={loading} />
     </>
   );
 };

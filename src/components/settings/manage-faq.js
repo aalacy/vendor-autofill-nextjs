@@ -69,7 +69,9 @@ const ManageFaqs = () => {
           setLogicOperator={setLogicOperator}
         />
       </div>
-      {open && <FaqFormModal curFaq={curFaq} open={true} setOpen={setOpen} />}
+      {open && <FaqFormModal curFaq={curFaq}
+open={true}
+setOpen={setOpen} />}
     </>
   );
 };

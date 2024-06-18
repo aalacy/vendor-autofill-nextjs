@@ -1,5 +1,6 @@
 export const JobDataKeys = {
   companyInfo: {
+    index: 0,
     title: "Company Information",
     name: "companyInfo",
     keys: [
@@ -20,16 +21,19 @@ export const JobDataKeys = {
     ],
   },
   authorizedSignatoryInfo: {
+    index: 1,
     title: "Authorized Signatory Information",
     name: "authorizedSignatoryInfo",
     keys: ["authSignName", "authSignTitle"],
   },
   cardHolderInfo: {
+    index: 2,
     title: "Cardholder Information",
     name: "cardHolderInfo",
     keys: ["cardName", "DLNumber", "DLState", "DLExpiry", "cardPhone"],
   },
   paymentInfo: {
+    index: 3,
     title: "Payment Information",
     name: "paymentInfo",
     keys: ["acctType", "bank", "cardType", "cardNumber", "cardPhone", "expDate", "cvv", "CID"],

@@ -71,15 +71,20 @@ export const SideNav = (props) => {
                 >
                   {project ? (
                     <Stack>
-                      <Typography color="inherit" variant="subtitle1" textTransform="capitalize">
+                      <Typography color="inherit"
+variant="subtitle1"
+textTransform="capitalize">
                         {project?.prodCoName}
                       </Typography>
-                      <Typography color="neutral.400" variant="body2" textTransform="capitalize">
+                      <Typography color="neutral.400"
+variant="body2"
+textTransform="capitalize">
                         {project?.name} - {project?.jobNumber}
                       </Typography>
                     </Stack>
                   ) : (
-                    <Typography color="inherit" variant="subtitle1">
+                    <Typography color="inherit"
+variant="subtitle1">
                       Prodbot
                     </Typography>
                   )}
