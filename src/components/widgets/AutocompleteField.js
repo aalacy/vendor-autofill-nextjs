@@ -62,7 +62,7 @@ export const AutocompleteField = (props) => {
     );
     // const distance = calculateDistance(fromAddress[0].geometry.location, toAddress[0].geometry.location)
     setFieldValue(`data.${index}.number_of_miles`, distance);
-    setFieldValue(`data.${index}.mileage_reimbursement`, distance * 0.67);
+    setFieldValue(`data.${index}.mileage_reimbursement`, distance * values.price_per_mile || 0);
   }, [values, index, setFieldValue]);
 
   useEffect(() => {

@@ -1,9 +1,22 @@
-import { Box, List, Paper, Stack, Typography } from "@mui/material";
+import { Box, List, Paper, Stack, Typography, useMediaQuery } from "@mui/material";
 
 import { formatLocalNumber, sum } from "src/utils";
 import { MileageDetailItem } from "./mileage-detail-item";
 
+const BottomRender = ({ label, value }) => (
+  <Stack direction="row" spacing={1}>
+    <Typography variant="body1" fontSize={18}>
+      <b>{label}</b>
+    </Typography>
+    <Typography color="#8ab4f8" fontSize={20}>
+      {value}
+    </Typography>
+  </Stack>
+);
+
 const MileageDetailContent = ({ row }) => {
+  const isNonMobile = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+
   return (
     <Box sx={{ flex: 1, flexWrap: "wrap", mx: "auto", width: "99%", p: 1, my: 1 }}>
       <Typography variant="h6" mb={1}>
@@ -11,7 +24,7 @@ const MileageDetailContent = ({ row }) => {
       </Typography>
       <Paper>
         <List
-          sx={{ width: "100%", maxHeight: 300, overflow: "auto", bgcolor: "background.toolbar" }}
+          sx={{ width: "100%", maxHeight: 350, overflow: "auto", bgcolor: "background.toolbar" }}
         >
           {row.data.map((d, id) => (
             <MileageDetailItem key={id} item={d} />
@@ -22,24 +35,16 @@ const MileageDetailContent = ({ row }) => {
           data={ || []}
           columns={MileageDetailColumns}
         /> */}
-      <Stack spacing={1} mt={1}>
-        <Stack direction="row" mb={1} spacing={1}>
-          <Typography variant="body1" fontSize={20}>
-            <b>Total # of miles:</b>
-          </Typography>
-          <Typography color="#8ab4f8" fontSize={22}>
-            {" "}
-            {formatLocalNumber(sum(row.data.map((d) => d.number_of_miles)))}
-          </Typography>
-        </Stack>
-        <Stack direction="row" spacing={1}>
-          <Typography variant="body1" fontSize={20}>
-            <b>Total Mileage Reimbursement($):</b>
-          </Typography>
-          <Typography color="#8ab4f8" fontSize={22}>
-            {formatLocalNumber(sum(row.data.map((d) => d.mileage_reimbursement)))}
-          </Typography>
-        </Stack>
+      <Stack direction={isNonMobile ? "row" : "column"} spacing={isNonMobile ? 2 : 0} mt={1}>
+        <BottomRender
+          label="Total # of miles:"
+          value={formatLocalNumber(sum(row.data.map((d) => d.number_of_miles)))}
+        />
+        <BottomRender
+          label="Total Mileage Reimbursement($):"
+          value={formatLocalNumber(sum(row.data.map((d) => d.mileage_reimbursement)))}
+        />
+        <BottomRender label="Per mile($):" value={formatLocalNumber(row.price_per_mile)} />
       </Stack>
     </Box>
   );

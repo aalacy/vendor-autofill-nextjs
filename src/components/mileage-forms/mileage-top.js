@@ -25,6 +25,9 @@ export const MileageTop = ({ values, setFieldValue }) => {
             size="small"
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <InputField name="price_per_mile" label="Price Per Mile" fullWidth size="small" />
+        </Grid>
       </Grid>
     </>
   );

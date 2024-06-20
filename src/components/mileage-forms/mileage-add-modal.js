@@ -8,7 +8,7 @@ import { MileageService } from "src/services";
 import { useIndentifier } from "src/hooks/use-identifier";
 import { useQueryClient } from "@tanstack/react-query";
 
-const MileageAddModal = ({ mileage, open, setOpen }) => {
+const MileageAddModal = ({ mileage, open, onClose }) => {
   const { showConfirmDlg, hideConfirm } = useAuth();
   const [loading, setLoading] = useState(false);
   const [isEmpty, setEmpty] = useState(true);
@@ -24,7 +24,7 @@ const MileageAddModal = ({ mileage, open, setOpen }) => {
       helpers.setTouched({});
       helpers.setSubmitting(false);
       toast.success("Successfully created.");
-      setOpen(false);
+      onClose();
     } catch (err) {
       const submit = Array.isArray(err.response?.data) ? err.message : err.response?.data;
       helpers.setStatus({ success: false });
@@ -51,7 +51,7 @@ const MileageAddModal = ({ mileage, open, setOpen }) => {
       helpers.setTouched({});
       helpers.setSubmitting(false);
       toast.success("Successfully updated.");
-      setOpen(false);
+      onClose();
     } catch (err) {
       const submit = Array.isArray(err.response?.data) ? err.message : err.response?.data;
       helpers.setStatus({ success: false });
@@ -63,8 +63,8 @@ const MileageAddModal = ({ mileage, open, setOpen }) => {
   };
 
   return (
+    <>
     <Modal
-      keepMounted
       title={`${mileage ? "Update Mileage Form" : "Add New Mileage Form"}`}
       open={open}
       onClose={(event, reason) => {
@@ -74,11 +74,11 @@ const MileageAddModal = ({ mileage, open, setOpen }) => {
             open: true,
             close: hideConfirm,
             callback: () => {
-              setOpen(false);
+              onClose();
               hideConfirm();
             },
           });
-        setOpen(false);
+        onClose();
       }}
       size="md"
     >
@@ -89,6 +89,7 @@ const MileageAddModal = ({ mileage, open, setOpen }) => {
         setEmpty={setEmpty}
       />
     </Modal>
+    </>
   );
 };
 

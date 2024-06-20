@@ -3,6 +3,7 @@ import * as Yup from "yup";
 export const MileageValidationSchema = Yup.object().shape({
   name: Yup.string().required(`required`),
   week_of: Yup.string().required(`required`),
+  price_per_mile: Yup.number().positive().required(`required`),
   data: Yup.array().of(
     Yup.object().shape({
       date: Yup.string().required(`required`),

@@ -2,6 +2,8 @@ export const MileageInitialValues = (props, fullName) => {
   const initialValues = {
     name: props?.name || fullName || "",
     week_of: props?.week_of || "",
+    price_per_mile: props?.price_per_mile || 0.56,
+
     data: [],
     // employee_signature: props?.employee_signature || "",
     // employee_signature_date: props?.employee_signature_date || "",

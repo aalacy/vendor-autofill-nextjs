@@ -4,21 +4,12 @@ import {
   ArrowForwardOutlined,
   AttachMoneyOutlined,
   Directions,
-  DirectionsOutlined,
-  Room,
 } from "@mui/icons-material";
 import {
-  Collapse,
   Divider,
-  IconButton,
-  List,
   ListItem,
-  ListItemAvatar,
-  ListItemButton,
   ListItemText,
-  Paper,
   Stack,
-  Tooltip,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -33,7 +24,7 @@ export const MileageDetailItem = ({ item }) => {
       divider={<Divider variant="inset" component="li" />}
       sx={{ borderRadius: 1, mb: 1, gap: 1, flexWrap: "wrap" }}
     >
-      <Stack direction={isNonMobile ? "row" : "column"} spacing={2}>
+      <Stack direction={isNonMobile ? "row" : "column"} spacing={isNonMobile ? 5 : 2}>
         <ListItemText
           primary={item.business_purpose}
           primaryTypographyProps={{
@@ -61,7 +52,7 @@ export const MileageDetailItem = ({ item }) => {
               <Typography>{item.to_address}</Typography>
             </Stack>
           }
-          sx={{ maxWidth: 300 }}
+          sx={{ maxWidth: isNonMobile ? "inherit" : 300 }}
         />
         <ListItemText
           primary={
