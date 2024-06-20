@@ -37,7 +37,7 @@ const PdfViewer = ({ pdfUrl }) => {
           sx={{ mb: 1 }}
         />
         <Tooltip title="Download PDF">
-          <IconButton color="primary" variant="contained" onClick={() => downloadMedia("", pdfUrl)}>
+          <IconButton color="primary" onClick={() => downloadMedia("", pdfUrl)}>
             <Download />
           </IconButton>
         </Tooltip>

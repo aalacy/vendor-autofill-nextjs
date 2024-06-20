@@ -38,11 +38,11 @@ const InvoiceView = ({
   //   setSecondaryName("W9");
   //   setGLoading(true);
   //   try {
-  //     const {
-  //       data: { result },
-  //     } = await VendorService.readW9(myVendor.vendor.id, project?.id);
-  //     setShowPDFModal(true);
-  //     setUrl(result);
+      // const {
+      //     data: { result },
+      //   } = await VendorService.readPDF(myVendor.vendor.w9);
+      //   setShowPDFModal(true);
+        setUrl(result);
   //   } catch (err) {
   //     toast.error(err.response?.data || err.message);
   //   } finally {

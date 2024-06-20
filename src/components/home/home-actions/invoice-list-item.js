@@ -12,6 +12,7 @@ import {
   Stack,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import {
   Edit,
@@ -44,13 +45,15 @@ export const InvoiceListItem = ({
   onClose,
   showEditForm,
   myVendor,
-  setShowReplace
+  setShowReplace,
 }) => {
   const { showConfirmDlg, hideConfirm, project } = useAuth();
 
   const [open, setOpen] = useState({});
 
   const queryClient = useQueryClient();
+
+  const isNonMobile = useMediaQuery((theme) => theme.breakpoints.up("md"));
 
   const handleView = async (invoice) => {
     setSecondaryName(`${invoice.key.split("/").at(-1)}`);
@@ -201,7 +204,7 @@ export const InvoiceListItem = ({
                       fontWeight="500"
                       title={invoice.key.split("/").at(-1)}
                       noWrap
-                      sx={{ flex: 1 }}
+                      sx={{ flex: isNonMobile ? 1 : 'auto' }}
                     >
                       {invoice.key.split("/").at(-1)}
                     </Typography>
@@ -214,6 +217,8 @@ export const InvoiceListItem = ({
                     spacing={1}
                     divider={<Divider orientation="vertical" light flexItem />}
                     mr={9}
+                    useFlexGap
+                    flexWrap="wrap"
                   >
                     <Typography variant="subtitle2">
                       Received: {beautyDate(invoice.received_date)}

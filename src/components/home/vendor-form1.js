@@ -1,7 +1,15 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "yup-phone-lite";
-import { Box, Button, InputAdornment, useMediaQuery, CircularProgress, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  InputAdornment,
+  useMediaQuery,
+  CircularProgress,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Phone as PhoneIcon, Mail as MailIcon } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -14,6 +22,7 @@ import { VendorService } from "src/services";
 import { ThankYou } from "./thank-you";
 import { CheckboxField, InputField } from "../widgets";
 import { VendorMultiForm } from "./multi-form";
+import { MultiVendorFileInput } from "./multi-vendor-file-input";
 
 const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
   const { showConfirmDlg, hideConfirm } = useAuth();
@@ -98,13 +107,13 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
 
   return (
     <>
-      <Modal size="sm" open={show} onClose={handleClose} title="Add Vendor">
+      <Modal size="sm" open={show} onClose={handleClose} title={`${vendor ? 'Update' : 'Add'} Vendor`}>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ isSubmitting, values, setFieldValue }) => (
+          {({ isSubmitting, values, setFieldValue, errors }) => (
             <Form id="vendor-form">
               <Box
                 display="grid"
@@ -156,7 +165,19 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                   sx={{ gridColumn: "span 2" }}
                   fullWidth
                 />
-                <InputField name="w9" label="W9" sx={{ gridColumn: "span 4" }} fullWidth />
+              
+                  <MultiVendorFileInput
+                    showDownload
+                    setFieldValue={setFieldValue}
+                    name="w9"
+                    value={values.w9}
+                    vendor_name={values.name}
+                    error={errors.w9}
+                    sx={{
+                      gridColumn: "span 4",
+                    }}
+                    label="W9"
+                  />
                 <InputField
                   name="website"
                   label="Website"

@@ -24,7 +24,7 @@ import { ContractOptions, ContractTypes, DepartmentType } from "src/utils/consta
 
 export const ContactAddForm = ({ contact, handleUpdate, submitForm, onClose }) => {
   const isMounted = useMounted();
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery((theme) => theme.breakpoints.up("md"));
   const phoneRegExp =
     /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
   const handleFormSubmit = async (values, helpers) => {

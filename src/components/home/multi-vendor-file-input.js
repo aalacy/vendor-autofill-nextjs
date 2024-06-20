@@ -1,18 +1,22 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 
 import { VendorService } from "src/services";
 import { FileInputField } from "../widgets/file-input-field";
 import { useAuth } from "src/hooks/use-auth";
+import { Download } from "@mui/icons-material";
+import { downloadMedia } from "src/utils";
 
 export const MultiVendorFileInput = ({
+  label,
   vendor_name,
   name,
   setFieldValue,
   value,
   error,
   disabled,
+  showDownload,
   ...rest
 }) => {
   const [loading, setLoading] = useState(false);
@@ -59,8 +63,30 @@ export const MultiVendorFileInput = ({
     return vendor_name?.length > 0;
   }, [vendor_name]);
 
+  const downloadFile = useCallback(async () => {
+    try {
+      const {
+        data: { result },
+      } = await VendorService.readPDF(value);
+      downloadMedia("", result);
+    } catch (error) {
+      toast.error(err.response?.data || err.message);
+    }
+  }, [value]);
+
   return (
     <Box {...rest}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        {label && <Typography variant="subtitle2">{label}</Typography>}
+        {showDownload && (
+          <Tooltip title="Download File">
+            <IconButton onClick={downloadFile} color="primary" sx={{ ml: "auto" }}>
+              <Download />
+            </IconButton>
+          </Tooltip>
+        )}
+      </Stack>
+
       <FileInputField
         setFiles={setFiles}
         files={files}
