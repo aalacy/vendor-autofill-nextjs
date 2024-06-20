@@ -24,13 +24,7 @@ export const AccountPerson = ({ show, setShow }) => {
       setUser(data.result.user);
       toast.success(data.detail);
     } catch (err) {
-      console.error(err);
-
-      helpers.setStatus({ success: false });
-      helpers.setErrors({
-        submit: err?.response?.data?.message || err.message,
-      });
-      helpers.setSubmitting(false);
+      toast.error(err?.response?.data || err.message);
     }
   };
 

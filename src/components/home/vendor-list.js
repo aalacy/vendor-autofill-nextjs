@@ -13,7 +13,6 @@ import {
   EmailOutlined as EmailIcon,
   DeleteOutline as DeleteIcon,
   Refresh,
-  Download,
 } from "@mui/icons-material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -31,10 +30,10 @@ import { Modal } from "../common/modal";
 const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 import { ThankYou } from "./thank-you";
 const ManageCOI = dynamic(() => import("./home-actions/coi"), { ssr: false });
-const ManageInvoice = dynamic(() => import("./home-actions/invoice"), { ssr: false });
 const InvoiceView = dynamic(() => import("./home-actions/invoice-view"), { ssr: false });
 import { useAuth } from "src/hooks/use-auth";
-import { downloadMedia } from "src/utils";
+import InvoiceQuoteForm from "./invoice-quote-form";
+const PaymentTypeForm = dynamic(() => import("./home-actions/payment-type-form"), { ssr: false });
 
 const ReportRenderToolbar = () => {
   return (
@@ -49,11 +48,11 @@ const Footer = () => <></>;
 export const VendorList = ({ isLoading, vendors }) => {
   const [gLoading, setGLoading] = useState(false);
   const [showCOI, setShowCOI] = useState(false);
-  const [showInvoice, setShowInvoice] = useState(false);
+  const [showInvoiceQuoteForm, setShowInvoiceQuoteForm] = useState(false);
   const [pdfUrl, setUrl] = useState("");
   const [vendorKey, setVendorKey] = useState("");
   const [myVendor, setMyVendor] = useState("");
-  const [invoice, setInvoice] = useState("");
+  const [secondaryName, setSecondaryName] = useState("");
   const [showPDFModal, setShowPDFModal] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [canSendEmail, setCanSendEmail] = useState(false);
@@ -61,6 +60,8 @@ export const VendorList = ({ isLoading, vendors }) => {
   const [subTitle, setSubTitle] = useState("");
   const [title, setTitle] = useState("");
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
+  const [curInvoice, setCurInvoice] = useState();
+  const [showPaymentType, setShowPaymentType] = useState(false);
 
   const apiRef = useGridApiRef(null);
 
@@ -77,7 +78,7 @@ export const VendorList = ({ isLoading, vendors }) => {
     if (!project) {
       return toast.error("Please add a project.");
     }
-    setInvoice(form.title);
+    setSecondaryName(form.title);
     setMyVendor(myVendor);
     setGLoading(true);
     setCanSendEmail(true);
@@ -102,38 +103,20 @@ export const VendorList = ({ isLoading, vendors }) => {
     }
   };
 
-  const handleW9 = async (myVendor) => {
-    setInvoice("W9");
+  const handleInvoice = async (myVendor) => {
     setMyVendor(myVendor);
-    setGLoading(true);
-    try {
-      const {
-        data: { result },
-      } = await VendorService.readW9(myVendor.vendor.id, project?.id);
-      setShowPDFModal(true);
-      setUrl(result);
-    } catch (err) {
-      toast.error(err.response?.data || err.message);
-    } finally {
-      setGLoading(false);
+    setSecondaryName("Orders");
+    if (myVendor.invoices.length > 0) {
+      setShowInvoiceModal(true);
+    } else {
+      setCurInvoice(null);
+      setShowInvoiceQuoteForm(true);
     }
   };
 
-  const handleInvoice = async (myVendor, invoices) => {
-    setMyVendor(myVendor);
-    setInvoice("Invoices");
-    if (invoices.length > 0) {
-      try {
-        await VendorService.readInvoices(myVendor.id);
-        setShowInvoiceModal(true);
-      } catch (error) {
-        toast.error(err.response?.data || err.message);
-      } finally {
-        setGLoading(false);
-      }
-    } else {
-      setShowInvoice(true);
-    }
+  const handlePaymentType = (row) => {
+    setMyVendor(row);
+    setShowPaymentType(true);
   };
 
   const formik = useFormik({
@@ -141,7 +124,7 @@ export const VendorList = ({ isLoading, vendors }) => {
     onSubmit: async (values) => {
       setGLoading(true);
       try {
-        await VendorService.sendEmail(myVendor.vendor.id, vendorKey, values.email, invoice);
+        await VendorService.sendEmail(myVendor.vendor.id, vendorKey, values.email, secondaryName);
         setShowThankyou(true);
       } catch (error) {
         toast.error(err.response?.data || err.message);
@@ -159,7 +142,7 @@ export const VendorList = ({ isLoading, vendors }) => {
 
   const handleCOI = async (myVendor) => {
     setMyVendor(myVendor);
-    setInvoice("COI");
+    setSecondaryName("COI");
     if (myVendor.coi) {
       try {
         const {
@@ -178,11 +161,7 @@ export const VendorList = ({ isLoading, vendors }) => {
     }
   };
 
-  const invoices = useMemo(() => {
-    return myVendor.invoices;
-  }, [myVendor]);
-
-  const topActions = useMemo(() => {
+  const topCOIActions = useMemo(() => {
     const handleReplaceCOI = () => {
       setTitle(`Replace COI for ${myVendor.vendor.name}`);
       setShowCOI(true);
@@ -267,7 +246,12 @@ export const VendorList = ({ isLoading, vendors }) => {
         <ClientDataGrid
           loading={isLoading}
           data={vendors || []}
-          columns={VendorsColumns({ handleGeneratePDF, handleW9, handleCOI, handleInvoice })}
+          columns={VendorsColumns({
+            handleGeneratePDF,
+            handleCOI,
+            handleInvoice,
+            handlePaymentType,
+          })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
           setRowSelectionModel={setRowSelectionModel}
@@ -286,12 +270,12 @@ export const VendorList = ({ isLoading, vendors }) => {
       {/* PDF Modal */}
       {showPDFModal && (
         <Modal
-          title={`${myVendor.vendor?.name} - ${invoice || ""}`}
+          title={`${myVendor.vendor?.name} - ${secondaryName || ""}`}
           subTitle={subTitle}
           open={true}
           onClose={() => setShowPDFModal(false)}
           size="md"
-          topActions={invoice === "COI" ? topActions : null}
+          topActions={secondaryName === "COI" ? topCOIActions : null}
         >
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <form onSubmit={formik.handleSubmit}>
@@ -328,15 +312,6 @@ export const VendorList = ({ isLoading, vendors }) => {
                 </Button>
               </Box>
             </form>
-            <Tooltip title="Download PDF">
-              <IconButton
-                color="primary"
-                variant="contained"
-                onClick={() => downloadMedia(`${myVendor.vendor?.name} - ${invoice || ""}`, pdfUrl)}
-              >
-                <Download />
-              </IconButton>
-            </Tooltip>
           </Stack>
           <PdfViewer pdfUrl={pdfUrl} />
         </Modal>
@@ -359,13 +334,16 @@ export const VendorList = ({ isLoading, vendors }) => {
       {showCOI && <ManageCOI title={title} myVendor={myVendor} open={true} setOpen={setShowCOI} />}
 
       {/* Manage Invoice Modal */}
-      {showInvoice && (
-        <ManageInvoice
-          title={`Upload Invoices for ${myVendor.vendor?.name}`}
+      {showInvoiceQuoteForm && (
+        <InvoiceQuoteForm
+          show={true}
           myVendor={myVendor}
-          maxFileLimit={10 - (myVendor.invoices?.length || 0)}
-          open={true}
-          onClose={() => setShowInvoice(false)}
+          onClose={() => {
+            setShowInvoiceQuoteForm(false);
+            setCurInvoice(null);
+          }}
+          onModalClose={() => setShowInvoiceModal(false)}
+          invoice={curInvoice}
         />
       )}
 
@@ -375,14 +353,23 @@ export const VendorList = ({ isLoading, vendors }) => {
           open={true}
           onClose={() => setShowInvoiceModal(false)}
           myVendor={myVendor}
-          invoices={invoices}
           setShowPDFModal={setShowPDFModal}
-          setInvoice={setInvoice}
+          setSecondaryName={setSecondaryName}
+          setShowInvoiceQuoteForm={setShowInvoiceQuoteForm}
+          curInvoice={curInvoice}
+          setCurInvoice={setCurInvoice}
           setUrl={setUrl}
           setGLoading={setGLoading}
-          showInvoice={showInvoice}
-          setShowInvoice={setShowInvoice}
           setSubTitle={setSubTitle}
+        />
+      )}
+
+      {/* Payment Type */}
+      {showPaymentType && (
+        <PaymentTypeForm
+          show={true}
+          onClose={() => setShowPaymentType(false)}
+          myVendor={myVendor}
         />
       )}
     </>

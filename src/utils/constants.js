@@ -242,3 +242,46 @@ export const CARD_TYPES = [
     label: "Other",
   },
 ];
+
+export const ORDER_TYPES = [
+  {
+    value: "Invoice",
+    label: "Invoice",
+  },
+  {
+    value: "Quote",
+    label: "Quote",
+  },
+  {
+    value: "Placeholder",
+    label: "Placeholder",
+  },
+];
+
+// ACH/Wire, Deposit Check, Petty Cash, Credit Card, Will Bill, Addtl.
+export const PAYMENT_TYPES = [
+  {
+    value: "ACH/Wire",
+    label: "ACH/Wire",
+  },
+  {
+    value: "Deposit Check",
+    label: "Deposit Check",
+  },
+  {
+    value: "Petty Cash",
+    label: "Petty Cash",
+  },
+  {
+    value: "Credit Card",
+    label: "Credit Card",
+  },
+  {
+    value: "Will Bill",
+    label: "Will Bill",
+  },
+  {
+    value: "Addtl",
+    label: "Addtl",
+  }
+];

@@ -31,7 +31,7 @@ export const VendorMultiForm = (props) => {
                         </Grid>
                         <Grid item xs={12}>
                           <MultiVendorFileInput
-                            values={values}
+                            vendor_name={values.name}
                             setFieldValue={setFieldValue}
                             name={`forms.${index}.template_key`}
                             value={form.template_key}

@@ -21,15 +21,7 @@ export const AccountForm = () => {
       setUser(data.result.user);
       toast.success(data.detail);
     } catch (err) {
-      console.error(err);
-
-      if (isMounted()) {
-        helpers.setStatus({ success: false });
-        helpers.setErrors({
-          submit: err?.response?.data?.message || err.message,
-        });
-        helpers.setSubmitting(false);
-      }
+      toast.error(err?.response?.data || err.message);
     }
   };
 

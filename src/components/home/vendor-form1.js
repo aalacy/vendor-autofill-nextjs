@@ -49,13 +49,7 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
       }
       setShow(false);
     } catch (err) {
-      console.error(err);
-
-      helpers.setStatus({ success: false });
-      helpers.setErrors({
-        submit: err?.response?.data?.message || err.message,
-      });
-      helpers.setSubmitting(false);
+      toast.error(err?.response?.data || err.message);
     } finally {
       setLoading(false);
     }
@@ -172,7 +166,6 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                 <InputField
                   multiline
                   rows={3}
-                  maxRows={5}
                   name="hours"
                   label="Hours"
                   sx={{ gridColumn: "span 4" }}
@@ -181,7 +174,6 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                 <InputField
                   multiline
                   rows={2}
-                  maxRows={5}
                   name="notes"
                   label="Notes"
                   sx={{ gridColumn: "span 4" }}

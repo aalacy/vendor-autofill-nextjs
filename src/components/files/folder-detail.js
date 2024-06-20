@@ -9,13 +9,12 @@ import {
 import {
   DeleteOutline as RemoveIcon,
   DocumentScanner as PDFIcon,
-  Download as DownloadIcon,
 } from "@mui/icons-material";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 
 import { Modal } from "../common/modal";
-import { beautyDateTime, bytesToSize, downloadMedia } from "src/utils";
+import { beautyDateTime, bytesToSize } from "src/utils";
 const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 import { FileService } from "src/services";
 
@@ -36,18 +35,6 @@ const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
       const { data } = await FileService.get(_file.key);
       setUrl(data.result);
       setOpenPDF(true);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const downloadPDF = async ({ file_name, key }) => {
-    setLoading(true);
-    try {
-      const { data } = await FileService.get(key);
-      downloadMedia(file_name, data.result);
     } catch (error) {
       console.log(error);
     } finally {
@@ -76,9 +63,6 @@ const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
               />
               <IconButton color="primary" onClick={() => showPDF({ key, file_name })}>
                 {loading ? <CircularProgress /> : <PDFIcon />}
-              </IconButton>
-              <IconButton color="info" onClick={() => downloadPDF({ key, file_name })}>
-                {loading ? <CircularProgress /> : <DownloadIcon />}
               </IconButton>
               <IconButton color="error" onClick={() => handleRemove(key)}>
                 <RemoveIcon />

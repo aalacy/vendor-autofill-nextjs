@@ -42,13 +42,7 @@ export const UpdateVendor = ({ vendor, open, onClose }) => {
       toast.success(vendorData.detail);
       onClose();
     } catch (err) {
-      console.error(err);
-
-      helpers.setStatus({ success: false });
-      helpers.setErrors({
-        submit: err?.response?.data?.message || err.message,
-      });
-      helpers.setSubmitting(false);
+      toast.error(err?.response?.data || err.message);
     }
   };
 

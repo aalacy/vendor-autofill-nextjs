@@ -52,13 +52,7 @@ export const UpdateUser = ({ user, roles, open, onClose }) => {
       toast.success(userData.detail);
       onClose();
     } catch (err) {
-      console.error(err);
-
-      helpers.setStatus({ success: false });
-      helpers.setErrors({
-        submit: err?.response?.data?.message || err.message,
-      });
-      helpers.setSubmitting(false);
+      toast.error(err?.response?.data || err.message);
     }
   };
 

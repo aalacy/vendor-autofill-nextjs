@@ -39,13 +39,7 @@ export const VendorForm = ({ show, setShow, noThankYou }) => {
       }
       setShow(false);
     } catch (err) {
-      console.error(err);
-
-      helpers.setStatus({ success: false });
-      helpers.setErrors({
-        submit: err?.response?.data?.message || err.message,
-      });
-      helpers.setSubmitting(false);
+      toast.error(err?.response?.data || err.message);
     }
   };
 

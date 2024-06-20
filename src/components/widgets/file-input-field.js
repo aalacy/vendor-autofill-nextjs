@@ -6,7 +6,7 @@ import { useField } from "formik";
 import { FileInput } from "./file-input";
 
 export const FileInputField = (props) => {
-  const { maxFileLimit, onUpload, loading, files, setFiles, canUpload, children, name, disabled } =
+  const { maxFileLimit, onUpload, loading, files, setFiles, canUpload, children, name, disabled, error } =
     props;
   const [, meta] = useField(props);
 
@@ -53,7 +53,7 @@ export const FileInputField = (props) => {
         onUpload={onUpload}
         type="PDF"
         loading={loading}
-        error={!!meta.error || !canUpload}
+        error={!!meta.error || !canUpload || error}
         helperText={_renderHelperText()}
         canUpload={canUpload}
         name={name}

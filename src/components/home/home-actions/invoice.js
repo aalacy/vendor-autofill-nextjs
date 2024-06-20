@@ -1,22 +1,13 @@
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { VendorService } from "src/services";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "src/hooks/use-auth";
 import { FileInput } from "src/components/widgets/file-input";
 import { Modal } from "src/components/common/modal";
 
-const ManageInvoice = ({
-  title,
-  subTitle,
-  myVendor,
-  open,
-  maxFileLimit,
-  replaceInvoice,
-  showReplace,
-  onClose,
-}) => {
+const ManageInvoice = ({ title, subTitle, myVendor, open, maxFileLimit, onClose, invoice }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
 
@@ -24,32 +15,23 @@ const ManageInvoice = ({
 
   const queryClient = useQueryClient();
 
-  const uploadedFile = (event) => {};
-
   const onUpload = async () => {
     if (!files || files?.length < 1) return;
     setFiles([]);
     setLoading(true);
     try {
       const {
-        data: { result },
-      } = await VendorService.uploadInvoices(
-        myVendor.id,
+        data: { detail },
+      } = await VendorService.replaceInvoice(
         myVendor.vendor.name,
         project?.id,
-        files,
-        uploadedFile,
+        invoice.id,
+        files[0],
       );
-      toast.success("Successfully uploaded.");
+      toast.success(detail);
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
-      if (showReplace) {
-        await replaceInvoice(result[0]);
-      }
     } catch (err) {
-      console.log("err", err);
-      const { message } = err?.response?.data;
-      const submit = Array.isArray(message) ? err.message : message;
-      toast.error(submit);
+      toast.error(err?.response?.data || err.message);
     } finally {
       setLoading(false);
       onClose();

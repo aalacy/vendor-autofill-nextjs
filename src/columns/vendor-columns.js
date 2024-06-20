@@ -1,13 +1,13 @@
-import { IconButton, Tooltip, Badge, Typography, Stack } from "@mui/material";
+import { IconButton, Tooltip, Typography, Stack, Avatar, Button } from "@mui/material";
 import {
   DocumentScanner as ViewIcon,
   AddCircleOutline as AddIcon,
   LocalPoliceOutlined as COIIcon,
-  RequestPageOutlined as InvoiceIcon,
   VerifiedOutlined as W9Icon,
 } from "@mui/icons-material";
 
 import { currencyFormatter, sum } from "src/utils";
+import { useCallback, useMemo } from "react";
 
 const FormCell = (params) => {
   const { row, handleGeneratePDF } = params;
@@ -72,29 +72,66 @@ const COICell = (params) => {
   );
 };
 
-const InvoiceCell = (params) => {
-  const { value, row, handleInvoice } = params;
+const OrderCell = (params) => {
+  const { value, row, handleInvoice, handlePaymentType } = params;
+
+  const filteredCount = useCallback(
+    (order_type = "Invoice") => {
+      return row.invoices.filter((invoice) => invoice.order_type === order_type).length;
+    },
+    [row],
+  );
+
+  const amount = useMemo(() => {
+    return "$" + sum(row.invoices.map(({ amount }) => amount));
+  }, [row]);
 
   return (
     <Stack direction="row" alignItems="center" spacing={1}>
-      <Tooltip title="Manage Forms">
-        <span>
-          <IconButton
-            onClick={(e) => {
-              e.stopPropagation();
-              handleInvoice(row, value);
-            }}
-          >
-            {!value || value.length === 0 ? (
-              <AddIcon color="primary" />
-            ) : (
-              <Badge badgeContent={value.length} color="info" max={99}>
-                <InvoiceIcon color="primary" />
-              </Badge>
-            )}
-          </IconButton>
-        </span>
-      </Tooltip>
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleInvoice(row);
+        }}
+      >
+        {value?.length < 1 ? (
+          <AddIcon color="primary" />
+        ) : (
+          <Stack spacing={1}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Tooltip title="Invoices">
+                <Avatar sx={{ width: 24, height: 24, bgcolor: "success.main" }}>
+                  {filteredCount()}
+                </Avatar>
+              </Tooltip>
+              <Tooltip title="Payment Type">
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePaymentType(row);
+                  }}
+                  size="small"
+                  sx={{ p: 0 }}
+                >
+                  {row.payment_type || "Payment Type"}
+                </Button>
+              </Tooltip>
+            </Stack>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Tooltip title="Quotes & Placeholders">
+                <Avatar sx={{ width: 24, height: 24, bgcolor: "warning.main" }}>
+                  {filteredCount("Quote") + filteredCount("Placeholder")}
+                </Avatar>
+              </Tooltip>
+              <Tooltip title="Total Amount">
+                <Typography width={1} color="GrayText">
+                  {amount}
+                </Typography>
+              </Tooltip>
+            </Stack>
+          </Stack>
+        )}
+      </Button>
       <Typography title="Total">
         {currencyFormatter(sum(row.invoices.map((r) => r.total)))}
       </Typography>
@@ -102,18 +139,13 @@ const InvoiceCell = (params) => {
   );
 };
 
-export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleInvoice }) => {
+export const VendorsColumns = ({
+  handleGeneratePDF,
+  handleCOI,
+  handleInvoice,
+  handlePaymentType,
+}) => {
   return [
-    {
-      field: "vendor_w9",
-      headerName: "W9",
-      type: "string",
-      headerAlign: "center",
-      align: "center",
-      resizable: true,
-      width: 80,
-      renderCell: (params) => <W9Cell {...params} handleW9={handleW9} />,
-    },
     {
       field: "vendor_name",
       headerName: "Vendor Name",
@@ -126,9 +158,17 @@ export const VendorsColumns = ({ handleGeneratePDF, handleW9, handleCOI, handleI
       field: "invoices",
       headerName: "Orders",
       type: "string",
+      align: "center",
+      headerAlign: "center",
       resizable: true,
       width: 150,
-      renderCell: (params) => <InvoiceCell {...params} handleInvoice={handleInvoice} />,
+      renderCell: (params) => (
+        <OrderCell
+          {...params}
+          handleInvoice={handleInvoice}
+          handlePaymentType={handlePaymentType}
+        />
+      ),
     },
     {
       field: "coi",

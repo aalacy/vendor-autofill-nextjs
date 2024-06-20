@@ -4,6 +4,8 @@ import { Grid } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 
 export const DatePickerField = (props) => {
+  const { ...rest } = props;
+
   const [field, meta, helper] = useField(props);
   const { touched, error } = meta;
   const { setValue } = helper;
@@ -33,7 +35,7 @@ export const DatePickerField = (props) => {
   }
 
   return (
-    <Grid container>
+    <Grid container {...rest}>
       <DatePicker
         {...field}
         {...props}

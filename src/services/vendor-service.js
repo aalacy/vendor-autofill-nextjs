@@ -127,21 +127,26 @@ export class VendorService {
     return http.delete(`/vendors/delete-coi/${my_vendor_id}`);
   }
 
-  static uploadInvoices(my_vendor_id, vendor_name, job_id, files, onUploadProgress = undefined) {
+  static addUpdateInvoice(my_vendor_id, data, id) {
+    return http.post("/vendors/add-update-invoice", {
+      id,
+      my_vendor_id,
+      data,
+    });
+  }
+
+  static replaceInvoice(vendor_name, job_id, invoice_id, file) {
     let formData = new FormData();
 
-    Array.from(files).forEach((file) => {
-      formData.append("files", file);
-    });
-    formData.append("my_vendor_id", my_vendor_id);
+    formData.append("file", file);
     formData.append("vendor_name", vendor_name);
     formData.append("job_id", job_id);
+    formData.append("invoice_id", invoice_id);
 
-    return http.post("/vendors/upload-invoices", formData, {
+    return http.post("/vendors/replace-invoice", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      onUploadProgress,
     });
   }
 
@@ -149,10 +154,10 @@ export class VendorService {
     return http.post(`/vendors/get-invoices`, my_vendor_id);
   }
 
-  static addTotal2Invoice(invoice_id, total) {
-    return http.post("/vendors/add-total-to-invoice", {
+  static addTotal2Invoice(invoice_id, amount) {
+    return http.post("/vendors/add-amount-to-invoice", {
       invoice_id,
-      total,
+      amount,
     });
   }
 
@@ -182,5 +187,12 @@ export class VendorService {
 
   static convertVendor(vendor_id) {
     return http.post(`/vendors/convert-vendor`, { vendor_id });
+  }
+
+  static updatePaymentType(my_vendor_id, payment_type) {
+    return http.post("/vendors/update-payment-type", {
+      my_vendor_id,
+      payment_type,
+    });
   }
 }

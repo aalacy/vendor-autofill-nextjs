@@ -85,9 +85,7 @@ export const AvatarUpload = () => {
       toast.success("Successfully uploaded.");
       setUser({ ...user, avatar: data.result });
     } catch (err) {
-      const { message } = err?.response?.data;
-      const submit = Array.isArray(message) ? err.message : message;
-      toast.error(submit);
+      toast.error(err?.response?.data || err.message);
     } finally {
       setLoading(false);
     }
