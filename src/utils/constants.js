@@ -283,5 +283,5 @@ export const PAYMENT_TYPES = [
   {
     value: "Addtl",
     label: "Addtl",
-  }
+  },
 ];

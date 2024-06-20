@@ -6,7 +6,15 @@ import { VendorService } from "src/services";
 import { FileInputField } from "../widgets/file-input-field";
 import { useAuth } from "src/hooks/use-auth";
 
-export const MultiVendorFileInput = ({ vendor_name, name, setFieldValue, value, error, disabled, ...rest }) => {
+export const MultiVendorFileInput = ({
+  vendor_name,
+  name,
+  setFieldValue,
+  value,
+  error,
+  disabled,
+  ...rest
+}) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [template_key, setTemplateKey] = useState(value);

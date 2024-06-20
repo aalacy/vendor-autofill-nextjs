@@ -1,14 +1,7 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "yup-phone-lite";
-import {
-  Box,
-  Button,
-  InputAdornment,
-  useMediaQuery,
-  CircularProgress,
-  Stack,
-} from "@mui/material";
+import { Box, Button, InputAdornment, useMediaQuery, CircularProgress, Stack } from "@mui/material";
 import MoneyIcon from "@mui/icons-material/MonetizationOn";
 import toast from "react-hot-toast";
 import { useRef, useState } from "react";
@@ -34,7 +27,7 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) =>
   const handleClose = () => {
     formikRef.current.resetForm();
     onClose();
-  }
+  };
 
   const handleSubmit = async (values) => {
     hideConfirm();
@@ -46,7 +39,7 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) =>
       } = await VendorService.addUpdateInvoice(myVendor.id, other, invoice?.id);
       toast.success(detail);
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
-      handleClose()
+      handleClose();
       onModalClose();
     } catch (err) {
       toast.error(err?.response?.data || err.message);

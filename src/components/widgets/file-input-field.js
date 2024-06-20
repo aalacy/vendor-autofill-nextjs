@@ -6,8 +6,18 @@ import { useField } from "formik";
 import { FileInput } from "./file-input";
 
 export const FileInputField = (props) => {
-  const { maxFileLimit, onUpload, loading, files, setFiles, canUpload, children, name, disabled, error } =
-    props;
+  const {
+    maxFileLimit,
+    onUpload,
+    loading,
+    files,
+    setFiles,
+    canUpload,
+    children,
+    name,
+    disabled,
+    error,
+  } = props;
   const [, meta] = useField(props);
 
   function _renderHelperText() {

@@ -35,8 +35,10 @@ export const Modal = (props) => {
           justifyContent: "space-between",
         }}
       >
-        <Stack sx={{ ml: 2, overflow: 'auto' }}>
-          <Typography variant="h6" title={title}>{title}</Typography>
+        <Stack sx={{ ml: 2, overflow: "auto" }}>
+          <Typography variant="h6" title={title}>
+            {title}
+          </Typography>
           {subTitle && (
             <Typography variant="caption" color="GrayText">
               {subTitle}

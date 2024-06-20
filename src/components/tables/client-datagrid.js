@@ -61,7 +61,7 @@ export const ClientDataGrid = (props) => {
         loadingOverlay: TableSkeleton,
         toolbar,
       }}
-      getRowHeight={() => 'auto'}
+      getRowHeight={() => "auto"}
       rowSpacingType="border"
       slotProps={{
         toolbar: {

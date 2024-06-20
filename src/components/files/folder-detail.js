@@ -6,10 +6,7 @@ import {
   CircularProgress,
   Typography,
 } from "@mui/material";
-import {
-  DeleteOutline as RemoveIcon,
-  DocumentScanner as PDFIcon,
-} from "@mui/icons-material";
+import { DeleteOutline as RemoveIcon, DocumentScanner as PDFIcon } from "@mui/icons-material";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 
