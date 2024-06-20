@@ -58,7 +58,6 @@ export const EDataGrid = (props) => {
     getDetailPanelContent,
     enableClipboardCopy,
     initialState,
-    showQuickFilter,
   } = props;
 
   const { showConfirmDlg } = useAuth();

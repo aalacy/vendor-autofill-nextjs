@@ -1,9 +1,13 @@
-import { Typography, IconButton, Tooltip, Box, CircularProgress } from "@mui/material";
+import { Typography, IconButton, Tooltip, Box, CircularProgress, Stack } from "@mui/material";
 import {
   DeleteOutline as ClearIcon,
   EditOutlined as EditIcon,
   FileOpen as ViewIcon,
   Download as DownloadIcon,
+  AccessTime,
+  Room,
+  Directions,
+  AttachMoneyOutlined,
 } from "@mui/icons-material";
 
 import { beautyDate, formatLocalNumber, sum } from "src/utils";
@@ -131,48 +135,57 @@ export const MileagesColumns = ({
 
 export const MileageDetailColumns = [
   {
-    field: "date",
-    headerName: "Date",
-    type: "string",
-    resizable: true,
-    width: 100,
-    valueGetter: (params) => beautyDate(params.value),
-  },
-  {
-    field: "from_address",
-    headerName: "From Address",
-    type: "string",
-    resizable: true,
-    width: 200,
-  },
-  {
-    field: "to_address",
-    headerName: "To Address",
-    type: "string",
-    resizable: true,
-    width: 200,
-  },
-  {
-    field: "business_purpose",
+    field: "date_business_purpose",
     headerName: "Business Purpose",
     type: "string",
     resizable: true,
-    width: 140,
+    width: 200,
+    renderCell: (params) => (
+      <Stack spacing={1}>
+        <Typography>{params.row.business_purpose}</Typography>
+        <Stack direction="row" spacing={1}>
+          <AccessTime fontSize="small" />
+          <Typography color="GrayText" variant="subtitle2">
+            {beautyDate(params.row.date)}
+          </Typography>
+        </Stack>
+      </Stack>
+    ),
   },
   {
-    field: "number_of_miles",
+    field: "address",
+    headerName: "From-To Address",
+    type: "string",
+    resizable: true,
+    width: 250,
+    renderCell: (params) => (
+      <Stack spacing={1}>
+        <Stack direction="row" spacing={1}>
+          <Room /> <Typography>{params.row.from_address}</Typography>
+        </Stack>
+        <Stack direction="row" spacing={1}>
+          <Room />
+          <Typography>{params.row.to_address}</Typography>
+        </Stack>
+      </Stack>
+    ),
+  },
+  {
+    field: "miles",
     headerName: "# of Miles",
     type: "string",
     resizable: true,
     width: 140,
-    valueGetter: (params) => formatLocalNumber(params.value),
-  },
-  {
-    field: "mileage_reimbursement",
-    headerName: "Mileage Reimbursement($)",
-    type: "string",
-    resizable: true,
-    width: 200,
-    valueGetter: (params) => formatLocalNumber(params.value),
+    renderCell: (params) => (
+      <Stack spacing={1}>
+        <Stack direction="row" spacing={1}>
+          <Directions /> <Typography>{formatLocalNumber(params.row.number_of_miles)}</Typography>
+        </Stack>
+        <Stack direction="row" spacing={1}>
+          <AttachMoneyOutlined />
+          <Typography color="GrayText">{params.row.mileage_reimbursement}</Typography>
+        </Stack>
+      </Stack>
+    ),
   },
 ];

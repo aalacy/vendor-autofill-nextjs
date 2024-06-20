@@ -132,9 +132,11 @@ export const MileageList = ({
         handleNo={handleNo}
       />
 
-      <Modal title={`${mileage?.name}`} open={open} onClose={() => setOpen(false)} size="md">
-        <PdfViewer pdfUrl={pdfUrl} />
-      </Modal>
+      {open && (
+        <Modal title={`${mileage?.name}`} open={true} onClose={() => setOpen(false)} size="md">
+          <PdfViewer pdfUrl={pdfUrl} />
+        </Modal>
+      )}
     </>
   );
 };

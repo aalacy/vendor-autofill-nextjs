@@ -33,6 +33,7 @@ export const ClientDataGrid = (props) => {
       disableColumnFilter
       disableColumnSelector
       disableDensitySelector
+      disableRowSelectionOnClick
       loading={loading}
       pagination={hasPagination}
       rows={data || []}

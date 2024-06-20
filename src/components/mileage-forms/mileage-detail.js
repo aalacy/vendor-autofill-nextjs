@@ -1,23 +1,28 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, List, Paper, Stack, Typography } from "@mui/material";
 
-import { MileageDetailColumns } from "src/columns";
-import { ClientDataGrid } from "../tables/client-datagrid";
 import { formatLocalNumber, sum } from "src/utils";
+import { MileageDetailItem } from "./mileage-detail-item";
 
 const MileageDetailContent = ({ row }) => {
   return (
-    <Stack sx={{ py: 1, height: "100%", boxSizing: "border-box" }} direction="column">
-      <Paper sx={{ flex: 1, flexWrap: "wrap", mx: "auto", width: "99%", p: 1 }}>
+      <Box sx={{ flex: 1, flexWrap: "wrap", mx: "auto", width: "99%", p: 1, my: 1 }}>
         <Typography variant="h6" mb={1}>
-          Mileages
+          Mileages ({row.data.length})
         </Typography>
-        <ClientDataGrid
-          data={row.data.map((d, id) => ({ id, ...d })) || []}
+        <Paper>
+        <List sx={{ width: "100%", maxHeight: 300, overflow: 'auto', bgcolor: "background.toolbar" }}>
+          {row.data.map((d, id) => (
+            <MileageDetailItem key={id} item={d} />
+          ))}
+        </List>
+        </Paper>
+        {/* <ClientDataGrid
+          data={ || []}
           columns={MileageDetailColumns}
-        />
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mt: 1 }}>
+        /> */}
+        <Stack spacing={1} mt={1}>
           <Stack direction="row" mb={1} spacing={1}>
-            <Typography variant="body2" fontSize={20}>
+            <Typography variant="body1" fontSize={20}>
               <b>Total # of miles:</b>
             </Typography>
             <Typography color="#8ab4f8" fontSize={22}>
@@ -26,16 +31,15 @@ const MileageDetailContent = ({ row }) => {
             </Typography>
           </Stack>
           <Stack direction="row" spacing={1}>
-            <Typography variant="body2" fontSize={20}>
+            <Typography variant="body1" fontSize={20}>
               <b>Total Mileage Reimbursement($):</b>
             </Typography>
             <Typography color="#8ab4f8" fontSize={22}>
               {formatLocalNumber(sum(row.data.map((d) => d.mileage_reimbursement)))}
             </Typography>
           </Stack>
-        </Box>
-      </Paper>
-    </Stack>
+        </Stack>
+      </Box>
   );
 };
 
