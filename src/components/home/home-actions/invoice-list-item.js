@@ -43,6 +43,8 @@ export const InvoiceListItem = ({
   setCurInvoice,
   onClose,
   showEditForm,
+  myVendor,
+  setShowReplace
 }) => {
   const { showConfirmDlg, hideConfirm, project } = useAuth();
 
@@ -93,8 +95,8 @@ export const InvoiceListItem = ({
 
   const handleReplace = async (invoice) => {
     setUploadTitle({
-      title: `Replace Invoice for ${myVendor.vendor.name}`,
-      subTitle: "Invoice amount will remain same after replaced.",
+      title: `Replace Invoice, Quote for ${myVendor.vendor.name}`,
+      subTitle: "The amount will remain same after replaced.",
     });
     setCurInvoice(invoice);
     setMaxFileLimit(1);

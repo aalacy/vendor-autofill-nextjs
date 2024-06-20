@@ -23,7 +23,7 @@ const InvoiceView = ({
 }) => {
   const [showReplace, setShowReplace] = useState(false);
   const [uploadTitle, setUploadTitle] = useState({
-    title: `Upload Invoices for ${myVendor.vendor?.name}`,
+    title: `Upload Invoices, Quotes for ${myVendor.vendor?.name}`,
     subTitle: "",
   });
   const [maxFileLimit, setMaxFileLimit] = useState(10 - myVendor.invoices.length);
@@ -113,6 +113,8 @@ const InvoiceView = ({
             setCurInvoice={setCurInvoice}
             onClose={onClose}
             showEditForm={handleMore}
+            myVendor={myVendor}
+            setShowReplace={setShowReplace}
           />
           <InvoiceListItem
             subheader={`Quotes - (${filteredInvoices("Quote").length})`}
@@ -127,6 +129,8 @@ const InvoiceView = ({
             setCurInvoice={setCurInvoice}
             onClose={onClose}
             showEditForm={handleMore}
+            myVendor={myVendor}
+            setShowReplace={setShowReplace}
           />
           <InvoiceListItem
             subheader={`Placeholders - (${filteredInvoices("Placeholder").length})`}
@@ -141,6 +145,8 @@ const InvoiceView = ({
             setCurInvoice={setCurInvoice}
             onClose={onClose}
             showEditForm={handleMore}
+            myVendor={myVendor}
+            setShowReplace={setShowReplace}
           />
         </Stack>
       </Modal>
