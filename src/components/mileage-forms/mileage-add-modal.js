@@ -64,31 +64,31 @@ const MileageAddModal = ({ mileage, open, onClose }) => {
 
   return (
     <>
-    <Modal
-      title={`${mileage ? "Update Mileage Form" : "Add New Mileage Form"}`}
-      open={open}
-      onClose={(event, reason) => {
-        if (reason && reason === "backdropClick") return;
-        if (!isEmpty)
-          return showConfirmDlg({
-            open: true,
-            close: hideConfirm,
-            callback: () => {
-              onClose();
-              hideConfirm();
-            },
-          });
-        onClose();
-      }}
-      size="md"
-    >
-      <MileageAddForm
-        loading={loading}
-        mileage={mileage}
-        submitForm={handleSubmit}
-        setEmpty={setEmpty}
-      />
-    </Modal>
+      <Modal
+        title={`${mileage ? "Update Mileage Form" : "Add New Mileage Form"}`}
+        open={open}
+        onClose={(event, reason) => {
+          if (reason && reason === "backdropClick") return;
+          if (!isEmpty)
+            return showConfirmDlg({
+              open: true,
+              close: hideConfirm,
+              callback: () => {
+                onClose();
+                hideConfirm();
+              },
+            });
+          onClose();
+        }}
+        size="md"
+      >
+        <MileageAddForm
+          loading={loading}
+          mileage={mileage}
+          submitForm={handleSubmit}
+          setEmpty={setEmpty}
+        />
+      </Modal>
     </>
   );
 };

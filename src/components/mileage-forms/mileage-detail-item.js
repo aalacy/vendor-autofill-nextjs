@@ -5,14 +5,7 @@ import {
   AttachMoneyOutlined,
   Directions,
 } from "@mui/icons-material";
-import {
-  Divider,
-  ListItem,
-  ListItemText,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Divider, ListItem, ListItemText, Stack, Typography, useMediaQuery } from "@mui/material";
 import { beautyDate, formatLocalNumber } from "src/utils";
 
 export const MileageDetailItem = ({ item }) => {
