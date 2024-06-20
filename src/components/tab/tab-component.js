@@ -1,6 +1,5 @@
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 
@@ -16,7 +15,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ px: 3, pt: 1 }}>
+        <Box sx={{ pt: 1 }}>
           <div>{children}</div>
         </Box>
       )}

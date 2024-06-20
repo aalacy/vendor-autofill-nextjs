@@ -1,6 +1,6 @@
-export const MileageInitialValues = (props) => {
+export const MileageInitialValues = (props, fullName) => {
   const initialValues = {
-    name: props?.name || "",
+    name: props?.name || fullName || "",
     week_of: props?.week_of || "",
     data: [],
     // employee_signature: props?.employee_signature || "",

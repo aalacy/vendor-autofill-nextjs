@@ -5,8 +5,9 @@ import { MileageInitialValues } from "./FormModel/mileage-initialValues";
 import { MileageValidationSchema } from "./FormModel/mileage-validation-schema";
 import { MileageTop } from "./mileage-top";
 import { MileageMainForm } from "./mileage-main";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { formatLocalNumber, sum } from "src/utils";
+import { useAuth } from "src/hooks/use-auth";
 
 export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
   const totalValues = useCallback((data) => {
@@ -23,10 +24,16 @@ export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
     );
   }, []);
 
+  const  { user } = useAuth();
+
+  const fullName = useMemo(() => {
+    return user ? `${user.person.first_name} ${user.person.last_name}` : ""
+  }, [user])
+
   return (
     <>
       <Formik
-        initialValues={MileageInitialValues(mileage)}
+        initialValues={MileageInitialValues(mileage, fullName)}
         validationSchema={MileageValidationSchema}
         onSubmit={submitForm}
         enableReinitialize
