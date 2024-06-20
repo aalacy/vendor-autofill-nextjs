@@ -78,7 +78,7 @@ export const MultiVendorFileInput = ({
     <Box {...rest}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         {label && <Typography variant="subtitle2">{label}</Typography>}
-        {showDownload && (
+        {showDownload && value && (
           <Tooltip title="Download File">
             <IconButton onClick={downloadFile} color="primary" sx={{ ml: "auto" }}>
               <Download />

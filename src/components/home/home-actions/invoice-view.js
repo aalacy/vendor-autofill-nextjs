@@ -42,7 +42,7 @@ const InvoiceView = ({
   //     data: { result },
   //   } = await VendorService.readPDF(myVendor.vendor.w9);
   //   setShowPDFModal(true);
-  setUrl(result);
+  // setUrl(result);
   //   } catch (err) {
   //     toast.error(err.response?.data || err.message);
   //   } finally {

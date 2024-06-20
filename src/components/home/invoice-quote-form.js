@@ -116,7 +116,9 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) =>
                 />
 
                 <MultiVendorFileInput
+                  showDownload
                   setFieldValue={setFieldValue}
+                  label={values.order_type}
                   name="key"
                   value={values.key}
                   vendor_name={myVendor.vendor?.name}
