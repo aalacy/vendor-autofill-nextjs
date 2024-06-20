@@ -107,7 +107,12 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
 
   return (
     <>
-      <Modal size="sm" open={show} onClose={handleClose} title={`${vendor ? 'Update' : 'Add'} Vendor`}>
+      <Modal
+        size="sm"
+        open={show}
+        onClose={handleClose}
+        title={`${vendor ? "Update" : "Add"} Vendor`}
+      >
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -165,19 +170,19 @@ const VendorForm1 = ({ show, setShow, noThankYou, vendor }) => {
                   sx={{ gridColumn: "span 2" }}
                   fullWidth
                 />
-              
-                  <MultiVendorFileInput
-                    showDownload
-                    setFieldValue={setFieldValue}
-                    name="w9"
-                    value={values.w9}
-                    vendor_name={values.name}
-                    error={errors.w9}
-                    sx={{
-                      gridColumn: "span 4",
-                    }}
-                    label="W9"
-                  />
+
+                <MultiVendorFileInput
+                  showDownload
+                  setFieldValue={setFieldValue}
+                  name="w9"
+                  value={values.w9}
+                  vendor_name={values.name}
+                  error={errors.w9}
+                  sx={{
+                    gridColumn: "span 4",
+                  }}
+                  label="W9"
+                />
                 <InputField
                   name="website"
                   label="Website"

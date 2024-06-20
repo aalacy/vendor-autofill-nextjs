@@ -204,7 +204,7 @@ export const InvoiceListItem = ({
                       fontWeight="500"
                       title={invoice.key.split("/").at(-1)}
                       noWrap
-                      sx={{ flex: isNonMobile ? 1 : 'auto' }}
+                      sx={{ flex: isNonMobile ? 1 : "auto" }}
                     >
                       {invoice.key.split("/").at(-1)}
                     </Typography>
