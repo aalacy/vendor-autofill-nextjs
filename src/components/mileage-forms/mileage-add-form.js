@@ -24,11 +24,11 @@ export const MileageAddForm = ({ loading, submitForm, mileage, setEmpty }) => {
     );
   }, []);
 
-  const  { user } = useAuth();
+  const { user } = useAuth();
 
   const fullName = useMemo(() => {
-    return user ? `${user.person.first_name} ${user.person.last_name}` : ""
-  }, [user])
+    return user ? `${user.person.first_name} ${user.person.last_name}` : "";
+  }, [user]);
 
   return (
     <>
