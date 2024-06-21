@@ -114,10 +114,12 @@ const COICell = (params) => {
         }}
       >
         <MenuItem onClick={() => handleCOI(row)} sx={{ textTransform: "uppercase" }}>
-            <ListItemIcon><UploadOutlined color="primary"/></ListItemIcon>
-            <ListItemText>Upload</ListItemText>
-          </MenuItem>
-          <Divider />
+          <ListItemIcon>
+            <UploadOutlined color="primary" />
+          </ListItemIcon>
+          <ListItemText>Upload</ListItemText>
+        </MenuItem>
+        <Divider />
         {COI_STATUS.map(({ label, value, icon }) => (
           <MenuItem key={value} onClick={handleClose} sx={{ textTransform: "uppercase" }}>
             <ListItemIcon>{icon}</ListItemIcon>

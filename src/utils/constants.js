@@ -294,28 +294,28 @@ export const COI_STATUS_ICONS = {
   Required: <ReportProblemOutlined color="info" />,
   Attached: <LocalPoliceOutlined color="info" />,
   "Not needed": <IndeterminateCheckBoxOutlined color="info" />,
-  Pending: <PendingOutlined color="info" />
-} 
+  Pending: <PendingOutlined color="info" />,
+};
 
 export const COI_STATUS = [
   {
     label: "Required",
     value: "Required",
-    icon: COI_STATUS_ICONS.Required
-  }, 
+    icon: COI_STATUS_ICONS.Required,
+  },
   {
     label: "Attached",
     value: "Attached",
-    icon: COI_STATUS_ICONS.Attached
-  }, 
+    icon: COI_STATUS_ICONS.Attached,
+  },
   {
     label: "Not needed",
     value: "Not needed",
-    icon: COI_STATUS_ICONS["Not needed"]
-  }, 
+    icon: COI_STATUS_ICONS["Not needed"],
+  },
   {
     label: "Pending",
     value: "Pending",
-    icon: COI_STATUS_ICONS.Pending
-  }
+    icon: COI_STATUS_ICONS.Pending,
+  },
 ];

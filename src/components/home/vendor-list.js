@@ -159,7 +159,7 @@ export const VendorList = ({ isLoading, vendors }) => {
     //     setGLoading(false);
     //   }
     // } else {
-     
+
     // }
   };
 
