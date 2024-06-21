@@ -59,7 +59,7 @@ const InvoiceView = ({
           </Button>
         ) : (
           <Tooltip title=" Upload Quotes, Invoices">
-            <IconButton onClick={handleMore}>
+            <IconButton color="primary" onClick={handleMore}>
               <UploadFile />
             </IconButton>
           </Tooltip>
@@ -99,8 +99,9 @@ const InvoiceView = ({
         size="md"
         topActions={topOrdersActions}
       >
-        <Stack spacing={2} divider={<Divider variant="inset" flexItem />}>
+        <Stack spacing={2} divider={<Divider variant="inset" />}>
           <InvoiceListItem
+            vendorName={myVendor.vendor.name}
             subheader={`Invoices - (${filteredInvoices().length})`}
             items={filteredInvoices()}
             setUploadTitle={setUploadTitle}
@@ -117,6 +118,7 @@ const InvoiceView = ({
             setShowReplace={setShowReplace}
           />
           <InvoiceListItem
+            vendorName={myVendor.vendor.name}
             subheader={`Quotes - (${filteredInvoices("Quote").length})`}
             items={filteredInvoices("Quote")}
             setUploadTitle={setUploadTitle}
@@ -133,6 +135,7 @@ const InvoiceView = ({
             setShowReplace={setShowReplace}
           />
           <InvoiceListItem
+            vendorName={myVendor.vendor.name}
             subheader={`Placeholders - (${filteredInvoices("Placeholder").length})`}
             items={filteredInvoices("Placeholder")}
             setUploadTitle={setUploadTitle}

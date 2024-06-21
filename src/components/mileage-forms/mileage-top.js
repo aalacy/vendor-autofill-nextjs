@@ -1,4 +1,5 @@
-import { Grid } from "@mui/material";
+import {  MonetizationOnOutlined } from "@mui/icons-material";
+import { Grid, InputAdornment } from "@mui/material";
 import { useEffect } from "react";
 
 import { DatePickerField, InputField } from "src/components/widgets";
@@ -26,7 +27,19 @@ export const MileageTop = ({ values, setFieldValue }) => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputField name="price_per_mile" label="Price Per Mile" fullWidth size="small" />
+          <InputField
+            name="price_per_mile"
+            label="Price Per Mile"
+            fullWidth
+            size="small"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <MonetizationOnOutlined fontSize="small" />
+                </InputAdornment>
+              ),
+            }}
+          />
         </Grid>
       </Grid>
     </>

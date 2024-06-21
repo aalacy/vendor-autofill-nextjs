@@ -6,7 +6,7 @@ import {
   VerifiedOutlined as W9Icon,
 } from "@mui/icons-material";
 
-import { currencyFormatter, sum } from "src/utils";
+import { currencyFormatter, formatLocalNumber, sum } from "src/utils";
 import { useCallback, useMemo } from "react";
 
 const FormCell = (params) => {
@@ -83,7 +83,7 @@ const OrderCell = (params) => {
   );
 
   const amount = useMemo(() => {
-    return "$" + sum(row.invoices.map(({ amount }) => amount));
+    return sum(row.invoices.map(({ amount }) => amount));
   }, [row]);
 
   return (
@@ -111,7 +111,7 @@ const OrderCell = (params) => {
                     handlePaymentType(row);
                   }}
                   size="small"
-                  sx={{ p: 0 }}
+                  sx={{ p: 0, textTransform: "uppercase", whiteSpace: "nowrap" }}
                 >
                   {row.payment_type || "Payment Type"}
                 </Button>
@@ -125,7 +125,7 @@ const OrderCell = (params) => {
               </Tooltip>
               <Tooltip title="Total Amount">
                 <Typography width={1} color="GrayText">
-                  {amount}
+                  {currencyFormatter(amount)}
                 </Typography>
               </Tooltip>
             </Stack>
@@ -155,6 +155,14 @@ export const VendorsColumns = ({
       width: 200,
     },
     {
+      field: "coi",
+      headerName: "COI",
+      type: "string",
+      resizable: true,
+      width: 80,
+      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
+    },
+    {
       field: "invoices",
       headerName: "Orders",
       type: "string",
@@ -169,14 +177,6 @@ export const VendorsColumns = ({
           handlePaymentType={handlePaymentType}
         />
       ),
-    },
-    {
-      field: "coi",
-      headerName: "COI",
-      type: "string",
-      resizable: true,
-      width: 80,
-      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
     },
     {
       field: "vendor_forms",

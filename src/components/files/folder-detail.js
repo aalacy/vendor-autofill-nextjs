@@ -33,7 +33,7 @@ const FolderDetail = ({ open, setOpen, folder, removeItem }) => {
       setUrl(data.result);
       setOpenPDF(true);
     } catch (error) {
-      console.log(error);
+      toast.error(error?.response?.data || err.message);
     } finally {
       setLoading(false);
     }

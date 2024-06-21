@@ -31,7 +31,7 @@ export const MileageInitialValues = (props, fullName) => {
       from_address_place_id: "",
       to_address: "",
       to_address_place_id: "",
-      business_purpose: "",
+      business_purpose: "Errand/Supplies",
       number_of_miles: 0,
       mileage_reimbursement: 0,
     });

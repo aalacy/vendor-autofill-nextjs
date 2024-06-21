@@ -7,6 +7,7 @@ import {
   ListItemAvatar,
   ListItemButton,
   ListItemText,
+  Menu,
   Paper,
   Stack,
   Tooltip,
@@ -19,6 +20,7 @@ import {
   Refresh,
   DocumentScanner as ViewIcon,
   AttachMoneyOutlined,
+  MoreVertOutlined,
 } from "@mui/icons-material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -28,9 +30,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { VendorService } from "src/services";
 import { useAuth } from "src/hooks/use-auth";
 import { beautyDate, currencyFormatter } from "src/utils";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export const InvoiceListItem = ({
+  vendorName,
   subheader,
   items,
   setUploadTitle,
@@ -49,10 +52,20 @@ export const InvoiceListItem = ({
   const { showConfirmDlg, hideConfirm, project } = useAuth();
 
   const [open, setOpen] = useState({});
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const queryClient = useQueryClient();
 
   const isNonMobile = useMediaQuery((theme) => theme.breakpoints.up("md"));
+
+  const showMenu = Boolean(anchorEl);
+  const handleClick = (event) => {
+    if (showMenu) handleClose();
+    else setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleView = async (invoice) => {
     setSecondaryName(`${invoice.key.split("/").at(-1)}`);
@@ -64,7 +77,7 @@ export const InvoiceListItem = ({
       setShowPDFModal(true);
       setUrl(result);
     } catch (error) {
-      console.log("handleView", error);
+      toast.error(error?.response?.data || err.message);
     } finally {
       setGLoading(false);
     }
@@ -108,6 +121,94 @@ export const InvoiceListItem = ({
   const handleSummary = (invoice) =>
     setOpen((prev) => ({ ...prev, [invoice.id]: !prev[invoice.id] }));
 
+  const invoiceName = useCallback((invoice) => {
+    return `${vendorName} - Order ${invoice.order_number}`;
+  }, []);
+
+  const actionButtons = useCallback(
+    (invoice) => {
+      return (
+        <Stack direction="row" spacing={1}>
+          {invoice.amount && (
+            <Tooltip title="Edit Order">
+              <IconButton
+                onClick={() => handleEdit(invoice)}
+                size="small"
+                color="secondary"
+                edge="end"
+                aria-label="comments"
+              >
+                <Edit />
+              </IconButton>
+            </Tooltip>
+          )}
+
+          <Tooltip title="Replace Order">
+            <IconButton
+              onClick={() => handleReplace(invoice)}
+              size="small"
+              color="info"
+              edge="end"
+              aria-label="comments"
+            >
+              <Refresh />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete Order">
+            <IconButton
+              onClick={() => handleDelete(invoice.id)}
+              size="small"
+              color="error"
+              edge="end"
+              aria-label="comments"
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+      );
+    },
+    [handleDelete, handleReplace, handleEdit],
+  );
+
+  const renderActionButtons = useCallback(
+    (invoice) => {
+      return (
+        <>
+          {isNonMobile ? (
+            <>{actionButtons(invoice)}</>
+          ) : (
+            <>
+              <IconButton
+                aria-label="more"
+                color="primary"
+                id="vert-button"
+                aria-controls={showMenu ? "vert-menu" : undefined}
+                aria-expanded={showMenu ? "true" : undefined}
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                <MoreVertOutlined />
+              </IconButton>
+              <Menu
+                id="vert-menu"
+                MenuListProps={{
+                  "aria-labelledby": "vert-button",
+                }}
+                anchorEl={anchorEl}
+                open={showMenu}
+                onClose={handleClose}
+              >
+                {actionButtons(invoice)}
+              </Menu>
+            </>
+          )}
+        </>
+      );
+    },
+    [handleDelete, handleReplace, handleEdit, isNonMobile],
+  );
+
   return (
     <List
       sx={{ width: 1 }}
@@ -128,44 +229,9 @@ export const InvoiceListItem = ({
                   sx={{ mr: 1 }}
                 >{`${currencyFormatter(invoice.amount)}`}</Typography>
                 <Stack direction="row" spacing={1}>
-                  {invoice.amount && (
-                    <Tooltip title="Edit Order">
-                      <IconButton
-                        onClick={() => handleEdit(invoice)}
-                        size="small"
-                        color="secondary"
-                        edge="end"
-                        aria-label="comments"
-                      >
-                        <Edit />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-
-                  <Tooltip title="Replace Order">
-                    <IconButton
-                      onClick={() => handleReplace(invoice)}
-                      size="small"
-                      color="info"
-                      edge="end"
-                      aria-label="comments"
-                    >
-                      <Refresh />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete Order">
-                    <IconButton
-                      onClick={() => handleDelete(invoice.id)}
-                      size="small"
-                      color="error"
-                      edge="end"
-                      aria-label="comments"
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
+                  {renderActionButtons(invoice)}
                   <Tooltip title="More">
-                    <IconButton onClick={() => handleSummary(invoice)}>
+                    <IconButton color="primary" onClick={() => handleSummary(invoice)}>
                       {open[invoice.id] ? <ExpandLess /> : <ExpandMore />}
                     </IconButton>
                   </Tooltip>
@@ -201,13 +267,12 @@ export const InvoiceListItem = ({
                   >
                     <Typography
                       fontWeight="500"
-                      title={invoice.key.split("/").at(-1)}
-                      noWrap
+                      title={invoiceName(invoice).split("/").at(-1)}
                       sx={{ flex: isNonMobile ? 1 : "auto" }}
                     >
-                      {invoice.key.split("/").at(-1)}
+                      {invoiceName(invoice).split("/").at(-1)}
                     </Typography>
-                    <Typography variant="overline">order {invoice.order_number}</Typography>
+                    {/* <Typography variant="overline">order {invoice.order_number}</Typography> */}
                   </Stack>
                 }
                 secondary={

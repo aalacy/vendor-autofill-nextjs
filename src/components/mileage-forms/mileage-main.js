@@ -1,5 +1,5 @@
-import { Grid, Button, Box, Typography, Stack } from "@mui/material";
-import { RemoveCircleOutline, AddCircleOutline } from "@mui/icons-material";
+import { Grid, Button, Box, Typography, Stack, InputAdornment } from "@mui/material";
+import { RemoveCircleOutline, AddCircleOutline, MonetizationOnOutlined } from "@mui/icons-material";
 import { FieldArray } from "formik";
 import { useEffect, useMemo } from "react";
 
@@ -145,10 +145,17 @@ export const MileageMainForm = (props) => {
                         <Grid item xs={12} sm={6}>
                           <InputField
                             name={`data.${index}.mileage_reimbursement`}
-                            label={`Mileage Reimbursement $`}
+                            label={`Mileage Reimbursement`}
                             fullWidth
                             size="small"
                             inputProps={{ readOnly: true }}
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="end">
+                                  <MonetizationOnOutlined fontSize="small" />
+                                </InputAdornment>
+                              ),
+                            }}
                           />
                         </Grid>
                       </Grid>

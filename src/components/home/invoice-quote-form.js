@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "yup-phone-lite";
 import { Box, Button, InputAdornment, useMediaQuery, CircularProgress, Stack } from "@mui/material";
-import MoneyIcon from "@mui/icons-material/MonetizationOn";
+import MoneyIcon from "@mui/icons-material/MonetizationOnOutlined";
 import toast from "react-hot-toast";
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -79,7 +79,11 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) =>
     }),
     received_date: Yup.date(),
     due_date: Yup.date(),
-    order_number: Yup.string().required("Required"),
+    order_number: Yup.string().when("order_type", {
+      is: (val) => val !== "Placeholder",
+      then: (schema) => schema.required("Required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
     category: Yup.string().required("Required"),
     amount: Yup.number().positive().required("Required"),
   });
@@ -142,17 +146,26 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) =>
                 <DatePickerField
                   name="received_date"
                   label="Received Date"
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{
+                    gridColumn: "span 2",
+                    display: values.order_type === "Placeholder" ? "none" : "inherit",
+                  }}
                 />
                 <DatePickerField
                   name="due_date"
                   label="Payment Due Date"
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{
+                    gridColumn: "span 2",
+                    display: values.order_type === "Placeholder" ? "none" : "inherit",
+                  }}
                 />
                 <InputField
                   name="order_number"
                   label="Order Number*"
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{
+                    gridColumn: "span 2",
+                    display: values.order_type === "Placeholder" ? "none" : "inherit",
+                  }}
                   fullWidth
                 />
                 <InputField
@@ -173,7 +186,10 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) =>
                 <InputField
                   name="line_number"
                   label="Line Number"
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{
+                    gridColumn: "span 2",
+                    display: values.order_type === "Placeholder" ? "none" : "inherit",
+                  }}
                   fullWidth
                 />
                 <InputField

@@ -27,12 +27,13 @@ import { ClientDataGrid } from "../tables/client-datagrid";
 const VendorDetailPanelContent = dynamic(() => import("./vendor-detail"), { ssr: false });
 import LoadingOverlay from "../common/loading-overlay";
 import { Modal } from "../common/modal";
-const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 import { ThankYou } from "./thank-you";
+import { useAuth } from "src/hooks/use-auth";
+import { currencyFormatter } from "src/utils";
+const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 const ManageCOI = dynamic(() => import("./home-actions/coi"), { ssr: false });
 const InvoiceView = dynamic(() => import("./home-actions/invoice-view"), { ssr: false });
-import { useAuth } from "src/hooks/use-auth";
-import InvoiceQuoteForm from "./invoice-quote-form";
+const InvoiceQuoteForm = dynamic(() => import("./invoice-quote-form"), { ssr: false });
 const PaymentTypeForm = dynamic(() => import("./home-actions/payment-type-form"), { ssr: false });
 
 const ReportRenderToolbar = () => {
@@ -220,7 +221,7 @@ export const VendorList = ({ isLoading, vendors }) => {
   const total = useMemo(() => {
     if (!vendors) return 0;
     return vendors
-      .map(({ invoices }) => invoices.map(({ total }) => total))
+      .map(({ invoices }) => invoices.map(({ amount }) => amount))
       .flat()
       .reduce((a, c) => a + c, 0);
   }, [vendors]);
@@ -239,7 +240,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           My Vendors: &nbsp;(<small>{vendors?.length || "-"}</small>)
         </Typography>
         <Typography>
-          <b>Total:</b> ${total}
+          <b>Total:</b> {currencyFormatter(total)}
         </Typography>
       </Box>
       <div style={{ height: 550, width: "100%" }}>
