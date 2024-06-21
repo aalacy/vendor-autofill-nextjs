@@ -144,22 +144,23 @@ export const VendorList = ({ isLoading, vendors }) => {
   const handleCOI = async (myVendor) => {
     setMyVendor(myVendor);
     setSecondaryName("COI");
-    if (myVendor.coi) {
-      try {
-        const {
-          data: { result },
-        } = await VendorService.readPDF(myVendor.coi);
-        setShowPDFModal(true);
-        setUrl(result);
-      } catch (error) {
-        toast.error(err.response?.data || err.message);
-      } finally {
-        setGLoading(false);
-      }
-    } else {
-      setTitle(`Upload COI for ${myVendor.vendor?.name}`);
-      setShowCOI(true);
-    }
+    setTitle(`Upload COI for ${myVendor.vendor?.name}`);
+    setShowCOI(true);
+    // if (myVendor.coi) {
+    //   try {
+    //     const {
+    //       data: { result },
+    //     } = await VendorService.readPDF(myVendor.coi);
+    //     setShowPDFModal(true);
+    //     setUrl(result);
+    //   } catch (error) {
+    //     toast.error(error.response?.data || err.message);
+    //   } finally {
+    //     setGLoading(false);
+    //   }
+    // } else {
+     
+    // }
   };
 
   const topCOIActions = useMemo(() => {

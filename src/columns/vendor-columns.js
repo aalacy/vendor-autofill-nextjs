@@ -1,13 +1,28 @@
-import { IconButton, Tooltip, Typography, Stack, Avatar, Button } from "@mui/material";
+import {
+  IconButton,
+  Tooltip,
+  Typography,
+  Stack,
+  Avatar,
+  Button,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@mui/material";
 import {
   DocumentScanner as ViewIcon,
   AddCircleOutline as AddIcon,
   LocalPoliceOutlined as COIIcon,
   VerifiedOutlined as W9Icon,
+  Upload,
+  UploadOutlined,
 } from "@mui/icons-material";
 
 import { currencyFormatter, formatLocalNumber, sum } from "src/utils";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { COI_STATUS, COI_STATUS_ICONS } from "src/utils/constants";
 
 const FormCell = (params) => {
   const { row, handleGeneratePDF } = params;
@@ -56,19 +71,61 @@ const W9Cell = (params) => {
 const COICell = (params) => {
   const { value, row, handleCOI } = params;
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Tooltip title="Manage COI">
-      <span>
-        <IconButton
-          onClick={(e) => {
-            e.stopPropagation();
-            handleCOI(row);
-          }}
-        >
-          {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />}
-        </IconButton>
-      </span>
-    </Tooltip>
+    <>
+      <Tooltip title="Manage COI">
+        <span>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              // handleCOI(row);
+              handleClick(e);
+            }}
+            id="coi-button"
+            aria-controls={open ? "coi-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            sx={{ textTransform: "uppercase" }}
+            size="small"
+            startIcon={<>{COI_STATUS_ICONS[value.status]}</>}
+          >
+            {/* {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />} */}
+            {value.status}
+          </Button>
+        </span>
+      </Tooltip>
+      <Menu
+        id="coi-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "coi-button",
+        }}
+      >
+        <MenuItem onClick={() => handleCOI(row)} sx={{ textTransform: "uppercase" }}>
+            <ListItemIcon><UploadOutlined color="primary"/></ListItemIcon>
+            <ListItemText>Upload</ListItemText>
+          </MenuItem>
+          <Divider />
+        {COI_STATUS.map(({ label, value, icon }) => (
+          <MenuItem key={value} onClick={handleClose} sx={{ textTransform: "uppercase" }}>
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText>{label}</ListItemText>
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
   );
 };
 
@@ -158,8 +215,10 @@ export const VendorsColumns = ({
       field: "coi",
       headerName: "COI",
       type: "string",
+      align: "center",
+      headerAlign: "center",
       resizable: true,
-      width: 80,
+      width: 120,
       renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
     },
     {
