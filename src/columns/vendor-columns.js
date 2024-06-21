@@ -97,10 +97,10 @@ const COICell = (params) => {
             aria-expanded={open ? "true" : undefined}
             sx={{ textTransform: "uppercase" }}
             size="small"
-            startIcon={<>{COI_STATUS_ICONS[value.status]}</>}
+            startIcon={<>{COI_STATUS_ICONS[value?.status]}</>}
           >
             {/* {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />} */}
-            {value.status}
+            {value?.status}
           </Button>
         </span>
       </Tooltip>
