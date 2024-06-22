@@ -141,6 +141,20 @@ export const VendorList = ({ isLoading, vendors }) => {
     }),
   });
 
+  const handleCOIStatus = async (coi_id, status) => {
+    try {
+      const {
+        data: { detail },
+      } = await VendorService.updateCOI(coi_id, { status });
+      queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
+      toast.success(detail);
+    } catch (error) {
+      toast.error(error.response?.data || err.message);
+    } finally {
+      setGLoading(false);
+    }
+  };
+
   const handleCOI = async (myVendor) => {
     setMyVendor(myVendor);
     setSecondaryName("COI");
@@ -251,6 +265,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           columns={VendorsColumns({
             handleGeneratePDF,
             handleCOI,
+            handleCOIStatus,
             handleInvoice,
             handlePaymentType,
           })}

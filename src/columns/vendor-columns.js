@@ -69,7 +69,7 @@ const W9Cell = (params) => {
 };
 
 const COICell = (params) => {
-  const { value, row, handleCOI } = params;
+  const { value, row, handleCOI, handleCOIStatus } = params;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -79,6 +79,11 @@ const COICell = (params) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const changeCOIStatus = (coi, status) => {
+    handleClose();
+    if (coi && coi.status !== status) handleCOIStatus(coi.id, status);
   };
 
   return (
@@ -95,7 +100,7 @@ const COICell = (params) => {
             aria-controls={open ? "coi-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
-            sx={{ textTransform: "uppercase" }}
+            sx={{ textTransform: "uppercase", whiteSpace: "nowrap" }}
             size="small"
             startIcon={<>{COI_STATUS_ICONS[value?.status]}</>}
           >
@@ -121,7 +126,11 @@ const COICell = (params) => {
         </MenuItem>
         <Divider />
         {COI_STATUS.map(({ label, value, icon }) => (
-          <MenuItem key={value} onClick={handleClose} sx={{ textTransform: "uppercase" }}>
+          <MenuItem
+            key={value}
+            onClick={() => changeCOIStatus(row.coi, value)}
+            sx={{ textTransform: "uppercase" }}
+          >
             <ListItemIcon>{icon}</ListItemIcon>
             <ListItemText>{label}</ListItemText>
           </MenuItem>
@@ -201,6 +210,7 @@ const OrderCell = (params) => {
 export const VendorsColumns = ({
   handleGeneratePDF,
   handleCOI,
+  handleCOIStatus,
   handleInvoice,
   handlePaymentType,
 }) => {
@@ -217,17 +227,17 @@ export const VendorsColumns = ({
       field: "coi",
       headerName: "COI",
       type: "string",
-      align: "center",
-      headerAlign: "center",
       resizable: true,
+      headerAlign: "center",
       width: 120,
-      renderCell: (params) => <COICell {...params} handleCOI={handleCOI} />,
+      renderCell: (params) => (
+        <COICell {...params} handleCOI={handleCOI} handleCOIStatus={handleCOIStatus} />
+      ),
     },
     {
       field: "invoices",
       headerName: "Orders",
       type: "string",
-      align: "center",
       headerAlign: "center",
       resizable: true,
       width: 150,

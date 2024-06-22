@@ -189,10 +189,17 @@ export class VendorService {
     return http.post(`/vendors/convert-vendor`, { vendor_id });
   }
 
-  static updatePaymentType(my_vendor_id, payment_type) {
-    return http.post("/vendors/update-payment-type", {
+  static updateMyVendor(my_vendor_id, data) {
+    return http.post("/vendors/update-my-vendor", {
       my_vendor_id,
-      payment_type,
+      data,
+    });
+  }
+
+  static updateCOI(coi_id, data) {
+    return http.post("/vendors/update-coi", {
+      coi_id,
+      data,
     });
   }
 }

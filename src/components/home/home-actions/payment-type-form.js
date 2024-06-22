@@ -24,7 +24,7 @@ const PaymentTypeForm = ({ show, onClose, myVendor }) => {
     try {
       const {
         data: { detail },
-      } = await VendorService.updatePaymentType(myVendor.id, values.payment_type);
+      } = await VendorService.updateMyVendor(myVendor.id, {payment_type: values.payment_type});
       toast.success(detail);
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       onClose();
