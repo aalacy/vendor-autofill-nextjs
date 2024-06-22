@@ -135,13 +135,14 @@ export class VendorService {
     });
   }
 
-  static replaceInvoice(vendor_name, job_id, invoice_id, file) {
+  static replaceInvoice(vendor_name, job_id, invoice_id, my_vendor_id, file) {
     let formData = new FormData();
 
     formData.append("file", file);
     formData.append("vendor_name", vendor_name);
     formData.append("job_id", job_id);
     formData.append("invoice_id", invoice_id);
+    formData.append("my_vendor_id", my_vendor_id);
 
     return http.post("/vendors/replace-invoice", formData, {
       headers: {

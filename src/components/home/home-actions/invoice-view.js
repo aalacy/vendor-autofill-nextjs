@@ -10,6 +10,7 @@ import { InvoiceListItem } from "./invoice-list-item";
 
 const InvoiceView = ({
   myVendor,
+  setMyVendor,
   open,
   onClose,
   setShowInvoiceQuoteForm,
@@ -115,6 +116,7 @@ const InvoiceView = ({
             onClose={onClose}
             showEditForm={handleMore}
             myVendor={myVendor}
+            setMyVendor={setMyVendor}
             setShowReplace={setShowReplace}
           />
           <InvoiceListItem
@@ -132,6 +134,7 @@ const InvoiceView = ({
             onClose={onClose}
             showEditForm={handleMore}
             myVendor={myVendor}
+            setMyVendor={setMyVendor}
             setShowReplace={setShowReplace}
           />
           <InvoiceListItem
@@ -149,6 +152,7 @@ const InvoiceView = ({
             onClose={onClose}
             showEditForm={handleMore}
             myVendor={myVendor}
+            setMyVendor={setMyVendor}
             setShowReplace={setShowReplace}
           />
         </Stack>
@@ -159,11 +163,11 @@ const InvoiceView = ({
           title={uploadTitle.title}
           subTitle={uploadTitle.subTitle}
           myVendor={myVendor}
+          setMyVendor={setMyVendor}
           invoice={curInvoice}
           open={true}
           onClose={() => {
             setShowReplace(false);
-            onClose();
           }}
         />
       )}

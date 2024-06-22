@@ -14,7 +14,7 @@ import { CheckboxField, DatePickerField, InputField, SelectField } from "../widg
 import { ORDER_TYPES } from "src/utils/constants";
 import { MultiVendorFileInput } from "./multi-vendor-file-input";
 
-const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) => {
+const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, setMyVendor, invoice }) => {
   const { showConfirmDlg, hideConfirm, project } = useAuth();
   const queryClient = useQueryClient();
 
@@ -35,12 +35,12 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, invoice }) =>
     const { submit, ...other } = values;
     try {
       const {
-        data: { detail },
+        data: { detail, result },
       } = await VendorService.addUpdateInvoice(myVendor.id, other, invoice?.id);
       toast.success(detail);
+      setMyVendor(result)
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       handleClose();
-      onModalClose();
     } catch (err) {
       toast.error(err?.response?.data || err.message);
     } finally {

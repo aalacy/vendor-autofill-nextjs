@@ -47,6 +47,7 @@ export const InvoiceListItem = ({
   onClose,
   showEditForm,
   myVendor,
+  setMyVendor,
   setShowReplace,
 }) => {
   const { showConfirmDlg, hideConfirm, project } = useAuth();
@@ -99,8 +100,11 @@ export const InvoiceListItem = ({
             data: { detail },
           } = await VendorService.deleteInvoice(id);
           toast.success(detail);
-          onClose();
           queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
+          setMyVendor({
+            ...myVendor,
+            invoices: myVendor.invoices.filter((invoice) => invoice.id !== id),
+          });
         } catch (err) {
           toast.error(err.response?.data || err.message);
         }

@@ -355,6 +355,7 @@ export const VendorList = ({ isLoading, vendors }) => {
         <InvoiceQuoteForm
           show={true}
           myVendor={myVendor}
+          setMyVendor={setMyVendor}
           onClose={() => {
             setShowInvoiceQuoteForm(false);
             setCurInvoice(null);
@@ -370,6 +371,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           open={true}
           onClose={() => setShowInvoiceModal(false)}
           myVendor={myVendor}
+          setMyVendor={setMyVendor}
           setShowPDFModal={setShowPDFModal}
           setSecondaryName={setSecondaryName}
           setShowInvoiceQuoteForm={setShowInvoiceQuoteForm}
