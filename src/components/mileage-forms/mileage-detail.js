@@ -31,10 +31,6 @@ const MileageDetailContent = ({ row }) => {
           ))}
         </List>
       </Paper>
-      {/* <ClientDataGrid
-          data={ || []}
-          columns={MileageDetailColumns}
-        /> */}
       <Stack direction={isNonMobile ? "row" : "column"} spacing={isNonMobile ? 2 : 0} mt={1}>
         <BottomRender
           label="Total # of miles:"
