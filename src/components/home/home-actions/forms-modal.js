@@ -1,7 +1,5 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-import {
-  DocumentScanner as ViewIcon,
-} from "@mui/icons-material"
+import { DocumentScanner as ViewIcon } from "@mui/icons-material";
 
 import { Modal } from "src/components/common/modal";
 
@@ -21,10 +19,8 @@ export const FormsModal = ({ myVendor, open, onClose, handleGeneratePDF }) => {
               disablePadding
               sx={{ bgcolor: "background.paper", mb: 1, borderRadius: 2 }}
             >
-              <ListItemButton
-                onClick={() => handleGeneratePDF(myVendor, form)}
-              >
-               <ViewIcon /> <Typography ml={2}>{form.name}</Typography>
+              <ListItemButton onClick={() => handleGeneratePDF(myVendor, form)}>
+                <ViewIcon /> <Typography ml={2}>{form.name}</Typography>
               </ListItemButton>
             </ListItem>
           </>

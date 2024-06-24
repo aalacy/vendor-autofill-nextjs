@@ -167,7 +167,7 @@ export const VendorList = ({ isLoading, vendors }) => {
   const handleForms = async (myVendor) => {
     setMyVendor(myVendor);
     setShowForms(true);
-  }
+  };
 
   const topCOIActions = useMemo(() => {
     const handleReplaceCOI = () => {
@@ -385,16 +385,14 @@ export const VendorList = ({ isLoading, vendors }) => {
       )}
 
       {/* Forms */}
-      {
-        showForms && (
-          <FormsModal
-            myVendor={myVendor}
-            open={showForms}
-            onClose={() => setShowForms(false)}
-            handleGeneratePDF={handleGeneratePDF}
-          />
-        )
-      }
+      {showForms && (
+        <FormsModal
+          myVendor={myVendor}
+          open={showForms}
+          onClose={() => setShowForms(false)}
+          handleGeneratePDF={handleGeneratePDF}
+        />
+      )}
     </>
   );
 };
