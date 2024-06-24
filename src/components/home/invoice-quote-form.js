@@ -38,7 +38,7 @@ const InvoiceQuoteForm = ({ show, onClose, onModalClose, myVendor, setMyVendor, 
         data: { detail, result },
       } = await VendorService.addUpdateInvoice(myVendor.id, other, invoice?.id);
       toast.success(detail);
-      setMyVendor(result)
+      setMyVendor(result);
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       handleClose();
     } catch (err) {

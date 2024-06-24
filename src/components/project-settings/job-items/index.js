@@ -16,7 +16,7 @@ export const JobDataAccordions = ({ job }) => {
   const inputRef = useRef();
   const [editingItemId, setEditingItemId] = useState(null);
 
-  const [expanded, setExpanded] = useState(JobDataKeys.companyInfo.name);
+  const [expanded, setExpanded] = useState();
 
   const { showConfirmDlg, hideConfirm, setProjects } = useAuth();
   const queryClient = useQueryClient();

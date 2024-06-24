@@ -44,7 +44,6 @@ export const InvoiceListItem = ({
   setGLoading,
   setSubTitle,
   setCurInvoice,
-  onClose,
   showEditForm,
   myVendor,
   setMyVendor,

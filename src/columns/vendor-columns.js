@@ -10,41 +10,55 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Box,
 } from "@mui/material";
 import {
-  DocumentScanner as ViewIcon,
   AddCircleOutline as AddIcon,
-  LocalPoliceOutlined as COIIcon,
   VerifiedOutlined as W9Icon,
-  Upload,
   UploadOutlined,
 } from "@mui/icons-material";
 
-import { currencyFormatter, formatLocalNumber, sum } from "src/utils";
+import { currencyFormatter, sum } from "src/utils";
 import { useCallback, useMemo, useState } from "react";
 import { COI_STATUS, COI_STATUS_ICONS } from "src/utils/constants";
 
 const FormCell = (params) => {
-  const { row, handleGeneratePDF } = params;
+  const { row, handleForms } = params;
   return (
-    <Stack direction="row" justifyContent="center" spacing={1}>
-      {row.vendor.forms?.map((form) => (
-        <Tooltip key={form.name} title={form.title}>
-          <span>
-            <IconButton
-              color="info"
-              size="small"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleGeneratePDF(row, form);
-              }}
-            >
-              <ViewIcon />
-            </IconButton>
-          </span>
-        </Tooltip>
-      ))}
-    </Stack>
+    <Tooltip title="Show Forms">
+      <span>
+        <IconButton
+          color="info"
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleForms(row);
+          }}
+        >
+          <Avatar sx={{ width: 24, height: 24, bgcolor: "success.main" }}>
+            {row.vendor.forms.length}
+          </Avatar>
+        </IconButton>
+      </span>
+    </Tooltip>
+    // <Stack direction="row" justifyContent="center" spacing={1}>
+    //   {row.vendor.forms?.map((form) => (
+    //     <Tooltip key={form.name} title={form.title}>
+    //       <span>
+    //         <IconButton
+    //           color="info"
+    //           size="small"
+    //           onClick={(e) => {
+    //             e.stopPropagation();
+    //             handleGeneratePDF(row, form);
+    //           }}
+    //         >
+    //           <ViewIcon />
+    //         </IconButton>
+    //       </span>
+    //     </Tooltip>
+    //   ))}
+    // </Stack>
   );
 };
 
@@ -88,9 +102,9 @@ const COICell = (params) => {
 
   return (
     <>
-      <Tooltip title="Manage COI">
+      <Tooltip title={value?.status}>
         <span>
-          <Button
+          <IconButton
             onClick={(e) => {
               e.stopPropagation();
               // handleCOI(row);
@@ -100,13 +114,10 @@ const COICell = (params) => {
             aria-controls={open ? "coi-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
-            sx={{ textTransform: "uppercase", whiteSpace: "nowrap" }}
             size="small"
-            startIcon={<>{COI_STATUS_ICONS[value?.status]}</>}
           >
-            {/* {!!!value ? <AddIcon color="primary" /> : <COIIcon color="inherit" />} */}
-            {value?.status}
-          </Button>
+            {COI_STATUS_ICONS[value?.status]}
+          </IconButton>
         </span>
       </Tooltip>
       <Menu
@@ -155,60 +166,65 @@ const OrderCell = (params) => {
   }, [row]);
 
   return (
-    <Stack direction="row" alignItems="center" spacing={1}>
-      <Button
-        onClick={(e) => {
-          e.stopPropagation();
-          handleInvoice(row);
-        }}
-      >
-        {value?.length < 1 ? (
+    <Button
+      onClick={(e) => {
+        e.stopPropagation();
+        handleInvoice(row);
+      }}
+      fullWidth
+    >
+      {value?.length < 1 ? (
+        <Box width={1}>
           <AddIcon color="primary" />
-        ) : (
-          <Stack spacing={1}>
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Tooltip title="Invoices">
-                <Avatar sx={{ width: 24, height: 24, bgcolor: "success.main" }}>
-                  {filteredCount()}
-                </Avatar>
-              </Tooltip>
-              <Tooltip title="Payment Type">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePaymentType(row);
-                  }}
-                  size="small"
-                  sx={{ p: 0, textTransform: "uppercase", whiteSpace: "nowrap" }}
-                >
-                  {row.payment_type || "Payment Type"}
-                </Button>
-              </Tooltip>
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Tooltip title="Quotes & Placeholders">
-                <Avatar sx={{ width: 24, height: 24, bgcolor: "warning.main" }}>
-                  {filteredCount("Quote") + filteredCount("Placeholder")}
-                </Avatar>
-              </Tooltip>
-              <Tooltip title="Total Amount">
-                <Typography width={1} color="GrayText">
-                  {currencyFormatter(amount)}
-                </Typography>
-              </Tooltip>
-            </Stack>
+        </Box>
+      ) : (
+        <Stack direction="row" spacing={1} width={1}>
+          <Stack direction="column" alignItems="center" spacing={2}>
+            <Tooltip title="Invoices">
+              <Avatar sx={{ width: 24, height: 24, bgcolor: "success.main" }}>
+                {filteredCount()}
+              </Avatar>
+            </Tooltip>
+            <Tooltip title="Quotes & Placeholders">
+              <Avatar sx={{ width: 24, height: 24, bgcolor: "warning.main" }}>
+                {filteredCount("Quote") + filteredCount("Placeholder")}
+              </Avatar>
+            </Tooltip>
           </Stack>
-        )}
-      </Button>
-      <Typography title="Total">
-        {currencyFormatter(sum(row.invoices.map((r) => r.total)))}
-      </Typography>
-    </Stack>
+          <Stack
+            width={1}
+            direction="column"
+            alignItems="center"
+            spacing={2}
+            justifyContent="center"
+          >
+            <Tooltip title="Payment Type">
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePaymentType(row);
+                }}
+                size="small"
+                sx={{ p: 0, textTransform: "uppercase", whiteSpace: "nowrap" }}
+              >
+                {row.payment_type || "Payment Type"}
+              </Button>
+            </Tooltip>
+
+            <Tooltip title="Total Amount">
+              <Typography width={1} color="GrayText">
+                {currencyFormatter(amount)}
+              </Typography>
+            </Tooltip>
+          </Stack>
+        </Stack>
+      )}
+    </Button>
   );
 };
 
 export const VendorsColumns = ({
-  handleGeneratePDF,
+  handleForms,
   handleCOI,
   handleCOIStatus,
   handleInvoice,
@@ -228,8 +244,9 @@ export const VendorsColumns = ({
       headerName: "COI",
       type: "string",
       resizable: true,
+      align: "center",
       headerAlign: "center",
-      width: 120,
+      width: 100,
       renderCell: (params) => (
         <COICell {...params} handleCOI={handleCOI} handleCOIStatus={handleCOIStatus} />
       ),
@@ -240,7 +257,7 @@ export const VendorsColumns = ({
       type: "string",
       headerAlign: "center",
       resizable: true,
-      width: 150,
+      width: 200,
       renderCell: (params) => (
         <OrderCell
           {...params}
@@ -256,8 +273,8 @@ export const VendorsColumns = ({
       headerAlign: "center",
       align: "center",
       resizable: true,
-      width: 150,
-      renderCell: (params) => <FormCell {...params} handleGeneratePDF={handleGeneratePDF} />,
+      width: 100,
+      renderCell: (params) => <FormCell {...params} handleForms={handleForms} />,
     },
 
     // {

@@ -7,9 +7,9 @@ export default function LoadingOverlay({ open, setOpen }) {
 
   return (
     <Backdrop
-      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1000 }}
       open={open}
-      onClick={handleClose}
+      // onClick={handleClose}
     >
       <CircularProgress color="inherit" />
     </Backdrop>

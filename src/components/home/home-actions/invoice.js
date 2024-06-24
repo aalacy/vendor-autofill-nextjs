@@ -7,7 +7,16 @@ import { useAuth } from "src/hooks/use-auth";
 import { FileInput } from "src/components/widgets/file-input";
 import { Modal } from "src/components/common/modal";
 
-const ManageInvoice = ({ title, subTitle, myVendor, setMyVendor, open, maxFileLimit, onClose, invoice }) => {
+const ManageInvoice = ({
+  title,
+  subTitle,
+  myVendor,
+  setMyVendor,
+  open,
+  maxFileLimit,
+  onClose,
+  invoice,
+}) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
 

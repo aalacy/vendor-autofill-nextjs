@@ -30,6 +30,7 @@ import { Modal } from "../common/modal";
 import { ThankYou } from "./thank-you";
 import { useAuth } from "src/hooks/use-auth";
 import { currencyFormatter } from "src/utils";
+import { FormsModal } from "./home-actions/forms-modal";
 const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 const ManageCOI = dynamic(() => import("./home-actions/coi"), { ssr: false });
 const InvoiceView = dynamic(() => import("./home-actions/invoice-view"), { ssr: false });
@@ -63,6 +64,7 @@ export const VendorList = ({ isLoading, vendors }) => {
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
   const [curInvoice, setCurInvoice] = useState();
   const [showPaymentType, setShowPaymentType] = useState(false);
+  const [showForms, setShowForms] = useState(false);
 
   const apiRef = useGridApiRef(null);
 
@@ -74,35 +76,6 @@ export const VendorList = ({ isLoading, vendors }) => {
     ({ row }) => <VendorDetailPanelContent row={row.vendor} />,
     [],
   );
-
-  const handleGeneratePDF = async (myVendor, form) => {
-    if (!project) {
-      return toast.error("Please add a project.");
-    }
-    setSecondaryName(form.title);
-    setMyVendor(myVendor);
-    setGLoading(true);
-    setCanSendEmail(true);
-    try {
-      const {
-        data: {
-          result: { presigned_url, key },
-        },
-      } = await VendorService.generateFormPDF(
-        myVendor.vendor.id,
-        project?.id,
-        form.template_key,
-        form.title,
-      );
-      setShowPDFModal(true);
-      setUrl(presigned_url);
-      setVendorKey(key);
-    } catch (err) {
-      toast.error(err.response?.data || err.message);
-    } finally {
-      setGLoading(false);
-    }
-  };
 
   const handleInvoice = async (myVendor) => {
     setMyVendor(myVendor);
@@ -160,22 +133,41 @@ export const VendorList = ({ isLoading, vendors }) => {
     setSecondaryName("COI");
     setTitle(`Upload COI for ${myVendor.vendor?.name}`);
     setShowCOI(true);
-    // if (myVendor.coi) {
-    //   try {
-    //     const {
-    //       data: { result },
-    //     } = await VendorService.readPDF(myVendor.coi);
-    //     setShowPDFModal(true);
-    //     setUrl(result);
-    //   } catch (error) {
-    //     toast.error(error.response?.data || err.message);
-    //   } finally {
-    //     setGLoading(false);
-    //   }
-    // } else {
-
-    // }
   };
+
+  const handleGeneratePDF = async (myVendor, form) => {
+    if (!project) {
+      return toast.error("Please add a project.");
+    }
+    setSecondaryName(form.title);
+    setMyVendor(myVendor);
+    setGLoading(true);
+    setCanSendEmail(true);
+    try {
+      const {
+        data: {
+          result: { presigned_url, key },
+        },
+      } = await VendorService.generateFormPDF(
+        myVendor.vendor.id,
+        project?.id,
+        form.template_key,
+        form.title,
+      );
+      setShowPDFModal(true);
+      setUrl(presigned_url);
+      setVendorKey(key);
+    } catch (err) {
+      toast.error(err.response?.data || err.message);
+    } finally {
+      setGLoading(false);
+    }
+  };
+
+  const handleForms = async (myVendor) => {
+    setMyVendor(myVendor);
+    setShowForms(true);
+  }
 
   const topCOIActions = useMemo(() => {
     const handleReplaceCOI = () => {
@@ -263,7 +255,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           loading={isLoading}
           data={vendors || []}
           columns={VendorsColumns({
-            handleGeneratePDF,
+            handleForms,
             handleCOI,
             handleCOIStatus,
             handleInvoice,
@@ -391,6 +383,18 @@ export const VendorList = ({ isLoading, vendors }) => {
           myVendor={myVendor}
         />
       )}
+
+      {/* Forms */}
+      {
+        showForms && (
+          <FormsModal
+            myVendor={myVendor}
+            open={showForms}
+            onClose={() => setShowForms(false)}
+            handleGeneratePDF={handleGeneratePDF}
+          />
+        )
+      }
     </>
   );
 };
