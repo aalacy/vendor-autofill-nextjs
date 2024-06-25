@@ -24,7 +24,7 @@ import { useState } from "react";
 
 import { useAuth } from "src/hooks/use-auth";
 import { Layout as AuthLayout } from "src/layouts/auth/layout";
-import { TOC } from "./toc";
+import { TOC } from "src/components/toc";
 
 const handleMouseDownPassword = (event) => {
   event.preventDefault();
