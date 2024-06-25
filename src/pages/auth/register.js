@@ -257,7 +257,9 @@ const Page = () => {
                   label={
                     <Stack direction="row" alignItems="center">
                       <Typography>I agree.</Typography>
-                      <Button onClick={() => setShowTOC(true)} variant="text">Terms & Conditions</Button>
+                      <Button onClick={() => setShowTOC(true)} variant="text">
+                        Terms & Conditions
+                      </Button>
                     </Stack>
                   }
                 />
