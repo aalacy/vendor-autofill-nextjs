@@ -31,25 +31,16 @@ const InvoiceView = ({
 
   const responsive = useMediaQuery((theme) => theme.breakpoints.up("md"));
 
-  const handleMore = () => {
+  const showQuoteInvoiceForm = () => {
     setShowInvoiceQuoteForm(true);
   };
 
-  // const handleW9 = async () => {
-  //   setSecondaryName("W9");
-  //   setGLoading(true);
-  //   try {
-  // const {
-  //     data: { result },
-  //   } = await VendorService.readPDF(myVendor.vendor.w9);
-  //   setShowPDFModal(true);
-  // setUrl(result);
-  //   } catch (err) {
-  //     toast.error(err.response?.data || err.message);
-  //   } finally {
-  //     setGLoading(false);
-  //   }
-  // };
+
+  const handleMore = () => {
+    setCurInvoice(null);
+    showQuoteInvoiceForm();
+  };
+
 
   const topOrdersActions = useMemo(() => {
     return (
@@ -65,20 +56,6 @@ const InvoiceView = ({
             </IconButton>
           </Tooltip>
         )}
-
-        {/* <Tooltip title={myVendor.vendor.w9 ? "Show" : "Empty"}>
-          <span>
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                handleW9(myVendor);
-              }}
-              disabled={!!!myVendor.vendor.w9}
-            >
-              <W9Icon color={myVendor.vendor.w9 ? "primary" : "inherit"} />
-            </IconButton>
-          </span>
-        </Tooltip> */}
       </>
     );
   }, []);
@@ -114,7 +91,7 @@ const InvoiceView = ({
             setSubTitle={setSubTitle}
             setCurInvoice={setCurInvoice}
             onClose={onClose}
-            showEditForm={handleMore}
+            showEditForm={showQuoteInvoiceForm}
             myVendor={myVendor}
             setMyVendor={setMyVendor}
             setShowReplace={setShowReplace}
@@ -132,7 +109,7 @@ const InvoiceView = ({
             setSubTitle={setSubTitle}
             setCurInvoice={setCurInvoice}
             onClose={onClose}
-            showEditForm={handleMore}
+            showEditForm={showQuoteInvoiceForm}
             myVendor={myVendor}
             setMyVendor={setMyVendor}
             setShowReplace={setShowReplace}
@@ -150,7 +127,7 @@ const InvoiceView = ({
             setSubTitle={setSubTitle}
             setCurInvoice={setCurInvoice}
             onClose={onClose}
-            showEditForm={handleMore}
+            showEditForm={showQuoteInvoiceForm}
             myVendor={myVendor}
             setMyVendor={setMyVendor}
             setShowReplace={setShowReplace}

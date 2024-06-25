@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import {
   AddCircleOutline as AddIcon,
-  VerifiedOutlined as W9Icon,
   UploadOutlined,
 } from "@mui/icons-material";
 
@@ -24,6 +23,14 @@ import { COI_STATUS, COI_STATUS_ICONS } from "src/utils/constants";
 
 const FormCell = (params) => {
   const { row, handleForms } = params;
+
+  const count = useMemo(() => {
+    let count = row.vendor.forms.length;
+    if (row.vendor.w9) count++;
+
+    return count;
+  }, [row])
+
   return (
     <Tooltip title="Show Forms">
       <span>
@@ -36,7 +43,7 @@ const FormCell = (params) => {
           }}
         >
           <Avatar sx={{ width: 24, height: 24, bgcolor: "success.main" }}>
-            {row.vendor.forms.length}
+            {count}
           </Avatar>
         </IconButton>
       </span>
@@ -59,26 +66,6 @@ const FormCell = (params) => {
     //     </Tooltip>
     //   ))}
     // </Stack>
-  );
-};
-
-const W9Cell = (params) => {
-  const { row, handleW9 } = params;
-
-  return (
-    <Tooltip title={row.vendor.w9 ? "Show" : "Empty"}>
-      <span>
-        <IconButton
-          onClick={(e) => {
-            e.stopPropagation();
-            handleW9(row);
-          }}
-          disabled={!!!row.vendor.w9}
-        >
-          <W9Icon color={row.vendor.w9 ? "primary" : "inherit"} />
-        </IconButton>
-      </span>
-    </Tooltip>
   );
 };
 

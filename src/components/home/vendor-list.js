@@ -135,6 +135,22 @@ export const VendorList = ({ isLoading, vendors }) => {
     setShowCOI(true);
   };
 
+  const handleW9 = async () => {
+    setSecondaryName("W9");
+    setGLoading(true);
+    try {
+      const {
+        data: { result },
+      } = await VendorService.readPDF(myVendor.vendor.w9);
+      setShowPDFModal(true);
+      setUrl(result);
+    } catch (err) {
+      toast.error(err.response?.data || err.message);
+    } finally {
+      setGLoading(false);
+    }
+  };
+
   const handleGeneratePDF = async (myVendor, form) => {
     if (!project) {
       return toast.error("Please add a project.");
@@ -391,6 +407,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           open={showForms}
           onClose={() => setShowForms(false)}
           handleGeneratePDF={handleGeneratePDF}
+          handleW9={handleW9}
         />
       )}
     </>
