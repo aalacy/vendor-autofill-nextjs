@@ -12,10 +12,7 @@ import {
   Divider,
   Box,
 } from "@mui/material";
-import {
-  AddCircleOutline as AddIcon,
-  UploadOutlined,
-} from "@mui/icons-material";
+import { AddCircleOutline as AddIcon, UploadOutlined } from "@mui/icons-material";
 
 import { currencyFormatter, sum } from "src/utils";
 import { useCallback, useMemo, useState } from "react";
@@ -29,7 +26,7 @@ const FormCell = (params) => {
     if (row.vendor.w9) count++;
 
     return count;
-  }, [row])
+  }, [row]);
 
   return (
     <Tooltip title="Show Forms">
@@ -42,9 +39,7 @@ const FormCell = (params) => {
             handleForms(row);
           }}
         >
-          <Avatar sx={{ width: 24, height: 24, bgcolor: "success.main" }}>
-            {count}
-          </Avatar>
+          <Avatar sx={{ width: 24, height: 24, bgcolor: "success.main" }}>{count}</Avatar>
         </IconButton>
       </span>
     </Tooltip>

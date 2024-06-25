@@ -14,12 +14,17 @@ import {
   InputAdornment,
   IconButton,
   useMediaQuery,
+  FormControl,
+  FormControlLabel,
+  Checkbox,
+  FormHelperText,
 } from "@mui/material";
 import { Visibility as EyeIcon, VisibilityOff as EyeOffIcon } from "@mui/icons-material";
 import { useState } from "react";
 
 import { useAuth } from "src/hooks/use-auth";
 import { Layout as AuthLayout } from "src/layouts/auth/layout";
+import { TOC } from "./toc";
 
 const handleMouseDownPassword = (event) => {
   event.preventDefault();
@@ -37,6 +42,7 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword1, setShowPassword1] = useState(false);
+  const [showTOC, setShowTOC] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
@@ -50,6 +56,7 @@ const Page = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      toc: false,
       submit: null,
     },
     validationSchema: Yup.object({
@@ -65,12 +72,13 @@ const Page = () => {
       confirmPassword: Yup.string()
         .required("Please confirm your password")
         .oneOf([Yup.ref("password")], "Passwords do not match"),
+      toc: Yup.bool().oneOf([true], "Required"),
     }),
     onSubmit: async (values, helpers) => {
       try {
         setLoading(true);
 
-        const { confirmPassword, ...other } = values;
+        const { confirmPassword, toc, ...other } = values;
         await auth.signUp(other);
         router.push("/");
       } catch (err) {
@@ -234,6 +242,27 @@ const Page = () => {
                 }}
                 sx={{ gridColumn: "span 2" }}
               />
+              <FormControl
+                error={Boolean(formik.touched.toc && formik.errors.toc)}
+                sx={{ gridColumn: "span 4" }}
+              >
+                <FormControlLabel
+                  checked={formik.values.toc}
+                  control={
+                    <Checkbox
+                      name="toc"
+                      onChange={(e) => formik.setFieldValue("toc", e.target.checked)}
+                    />
+                  }
+                  label={
+                    <Stack direction="row" alignItems="center">
+                      <Typography>I agree.</Typography>
+                      <Button onClick={() => setShowTOC(true)} variant="text">Terms & Conditions</Button>
+                    </Stack>
+                  }
+                />
+                <FormHelperText>{formik.touched.toc && formik.errors.toc}</FormHelperText>
+              </FormControl>
               {formik.errors.submit && (
                 <Typography color="error" sx={{ mt: 3 }} variant="body2">
                   {formik.errors.submit}
@@ -262,6 +291,9 @@ const Page = () => {
           </form>
         </Box>
       </Box>
+
+      {/* Terms & Conditions */}
+      {showTOC && <TOC show={showTOC} onClose={() => setShowTOC(false)} />}
     </>
   );
 };

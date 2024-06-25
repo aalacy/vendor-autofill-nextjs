@@ -35,12 +35,10 @@ const InvoiceView = ({
     setShowInvoiceQuoteForm(true);
   };
 
-
   const handleMore = () => {
     setCurInvoice(null);
     showQuoteInvoiceForm();
   };
-
 
   const topOrdersActions = useMemo(() => {
     return (
