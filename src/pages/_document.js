@@ -30,6 +30,8 @@ class CustomDocument extends Document {
         <Head>
           <Favicon />
           {/* <Fonts /> */}
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3738992493955627"
+     crossorigin="anonymous"></script>
         </Head>
         <body>
           <Main />
