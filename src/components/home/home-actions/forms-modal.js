@@ -21,7 +21,7 @@ export const FormsModal = ({ myVendor, open, onClose, handleGeneratePDF, handleP
             display: myVendor.vendor.w9 ? "flex" : "none",
           }}
         >
-          <ListItemButton onClick={() => handlePDF('W9', myVendor.vendor.w9)}>
+          <ListItemButton onClick={() => handlePDF("W9", myVendor.vendor.w9)}>
             <W9Icon /> <Typography ml={2}>W9</Typography>
           </ListItemButton>
         </ListItem>

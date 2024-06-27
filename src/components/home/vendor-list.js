@@ -199,7 +199,7 @@ export const VendorList = ({ isLoading, vendors }) => {
         callback: async () => {
           hideConfirm();
           try {
-            setGLoading(true)
+            setGLoading(true);
             const {
               data: { detail },
             } = await VendorService.deletePdf(myVendor.coi.key);
@@ -210,7 +210,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           } catch (err) {
             toast.error(err.response?.data || err.message);
           } finally {
-            setGLoading(false)
+            setGLoading(false);
           }
         },
       });
@@ -280,7 +280,7 @@ export const VendorList = ({ isLoading, vendors }) => {
             handleInvoice,
             handlePaymentType,
             handlePDF,
-            setMyVendor
+            setMyVendor,
           })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
