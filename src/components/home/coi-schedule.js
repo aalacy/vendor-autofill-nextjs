@@ -104,7 +104,7 @@ export default ({ vendors, onClose }) => {
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       onClose();
     } catch (err) {
-      console.log('err', err)
+      console.log("err", err);
       toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);

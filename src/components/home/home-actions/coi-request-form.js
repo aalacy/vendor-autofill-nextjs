@@ -33,29 +33,29 @@ export const COIRequestForm = ({ setGLoading, callback }) => {
       {() => (
         <Form>
           <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            gap: 2,
-            mb: 2,
-          }}
-        >
-          <InputField
-            name="email"
-            label="Email"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailIcon />
-                </InputAdornment>
-              ),
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: 2,
+              mb: 2,
             }}
-          />
-          <Button size="small" type="submit" variant="contained">
-            Send
-          </Button>
-        </Box>
+          >
+            <InputField
+              name="email"
+              label="Email"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EmailIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button size="small" type="submit" variant="contained">
+              Send
+            </Button>
+          </Box>
         </Form>
       )}
     </Formik>

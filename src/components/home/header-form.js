@@ -54,11 +54,7 @@ export const HeaderForm = ({ vendors }) => {
       </Box>
 
       {showTemplate && (
-        <Modal
-          title={`Select Vendors (${templates.length})`}
-          open={true}
-          onClose={onCloseTemplate}
-        >
+        <Modal title={`Select Vendors (${templates.length})`} open={true} onClose={onCloseTemplate}>
           <TemplateList vendors={vendors} templates={templates} onClose={onCloseTemplate} />
         </Modal>
       )}
