@@ -33,6 +33,7 @@ const ManageCOI = ({ title, myVendor, open, setOpen }) => {
       await VendorService.uploadCOI(
         myVendor.id,
         myVendor.vendor.name,
+        myVendor.coi_id,
         project?.id,
         files[0],
         uploadedFile,

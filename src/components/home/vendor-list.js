@@ -135,13 +135,13 @@ export const VendorList = ({ isLoading, vendors }) => {
     setShowCOI(true);
   };
 
-  const handleW9 = async () => {
-    setSecondaryName("W9");
+  const handlePDF = async (name, key) => {
+    setSecondaryName(name);
     setGLoading(true);
     try {
       const {
         data: { result },
-      } = await VendorService.readPDF(myVendor.vendor.w9);
+      } = await VendorService.readPDF(key);
       setShowPDFModal(true);
       setUrl(result);
     } catch (err) {
@@ -199,15 +199,18 @@ export const VendorList = ({ isLoading, vendors }) => {
         callback: async () => {
           hideConfirm();
           try {
+            setGLoading(true)
             const {
               data: { detail },
-            } = await VendorService.deleteCOI(myVendor.id);
+            } = await VendorService.deletePdf(myVendor.coi.key);
             queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
 
             setShowPDFModal(false);
             toast.success(detail);
           } catch (err) {
             toast.error(err.response?.data || err.message);
+          } finally {
+            setGLoading(false)
           }
         },
       });
@@ -276,6 +279,8 @@ export const VendorList = ({ isLoading, vendors }) => {
             handleCOIStatus,
             handleInvoice,
             handlePaymentType,
+            handlePDF,
+            setMyVendor
           })}
           getDetailPanelContent={getDetailPanelContent}
           rowSelectionModel={rowSelectionModel}
@@ -291,7 +296,6 @@ export const VendorList = ({ isLoading, vendors }) => {
 
       {/* Loading Overlay */}
       <LoadingOverlay setOpen={setGLoading} open={gLoading || isLoading} />
-
       {/* PDF Modal */}
       {showPDFModal && (
         <Modal
@@ -407,7 +411,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           open={showForms}
           onClose={() => setShowForms(false)}
           handleGeneratePDF={handleGeneratePDF}
-          handleW9={handleW9}
+          handlePDF={handlePDF}
         />
       )}
     </>

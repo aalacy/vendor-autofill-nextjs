@@ -2,6 +2,7 @@ import {
   ApartmentOutlined,
   BusinessCenterOutlined,
   CallOutlined,
+  HourglassEmptyOutlined,
   IndeterminateCheckBoxOutlined,
   LocalAirportOutlined,
   LocalPoliceOutlined,
@@ -290,32 +291,35 @@ export const PAYMENT_TYPES = [
   },
 ];
 
+// COI Status label
+export const REQUIRED = "Required";
+export const ATTACHED = "Attached";
+export const NOT_NEEDED = "Not needed";
+export const PENDING = "Pending";
+export const QUEUED = "Queued";
+
 export const COI_STATUS_ICONS = {
-  Required: <ReportProblemOutlined color="info" />,
-  Attached: <LocalPoliceOutlined color="info" />,
-  "Not needed": <IndeterminateCheckBoxOutlined color="info" />,
-  Pending: <PendingOutlined color="info" />,
+  [REQUIRED]: <ReportProblemOutlined color="info" />,
+  [ATTACHED]: <LocalPoliceOutlined color="info" />,
+  [NOT_NEEDED]: <IndeterminateCheckBoxOutlined color="info" />,
+  [PENDING]: <PendingOutlined color="info" />,
+  [QUEUED]: <HourglassEmptyOutlined color="info" />,
 };
 
 export const COI_STATUS = [
   {
-    label: "Required",
-    value: "Required",
-    icon: COI_STATUS_ICONS.Required,
+    label: QUEUED,
+    value: QUEUED,
+    icon: COI_STATUS_ICONS[QUEUED],
   },
-  // {
-  //   label: "Attached",
-  //   value: "Attached",
-  //   icon: COI_STATUS_ICONS.Attached,
-  // },
   {
-    label: "Not needed",
-    value: "Not needed",
-    icon: COI_STATUS_ICONS["Not needed"],
+    label: REQUIRED,
+    value: REQUIRED,
+    icon: COI_STATUS_ICONS[REQUIRED],
   },
-  // {
-  //   label: "Pending",
-  //   value: "Pending",
-  //   icon: COI_STATUS_ICONS.Pending,
-  // },
+  {
+    label: NOT_NEEDED,
+    value: NOT_NEEDED,
+    icon: COI_STATUS_ICONS[NOT_NEEDED],
+  },
 ];

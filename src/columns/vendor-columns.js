@@ -16,7 +16,7 @@ import { AddCircleOutline as AddIcon, UploadOutlined } from "@mui/icons-material
 
 import { currencyFormatter, sum } from "src/utils";
 import { useCallback, useMemo, useState } from "react";
-import { COI_STATUS, COI_STATUS_ICONS } from "src/utils/constants";
+import { ATTACHED, COI_STATUS, COI_STATUS_ICONS } from "src/utils/constants";
 
 const FormCell = (params) => {
   const { row, handleForms } = params;
@@ -65,11 +65,11 @@ const FormCell = (params) => {
 };
 
 const COICell = (params) => {
-  const { value, row, handleCOI, handleCOIStatus } = params;
+  const { value, row, handleCOI, handleCOIStatus, handlePDF, setMyVendor } = params;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -82,16 +82,22 @@ const COICell = (params) => {
     if (coi && coi.status !== status) handleCOIStatus(coi.id, status);
   };
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+    setMyVendor(row);
+    if (value?.status === ATTACHED && value) {
+      handlePDF("COI", value.key);
+    } else {
+      handleOpenMenu(e);
+    }
+  };
+
   return (
     <>
       <Tooltip title={value?.status}>
         <span>
           <IconButton
-            onClick={(e) => {
-              e.stopPropagation();
-              // handleCOI(row);
-              handleClick(e);
-            }}
+            onClick={handleClick}
             id="coi-button"
             aria-controls={open ? "coi-menu" : undefined}
             aria-haspopup="true"
@@ -211,6 +217,8 @@ export const VendorsColumns = ({
   handleCOIStatus,
   handleInvoice,
   handlePaymentType,
+  handlePDF,
+  setMyVendor,
 }) => {
   return [
     {
@@ -230,7 +238,13 @@ export const VendorsColumns = ({
       headerAlign: "center",
       width: 100,
       renderCell: (params) => (
-        <COICell {...params} handleCOI={handleCOI} handleCOIStatus={handleCOIStatus} />
+        <COICell
+          {...params}
+          handleCOI={handleCOI}
+          handleCOIStatus={handleCOIStatus}
+          handlePDF={handlePDF}
+          setMyVendor={setMyVendor}
+        />
       ),
     },
     {

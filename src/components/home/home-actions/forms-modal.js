@@ -3,7 +3,7 @@ import { DocumentScanner as ViewIcon, VerifiedOutlined as W9Icon } from "@mui/ic
 
 import { Modal } from "src/components/common/modal";
 
-export const FormsModal = ({ myVendor, open, onClose, handleGeneratePDF, handleW9 }) => {
+export const FormsModal = ({ myVendor, open, onClose, handleGeneratePDF, handlePDF }) => {
   return (
     <Modal
       title={`${myVendor.vendor?.name} - Forms (${myVendor.vendor.forms.length})`}
@@ -21,7 +21,7 @@ export const FormsModal = ({ myVendor, open, onClose, handleGeneratePDF, handleW
             display: myVendor.vendor.w9 ? "flex" : "none",
           }}
         >
-          <ListItemButton onClick={handleW9}>
+          <ListItemButton onClick={() => handlePDF('W9', myVendor.vendor.w9)}>
             <W9Icon /> <Typography ml={2}>W9</Typography>
           </ListItemButton>
         </ListItem>

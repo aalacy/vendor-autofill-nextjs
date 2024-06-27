@@ -47,7 +47,7 @@ export const MultiVendorFileInput = ({
     try {
       const {
         data: { detail },
-      } = await VendorService.deleteFormPdf(template_key);
+      } = await VendorService.deletePdf(template_key);
       setTemplateKey("");
       toast.success(detail);
     } catch (err) {

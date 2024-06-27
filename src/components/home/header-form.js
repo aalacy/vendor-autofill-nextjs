@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -6,7 +6,11 @@ import { VendorService } from "src/services";
 import { AlertJob } from "./alert-job";
 import { TemplateList } from "./template-list";
 import { Modal } from "../common/modal";
-import { AddOutlined as AddIcon } from "@mui/icons-material";
+import {
+  AddCircleOutline,
+  AddOutlined as AddIcon,
+  HourglassBottomOutlined,
+} from "@mui/icons-material";
 
 export const HeaderForm = ({ vendors }) => {
   const [openJobAlert, setOpenJobAlert] = useState(false);
@@ -36,15 +40,18 @@ export const HeaderForm = ({ vendors }) => {
         }}
       >
         <Typography variant="h5">Vendor Forms</Typography>
-        <Button
-          startIcon={<AddIcon />}
-          type="submit"
-          size="small"
-          variant="contained"
-          onClick={() => setShow(true)}
-        >
-          Add Vendor
-        </Button>
+        <Stack direction="row">
+          <Tooltip title="Manage COI Requests">
+            <IconButton color="primary">
+              <HourglassBottomOutlined />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Add Vendor">
+            <IconButton color="primary" onClick={() => setShow(true)}>
+              <AddCircleOutline />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Box>
 
       <AlertJob open={openJobAlert} onClose={() => setOpenJobAlert(false)} />

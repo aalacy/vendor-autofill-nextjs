@@ -84,13 +84,14 @@ export class VendorService {
     });
   }
 
-  static uploadCOI(my_vendor_id, vendor_name, job_id, file, onUploadProgress = undefined) {
+  static uploadCOI(my_vendor_id, vendor_name, coi_id, job_id, file, onUploadProgress = undefined) {
     let formData = new FormData();
 
     formData.append("file", file);
     formData.append("my_vendor_id", my_vendor_id);
     formData.append("vendor_name", vendor_name);
     formData.append("job_id", job_id);
+    formData.append("coi_id", coi_id);
 
     return http.post("/vendors/upload-coi", formData, {
       headers: {
@@ -115,16 +116,12 @@ export class VendorService {
     });
   }
 
-  static deleteFormPdf(key) {
-    return http.post(`/vendors/delete-form-pdf`, { key });
+  static deletePdf(key) {
+    return http.post(`/vendors/delete-pdf-with-key`, { key });
   }
 
   static readPDF(key) {
     return http.post(`/vendors/read-pdf`, key);
-  }
-
-  static deleteCOI(my_vendor_id) {
-    return http.delete(`/vendors/delete-coi/${my_vendor_id}`);
   }
 
   static addUpdateInvoice(my_vendor_id, data, id) {
