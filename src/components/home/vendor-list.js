@@ -415,7 +415,6 @@ export const VendorList = ({ isLoading, vendors }) => {
           handlePDF={handlePDF}
         />
       )}
-      
     </>
   );
 };
