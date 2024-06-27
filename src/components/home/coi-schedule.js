@@ -5,40 +5,57 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import { useEffect, useMemo, useState } from "react";
-import { Button, CircularProgress, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import {
-  Clear,
-  DocumentScanner as ViewIcon,
-  VerifiedOutlined as W9Icon,
-} from "@mui/icons-material";
+  Button,
+  CircularProgress,
+  FormControlLabel,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { Clear } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { VendorService } from "src/services";
 import { SearchBox } from "../widgets/search-box";
 import { useAuth } from "src/hooks/use-auth";
+import { QUEUED } from "src/utils/constants";
 
-export default ({ templates, vendors, onClose }) => {
+export default ({ vendors, onClose }) => {
   const [checked, setChecked] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const [items, setItems] = useState([]);
+
+  const { project } = useAuth();
 
   const queryClient = useQueryClient();
 
-  const { project, showJobForm } = useAuth();
-
   useEffect(() => {
     if (!vendors) return;
-    setChecked(vendors.map(({ vendor_id }) => vendor_id));
+
+    const _items = [];
+    for (const vendor of vendors) {
+      if (vendor.coi.status !== QUEUED) continue;
+
+      _items.push({
+        name: vendor.vendor.name,
+        address: vendor.vendor.address,
+        coi_id: vendor.coi_id,
+      });
+    }
+    setItems(_items);
   }, [vendors]);
 
-  const filteredTemplates = useMemo(() => {
-    if (!templates) return [];
-    return templates.filter(
+  const filteredItems = useMemo(() => {
+    if (!items) return [];
+    return items.filter(
       ({ name, address }) =>
         name.match(new RegExp(query, "i")) || address.match(new RegExp(query, "i")),
     );
-  }, [query, templates]);
+  }, [query, items]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -57,30 +74,20 @@ export default ({ templates, vendors, onClose }) => {
     setChecked([]);
   };
 
-  // const handleSelectAll = (event) => {
-  //   if (event.target.checked) {
-  //     setChecked(templates.map(({ id }) => id));
-  //   } else {
-  //     handleClear();
-  //   }
-  // };
+  const handleSelectAll = (event) => {
+    if (event.target.checked) {
+      setChecked(filteredItems.map(({ coi_id }) => coi_id));
+    } else {
+      handleClear();
+    }
+  };
 
   const handleSubmit = async () => {
-    if (!project?.id) {
-      toast.error("Please add your job first");
-      return showJobForm(true);
-    }
     try {
       setLoading(true);
-      const vendorIds = vendors.map(({ vendor_id }) => vendor_id);
-      const created = checked.filter((id) => !vendorIds.includes(id));
-      const removed = vendorIds.filter((x) => !checked.includes(x));
-      const removed_vendors = vendors
-        .filter(({ vendor_id }) => removed.includes(vendor_id))
-        .map(({ id }) => id);
       const {
         data: { detail },
-      } = await VendorService.addMyVendors(created, removed_vendors, project?.id);
+      } = await VendorService.requestCOI(checked);
       toast.success(detail);
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       onClose();
@@ -94,43 +101,28 @@ export default ({ templates, vendors, onClose }) => {
   return (
     <>
       <SearchBox query={query} setQuery={setQuery} />
-      {/* <FormControlLabel
+      <FormControlLabel
         label="Select All"
         control={
           <Checkbox
-            checked={checked?.length === templates?.length}
-            indeterminate={!!checked?.length && checked.length < templates?.length}
+            checked={checked.length > 0 && checked?.length === filteredItems?.length}
+            indeterminate={!!checked?.length && checked.length < filteredItems?.length}
             onChange={handleSelectAll}
           />
         }
-      /> */}
+        sx={{ mt: 2 }}
+      />
       <List sx={{ width: "100%", maxHeight: 450, overflow: "auto" }}>
-        {filteredTemplates.map(({ id, name, address, w9, forms }) => {
-          const labelId = `template-list-item-${id}`;
+        {filteredItems.map(({ coi_id, name, address }) => {
+          const labelId = `coi-request-list-item-${coi_id}`;
 
           return (
-            <ListItem
-              key={id}
-              disablePadding
-              secondaryAction={
-                <Stack direction="row" spacing={1}>
-                  <Tooltip title="W9">
-                    <W9Icon color={w9 ? "primary" : "inherit"} />
-                  </Tooltip>
-                  <Tooltip
-                    title={`${forms?.length || 0} Forms`}
-                    color={forms ? "primary" : "inherit"}
-                  >
-                    <ViewIcon />
-                  </Tooltip>
-                </Stack>
-              }
-            >
-              <ListItemButton role={undefined} onClick={handleToggle(id)} dense>
+            <ListItem key={coi_id} disablePadding>
+              <ListItemButton role={undefined} onClick={handleToggle(coi_id)} dense>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
-                    checked={checked.indexOf(id) !== -1}
+                    checked={checked.indexOf(coi_id) !== -1}
                     tabIndex={-1}
                     disableRipple
                     inputProps={{ "aria-labelledby": labelId }}
@@ -141,9 +133,16 @@ export default ({ templates, vendors, onClose }) => {
             </ListItem>
           );
         })}
+        {filteredItems.length === 0 && (
+          <ListItem>
+            <Typography textAlign="center" fontWeight="bold" width={1}>
+              NO QUEUED COIs
+            </Typography>
+          </ListItem>
+        )}
       </List>
 
-      <Stack direction="row" alignItems="center" mt={3}>
+      <Stack direction="row" alignItems="center" mt={5}>
         <Stack direction="row" spacing={2} mr="auto">
           <Button
             startIcon={loading ? <CircularProgress size={20} /> : null}
@@ -151,7 +150,7 @@ export default ({ templates, vendors, onClose }) => {
             variant="contained"
             onClick={handleSubmit}
           >
-            Save
+            Request
           </Button>
           <Button variant="outlined" onClick={onClose}>
             Close

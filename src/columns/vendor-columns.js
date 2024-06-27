@@ -84,12 +84,18 @@ const COICell = (params) => {
 
   const handleClick = (e) => {
     e.stopPropagation();
+    handleClose();
     setMyVendor(row);
     if (value?.status === ATTACHED && value) {
       handlePDF("COI", value.key);
     } else {
       handleOpenMenu(e);
     }
+  };
+
+  const handleUpload = () => {
+    handleClose();
+    handleCOI(row);
   };
 
   return (
@@ -117,11 +123,11 @@ const COICell = (params) => {
           "aria-labelledby": "coi-button",
         }}
       >
-        <MenuItem onClick={() => handleCOI(row)} sx={{ textTransform: "uppercase" }}>
+        <MenuItem onClick={handleUpload}>
           <ListItemIcon>
             <UploadOutlined color="primary" />
           </ListItemIcon>
-          <ListItemText>Upload</ListItemText>
+          <ListItemText>UPLOAD</ListItemText>
         </MenuItem>
         <Divider />
         {COI_STATUS.map(({ label, value, icon }) => (

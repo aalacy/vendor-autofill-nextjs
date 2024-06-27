@@ -200,4 +200,10 @@ export class VendorService {
       data,
     });
   }
+
+  static requestCOI(coi_ids) {
+    return http.post("/vendors/request-coi", {
+      coi_ids,
+    });
+  }
 }

@@ -1,20 +1,17 @@
-import { Box, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 
 import { VendorService } from "src/services";
-import { AlertJob } from "./alert-job";
-import { TemplateList } from "./template-list";
 import { Modal } from "../common/modal";
-import {
-  AddCircleOutline,
-  AddOutlined as AddIcon,
-  HourglassBottomOutlined,
-} from "@mui/icons-material";
+import { AddCircleOutline, HourglassBottomOutlined } from "@mui/icons-material";
+const COISchedule = dynamic(() => import("./coi-schedule"), { ssr: false });
+const TemplateList = dynamic(() => import("./template-list"), { ssr: false });
 
 export const HeaderForm = ({ vendors }) => {
-  const [openJobAlert, setOpenJobAlert] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showTemplate, setShowTemplate] = useState(false);
+  const [showRequestCOI, setShowRequestCOI] = useState(false);
 
   const { data: templates } = useQuery({
     queryKey: ["getAllVendorTemplates"],
@@ -26,7 +23,9 @@ export const HeaderForm = ({ vendors }) => {
     },
   });
 
-  const onClose = () => setShow(false);
+  const onCloseTemplate = () => setShowTemplate(false);
+
+  const onCloseRequestCOI = () => setShowRequestCOI(false);
 
   return (
     <>
@@ -42,27 +41,33 @@ export const HeaderForm = ({ vendors }) => {
         <Typography variant="h5">Vendor Forms</Typography>
         <Stack direction="row">
           <Tooltip title="Manage COI Requests">
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={() => setShowRequestCOI(true)}>
               <HourglassBottomOutlined />
             </IconButton>
           </Tooltip>
           <Tooltip title="Add Vendor">
-            <IconButton color="primary" onClick={() => setShow(true)}>
+            <IconButton color="primary" onClick={() => setShowTemplate(true)}>
               <AddCircleOutline />
             </IconButton>
           </Tooltip>
         </Stack>
       </Box>
 
-      <AlertJob open={openJobAlert} onClose={() => setOpenJobAlert(false)} />
-      {show && (
+      {showTemplate && (
         <Modal
           size="sm"
           title={`Select Vendors (${templates.length})`}
-          open={show}
-          onClose={onClose}
+          open={true}
+          onClose={onCloseTemplate}
         >
-          <TemplateList vendors={vendors} templates={templates} onClose={onClose} />
+          <TemplateList vendors={vendors} templates={templates} onClose={onCloseTemplate} />
+        </Modal>
+      )}
+
+      {/* Request COI */}
+      {showRequestCOI && (
+        <Modal size="sm" title="Request COI" open={true} onClose={onCloseRequestCOI}>
+          <COISchedule vendors={vendors} onClose={onCloseRequestCOI} />
         </Modal>
       )}
     </>

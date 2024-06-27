@@ -31,6 +31,7 @@ import { ThankYou } from "./thank-you";
 import { useAuth } from "src/hooks/use-auth";
 import { currencyFormatter } from "src/utils";
 import { FormsModal } from "./home-actions/forms-modal";
+import { COISchedule } from "./coi-schedule";
 const PdfViewer = dynamic(() => import("../history/pdf-viewer"), { ssr: false });
 const ManageCOI = dynamic(() => import("./home-actions/coi"), { ssr: false });
 const InvoiceView = dynamic(() => import("./home-actions/invoice-view"), { ssr: false });
@@ -414,6 +415,7 @@ export const VendorList = ({ isLoading, vendors }) => {
           handlePDF={handlePDF}
         />
       )}
+      
     </>
   );
 };
