@@ -4,24 +4,31 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
+import { EmailOutlined as EmailIcon } from "@mui/icons-material";
 import { useEffect, useMemo, useState } from "react";
 import {
   Button,
   CircularProgress,
+  Divider,
   FormControlLabel,
   IconButton,
+  InputAdornment,
   Stack,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { Clear } from "@mui/icons-material";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
+import * as yup from "yup";
 
 import { VendorService } from "src/services";
 import { SearchBox } from "../widgets/search-box";
 import { useAuth } from "src/hooks/use-auth";
 import { QUEUED } from "src/utils/constants";
+import { InputField } from "../widgets";
 
 export default ({ vendors, onClose }) => {
   const [checked, setChecked] = useState([]);
@@ -32,6 +39,11 @@ export default ({ vendors, onClose }) => {
   const { project } = useAuth();
 
   const queryClient = useQueryClient();
+
+  const formInitialValues = { email: "", username: "" };
+  const validationSchema = yup.object().shape({
+    email: yup.string().email("Invalid email!").required("Required"),
+  });
 
   useEffect(() => {
     if (!vendors) return;
@@ -82,16 +94,17 @@ export default ({ vendors, onClose }) => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (values) => {
     try {
       setLoading(true);
       const {
         data: { detail },
-      } = await VendorService.requestCOI(checked);
+      } = await VendorService.requestCOI(checked, values);
       toast.success(detail);
       queryClient.invalidateQueries({ queryKey: ["getAllVendors", project?.id] });
       onClose();
     } catch (err) {
+      console.log('err', err)
       toast.error(err.response?.data || err.message);
     } finally {
       setLoading(false);
@@ -100,7 +113,66 @@ export default ({ vendors, onClose }) => {
 
   return (
     <>
+      <Formik
+        initialValues={formInitialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isValid, isSubmitting }) => (
+          <Form id="request-coi-form">
+            <Stack
+              direction="row"
+              spacing={2}
+              mb={2}
+              alignItems="baseline"
+              useFlexGap
+              flexWrap="wrap"
+            >
+              <InputField
+                name="email"
+                label="Email"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <InputField name="username" label="Username" />
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Stack direction="row" spacing={2} mr="auto">
+                  <Button
+                    startIcon={loading ? <CircularProgress size={20} /> : null}
+                    disabled={!!!checked?.length || !isValid || isSubmitting}
+                    variant="contained"
+                    size="small"
+                    type="submit"
+                  >
+                    Request
+                  </Button>
+                  <Button size="small" variant="outlined" onClick={onClose}>
+                    Close
+                  </Button>
+                </Stack>
+                <Stack direction="row" spacing={2} alignItems="center">
+                  {checked?.length > 0 && <Typography>{checked?.length} Selected</Typography>}
+                  <Tooltip title="Clear Selection">
+                    <IconButton color="success" onClick={handleClear}>
+                      <Clear />
+                    </IconButton>
+                  </Tooltip>
+                </Stack>
+              </Stack>
+            </Stack>
+          </Form>
+        )}
+      </Formik>
+
+      <Divider variant="middle" sx={{ my: 2 }} />
+
       <SearchBox query={query} setQuery={setQuery} />
+
       <FormControlLabel
         label="Select All"
         control={
@@ -112,7 +184,7 @@ export default ({ vendors, onClose }) => {
         }
         sx={{ mt: 2 }}
       />
-      <List sx={{ width: "100%", maxHeight: 450, overflow: "auto" }}>
+      <List sx={{ width: "100%", maxHeight: 350, overflow: "auto" }}>
         {filteredItems.map(({ coi_id, name, address }) => {
           const labelId = `coi-request-list-item-${coi_id}`;
 
@@ -141,30 +213,6 @@ export default ({ vendors, onClose }) => {
           </ListItem>
         )}
       </List>
-
-      <Stack direction="row" alignItems="center" mt={5}>
-        <Stack direction="row" spacing={2} mr="auto">
-          <Button
-            startIcon={loading ? <CircularProgress size={20} /> : null}
-            disabled={!!!checked?.length}
-            variant="contained"
-            onClick={handleSubmit}
-          >
-            Request
-          </Button>
-          <Button variant="outlined" onClick={onClose}>
-            Close
-          </Button>
-        </Stack>
-        <Stack direction="row" spacing={2} alignItems="center">
-          {checked?.length > 0 && <Typography>{checked?.length} Selected</Typography>}
-          <Tooltip title="Clear Selection">
-            <IconButton color="success" onClick={handleClear}>
-              <Clear />
-            </IconButton>
-          </Tooltip>
-        </Stack>
-      </Stack>
     </>
   );
 };

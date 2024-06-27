@@ -55,7 +55,6 @@ export const HeaderForm = ({ vendors }) => {
 
       {showTemplate && (
         <Modal
-          size="sm"
           title={`Select Vendors (${templates.length})`}
           open={true}
           onClose={onCloseTemplate}
