@@ -141,14 +141,14 @@ export default ({ vendors, onClose }) => {
                   ),
                 }}
                 sx={{
-                  width: fullWidth ? 1 : 'auto',
+                  width: fullWidth ? 1 : "auto",
                 }}
               />
               <InputField
                 name="username"
                 label="Username"
                 sx={{
-                  width: fullWidth ? 1 : 'auto',
+                  width: fullWidth ? 1 : "auto",
                 }}
               />
               <Stack direction="row" alignItems="center" spacing={2}>

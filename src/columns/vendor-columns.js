@@ -42,7 +42,7 @@ const ActionCell = (params) => {
       .map((line) => line.trimStart())
       .join("\n");
     copy(newText);
-    
+
     toast.success("Successfully copied vendor information");
   };
 

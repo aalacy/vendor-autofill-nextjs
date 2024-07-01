@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useRef,
-} from "react";
+import { createContext, useContext, useEffect, useReducer, useRef } from "react";
 import PropTypes from "prop-types";
 import { AuthService } from "src/services/auth-service";
 import { useRouter } from "next/router";

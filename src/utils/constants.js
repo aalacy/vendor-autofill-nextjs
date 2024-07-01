@@ -304,7 +304,7 @@ export const COI_STATUS_ICONS = {
   [ATTACHED]: <LocalPoliceOutlined color="info" />,
   [NOT_NEEDED]: <IndeterminateCheckBoxOutlined color="info" />,
   [PENDING]: <HourglassEmptyOutlined color="info" />,
-  [REQUESTED]: <TaskAltOutlined color="info"/>
+  [REQUESTED]: <TaskAltOutlined color="info" />,
 };
 
 export const COI_STATUS = [
@@ -321,6 +321,6 @@ export const COI_STATUS = [
   {
     label: REQUESTED,
     value: REQUESTED,
-    icon: COI_STATUS_ICONS[REQUESTED]
-  }
+    icon: COI_STATUS_ICONS[REQUESTED],
+  },
 ];
