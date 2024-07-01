@@ -12,6 +12,7 @@ import {
   ReportProblemOutlined,
   RestaurantOutlined,
   ShoppingCartOutlined,
+  TaskAltOutlined,
 } from "@mui/icons-material";
 
 const GREY = "#CCC";
@@ -296,22 +297,17 @@ export const REQUIRED = "Required";
 export const ATTACHED = "Attached";
 export const NOT_NEEDED = "Not needed";
 export const PENDING = "Pending";
-export const QUEUED = "Queued";
+export const REQUESTED = "Requested";
 
 export const COI_STATUS_ICONS = {
   [REQUIRED]: <ReportProblemOutlined color="info" />,
   [ATTACHED]: <LocalPoliceOutlined color="info" />,
   [NOT_NEEDED]: <IndeterminateCheckBoxOutlined color="info" />,
-  [PENDING]: <PendingOutlined color="info" />,
-  [QUEUED]: <HourglassEmptyOutlined color="info" />,
+  [PENDING]: <HourglassEmptyOutlined color="info" />,
+  [REQUESTED]: <TaskAltOutlined color="info"/>
 };
 
 export const COI_STATUS = [
-  {
-    label: QUEUED,
-    value: QUEUED,
-    icon: COI_STATUS_ICONS[QUEUED],
-  },
   {
     label: REQUIRED,
     value: REQUIRED,
@@ -322,4 +318,9 @@ export const COI_STATUS = [
     value: NOT_NEEDED,
     icon: COI_STATUS_ICONS[NOT_NEEDED],
   },
+  {
+    label: REQUESTED,
+    value: REQUESTED,
+    icon: COI_STATUS_ICONS[REQUESTED]
+  }
 ];

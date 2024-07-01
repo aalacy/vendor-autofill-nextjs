@@ -1,16 +1,13 @@
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
-  useMemo,
   useReducer,
   useRef,
 } from "react";
 import PropTypes from "prop-types";
 import { AuthService } from "src/services/auth-service";
 import { useRouter } from "next/router";
-import { JobService } from "src/services";
 
 const HANDLERS = {
   INITIALIZE: "INITIALIZE",

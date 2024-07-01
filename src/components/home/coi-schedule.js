@@ -14,9 +14,9 @@ import {
   IconButton,
   InputAdornment,
   Stack,
-  TextField,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { Clear } from "@mui/icons-material";
 import toast from "react-hot-toast";
@@ -27,7 +27,7 @@ import * as yup from "yup";
 import { VendorService } from "src/services";
 import { SearchBox } from "../widgets/search-box";
 import { useAuth } from "src/hooks/use-auth";
-import { QUEUED } from "src/utils/constants";
+import { REQUIRED } from "src/utils/constants";
 import { InputField } from "../widgets";
 
 export default ({ vendors, onClose }) => {
@@ -40,6 +40,8 @@ export default ({ vendors, onClose }) => {
 
   const queryClient = useQueryClient();
 
+  const fullWidth = useMediaQuery((theme) => theme.breakpoints.down("md"));
+
   const formInitialValues = { email: "", username: "" };
   const validationSchema = yup.object().shape({
     email: yup.string().email("Invalid email!").required("Required"),
@@ -50,7 +52,7 @@ export default ({ vendors, onClose }) => {
 
     const _items = [];
     for (const vendor of vendors) {
-      if (vendor.coi.status !== QUEUED) continue;
+      if (vendor.coi.status !== REQUIRED) continue;
 
       _items.push({
         name: vendor.vendor.name,
@@ -138,8 +140,17 @@ export default ({ vendors, onClose }) => {
                     </InputAdornment>
                   ),
                 }}
+                sx={{
+                  width: fullWidth ? 1 : 'auto',
+                }}
               />
-              <InputField name="username" label="Username" />
+              <InputField
+                name="username"
+                label="Username"
+                sx={{
+                  width: fullWidth ? 1 : 'auto',
+                }}
+              />
               <Stack direction="row" alignItems="center" spacing={2}>
                 <Stack direction="row" spacing={2} mr="auto">
                   <Button
@@ -156,12 +167,16 @@ export default ({ vendors, onClose }) => {
                   </Button>
                 </Stack>
                 <Stack direction="row" spacing={2} alignItems="center">
-                  {checked?.length > 0 && <Typography>{checked?.length} Selected</Typography>}
-                  <Tooltip title="Clear Selection">
-                    <IconButton color="success" onClick={handleClear}>
-                      <Clear />
-                    </IconButton>
-                  </Tooltip>
+                  {checked?.length > 0 && (
+                    <>
+                      <Typography>{checked?.length} Selected</Typography>{" "}
+                      <Tooltip title="Clear Selection">
+                        <IconButton color="success" onClick={handleClear}>
+                          <Clear />
+                        </IconButton>
+                      </Tooltip>
+                    </>
+                  )}
                 </Stack>
               </Stack>
             </Stack>

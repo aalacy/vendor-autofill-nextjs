@@ -34,7 +34,7 @@
     "autosuggest-highlight": "^3.3.4",
     "axios": "^1.7.2",
     "date-fns": "2.30.0",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.11",
     "formik": "2.4.5",
     "lodash": "^4.17.21",
     "next": "14.2.3",

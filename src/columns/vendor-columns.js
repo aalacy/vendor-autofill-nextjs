@@ -12,11 +12,48 @@ import {
   Divider,
   Box,
 } from "@mui/material";
-import { AddCircleOutline as AddIcon, UploadOutlined } from "@mui/icons-material";
+import {
+  AddCircleOutline as AddIcon,
+  ContentCopyOutlined,
+  UploadOutlined,
+} from "@mui/icons-material";
+import { useCopyToClipboard } from "react-use";
 
 import { currencyFormatter, sum } from "src/utils";
 import { useCallback, useMemo, useState } from "react";
 import { ATTACHED, COI_STATUS, COI_STATUS_ICONS } from "src/utils/constants";
+import toast from "react-hot-toast";
+
+const ActionCell = (params) => {
+  const { row } = params;
+  const [, copy] = useCopyToClipboard();
+
+  const handleCopy = (vendor) => {
+    let text = `
+      Vendor: ${vendor.name}
+      Address: ${vendor.address}
+      Phone: ${vendor.phone}
+      Email: ${vendor.email}
+      Hours: ${vendor.hours}
+      Category: ${vendor.category}
+    `.trim();
+    const newText = text
+      .split("\n")
+      .map((line) => line.trimStart())
+      .join("\n");
+    copy(newText);
+    
+    toast.success("Successfully copied vendor information");
+  };
+
+  return (
+    <Tooltip title="Copy vendor">
+      <IconButton onClick={() => handleCopy(row.vendor)} color="primary">
+        <ContentCopyOutlined />
+      </IconButton>
+    </Tooltip>
+  );
+};
 
 const FormCell = (params) => {
   const { row, handleForms } = params;
@@ -232,8 +269,13 @@ export const VendorsColumns = ({
       headerName: "Vendor Name",
       type: "string",
       resizable: true,
-      valueGetter: (params) => params.row.vendor.name,
       width: 200,
+      minWidth: 200,
+      renderCell: (params) => (
+        <Typography variant="body1" fontWeight="medium">
+          {params.row.vendor.name}
+        </Typography>
+      ),
     },
     {
       field: "coi",
@@ -242,7 +284,8 @@ export const VendorsColumns = ({
       resizable: true,
       align: "center",
       headerAlign: "center",
-      width: 100,
+      width: 50,
+      minWidth: 50,
       renderCell: (params) => (
         <COICell
           {...params}
@@ -259,7 +302,8 @@ export const VendorsColumns = ({
       type: "string",
       headerAlign: "center",
       resizable: true,
-      width: 200,
+      width: 160,
+      minWidth: 160,
       renderCell: (params) => (
         <OrderCell
           {...params}
@@ -275,22 +319,16 @@ export const VendorsColumns = ({
       headerAlign: "center",
       align: "center",
       resizable: true,
-      width: 100,
+      width: 55,
+      minWidth: 55,
       renderCell: (params) => <FormCell {...params} handleForms={handleForms} />,
     },
-
-    // {
-    //   field: "credit_auth",
-    //   headerName: "Credit Auth",
-    //   resizable: true,
-    //   renderCell: (params) => <EditSwitchCell  {...params}  field="credit_auth" handleCellValueChange={handleCellValueChange}/>
-    // },
-    // {
-    //   field: "rental_agreement",
-    //   headerName: "Rental Agreement",
-    //   resizable: true,
-    //   width: 300,
-    //   renderCell: (params) => <EditSwitchCell  {...params} field="rental_agreement" handleCellValueChange={handleCellValueChange}/>
-    // },
+    {
+      field: "actions",
+      type: "actions",
+      align: "center",
+      width: 80,
+      renderCell: (params) => <ActionCell {...params} />,
+    },
   ];
 };
